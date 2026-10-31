@@ -223,3 +223,7 @@ hardmod_eperk_worm_flight_name,"Wormy Flight",,,,,,,,,,
 hardmod_eperk_worm_flight_desc,"Grants a blessing that allows this creature to take to the skies.",,,,,,,,,,
 hardmod_gold_nugget_pickup_name,"Gold nugget ($0)","Золотой самородок ($0)","Pepita de ouro ($0)","Pepita de oro ($0)","Goldklumpen ($0)","Pépite d'or ($0)","Pepita d'oro ($0)","Grudka złota ($0)","金块 ($0)","金塊 ($0)","황금 덩어리($0)"
 hardmod_bloody_nugget_pickup_name,"Bloody gold nugget ($0)","Кровавый золотой самородок ($0)","Pepita de ouro ensanguentada ($0)","Pepita de oro sangrienta ($0)","Blutiger Goldklumpen ($0)","Pépite d'or ensanglantée ($0)","Pepita d'oro insanguinata ($0)","Krwaw grudka złota ($0)","染血金块 ($0)","ブラッディー金塊 ($0)","피투성이 황금 덩어리($0)"
+hardmod_spell_damage_double_name,Double Damage,,,,,,,,,,,,,
+hardmod_spell_damage_double_desc,Doubles a projectile's total damage dealt,,,,,,,,,,,,,
+hardmod_spell_overkill_name,Overkill,,,,,,,,,,,,,
+hardmod_spell_overkill_desc,Multiplies a projectile's total damage by 10,,,,,,,,,,,,,
