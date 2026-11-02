@@ -485,6 +485,41 @@ local perks = {
 			end
 		end
 	},
+	{
+		id = "ARMED",
+		name = "$hardmod_eperk_armed_name",
+		description = "$hardmod_eperk_armed_desc",
+		weight = 7,
+		max = 0,
+		condition = function(self, data)
+			return data.level > 1 --can hold gun
+		end,
+		func = function(self, entity_id, data)
+			local wands = dofile_once(mpath.."scripts/armed_wands_list.lua")
+			local new_data = utils.deepcopy(data)
+			new_data.perk = self
+			local wand_data = utils.ConditionalRandomFromTable(wands, new_data)
+			if not wand_data then return end
+
+			local wand = EntityLoad("", data.x, data.y)
+			GamePickUpInventoryItem(entity_id, wand)
+		end,
+	},
+	{
+		id = "ELECTRICITY",
+		name = "$perk_electricity",
+		description = "$hardmod_eperk_electricity_desc",
+		weight = 8,
+		max = 1,
+		func = function(self, entity_id, data)
+			GetGameEffectLoadTo(entity_id, "PROTECTION_ELECTRICITY", false)
+			local child_id = EntityLoad("data/entities/misc/perks/electricity.xml", data.x, data.y)
+			local elec_comp = EntityGetFirstComponent(child_id, "ElectricitySourceComponent")
+			if elec_comp then ComponentSetValue2(elec_comp, "emission_interval_frames", 48) end
+			EntityAddTag(child_id, "perk_entity")
+			EntityAddChild(entity_id, child_id)
+		end
+	},
 }
 
 for _,perk in ipairs(perks) do

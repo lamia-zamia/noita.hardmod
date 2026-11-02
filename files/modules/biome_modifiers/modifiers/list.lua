@@ -13,6 +13,7 @@ PatchModifiers({
 	PERFORATED = { probability = 0.1 },
 	HOT = { probability = 0.5 },
 	FREEZING = { probability = 0.4 },
+	FREEZING_COSMETIC = { ui_name = "$hardmod_biomemodifier_freezing" },
 	MOIST = {
 		remove_from_biomes = { "excavationsite" },
 	},
