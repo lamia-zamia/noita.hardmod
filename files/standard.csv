@@ -9,6 +9,8 @@ hardmod_eperk_lava_blood_desc,"Holder will now bleed lava and take damage from w
 hardmod_status_heartbreak_desc,"Taking damage reduces your max health.","Получение урона снижает ваше максимальное здоровье.",,,,,,,,,,,,
 hardmod_perk_all_seeing_eye_name,"All-Seeing Eye","Всевидящее око",,,,,,,,,,,,
 hardmod_perk_all_seeing_eye_desc,"Your cursor carries a magic light that cuts through darkness.","Ваш курсор излучает магический свет, способный рассечь тьму.",,,,,,,,,,,,
+hardmod_perk_no_recoil_name,"No Recoil",,,,,,,,,,,,,
+hardmod_perk_no_recoil_desc,"Your spells no longer have recoil",,,,,,,,,,,,,
 hardmod_perk_protection_fire_name,"Fire Protection","Защита от огня",,,,,,,,,,,,
 hardmod_perk_protection_fire_desc,"You take 75% less damage from fire.","Получаемый от огня урон уменьшен вдвое",,,,,,,,,,,,
 hardmod_perk_bleed_oil_desc,"You bleed flammable oil, and take halved damage from fire.","Вы истекаете горючим маслом, а получаемый вами урон от огня уменьшен вдвое",,,,,,,,,,,,
