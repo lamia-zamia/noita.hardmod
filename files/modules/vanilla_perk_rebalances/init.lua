@@ -117,6 +117,10 @@ for xml in nxml.edit_file("data/entities/player_base.xml") do
 end
 
 
+
+utils.modifile("data/scripts/items/gold_pickup.lua", [[hp_value = hp_value * 0.5]], [[hp_value = money * 0.004]])
+
+
 hooks.mod_init = function()
 	modify_master_of_blinding()
 	modify_wandstone()
