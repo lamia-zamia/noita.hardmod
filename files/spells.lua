@@ -5,7 +5,7 @@ local edit_spell_hooks = {}
 dofile_once("data/scripts/gun/gun_enums.lua")
 
 
-for _,path in ipairs(ModLuaFileGetAppends("mods/noita.hardmod/files/spells.lua")) do
+for _,path in ipairs(ModLuaFileGetAppends("mods/noita.hardmod/files/__spell_appends.lua")) do
 	local hooks = dofile_once(path)
 	for _,new_spell in ipairs(hooks.new_spells or {}) do
 		new_spells[#new_spells+1] = new_spell
@@ -24,7 +24,6 @@ for _,path in ipairs(ModLuaFileGetAppends("mods/noita.hardmod/files/spells.lua")
 		hooks.func()
 	end
 end
-
 
 ---@diagnostic disable-next-line: lowercase-global
 actions = actions

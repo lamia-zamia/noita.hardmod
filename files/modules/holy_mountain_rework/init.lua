@@ -120,7 +120,7 @@ end
 
 function hooks.player_spawned(p)
 	local x,y = EntityGetTransform(p)
-	EntityLoad("mods/noita.hardmod/files/modules/holy_mountain_rework/crystal/crystal.xml", x, y)
+	--EntityLoad("mods/noita.hardmod/files/modules/holy_mountain_rework/crystal/crystal.xml", x, y)
 end
 
 return hooks

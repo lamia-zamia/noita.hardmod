@@ -2,55 +2,57 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
 local hooks = {}
+local root = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/"
 
 hooks.new_perks = {
 	{
 		id = "HARDMOD_PERK_SPELL_GEMS",
 		ui_name = "$hardmod_perk_spell_gems_name",
 		ui_description = "$hardmod_perk_spell_gems_desc",
-		ui_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/spell_gems_016.png",
-		perk_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/spell_gems.png",
+		ui_icon = root.."ui_gfx/perks/spell_gems_016.png",
+		perk_icon = root.."ui_gfx/perks/spell_gems.png",
 		stackable = false,
 		one_off_effect = false,
 		usable_by_enemies = false,
-        func = function( entity_perk_item, entity_who_picked, item_name )
-            EntityAddChild( entity_who_picked, EntityLoad( "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/perks/spell_gems.xml" ) )
+        func = function(entity_perk_item, entity_who_picked, item_name, stacks)
+			if stacks > 0 then return end
+            EntityAddChild(entity_who_picked, EntityLoad(root.."entities/perks/spell_gems.xml"))
         end
 	},
 	{
 		id = "HARDMOD_TINKER_AT_PEDESTALS",
 		ui_name = "$hardmod_perk_tinker_at_pedestals_name",
 		ui_description = "$hardmod_perk_tinker_at_pedestals_desc",
-		ui_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/tinker_at_pedestals_016.png",
-		perk_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/tinker_at_pedestals.png",
+		ui_icon = root.."ui_gfx/perks/tinker_at_pedestals_016.png",
+		perk_icon = root.."ui_gfx/perks/tinker_at_pedestals.png",
 		stackable = false,
 		one_off_effect = false,
 		usable_by_enemies = false,
 		func = function(entity_perk_item, entity_who_picked, item_name, pickup_count)
 			if pickup_count > 1 then return end
-			EntityAddChild(entity_who_picked, EntityLoad("mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/effect_tinker_at_pedestals.xml"))
+			EntityAddChild(entity_who_picked, EntityLoad(root.."entities/effect_tinker_at_pedestals.xml"))
 		end
 	},
 	{
 		id = "HARDMOD_ITEM_IMMUNITIES",
 		ui_name = "$hardmod_perk_item_immunities_name",
 		ui_description = "$hardmod_perk_item_immunities_desc",
-		ui_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/item_immunities_016.png",
-		perk_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/item_immunities.png",
+		ui_icon = root.."ui_gfx/perks/item_immunities_016.png",
+		perk_icon = root.."ui_gfx/perks/item_immunities.png",
 		stackable = false,
 		one_off_effect = false,
 		usable_by_enemies = false,
 		func = function(perk, player, name, count)
 			if count > 1 then return end
-			EntityAddChild(player, EntityLoad("mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/effect_item_immunities.xml"))
+			EntityAddChild(player, EntityLoad(root.."entities/effect_item_immunities.xml"))
 		end
 	},
 	{
 		id = "HARDMOD_PROTECTION_ELECTRIC_STUN",
 		ui_name = "$hardmod_perk_protection_electric_stun_name",
 		ui_description = "$hardmod_perk_protection_electric_stun_desc",
-		ui_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/protection_electric_stun_016.png",
-		perk_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/protection_electric_stun.png",
+		ui_icon = root.."ui_gfx/perks/protection_electric_stun_016.png",
+		perk_icon = root.."ui_gfx/perks/protection_electric_stun.png",
 		game_effect = "STUN_PROTECTION_ELECTRICITY",
 		stackable = false,
 		one_off_effect = false,
@@ -75,74 +77,73 @@ hooks.new_perks = {
 		id = "HARDMOD_OVERSIZED_SHIELD",
 		ui_name = "$hardmod_perk_oversized_shield_name",
 		ui_description = "$hardmod_perk_oversized_shield_desc",
-		ui_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/shield_oversized_016.png",
-		perk_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/shield_oversized.png",
+		ui_icon = root.."ui_gfx/perks/shield_oversized_016.png",
+		perk_icon = root.."ui_gfx/perks/shield_oversized.png",
 		stackable = true,
 		stackable_how_often_reappears = 10,
 		stackable_maximum = 5,
 		max_in_perk_pool = 2,
 		usable_by_enemies = false,
-		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
-			local x,y = EntityGetTransform( entity_who_picked )
-			local child_id = EntityLoad( "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/perks/shield_oversized.xml", x, y )
+		func = function(entity_perk_item, entity_who_picked, item_name, pickup_count)
+			local x,y = EntityGetTransform(entity_who_picked)
+			local child_id = EntityLoad(root.."entities/perks/shield_oversized.xml", x, y)
 
 			if ModIsEnabled("quant.ew") then
 				GlobalsSetValue("PERK_SHIELD_OVERSIZED_COUNT", tostring(pickup_count-1))
 			end
-			local shield_num = tonumber( GlobalsGetValue( "PERK_SHIELD_OVERSIZED_COUNT", "0" ) )
+			local shield_num = tonumber(GlobalsGetValue("PERK_SHIELD_OVERSIZED_COUNT", "0"))
 			local shield_radius = 75 + shield_num * 3.0
-			local charge_speed = math.max( 0.01 - shield_num * 0.05, 0.02 )
+			local charge_speed = math.max(0.01 - shield_num * 0.05, 0.02)
 			shield_num = shield_num + 1
-			GlobalsSetValue( "PERK_SHIELD_OVERSIZED_COUNT", tostring( shield_num ) )
+			GlobalsSetValue("PERK_SHIELD_OVERSIZED_COUNT", tostring(shield_num))
 
-			local comps = EntityGetComponent( child_id, "EnergyShieldComponent" )
-			if( comps ~= nil ) then
-				for i,comp in ipairs( comps ) do
-					ComponentSetValue2( comp, "radius", shield_radius )
-					ComponentSetValue2( comp, "recharge_speed", charge_speed )
-				end
+			local comps = EntityGetComponent(child_id, "EnergyShieldComponent")
+			for i,comp in ipairs(comps or {}) do
+				ComponentSetValue2(comp, "radius", shield_radius)
+				ComponentSetValue2(comp, "recharge_speed", charge_speed)
 			end
 
-			comps = EntityGetComponent( child_id, "ParticleEmitterComponent" )
-			if( comps ~= nil ) then
-				for i,comp in ipairs( comps ) do
-					local minradius,maxradius = ComponentGetValue2( comp, "area_circle_radius" )
+			comps = EntityGetComponent(child_id, "ParticleEmitterComponent")
+			for i,comp in ipairs(comps or {}) do
+				local minradius,maxradius = ComponentGetValue2(comp, "area_circle_radius")
 
-					if ( minradius ~= nil ) and ( maxradius ~= nil ) then
-						if ( minradius == 0 ) then
-							ComponentSetValue2( comp, "area_circle_radius", 0, shield_radius )
-						elseif ( minradius == 10 ) then
-							ComponentSetValue2( comp, "area_circle_radius", shield_radius, shield_radius )
-						end
+				if minradius and maxradius then
+					if minradius == 0 then
+						ComponentSetValue2(comp, "area_circle_radius", 0, shield_radius)
+					elseif minradius == 10 then
+						ComponentSetValue2(comp, "area_circle_radius", shield_radius, shield_radius)
 					end
 				end
 			end
 
-			EntityAddTag( child_id, "perk_entity" )
-			EntityAddChild( entity_who_picked, child_id )
-		end,
-		_remove = function( entity_who_picked )
-			local shield_num = tonumber( GlobalsGetValue( "PERK_SHIELD_OVERSIZED_COUNT", "0" ) ) - 1
-			GlobalsSetValue( "PERK_SHIELD_OVERSIZED_COUNT", tostring( shield_num ) )
-
-			local children = EntityGetAllChildren(entity_who_picked) or {}
-			local largest_radius = 0
-			local largest_shield = 0
-			for k=1,#children do
-				if EntityGetName(children[k]) == "hardmod_oversized_shield" then
-					local r = ComponentGetValue2(EntityGetFirstComponentIncludingDisabled(children[k],"EnergyShieldComponent"),"radius")
-					if r > 0 then
-						largest_radius = r
-						largest_shield = children[k]
-					end
-				end
-			end
-			if largest_shield > 0 then EntityKill(largest_shield) end
+			EntityAddTag(child_id, "perk_entity")
+			EntityAddChild(entity_who_picked, child_id)
 		end,
 		func_remove = function()
 			local shield_num = 0
-			GlobalsSetValue( "PERK_SHIELD_OVERSIZED_COUNT", tostring( shield_num ) )
+			GlobalsSetValue("PERK_SHIELD_OVERSIZED_COUNT", tostring(shield_num))
 		end,
+	},
+	{
+		id = "HARDMOD_SUMMON_TOOLBOX",
+		ui_name = "$hardmod_perk_summon_toolbox_name",
+		ui_description = "$hardmod_perk_summon_toolbox_desc",
+		ui_icon = root.."ui_gfx/perks/summon_toolbox_016.png",
+		perk_icon = root.."ui_gfx/perks/summon_toolbox.png",
+		stackable = STACKABLE_NO,
+		one_off_effect = true,
+		usable_by_enemies = false,
+        func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+        	if pickup_count > 1 then return end
+
+        	local x, y = EntityGetTransform( entity_who_picked )
+        	local toolbox_id = EntityLoad( root.."entities/items/toolbox.xml", x, y - 8 )
+        	EntityAddComponent2( toolbox_id, "LuaComponent", {
+        		_tags = "enabled_in_hand,enabled_in_inventory",
+		        script_source_file = root.."scripts/perks/toolbox_scan.lua",
+		        execute_every_n_frame = 60,
+        	})
+        end,
 	},
 }
 
@@ -150,14 +151,14 @@ hooks.perk_patches = {
 	["REMOVE_FOG_OF_WAR"] = {
 		ui_name = "$hardmod_perk_all_seeing_eye_name",
 		ui_description = "$hardmod_perk_all_seeing_eye_desc",
-		ui_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/all_seeing_eye_016.png",
-		perk_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/all_seeing_eye.png",
+		ui_icon = root.."ui_gfx/perks/all_seeing_eye_016.png",
+		perk_icon = root.."ui_gfx/perks/all_seeing_eye.png",
 		clear_original_game_effect = true,
 		stackable = false,
 		one_off_effect = false,
 		usable_by_enemies = false,
 		func = function( entity_perk_item, entity_who_picked, item_name )
-			EntityAddChild( entity_who_picked, EntityLoad( "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/perks/all_seeing_eye.xml" ) )
+			EntityAddChild( entity_who_picked, EntityLoad( root.."entities/perks/all_seeing_eye.xml" ) )
 		end,
 		func_remove = function( entity_who_picked )
 			local perk_entity = EntityGetAllChildren( entity_who_picked, "hardmod_all_seeing_eye_entity" )[1]
@@ -170,8 +171,8 @@ hooks.perk_patches = {
 	-- ["PROTECTION_EXPLOSION"] = {
 	-- 	ui_name = "$hardmod_perk_protection_explosion_name",
 	-- 	ui_description = "$hardmod_perk_protection_explosion_desc",
-	-- 	ui_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/protection_explosion_016.png",
-	-- 	perk_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/protection_explosion.png",
+	-- 	ui_icon = root.."ui_gfx/perks/protection_explosion_016.png",
+	-- 	perk_icon = root.."ui_gfx/perks/protection_explosion.png",
 	-- 	clear_original_game_effect = true,
 	-- 	stackable = false,
 	-- 	stackable_maximum = 1,
@@ -212,8 +213,8 @@ hooks.perk_patches = {
 	-- ["PROTECTION_ELECTRICITY"] = {
 	-- 	ui_name = "$hardmod_perk_protection_electricity_name",
 	-- 	ui_description = "$hardmod_perk_protection_electricity_desc",
-	-- 	ui_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/protection_electricity_016.png",
-	-- 	perk_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/protection_electricity.png",
+	-- 	ui_icon = root.."ui_gfx/perks/protection_electricity_016.png",
+	-- 	perk_icon = root.."ui_gfx/perks/protection_electricity.png",
 	-- 	clear_original_game_effect = true,
 	-- 	stackable = false,
 	-- 	stackable_maximum = 1,
@@ -235,8 +236,8 @@ hooks.perk_patches = {
 	-- ["PROTECTION_MELEE"] = {
 	-- 	ui_name = "$hardmod_perk_protection_melee_name",
 	-- 	ui_description = "$hardmod_perk_protection_melee_desc",
-	-- 	ui_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/protection_melee_016.png",
-	-- 	perk_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/protection_melee.png",
+	-- 	ui_icon = root.."ui_gfx/perks/protection_melee_016.png",
+	-- 	perk_icon = root.."ui_gfx/perks/protection_melee.png",
 	-- 	clear_original_game_effect = true,
 	-- 	stackable = false,
 	-- 	stackable_maximum = 1,
@@ -259,8 +260,8 @@ hooks.perk_patches = {
 		id = "HARDMOD_GOLD_IS_DUST",
 		ui_name = "$hardmod_gold_is_dust_perkname",
 		ui_description = "$hardmod_gold_is_dust_perkdesc",
-		perk_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/gold_is_dust/perk.png",
-		ui_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/gold_is_dust/icon.png",
+		perk_icon = root.."gold_is_dust/perk.png",
+		ui_icon = root.."gold_is_dust/icon.png",
 		stackable = false,
 		func = function()
 			GameAddFlagRun("hardmod.gold_is_dust_perk")
@@ -272,8 +273,8 @@ hooks.perk_patches = {
 	["ABILITY_ACTIONS_MATERIALIZED"] = { --works with most spells now, not just a specific selection of bomb spells
 		ui_name = "$hardmod_spells_materialised_perkname",
 		ui_description = "$hardmod_spells_materialised_perkdesc",
-		perk_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/spells_materialised/perk.png",
-		ui_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/spells_materialised/icon.png",
+		perk_icon = root.."spells_materialised/perk.png",
+		ui_icon = root.."spells_materialised/icon.png",
 	},
 	["EXTRA_MANA"] = { --buff mana slightly, change 50% decrease in capacity to flat decrease 1-3 plus 10% of current capacity rounded down
 		ui_description = "$hardmod_extra_mana_perkdesc",
@@ -339,19 +340,19 @@ hooks.perk_patches = {
 	["TELEPORTITIS"] = {
 		clear_original_game_effect = true,
 		ui_description = "$hardmod_perk_teleportitis_desc",
-		ui_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/teleportitis_016.png",
-		perk_icon = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/perks/teleportitis.png",
+		ui_icon = root.."ui_gfx/perks/teleportitis_016.png",
+		perk_icon = root.."ui_gfx/perks/teleportitis.png",
 		stackable = false,
 		usable_by_enemies = false,
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			EntityAddComponent2( entity_who_picked, "LuaComponent", {
 				_tags = "perk_component,hardmod_teleportitis",
-				script_source_file = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/scripts/perks/teleportitis_update.lua",
+				script_source_file = root.."scripts/perks/teleportitis_update.lua",
 				execute_every_n_frame = 1,
 			} )
 			EntityAddComponent2( entity_who_picked, "LuaComponent", {
 				_tags = "perk_component,hardmod_teleportitis",
-				script_damage_received = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/scripts/perks/teleportitis_on_damage.lua",
+				script_damage_received = root.."scripts/perks/teleportitis_on_damage.lua",
 				execute_every_n_frame = -1,
 			} )
 		end,
@@ -359,11 +360,19 @@ hooks.perk_patches = {
 			utils.EntityRemoveAllByTag( entity_who_picked, "hardmod_teleportitis" )
 		end,
 	},
+	["LOW_RECOIL"] = {
+		ui_name = "$hardmod_perk_no_recoil_name",
+		ui_description = "$hardmod_perk_no_recoil_desc",
+	},
+	["ITEM_RADAR"] = {
+		ui_icon = root.."ui_gfx/perks/item_radar_016.png",
+		perk_icon = root.."ui_gfx/perks/item_radar.png",
+	}
 }
 
 local remove_perks = {
 	"NO_WAND_EDITING",
-	"EXTRA_MONEY",
+	"EXTRA_MONEY", -- replaced by Treasure Hunter
 	"PROJECTILE_REPULSION",
 	"REVENGE_RATS",
 	"VOMIT_RATS",
@@ -377,7 +386,10 @@ local remove_perks = {
 	"WORM_ATTRACTOR",
 	"WORM_SMALLER_HOLES",
 	"DUPLICATE_PROJECTILE",
-	"LASER_AIM",
+	"LASER_AIM", -- replaced by Pinpointer spell
+	"EXTRA_MANA", -- replaced by Summon Toolbox
+	"EXTRA_SLOTS", -- replaced by Summon Toolbox
+	"FASTER_WANDS", -- replaced by Summon Toolbox
 }
 
 --bomb materialised, lukki mutation, no wand tinkering, more blood, personal plasma beam, low recoil, phasing, pinpointer, proj dupe, levitation trail, worm perks

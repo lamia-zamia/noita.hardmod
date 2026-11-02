@@ -21,7 +21,7 @@ for file in nxml.edit_file("data/entities/projectiles/deck/base_field.xml") do
 
   local lifetime = file:first_of("LifetimeComponent")
   if lifetime then
-    lifetime:set("lifetime", 600)
+    lifetime:set("lifetime", 900)
   end
 end
 
