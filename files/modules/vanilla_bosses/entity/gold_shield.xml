@@ -1,0 +1,149 @@
+<Entity tags="perk_entity,hardmod_gold_shield">
+
+	<InheritTransformComponent>
+		<Transform 
+			only_position="1"
+			position.x="0" 
+			position.y="0" >
+		</Transform>
+	</InheritTransformComponent>
+	
+	<LuaComponent
+		_tags="hardmod_gold_shield_active"
+		script_source_file="mods/noita.hardmod/files/modules/vanilla_bosses/scripts/perks/gold_shield_update.lua"
+		execute_every_n_frame="1"
+	></LuaComponent>
+
+	<MagicConvertMaterialComponent
+		_tags="hardmod_gold_shield_active"
+		radius="24"
+		is_circle="1"
+		steps_per_frame="300"
+		from_material_tag="[liquid]"
+		to_material="air"
+		loop="1"
+		kill_when_finished="0" >
+	</MagicConvertMaterialComponent>
+
+	<MagicConvertMaterialComponent
+		_tags="hardmod_gold_shield_active"
+		radius="24"
+		is_circle="1"
+		steps_per_frame="300"
+		from_material_tag="[gas]"
+		to_material="air"
+		extinguish_fire="1"
+		loop="1"
+		kill_when_finished="0" >
+	</MagicConvertMaterialComponent>
+
+    <ParticleEmitterComponent
+		_tags="character,enabled_in_hand,item_identified__LEGACY,hardmod_gold_shield_active"
+		emitted_material_name="gold"
+		gravity.y="0.0"
+		lifetime_min="0.1"
+		lifetime_max="0.5"
+		count_min="4"
+		count_max="8"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.max="24"
+		cosmetic_force_create="0"
+		airflow_force="0.5"
+		airflow_time="0.1"
+		airflow_scale="0.5"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1"
+		custom_alpha="1.0">
+	</ParticleEmitterComponent>
+
+	<ParticleEmitterComponent
+		_tags="character,enabled_in_hand,item_identified__LEGACY,shield_ring,hardmod_gold_shield_active"
+		emitted_material_name="gold"
+		gravity.y="0.0"
+		lifetime_min="0.02"
+		lifetime_max="0.05"
+		count_min="180"
+		count_max="200"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="24"
+		area_circle_radius.max="24"
+		cosmetic_force_create="0"
+		airflow_force="0.3"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="0"
+		emission_interval_max_frames="0"
+		emit_cosmetic_particles="1"
+		is_emitting="1"
+		custom_alpha="0.5">
+	</ParticleEmitterComponent>
+
+	<LightComponent 
+    	_tags="enabled_in_hand,item_identified"
+        _enabled="1" 
+        radius="80"
+        fade_out_time="1.5" 
+    	r="150"
+    	g="190"
+    	b="230" >
+	</LightComponent>
+
+	<!--<AudioComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_root="player_projectiles/shield"
+		set_latest_event_position="1" >
+	</AudioComponent -->>
+
+	<AudioComponent
+		_tags="hardmod_gold_shield_inactive"
+		file="data/audio/Desktop/projectiles.bank"
+		event_root="player_projectiles/field"
+		set_latest_event_position="1" >
+  	</AudioComponent>
+  
+	<AudioLoopComponent
+		_tags="hardmod_gold_shield_inactive"
+		file="data/audio/Desktop/projectiles.bank"
+		event_name="player_projectiles/field/loop"
+		auto_play="1" >
+	</AudioLoopComponent>
+
+	<VariableStorageComponent
+		name="hardmod_gold_shield_radius"
+		value_int="24"
+	></VariableStorageComponent>
+
+	<VariableStorageComponent
+		name="hardmod_gold_shield_duration"
+		value_int="75"
+	></VariableStorageComponent>
+
+	<!-- for when the shield is down -->
+	<ParticleEmitterComponent
+		_tags="character,enabled_in_hand,item_identified__LEGACY,shield_ring,hardmod_gold_shield_inactive"
+		emitted_material_name="gold"
+		gravity.y="0.0"
+		lifetime_min="0.02"
+		lifetime_max="0.05"
+		count_min="20"
+		count_max="25"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="24"
+		area_circle_radius.max="24"
+		cosmetic_force_create="0"
+		airflow_force="0.3"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="0"
+		emission_interval_max_frames="0"
+		emit_cosmetic_particles="1"
+		is_emitting="1"
+		custom_alpha="0.5">
+	</ParticleEmitterComponent>
+
+</Entity>

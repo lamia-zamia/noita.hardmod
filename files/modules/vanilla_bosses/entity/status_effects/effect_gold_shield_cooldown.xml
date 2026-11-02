@@ -1,0 +1,35 @@
+<Entity tags="hardmod_gold_shield,hardmod_gold_shield_cooldown">
+
+    <InheritTransformComponent />
+
+    <GameEffectComponent
+        effect="CUSTOM"
+        custom_effect_id="HARDMOD_GOLD_SHIELD_COOLDOWN"
+        frames="600"
+    ></GameEffectComponent>
+
+    <LifetimeComponent
+        lifetime="600"
+    ></LifetimeComponent>
+
+    <UIIconComponent
+        icon_sprite_file="mods/noita.hardmod/files/modules/vanilla_bosses/gfx/ui_gfx/status_effects/gold_shield_cooldown.png"
+        name="$hardmod_game_effect_gold_shield_cooldown_name"
+        description="$hardmod_game_effect_gold_shield_cooldown_desc"
+        display_in_hud="0"
+        display_above_head="0"
+        is_perk="0"
+    ></UIIconComponent>
+    
+    <VariableStorageComponent
+        name="filepath"
+        value_string="mods/noita.hardmod/files/modules/vanilla_bosses/entity/status_effects/effect_gold_shield_cooldown.xml"
+    ></VariableStorageComponent>
+
+    <LuaComponent
+        script_source_file="mods/noita.hardmod/files/modules/vanilla_bosses/scripts/perks/gold_shield_cooldown_end.lua"
+        execute_every_n_frame="-1"
+        execute_on_removed="1"
+    ></LuaComponent>
+
+</Entity>

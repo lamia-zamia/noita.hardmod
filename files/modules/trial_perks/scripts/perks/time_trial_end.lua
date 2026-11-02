@@ -6,7 +6,7 @@ if ( utils.GetInternalInt( player, "hardmod_time_trial_start_y" ) or 0 ) == 0 th
 utils.SetInternalInt( player, "hardmod_time_trail_start_y", 0 )
 
 GamePrintImportant( "$hardmod_perk_time_trial_msg_fail" )
-EntityRemoveAllByTag( player, "hardmod_time_trial" )
+utils.EntityRemoveAllByTag( player, "hardmod_time_trial" )
 SwapPerkIconForSpent( player, "$hardmod_perk_time_trial_name", false )
 utils.SetInternalInt( player, "hardmod_time_trial_start_y", 0 )
 

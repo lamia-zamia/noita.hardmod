@@ -1,0 +1,13 @@
+<Entity tags="effect_protection" >
+	
+	<Base file="data/entities/misc/effect_protection_all.xml">
+    
+	    <GameEffectComponent
+			_tags="effect_protection_all"
+	        effect="PROTECTION_ALL"
+	        frames="75"
+	    ></GameEffectComponent >
+
+	</Base>
+
+</Entity>

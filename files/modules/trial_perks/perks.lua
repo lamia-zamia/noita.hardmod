@@ -27,7 +27,7 @@ return {
 				end
 			end,
 			_remove = function( entity_who_picked )
-				EntityRemoveAllByTag( entity_who_picked, "hardmod_time_trial" )
+				utils.EntityRemoveAllByTag( entity_who_picked, "hardmod_time_trial" )
 			end,
 		},
 		{
@@ -62,7 +62,7 @@ return {
 				end
 			end,
 			_remove = function( entity_who_picked )
-				EntityRemoveAllByTag( entity_who_picked, "hardmod_glass_heart" )
+				utils.EntityRemoveAllByTag( entity_who_picked, "hardmod_glass_heart" )
 			end,
 		},
 	}
