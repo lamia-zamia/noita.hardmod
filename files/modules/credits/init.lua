@@ -3,6 +3,11 @@ local dev_messages = {
 		from = "qtyui_",
 		message = "Working on this mod was very fun. I hope you had fun, player,\nand congratulations on winning Hard Mod!",
 		credit = "https://yui.dev"
+	},
+	{
+		from = "Conga Lyne",
+		message = "Thankyou for playing Hardmod and thankyou for playing Noita!\nThis community is a very warm place to be and I'm happy to be part of it!\nI hope my own pursuits can live up to even a tenth of the beauty Noita has within it.",
+		credit = "https://congalyne.dev/"
 	}
 }
 
