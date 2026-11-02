@@ -485,6 +485,21 @@ local perks = {
 			end
 		end
 	},
+	{
+		id = "ELECTRICITY",
+		name = "$perk_electricity",
+		description = "$hardmod_eperk_electricity_desc",
+		weight = 8,
+		max = 1,
+		func = function(self, entity_id, data)
+			GetGameEffectLoadTo(entity_id, "PROTECTION_ELECTRICITY", false)
+			local child_id = EntityLoad("data/entities/misc/perks/electricity.xml", data.x, data.y)
+			local elec_comp = EntityGetFirstComponent(child_id, "ElectricitySourceComponent")
+			if elec_comp then ComponentSetValue2(elec_comp, "emission_interval_frames", 48) end
+			EntityAddTag(child_id, "perk_entity")
+			EntityAddChild(entity_id, child_id)
+		end
+	},
 }
 
 for _,perk in ipairs(perks) do

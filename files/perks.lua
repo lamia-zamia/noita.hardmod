@@ -42,5 +42,6 @@ for _,perk in ipairs(perk_list) do
 	for _,func in ipairs(edit_perk_hooks) do
 		func(perk)
 	end
+	--AddFlagPersistent("perk_picked_"..perk.id:lower())
 end
 
