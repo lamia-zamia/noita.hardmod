@@ -28,6 +28,9 @@ return {
 		}
 	},
 	perk_patches = {
-		["MEGA_BEAM_STONE"] = { not_in_default_perk_pool = true }
+		["MEGA_BEAM_STONE"] = {
+			not_in_default_perk_pool = true,
+			not_progress = true
+		}
 	}
 }

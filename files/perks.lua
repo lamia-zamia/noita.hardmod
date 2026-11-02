@@ -3,7 +3,7 @@ local perk_patches = {}
 local edit_perk_hooks = {}
 
 
-for _,path in ipairs(ModLuaFileGetAppends("mods/noita.hardmod/files/perks.lua")) do
+for _,path in ipairs(ModLuaFileGetAppends("mods/noita.hardmod/files/__perk_appends.lua")) do
 	local hooks = dofile_once(path)
 	for _,new_perk in ipairs(hooks.new_perks or {}) do
 		new_perks[#new_perks+1] = new_perk
@@ -42,7 +42,5 @@ for _,perk in ipairs(perk_list) do
 	for _,func in ipairs(edit_perk_hooks) do
 		func(perk)
 	end
-	AddFlagPersistent("perk_picked_"..perk.id:lower())
-	print(perk.id)
 end
 

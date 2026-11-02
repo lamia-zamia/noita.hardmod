@@ -55,7 +55,7 @@ local function apply_freeze()
 
 	local player = GetUpdatedEntityID()
 	SetRandomSeed(GameGetFrameNum(), 123)
-	if Random(1, 4) == 1 then
+	if Random(1, 5) == 1 then
 		local count = GameGetGameEffectCount(player, "INTERNAL_ICE")
 
 		if count > 3 then
@@ -84,8 +84,8 @@ local hooks = {
 				if reflecting then return end
 
 				local data = {}
-				if ( #deck > 0 ) then data = deck[1]
-				elseif ( #hand > 0 ) then data = hand[1]
+				if #deck > 0 then data = deck[1]
+				elseif #hand > 0 then data = hand[1]
 				else data = nil end
 
 				local rec = check_recursion(data, recursion_level)
@@ -96,7 +96,7 @@ local hooks = {
 				end
 
 				local player = GetUpdatedEntityID()
-				local wcomp = EntityGetFirstComponent( player, "WalletComponent" )
+				local wcomp = EntityGetFirstComponent(player, "WalletComponent")
 				if wcomp == nil then return end
 				local money = ComponentGetValue2(wcomp, "money")
 
@@ -151,6 +151,7 @@ local hooks = {
 		["TAU"] = { mana = 120 },
 		["SIGMA"] = { mana = 90 },
 		["MU"] = { mana = 90 },
+		["ELECTRIC_CHARGE"] = { mana = 15 },
 		["SUMMON_WANDGHOST"] = {
 			spawn_level = "10",
 			spawn_probability = "0.1",
@@ -168,16 +169,18 @@ local hooks = {
 		},
 		["FREEZE_FIELD"] = {
 			mana = 75,
-			max_uses = 5,
+			max_uses = 3,
+			never_unlimited = true,
 			action = function ()
 				apply_freeze()
 				add_projectile("data/entities/projectiles/deck/freeze_field.xml")
 				c.fire_rate_wait = c.fire_rate_wait + 15
 			end
  		},
-  		["AREA_DAMAGE"] = {
-			mana = 60,
-  		},
+		["POLYMORPH_FIELD"] = { mana = 90, max_uses = 3, never_unlimited = true },
+		["ELECTROCUTION_FIELD"] = { mana = 50, max_uses = 10 },
+		["CHAOS_POLYMORPH_FIELD"] = { mana = 50 },
+  		["AREA_DAMAGE"] = { mana = 60 },
 		["EXPLOSIVE_PROJECTILE"] = {
 			mana = 60,
 			action = function ()

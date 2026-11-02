@@ -102,6 +102,9 @@ HARDMOD_GLOBAL_DATA = { ---@class HardmodGlobalInitData
 }
 local gd = HARDMOD_GLOBAL_DATA
 
+ModTextFileSetContent("mods/noita.hardmod/files/__spell_appends.lua", "--")
+ModTextFileSetContent("mods/noita.hardmod/files/__perk_appends.lua", "--")
+
 for _,module in ipairs(enabled_modules) do
 	local module_path = table.concat({"mods/noita.hardmod/files/modules/",module,"/"})
 	local module_hooks = dofile(module_path.."init.lua") or {}
@@ -113,13 +116,13 @@ for _,module in ipairs(enabled_modules) do
 
 	local spell_append_path = module_path..(module_hooks.spells_path or "spells.lua")
 	if ModDoesFileExist(spell_append_path) then
-		ModLuaFileAppend("mods/noita.hardmod/files/spells.lua", spell_append_path)
+		ModLuaFileAppend("mods/noita.hardmod/files/__spell_appends.lua", spell_append_path)
 	end
 
 	local perk_append_path = module_path..(module_hooks.perks_path or "perks.lua")
 	if ModDoesFileExist(perk_append_path) then
 		print("appending...")
-		ModLuaFileAppend("mods/noita.hardmod/files/perks.lua", perk_append_path)
+		ModLuaFileAppend("mods/noita.hardmod/files/__perk_appends.lua", perk_append_path)
 	end
 end
 
@@ -134,7 +137,7 @@ ModTextFileSetContent("data/translations/common.csv", translations)
 
 
 -- remove perks with not_progress from progress menu
-utils.modifile("data/scripts/perks/perk_reflect.lua", 
+utils.modifile("data/scripts/perks/perk_reflect.lua",
 [[	RegisterPerk( 
 		perk.id,
 		perk.ui_name,
@@ -150,6 +153,13 @@ utils.modifile("data/scripts/perks/perk_reflect.lua",
 		perk.perk_icon
 		) end]])
 
+utils.patchifile("data/scripts/gun/gun_collect_metadata.lua", {
+	{
+		from = [[register_action( c )]],
+		insert_before = [[ if not action.not_progress then ]],
+		insert_after = [[ end ]]
+	}
+})
 
 function OnModPreInit()
 	for _,func in ipairs(hooks.mod_pre_init) do
