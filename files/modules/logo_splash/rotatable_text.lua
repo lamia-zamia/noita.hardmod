@@ -9,9 +9,16 @@
 ---@class rotatable_text_metrics
 ---@field texture string font atlas path
 ---@field line_height number
+---@field glyph_height number tallest glyph cell; the letters sit around its middle, usually lower than `line_height / 2`
 ---@field char_space number width and advance used for codepoints the font lacks
 ---@field space_width number
 ---@field glyphs table<integer, rotatable_text_glyph>
+
+---@class rotatable_text_color
+---@field r number? `1` red, 0 to 1
+---@field g number? `1` green, 0 to 1
+---@field b number? `1` blue, 0 to 1
+---@field a number? `1` alpha, 0 to 1
 
 ---@class rotatable_text_options
 ---@field scale number? `1` scale factor applied to glyphs
@@ -19,7 +26,7 @@
 ---@field glyph_angle number? per-glyph rotation in radians (defaults to `angle`)
 ---@field alpha number? `1` alpha for each glyph
 ---@field z number? z-index for each glyph
----@field color {r:number, g:number, b:number, a:number}? tint color
+---@field color rotatable_text_color? tint color
 
 ---@class rotatable_text
 local rotatable_text = {}
@@ -105,14 +112,19 @@ local function parse_font(font_path)
 	local font_xml = nxml.parse_file(font_path)
 	local line_height = tonumber(tag_text(font_xml, "LineHeight")) or 8
 	local glyphs = {}
+	local glyph_height = 0
 	for quad in font_xml:each_of("QuadChar") do
 		local id = tonumber(quad.attr.id)
-		if id then glyphs[id] = parse_glyph(quad.attr, id, line_height) end
+		if id then
+			glyphs[id] = parse_glyph(quad.attr, id, line_height)
+			glyph_height = math.max(glyph_height, glyphs[id].h)
+		end
 	end
 	local space = glyphs[SPACE]
 	return {
 		texture = tag_text(font_xml, "Texture"),
 		line_height = line_height,
+		glyph_height = glyph_height,
 		char_space = tonumber(tag_text(font_xml, "CharSpace")) or 0,
 		space_width = space and space.advance or tonumber(tag_text(font_xml, "WordSpace")) or 4,
 		glyphs = glyphs,
@@ -222,6 +234,20 @@ function rotatable_text.measure(text, angle, scale, font_path, glyph_angle)
 	return (max_x - min_x) * scale, (max_y - min_y) * scale, -min_x * scale, -min_y * scale
 end
 
+---Returns the unscaled pen advance of a whole text, where anything drawn after it should start.
+---@param text string? text to measure
+---@param font_path string? font XML path (`data/fonts/font_pixel.xml`)
+---@return number
+---@nodiscard
+function rotatable_text.advance(text, font_path)
+	local _, metrics = rotatable_text.prepare(font_path)
+	local pen = 0
+	for _, codepoint in ipairs(codepoints(text or "")) do
+		pen = pen + advance_of(metrics, codepoint, metrics.glyphs[codepoint])
+	end
+	return pen
+end
+
 ---Draws rotated text with one GuiImage per visible glyph; returns the next free widget id.
 ---@param gui gui game GUI handle
 ---@param id integer first widget id, one is consumed per visible glyph
@@ -252,6 +278,23 @@ function rotatable_text.draw(gui, id, x, y, text, angle, opts)
 		pen = pen + advance_of(metrics, codepoint, glyph)
 	end
 	return id
+end
+
+---Draws a rotated image with the same options as text; returns the next free widget id.
+---@param gui gui game GUI handle
+---@param id integer widget id
+---@param x number origin x
+---@param y number origin y
+---@param image string image path
+---@param angle number? rotation in radians (`0`)
+---@param opts rotatable_text_options? draw options; `font` and `glyph_angle` are ignored
+---@return integer next_id
+function rotatable_text.draw_image(gui, id, x, y, image, angle, opts)
+	opts = opts or NO_OPTIONS
+	local scale = opts.scale or 1
+	style_next_widget(gui, opts)
+	GuiImage(gui, id, x, y, image, opts.alpha or 1, scale, scale, angle or 0)
+	return id + 1
 end
 
 return rotatable_text
