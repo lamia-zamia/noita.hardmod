@@ -2,7 +2,7 @@
 
 SetRandomSeed(1464, 5976)
 
-local left_x, right_x = -1917, 1464
+local left_x, right_x = -1917, 1364
 local top_y, bottom_y = 5120, 5976
 
 local forge_spawn_locations = {
