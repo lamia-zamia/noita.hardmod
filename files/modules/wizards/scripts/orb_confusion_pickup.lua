@@ -34,3 +34,5 @@ for _,item in pairs(items) do
 	GamePickUpInventoryItem(eid, item, false)
 	EntityAddTag(item, "enabled_in_world")
 end
+
+GamePrint("$hardmod_log_confused")
