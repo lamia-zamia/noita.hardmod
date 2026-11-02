@@ -9,8 +9,8 @@ return {
 			sprite = "data/items_gfx/broken_spell.png",
 			sprite_unidentified = "data/ui_gfx/gun_actions/spread_reduce_unidentified.png",
 			type = ACTION_TYPE_OTHER,
-			spawn_level = "10",
 			spawn_probability = "0",
+			not_progress = true,
 			mana = 0,
 			action = function()
 				if reflecting then return end

@@ -12,8 +12,9 @@ hooks.new_perks = {
 		stackable = false,
 		one_off_effect = false,
 		usable_by_enemies = false,
-        func = function( entity_perk_item, entity_who_picked, item_name )
-            EntityAddChild( entity_who_picked, EntityLoad( "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/perks/spell_gems.xml" ) )
+        func = function(entity_perk_item, entity_who_picked, item_name, stacks)
+			if stacks > 0 then return end
+            EntityAddChild(entity_who_picked, EntityLoad("mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/perks/spell_gems.xml"))
         end
 	},
 	{
@@ -81,66 +82,44 @@ hooks.new_perks = {
 		stackable_maximum = 5,
 		max_in_perk_pool = 2,
 		usable_by_enemies = false,
-		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
-			local x,y = EntityGetTransform( entity_who_picked )
-			local child_id = EntityLoad( "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/perks/shield_oversized.xml", x, y )
+		func = function(entity_perk_item, entity_who_picked, item_name, pickup_count)
+			local x,y = EntityGetTransform(entity_who_picked)
+			local child_id = EntityLoad("mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/perks/shield_oversized.xml", x, y)
 
 			if ModIsEnabled("quant.ew") then
 				GlobalsSetValue("PERK_SHIELD_OVERSIZED_COUNT", tostring(pickup_count-1))
 			end
-			local shield_num = tonumber( GlobalsGetValue( "PERK_SHIELD_OVERSIZED_COUNT", "0" ) )
+			local shield_num = tonumber(GlobalsGetValue("PERK_SHIELD_OVERSIZED_COUNT", "0"))
 			local shield_radius = 75 + shield_num * 3.0
-			local charge_speed = math.max( 0.01 - shield_num * 0.05, 0.02 )
+			local charge_speed = math.max(0.01 - shield_num * 0.05, 0.02)
 			shield_num = shield_num + 1
-			GlobalsSetValue( "PERK_SHIELD_OVERSIZED_COUNT", tostring( shield_num ) )
+			GlobalsSetValue("PERK_SHIELD_OVERSIZED_COUNT", tostring(shield_num))
 
-			local comps = EntityGetComponent( child_id, "EnergyShieldComponent" )
-			if( comps ~= nil ) then
-				for i,comp in ipairs( comps ) do
-					ComponentSetValue2( comp, "radius", shield_radius )
-					ComponentSetValue2( comp, "recharge_speed", charge_speed )
-				end
+			local comps = EntityGetComponent(child_id, "EnergyShieldComponent")
+			for i,comp in ipairs(comps or {}) do
+				ComponentSetValue2(comp, "radius", shield_radius)
+				ComponentSetValue2(comp, "recharge_speed", charge_speed)
 			end
 
-			comps = EntityGetComponent( child_id, "ParticleEmitterComponent" )
-			if( comps ~= nil ) then
-				for i,comp in ipairs( comps ) do
-					local minradius,maxradius = ComponentGetValue2( comp, "area_circle_radius" )
+			comps = EntityGetComponent(child_id, "ParticleEmitterComponent")
+			for i,comp in ipairs(comps or {}) do
+				local minradius,maxradius = ComponentGetValue2(comp, "area_circle_radius")
 
-					if ( minradius ~= nil ) and ( maxradius ~= nil ) then
-						if ( minradius == 0 ) then
-							ComponentSetValue2( comp, "area_circle_radius", 0, shield_radius )
-						elseif ( minradius == 10 ) then
-							ComponentSetValue2( comp, "area_circle_radius", shield_radius, shield_radius )
-						end
+				if minradius and maxradius then
+					if minradius == 0 then
+						ComponentSetValue2(comp, "area_circle_radius", 0, shield_radius)
+					elseif minradius == 10 then
+						ComponentSetValue2(comp, "area_circle_radius", shield_radius, shield_radius)
 					end
 				end
 			end
 
-			EntityAddTag( child_id, "perk_entity" )
-			EntityAddChild( entity_who_picked, child_id )
-		end,
-		_remove = function( entity_who_picked )
-			local shield_num = tonumber( GlobalsGetValue( "PERK_SHIELD_OVERSIZED_COUNT", "0" ) ) - 1
-			GlobalsSetValue( "PERK_SHIELD_OVERSIZED_COUNT", tostring( shield_num ) )
-
-			local children = EntityGetAllChildren(entity_who_picked) or {}
-			local largest_radius = 0
-			local largest_shield = 0
-			for k=1,#children do
-				if EntityGetName(children[k]) == "hardmod_oversized_shield" then
-					local r = ComponentGetValue2(EntityGetFirstComponentIncludingDisabled(children[k],"EnergyShieldComponent"),"radius")
-					if r > 0 then
-						largest_radius = r
-						largest_shield = children[k]
-					end
-				end
-			end
-			if largest_shield > 0 then EntityKill(largest_shield) end
+			EntityAddTag(child_id, "perk_entity")
+			EntityAddChild(entity_who_picked, child_id)
 		end,
 		func_remove = function()
 			local shield_num = 0
-			GlobalsSetValue( "PERK_SHIELD_OVERSIZED_COUNT", tostring( shield_num ) )
+			GlobalsSetValue("PERK_SHIELD_OVERSIZED_COUNT", tostring(shield_num))
 		end,
 	},
 	{
@@ -378,6 +357,10 @@ hooks.perk_patches = {
 		func_remove = function( entity_who_picked )
 			EntityRemoveAllByTag( entity_who_picked, "hardmod_teleportitis" )
 		end,
+	},
+	["LOW_RECOIL"] = {
+		ui_name = "$hardmod_perk_no_recoil_name",
+		ui_description = "$hardmod_perk_no_recoil_desc",
 	},
 }
 

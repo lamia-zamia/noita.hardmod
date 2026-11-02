@@ -1,3 +1,5 @@
+---@diagnostic disable: undefined-global
+
 return {
 	new_spells = {
 		{
@@ -6,7 +8,6 @@ return {
 			description			= "$hardmod_spell_blink_desc",
 			sprite				= "mods/noita.hardmod/files/modules/trial_perks/gfx/ui_gfx/spells/blink.png",
 			type				= ACTION_TYPE_UTILITY,
-			spawn_level			= "0",
 			spawn_probability 	= "0",
 			spawn_requires_flag = "hardmod_time_trial_passed",
 			price				= 400,

@@ -1,7 +1,7 @@
 ---@diagnostic disable: undefined-global
 
 return {
-		new_spells = {
+	new_spells = {
 		{
 			id					= "HARDMOD_SEA_POISON",
 			add_before			= "SEA_MIMIC",
@@ -25,9 +25,9 @@ return {
 	spell_patches = {
 		-- Credit to Apotheosis for the idea, sprite and a portion of the code!
 		["SEA_MIMIC"] = {
-			name				= "$hardmod_spell_potion_to_sea_name",
+			name = "$hardmod_spell_potion_to_sea_name",
 			description = "$hardmod_spell_potion_to_sea_desc",
-			sprite			= "mods/noita.hardmod/files/modules/vanilla_quests/spells/potion_to_sea.png",
+			sprite = "mods/noita.hardmod/files/modules/vanilla_quests/spells/potion_to_sea.png",
 			related_projectiles = {},
 			spawn_requires_flag = "card_unlocked_hardmod_sea_mimic",
 			action = function()
