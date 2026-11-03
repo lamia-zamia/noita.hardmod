@@ -6,7 +6,10 @@ return {
 			ui_icon = "mods/noita.hardmod/files/modules/enemy_perks/gfx/blessed_blood_money_icon.png",
 			perk_icon = "mods/noita.hardmod/files/modules/enemy_perks/gfx/blessed_blood_money.png",
 			func = function()
-
+				GameAddFlagRun("hardmod_blessed_blood_money")
+			end,
+			func_remove = function()
+				GameAddFlagRun("hardmod_blessed_blood_money")
 			end
 		}
 	}
