@@ -13,6 +13,22 @@ function damage_received(...)
     return
   end
 
+  -- activate the shield
+  local shield = EntityGetAllChildren( eid, "hardmod_gold_shield" )[1]
+  if shield ~= nil then
+    utils.SetInternalInt( shield, "hardmod_gold_shield_trigger_frame", GameGetFrameNum() )
+    EntitySetComponentsWithTagEnabled( shield, "hardmod_gold_shield_active", true )
+    EntitySetComponentsWithTagEnabled( shield, "hardmod_gold_shield_inactive", false )
+    local x, y = EntityGetTransform( shield )
+    GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/shield/activate", x, y )
+  else
+    EntityAddComponent2( eid, "LuaComponent", {
+      script_source_file = "mods/noita.hardmod/files/modules/vanilla_bosses/scripts/boss_pit_on_spawn.lua",
+      execute_every_n_frame = 1,
+      remove_after_executed = true,
+    } )
+  end
+
   utils.SetInternalInt(eid, "last_dmg_at", frame)
   orig_damage_received(...)
 end

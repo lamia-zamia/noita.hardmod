@@ -34,6 +34,9 @@ end
 
 for _,perk in ipairs(perk_list) do
 	if perk_patches[perk.id] then
+		if perk_patches[perk.id].clear_original_game_effect == true then perk.game_effect = nil end
+		if perk_patches[perk.id].clear_original_game_effect2 == true then perk.game_effect2 = nil end
+
 		for key, value in pairs(perk_patches[perk.id]) do
 			perk[key] = value
 		end

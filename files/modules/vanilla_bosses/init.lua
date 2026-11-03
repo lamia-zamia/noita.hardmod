@@ -4,13 +4,12 @@ local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 local root = "mods/noita.hardmod/files/modules/vanilla_bosses/"
 
-ModLuaFileAppend("data/entities/animals/boss_pit/boss_pit_damage.lua", root.."appends/boss_pit_damage.lua")
-
 ModMaterialsFileAdd(root.."materials.xml")
 
 local patches = {
 	"alchemist",
 	"door_boss",
+	"boss_pit",
 }
 
 local edit = {

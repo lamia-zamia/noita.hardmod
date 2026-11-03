@@ -49,6 +49,6 @@ EntityLoad( "data/entities/particles/image_emitters/heart_fullhp_effect.xml", px
 spawn_staff( px, py - 8 )
 
 dofile_once( "mods/noita.hardmod/files/modules/trial_perks/scripts/trial_perk_utils.lua" )
-EntityRemoveAllByTag( player, "hardmod_glass_heart" )
+utils.EntityRemoveAllByTag( player, "hardmod_glass_heart" )
 SwapPerkIconForSpent( player, "$hardmod_perk_glass_heart_name", true )
 utils.SetInternalInt( player, "hardmod_glass_heart_start_y", 0 )

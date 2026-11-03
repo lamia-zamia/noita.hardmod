@@ -1,3 +1,31 @@
+---@alias splash_font
+---| "data/fonts/font_pixel.xml"
+---| "data/fonts/font_pixel_noshadow.xml"
+---| "data/fonts/font_pixel_white.xml"
+---| "data/fonts/font_pixel_big.xml"
+---| "data/fonts/font_pixel_huge.xml"
+---| "data/fonts/font_small_numbers.xml" # digits and a few letters only
+---| "data/fonts/font_damage.xml" # digits and `-` only
+---| "data/fonts/font_pixel_runes.xml"
+---| string
+
+---One piece of a custom splash: either text or an image.
+---@class splash_part
+---@field [1] string? text to draw, `\n` starts a new line; leave out when using `image`
+---@field image string? PNG path to draw instead of text
+---@field color rotatable_text_color? tint; text falls back to the entry's color, images stay untinted
+---@field font splash_font? font of this text; falls back to the entry's font
+---@field scale number? `1` size multiplier on top of the entry's `scale`
+
+---A splash with custom settings; its parts are drawn left to right.
+---@class splash_entry
+---@field [integer] string|splash_part
+---@field color rotatable_text_color? `yellow` tint of all text
+---@field font splash_font? `data/fonts/font_pixel.xml` font of all text
+---@field scale number? `1` size multiplier of the whole splash
+---@field speed number? `1` pulse and swing speed multiplier; `0` holds it level at its base size
+---@field angle number? `math.rad(20)` how far it swings each way, in radians
+
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua")---@type utils
 
 local y,m,d = GameGetDateAndTimeUTC()
@@ -84,6 +112,18 @@ local cool_mods = {
 }
 for _,coolmod in ipairs(cool_mods) do
 	splashes[#splashes+1] = "Also try "..coolmod.."!"
+end
+
+-- Splashes with custom settings; a text only needs to be here if it has any. For example:
+-- { "Dunk is bald", color = { r = 1, g = 0.2, b = 0.2 }, scale = 1.5, speed = 2, angle = math.rad(45) },
+-- { "Evil Level: ", { evil_level .. "%", color = { r = 1, g = 0, b = 0 }, font = "data/fonts/font_pixel_big.xml" } },
+-- { "Hämis ", { image = "data/ui_gfx/hud/health.png", scale = 0.5 }, " :+1:" },
+---@type splash_entry[]
+local custom_splashes = {
+	{"Hämis ", { image = "data/ui_gfx/hud/health.png", scale = 1.5, color= {r = 1, g = 0, b = 1} }}
+}
+for _,splash in ipairs(custom_splashes) do
+	splashes[#splashes+1] = splash
 end
 
 local win_splashes = {

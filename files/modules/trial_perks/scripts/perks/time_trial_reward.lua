@@ -48,5 +48,5 @@ if game_effect then
 	end
 end
 
-EntityRemoveAllByTag( player, "hardmod_time_trial" )
+utils.EntityRemoveAllByTag( player, "hardmod_time_trial" )
 SwapPerkIconForSpent( player, "$hardmod_perk_time_trial_name", true )

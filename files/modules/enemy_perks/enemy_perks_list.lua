@@ -87,7 +87,7 @@ local perks = {
 		priority = 20,
 		max = 1,
 		condition = function(self, data)
-			return enemy_is_melee(self, data) and not data.vigour
+			return enemy_is_melee(self, data) and not enemy_is_ranged(self, data) and not data.vigour
 		end,
 		func = function(self, entity_id, data)
 			-- show nuke particles on the enemy
