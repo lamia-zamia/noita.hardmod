@@ -13,7 +13,7 @@ if nearby_players then
 		if start_y ~= 0 and ( y - start_y ) > 600 then
 			utils.SetInternalInt( player, "hardmod_glass_heart_start_y", 0 )
 
-			EntityRemoveAllByTag( player, "hardmod_glass_heart" )
+			utils.EntityRemoveAllByTag( player, "hardmod_glass_heart" )
 			local dmg_comp = EntityGetFirstComponentIncludingDisabled( player, "DamageModelComponent" )
 			if dmg_comp then
 				local p_hp = ComponentGetValue2( dmg_comp, "hp" )

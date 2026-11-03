@@ -1,4 +1,5 @@
 ---@diagnostic disable: undefined-global
+local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
 local hooks = {}
 local root = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/"
@@ -356,7 +357,7 @@ hooks.perk_patches = {
 			} )
 		end,
 		func_remove = function( entity_who_picked )
-			EntityRemoveAllByTag( entity_who_picked, "hardmod_teleportitis" )
+			utils.EntityRemoveAllByTag( entity_who_picked, "hardmod_teleportitis" )
 		end,
 	},
 	["LOW_RECOIL"] = {

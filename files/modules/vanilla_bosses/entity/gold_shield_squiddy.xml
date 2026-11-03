@@ -1,0 +1,51 @@
+<Entity tags="hardmod_gold_shield">
+
+	<Base file="mods/noita.hardmod/files/modules/vanilla_bosses/entity/gold_shield.xml">
+
+		<VariableStorageComponent
+			name="hardmod_gold_shield_radius"
+			value_int="36"
+		></VariableStorageComponent>
+
+		<VariableStorageComponent
+			name="hardmod_gold_shield_duration"
+			value_int="120"
+		></VariableStorageComponent>
+
+		<MagicConvertMaterialComponent
+			radius="36"
+		></MagicConvertMaterialComponent>
+
+		<MagicConvertMaterialComponent
+			radius="36"
+		></MagicConvertMaterialComponent>
+
+	    <ParticleEmitterComponent
+			count_min="8"
+			count_max="16"
+			area_circle_radius.max="36"
+		></ParticleEmitterComponent>
+
+		<ParticleEmitterComponent
+			count_min="360"
+			count_max="400"
+			area_circle_radius.min="36"
+			area_circle_radius.max="36"
+		></ParticleEmitterComponent>
+
+		<ParticleEmitterComponent
+			count_min="30"
+			count_max="40"
+			area_circle_radius.min="36"
+			area_circle_radius.max="36"
+		></ParticleEmitterComponent>
+
+	</Base>
+	
+	<!-- <LuaComponent 
+		script_source_file="mods/noita.hardmod/files/modules/vanilla_bosses/scripts/perks/gold_shield_squiddy_init.lua"
+		execute_every_n_frame="1"
+		remove_after_executed="1"
+	></LuaComponent> -->
+
+</Entity>
