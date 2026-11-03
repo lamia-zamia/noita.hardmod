@@ -14,7 +14,6 @@ PatchModifiers({
 	HOT = { probability = 0.5 },
 	FREEZING = { probability = 0.4 },
 	FLOODED = { probability = 0.5 },
-	FREEZING_COSMETIC = { ui_name = "$hardmod_biomemodifier_freezing" },
 	MOIST = {
 		probability = 0.65,
 		remove_from_biomes = { "excavationsite" },
@@ -43,6 +42,9 @@ PatchModifiers({
 	},
 	FOG_OF_WAR_CLEAR_AT_PLAYER = {
 		ui_name = "$hardmod_biomemodifier_gloomy"
+	},
+	FREEZING_COSMETIC = {
+		ui_name = "$hardmod_biomemodifier_freezing"
 	},
 	SPOOKY = {
 		inject_spawns_action = function()
