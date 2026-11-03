@@ -1,3 +1,5 @@
+local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua")---@type utils
+
 local entity_id = GetUpdatedEntityID()
 local eid = EntityGetRootEntity(entity_id)
 
@@ -20,6 +22,9 @@ if not quick then return end
 
 local i2comp = EntityGetFirstComponentIncludingDisabled(eid, "Inventory2Component")
 if i2comp then
+	local item = ComponentGetValue2(i2comp, "mActualActiveItem")
+	utils.SetInternalInt(eid, "confuse_player_active_item", item)
+
 	ComponentSetValue2(i2comp, "mDontLogNextItemEquip", true)
 	ComponentSetValue2(i2comp, "mForceRefresh", true)
 	ComponentSetValue2(i2comp, "mActualActiveItem", 0)

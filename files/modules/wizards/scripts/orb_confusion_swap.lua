@@ -15,6 +15,11 @@ for _,item in pairs(items) do
 	EntityRemoveTag(item, "enabled_in_world")
 end
 
+local i2comp = EntityGetFirstComponentIncludingDisabled(eid, "Inventory2Component")
+if i2comp then
+	ComponentSetValue2(i2comp, "mDontLogNextItemEquip", true)
+end
+
 GameDropAllItems(eid)
 
 for _,item in pairs(items) do
@@ -27,7 +32,7 @@ for _,item in pairs(items) do
 end
 
 EntityAddComponent2(eid, "VariableStorageComponent", {
-	name = "player_item_ids",
+	name = "confuse_player_item_ids",
 	value_string = table.concat(items, ",")
 })
 
