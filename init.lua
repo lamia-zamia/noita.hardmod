@@ -42,6 +42,7 @@ local modules = {
 	"trial_perks",
 	"biome_map",
 	"biome_modifiers",
+	"wizards",
 	"stronger_enemies",
 	"potions",
 	"alternate_biomes",
@@ -126,9 +127,8 @@ for _,module in ipairs(enabled_modules) do
 	end
 end
 
-ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/noita.hardmod/files/spells.lua")
-
-ModLuaFileAppend("data/scripts/perks/perk_list.lua", "mods/noita.hardmod/files/perks.lua")
+ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/noita.hardmod/files/scripts/spells.lua")
+ModLuaFileAppend("data/scripts/perks/perk_list.lua", "mods/noita.hardmod/files/scripts/perks.lua")
 
 local translations = ModTextFileGetContent("data/translations/common.csv")
 translations = translations .. "\n" .. ModTextFileGetContent("mods/noita.hardmod/files/standard.csv").."\n"

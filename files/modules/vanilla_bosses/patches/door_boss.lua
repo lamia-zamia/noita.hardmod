@@ -27,10 +27,17 @@ for file in nxml.edit_file("data/entities/animals/boss_gate/gate_monster_a.xml")
 	file:first_of("PhysicsImageShapeComponent"):set("material", "hardmod_gate_boss_material")
 	file:first_of("CellEaterComponent"):set("ignored_material", "hardmod_gate_boss_material")
 
+	-- damn you nolla, why does this comp not support an ignore list??
+	local convert_materials = { "rock_hard", "rock_hard_border", "templerock_static", "templebrick_static", "templebrick_noedge_static", "templebrick_thick_static", "templebrickdark_static" }
+	local convert_to = "rock_static_radioactive"
+
+	local to_arr = {}
+	for _,v in pairs(convert_materials) do table.insert(to_arr, convert_to) end
+
 	file:create_child("MagicConvertMaterialComponent", {
 		-- from_any_material = true,
-		from_material_array = "rock_hard,rock_hard_border,templerock_static,templebrick_static,templebrick_noedge_static,templebrick_thick_static,templebrickdark_static",
-        to_material_array = "rock_static_cursed,rock_static_cursed,rock_static_cursed,rock_static_cursed,rock_static_cursed,rock_static_cursed,rock_static_cursed",
+		from_material_array = table.concat(convert_materials, ","),
+        to_material_array = table.concat(to_arr, ","),
 		-- to_material = "rock_static_cursed",
         loop = false, is_circle = true,
 		kill_when_finished = false,
