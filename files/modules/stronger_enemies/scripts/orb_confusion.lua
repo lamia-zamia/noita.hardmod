@@ -8,10 +8,10 @@ local x, y = EntityGetTransform(player)
 
 ---@type integer
 local state = ComponentGetValue2(comp, "mTimesExecuted")
-print("script state "..state)
+-- print("script state "..state)
 
 local function die()
-	print("fucking DYING")
+	-- print("fucking DYING")
 	EntityRemoveComponent(hitfx, comp)
 	EntityKill(hitfx)
 end
