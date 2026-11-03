@@ -120,8 +120,24 @@ end
 -- { "Hämis ", { image = "data/ui_gfx/hud/health.png", scale = 0.5 }, " :+1:" },
 ---@type splash_entry[]
 local custom_splashes = {
-	{"Hämis ", { image = "data/ui_gfx/hud/health.png", scale = 1.5, color= {r = 1, g = 0, b = 1} }}
+	{"Hämis ", { image = "mods/noita.hardmod/files/modules/logo_splash/gfx/thumbsup.png", scale = 0.75, color= {r = 1, g = 1, b = 1} }},
+	{
+		{"N",color={r=1,g=0.2,b=0.2}},
+		{"o",color={r=1,g=0.65,b=0.2}},
+		{"w ",color={r=1,g=1,b=0.2}},
+		{"w",color={r=0.65,g=1,b=0.2}},
+		{"i",color={r=0.2,g=1,b=0.2}},
+		{"t",color={r=0.2,g=1,b=0.65}},
+		{"h ",color={r=0.2,g=1,b=1}},
+		{"c",color={r=0.2,g=0.65,b=1}},
+		{"o",color={r=0.2,g=0.2,b=1}},
+		{"l",color={r=0.65,g=0.2,b=1}},
+		{"o",color={r=1,g=0.2,b=1}},
+		{"r",color={r=1,g=0.2,b=0.65}},
+		{"!",color={r=1,g=0.2,b=0.2}},
+	}
 }
+
 for _,splash in pairs(custom_splashes) do
 	table.insert(splashes, splash)
 end

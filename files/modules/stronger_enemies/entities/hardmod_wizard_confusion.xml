@@ -1,5 +1,4 @@
-<Entity name="$hardmod_animal_wizard_confusion" tags="polymorphable_NOT,hardmod_blessed">
-  
+<Entity name="$hardmod_animal_wizard_confusion_name" tags="polymorphable_NOT,hardmod_blessed">
 	<Base file="data/entities/base_enemy_basic.xml" >
 		<ItemChestComponent level="2" > </ItemChestComponent>
 		
@@ -14,7 +13,7 @@
 			sense_creatures="1"
 			attack_ranged_enabled="1"
 			can_fly="1" 
-			attack_ranged_entity_file="mods/noita.hardmod/files/modules/wizards/entities/orb_confusion.xml"
+			attack_ranged_entity_file="mods/noita.hardmod/files/modules/stronger_enemies/entities/orb_confusion.xml"
 			attack_ranged_action_frame="5"
 			attack_ranged_frames_between="180"
 			attack_ranged_offset_y="0"
@@ -24,7 +23,7 @@
 		</AnimalAIComponent>
 		
 		<DamageModelComponent 
-            hp="6"
+            hp="5"
             ragdoll_material="meat_confusion"
 			ragdoll_filenames_file="data/ragdolls/wizard_tele/filenames.txt" 
 			critical_damage_resistance="1.0"
@@ -39,7 +38,7 @@
 		</DamageModelComponent>
 
 		<SpriteComponent 
-			image_file="mods/noita.hardmod/files/modules/wizards/gfx/wizard_confusion.xml" 
+			image_file="mods/noita.hardmod/files/modules/stronger_enemies/gfx/wizard_confusion.xml" 
 			offset_x="0"
 			offset_y="0">
 		</SpriteComponent>

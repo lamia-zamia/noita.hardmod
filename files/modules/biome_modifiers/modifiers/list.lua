@@ -33,7 +33,7 @@ PatchModifiers({
 		end
 	},
 	FOG_OF_WAR_REAPPEARS = {
-		ui_name = "$hardmod_biomemodifier_darkness",
+		ui_name = "$hardmod_biomemodifier_name_darkness",
 		probability = 0,
 	},
 	PLANT_INFESTED = {
@@ -41,10 +41,10 @@ PatchModifiers({
 		remove_from_biomes = { "coalmine", "coalmine_alt" },
 	},
 	FOG_OF_WAR_CLEAR_AT_PLAYER = {
-		ui_name = "$hardmod_biomemodifier_gloomy"
+		ui_name = "$hardmod_biomemodifier_name_gloomy"
 	},
 	FREEZING_COSMETIC = {
-		ui_name = "$hardmod_biomemodifier_freezing"
+		ui_name = "$hardmod_biomemodifier_name_freezing"
 	},
 	SPOOKY = {
 		inject_spawns_action = function()

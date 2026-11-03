@@ -8,10 +8,10 @@ local x, y = EntityGetTransform(player)
 
 ---@type integer
 local state = ComponentGetValue2(comp, "mTimesExecuted")
-print("script state "..state)
+-- print("script state "..state)
 
 local function die()
-	print("fucking DYING")
+	-- print("fucking DYING")
 	EntityRemoveComponent(hitfx, comp)
 	EntityKill(hitfx)
 end
@@ -48,21 +48,23 @@ if i2comp then
 end
 
 if state == 1 then
-	local items = EntityGetAllChildren(quick) or {}
+	local items = EntityGetAllChildren(quick, "wand") or {}
 	local list = table.concat(items, ",")
 
 	for _,item in pairs(items) do
-		EntityRemoveTag(item, "enabled_in_world")
-	end
+		-- me when im in a jank competition and my opponent is nolla
+		-- (this drops the wand from the player)
+		EntitySetTransform(item, x, y)
+		EntityRemoveFromParent(item)
+		EntitySetComponentsWithTagEnabled(item, "enabled_in_world", true)
 
-	GameDropAllItems(player)
-
-	for _,item in pairs(items) do
 		local icomp = EntityGetFirstComponentIncludingDisabled(item, "ItemComponent")
 		if icomp and EntityHasTag(item, "wand") then
 			local slot_x, slot_y = ComponentGetValue2(icomp, "inventory_slot")
 
 			ComponentSetValue2(icomp, "inventory_slot", 3 - slot_x, slot_y)
+			-- needed so that the mage can't yoink the wand on the next frame
+			ComponentSetValue2(icomp, "is_pickable", false)
 		end
 	end
 
@@ -96,8 +98,13 @@ if state == 2 then
 
 	for _,item in pairs(items) do
 		if i2comp then ComponentSetValue2(i2comp, "mDontLogNextItemEquip", true) end
+
+		local icomp = EntityGetFirstComponentIncludingDisabled(item, "ItemComponent")
+		if icomp then
+			ComponentSetValue2(icomp, "is_pickable", true)
+		end
+
 		GamePickUpInventoryItem(player, item, false)
-		EntityAddTag(item, "enabled_in_world")
 	end
 
 	GamePrint("$hardmod_log_confused")
