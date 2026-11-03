@@ -1,11 +1,6 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua")---@type utils
 
-utils.patchifile("data/ui_gfx/animal_icons/_list.txt", {
-	{
-		from = "wizard_twitchy\n",
-		insert_after = "hardmod_wizard_confusion\n"
-	}
-})
+utils.AddEnemyToProgress("hardmod_wizard_confusion", "wizard_twitchy")
 
 utils.patchifile("data/entities/projectiles/orb_poly.xml", {
 	{ from = [[damage="0.3"]], to=[[damage="0"]] },

@@ -1,4 +1,4 @@
-<Entity name="$animal_longleg">
+<Entity name="$hardmod_animal_fungal_longleg_name">
   
     <Base file="data/entities/base_enemy_basic.xml" >
         <ItemChestComponent level="1" > </ItemChestComponent>

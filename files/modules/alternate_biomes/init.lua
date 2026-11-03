@@ -1,3 +1,5 @@
+local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua")---@type utils
+
 local function weighted_choice(options)
 	local total = 1.0
 	for _, o in ipairs(options) do
@@ -18,6 +20,8 @@ local function weighted_choice(options)
 end
 
 ModMaterialsFileAdd("mods/noita.hardmod/files/modules/alternate_biomes/materials/materials.xml")
+
+utils.AddEnemyToProgress("hardmod_fungal_longleg", "longleg")
 
 local M = {
 	magic_numbers_and_seed_initialised = function() 

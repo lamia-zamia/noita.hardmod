@@ -22,6 +22,7 @@ end
 ---@field insert_before string? String to insert before the result
 ---@field insert_after string? String to insert after the result
 ---@field pattern boolean? Use `from` as a pattern instead of escaping it
+---@field count integer? Amount of max replacements (e.g. 1 = only the first instance)
 
 ---More advanced version of `modifile`
 ---@param file string filepath
@@ -35,7 +36,7 @@ function utils.patchifile(file, replacements)
 		if replacement.insert_before then to = replacement.insert_before..to end
 		if replacement.insert_after then to = to..replacement.insert_after end
 
-		content = content:gsub(from, to)
+		content = content:gsub(from, to, replacement.count)
 	end
 
 	ModTextFileSetContent(file, content)
@@ -433,6 +434,20 @@ function utils.EntityAddHp(eid, increment)
 	utils.EntitySetHp(eid, hp.hp + increment)
 end
 
+---Add an enemy `enemy` to the progress list after `after_enemy`.
+---The enemy must be defined in `data/ui_gfx/animal_icons` and `data/entities/animals` (see existing enemies).
+---This function simply changes the order of the custom enemy.
+---
+---Must be called during mod init.
+function utils.AddEnemyToProgress(enemy, after_existing_enemy)
+	utils.patchifile("data/ui_gfx/animal_icons/_list.txt", {
+		{
+			from = after_existing_enemy .. "\n",
+			insert_after = enemy .. "\n",
+			count = 1
+		}
+	})
+end
 
 ---Clones a table
 ---@param orig table
