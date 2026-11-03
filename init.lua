@@ -130,8 +130,9 @@ end
 ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/noita.hardmod/files/scripts/spells.lua")
 ModLuaFileAppend("data/scripts/perks/perk_list.lua", "mods/noita.hardmod/files/scripts/perks.lua")
 
+dofile("mods/noita.hardmod/files/translations/debug_split.lua")
 local translations = ModTextFileGetContent("data/translations/common.csv")
-translations = translations .. "\n" .. ModTextFileGetContent("mods/noita.hardmod/files/standard.csv").."\n"
+translations = translations .. "\n" .. ModTextFileGetContent("mods/noita.hardmod/files/translations/standard.csv").."\n"
 translations = translations:gsub("\r", ""):gsub("\n\n+", "\n")
 ModTextFileSetContent("data/translations/common.csv", translations)
 

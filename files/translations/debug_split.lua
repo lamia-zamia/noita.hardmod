@@ -1,5 +1,7 @@
 local path = "mods/noita.hardmod/files/translations/"
 
+local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
+
 local translations = {
 	["key"] = {},
 
@@ -122,6 +124,7 @@ end
 ModTextFileSetContent(path.."standard.csv",standard)
 
 for lang,name in pairs(nonstandard_langs) do
+	if #translations[lang] == 0 then goto continue end
 	local translation = ""
 	for i, key in ipairs(translations["key"]) do
 		local tl = translations[lang][i]
@@ -132,4 +135,5 @@ for lang,name in pairs(nonstandard_langs) do
 
 
     ModTextFileSetContent(path..name..".csv",translation)
+	::continue::
 end
