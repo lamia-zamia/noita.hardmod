@@ -18,9 +18,9 @@
  * They will be available inside `settings.lua` via a font, use `get_icon(name)` to get the character.
  */
 
-import { writeFileSync, existsSync, readFileSync, readdirSync } from "fs";
-import { execSync } from "child_process";
-import { basename } from "path";
+import { writeFileSync, existsSync, readFileSync, readdirSync } from "node:fs";
+import { basename, join as pjoin } from "node:path";
+import { execSync } from "node:child_process";
 import sharp from "sharp";
 
 // Icon file inside of each module's dir
@@ -154,6 +154,36 @@ function patchCommits() {
 	console.log("Written", commits.size, "commits to", out);
 }
 
+function patchCodeLength() {
+	let lines = 0, files = 0;
+	const walk = (dir) => {
+		for (const file of readdirSync(dir, { withFileTypes: true })) {
+			const path = pjoin(dir, file.name);
+
+			if (file.name.endsWith(".lua")) {
+				lines += readFileSync(path, "utf8").trim().split(/[\n\r]/).length;
+				files++;
+			} else if (file.isDirectory()) {
+				walk(path);
+			}
+		}
+	}
+
+	walk(".");
+	console.log("There are", files, ".lua files with", lines, "SLOC total");
+
+	const intl = new Intl.NumberFormat("en-US", {  useGrouping: true });
+	const fmt = intl.format(lines);
+
+	patch(
+		"files/modules/logo_splash/splashes.lua",
+		(s) => s.replace(
+			/local lines_of_code = ".*?"--/,
+			`local lines_of_code = ${JSON.stringify(fmt)}--`
+		)
+	)
+}
+
 /** @type {(()=>void|Promise<void>)[]} */
 const steps = [
 	patchIcons,
@@ -163,6 +193,7 @@ const steps = [
 /** @type {(()=>void|Promise<void>)[]} */
 const releaseSteps = [
 	patchCommits,
+	patchCodeLength,
 ]
 
 if (process.argv.includes("--release")) {
