@@ -16,7 +16,7 @@
 
 	<HitEffectComponent
 		effect_hit="LOAD_UNIQUE_CHILD_ENTITY"
-		value_string="mods/noita.hardmod/files/modules/wizards/entities/orb_confusion_hitfx.xml"
+		value_string="mods/noita.hardmod/files/modules/stronger_enemies/entities/orb_confusion_hitfx.xml"
 	></HitEffectComponent>
 
 	<ProjectileComponent 
@@ -71,7 +71,7 @@
 	<SpriteComponent 
 		_enabled="1" 
 		alpha="1" 
-		image_file="mods/noita.hardmod/files/modules/wizards/gfx/orb_confusion.xml" 
+		image_file="mods/noita.hardmod/files/modules/stronger_enemies/gfx/orb_confusion.xml" 
 		next_rect_animation="" 
 		offset_x="5" 
 		offset_y="5" 
@@ -102,6 +102,6 @@
 	
 	<VariableStorageComponent
 		name="projectile_file"
-		value_string="mods/noita.hardmod/files/modules/wizards/entities/orb_confusion_hitfx.xml"
+		value_string="mods/noita.hardmod/files/modules/stronger_enemies/entities/orb_confusion_hitfx.xml"
 	></VariableStorageComponent>
 </Entity>

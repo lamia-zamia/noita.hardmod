@@ -1,6 +1,8 @@
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua")---@type nxml
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
+utils.AddEnemyToProgress("hardmod_wizard_confusion", "wizard_twitchy")
+
 local function patch_spawn_rules()
 	local patch_biomes = {
 		"coalmine_alt",
@@ -37,8 +39,13 @@ local function patch_enemy_changes()
 		},
 		{
 			from = [[data/entities/misc/effect_spirit_weakness.xml]],
-			to = [[mods/noita.hardmod/files/modules/stronger_enemies/entity/effect_spirit_weaken.xml]]
+			to = [[mods/noita.hardmod/files/modules/stronger_enemies/entities/effect_spirit_weaken.xml]]
 		},
+	})
+
+	utils.patchifile("data/entities/projectiles/orb_poly.xml", {
+		{ from = [[damage="0.3"]], to=[[damage="0"]] },
+		{ from = [[damage = "0.1"]], to=[[damage="0"]] },
 	})
 end
 
@@ -86,4 +93,8 @@ patch_less_annoyances()
 patch_fixes()
 patch_enemy_changes()
 
-return {}
+return {
+	player_spawned = function()
+		EntityLoad("mods/noita.hardmod/files/modules/stronger_enemies/entities/hardmod_wizard_confusion.xml", 627, -125)
+	end
+}
