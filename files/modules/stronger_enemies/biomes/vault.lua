@@ -6,21 +6,15 @@ PatchEnemies(g_small_enemies, {
 
 AddEnemies(g_big_enemies, {
 	{
-		prob   		= 0.09,
-		min_count	= 1,
-		max_count	= 1,
-		entity 	= "data/entities/animals/wizard_poly.xml"
+		prob = 0.09,
+		entity = "data/entities/animals/wizard_poly.xml"
 	},
 	{
-		prob      = 0.05,
-		min_count = 1,
-		max_count = 1,
-		entity    = "data/entities/animals/thundermage_big.xml"
+		prob = 0.05,
+		entity = "data/entities/animals/thundermage_big.xml"
 	},
 	{
-		prob   		= 0.1,
-		min_count	= 1,
-		max_count	= 1,
-		entity 	= "data/entities/animals/weakspirit.xml",
+		prob = 0.1,
+		entity = "data/entities/animals/weakspirit.xml",
 	},
 })

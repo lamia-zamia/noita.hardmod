@@ -33,6 +33,9 @@ end
 
 function AddEnemies(tbl, spawns)
   for _,enemy in pairs(spawns) do
+	enemy.min_count = enemy.min_count or 1
+	enemy.max_count = enemy.max_count or 1
+
     table.insert(tbl, enemy)
   end
 end
