@@ -33,11 +33,11 @@ local evil_level = (y * 31469 + m * 929 + d * 541) % 100 + 1
 
 local months = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
 
-local splashes = {
-	-- TODO: update this before release
-	-- (you can use `tokei`, or just ping me on discord @.qtyui)
-	"15,000 Lines Of Code",
+local lines_of_code = "21,633"---Updated by `scripts/build.js`, do not edit or format
 
+---@type (splash_entry | string)[]
+local splashes = {
+	lines_of_code.." Lines Of Code",
 	"Evil Level Today: " .. evil_level .. "%",
 	"Today is "..months[m].." "..utils.EnglishOrd(d)..", "..y,
 	"2K"..(y % 100),
@@ -122,8 +122,8 @@ end
 local custom_splashes = {
 	{"Hämis ", { image = "data/ui_gfx/hud/health.png", scale = 1.5, color= {r = 1, g = 0, b = 1} }}
 }
-for _,splash in ipairs(custom_splashes) do
-	splashes[#splashes+1] = splash
+for _,splash in pairs(custom_splashes) do
+	table.insert(splashes, splash)
 end
 
 local win_splashes = {

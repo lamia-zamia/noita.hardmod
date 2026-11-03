@@ -8,10 +8,10 @@ local x, y = EntityGetTransform(player)
 
 ---@type integer
 local state = ComponentGetValue2(comp, "mTimesExecuted")
--- print("script state "..state)
+print("script state "..state)
 
 local function die()
-	-- print("fucking DYING")
+	print("fucking DYING")
 	EntityRemoveComponent(hitfx, comp)
 	EntityKill(hitfx)
 end
@@ -41,10 +41,9 @@ if i2comp then
 		utils.SetInternalInt(player, "confuse_player_active_item", item)
 	end
 
-	if state == 0 or state == 2 then
+	if state < 3 then
 		ComponentSetValue2(i2comp, "mForceRefresh", true)
 		ComponentSetValue2(i2comp, "mActiveItem", 0)
-		ComponentSetValue2(i2comp, "mActualActiveItem", 0)
 	end
 end
 
@@ -105,7 +104,7 @@ if state == 2 then
 	GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/mana_fully_recharged", x, y)
 end
 
-if state == 3 then
+if state == 4 then
 	local item = utils.GetInternalInt(player, "confuse_player_new_active_item", false)
 	utils.SetInternalInt(player, "confuse_player_new_active_item", 0)
 
@@ -115,6 +114,6 @@ if state == 3 then
 	end
 end
 
-if state >= 3 then
+if state >= 4 then
 	die()
 end

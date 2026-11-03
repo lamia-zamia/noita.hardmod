@@ -14,6 +14,5 @@
 <!-- rapidfire_nerfs --><QuadChar id="71" rect_x="96" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
 <!-- ring_of_returning --><QuadChar id="72" rect_x="112" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
 <!-- trial_perks --><QuadChar id="73" rect_x="128" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
-<!-- truly_limited_spells --><QuadChar id="74" rect_x="144" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
-<!-- vanilla_perk_rebalances --><QuadChar id="75" rect_x="160" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
+<!-- vanilla_perk_rebalances --><QuadChar id="74" rect_x="144" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
 </FontData>

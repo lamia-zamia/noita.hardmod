@@ -1,4 +1,4 @@
-<Entity name="$hardmod_animal_wizard_confusion" tags="hardmod_blessed">
+<Entity name="$hardmod_animal_wizard_confusion" tags="polymorphable_NOT,hardmod_blessed">
   
 	<Base file="data/entities/base_enemy_basic.xml" >
 		<ItemChestComponent level="2" > </ItemChestComponent>
@@ -24,10 +24,18 @@
 		</AnimalAIComponent>
 		
 		<DamageModelComponent 
-            hp="4"
+            hp="6"
             ragdoll_material="meat_confusion"
 			ragdoll_filenames_file="data/ragdolls/wizard_tele/filenames.txt" 
-			>
+			critical_damage_resistance="1.0"
+			healing_particle_effect_entity="data/entities/particles/heal_effect.xml"
+		>
+			<damage_multipliers
+				explosion="-0.5"
+				electricity="-0.5"
+				ice="-0.5"
+				fire="0.0"
+			></damage_multipliers>
 		</DamageModelComponent>
 
 		<SpriteComponent 
@@ -128,8 +136,8 @@
 	<Entity name="cape">  
         <Base file="data/entities/verlet_chains/cape/cape.xml">  
         	<VerletPhysicsComponent
-        		cloth_color_edge="0xff808497"
-        		cloth_color="0xff5c5363">
+        		cloth_color_edge="0xff9da2bd"
+        		cloth_color="0xff5a4969">
         	</VerletPhysicsComponent>
         </Base>  
     </Entity>
