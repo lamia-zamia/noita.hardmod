@@ -152,6 +152,27 @@ local hooks = {
 		["SIGMA"] = { mana = 90 },
 		["MU"] = { mana = 90 },
 		["ELECTRIC_CHARGE"] = { mana = 15 },
+		["ADD_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0.8" },
+		["ADD_TIMER"] = { mana = 88, spawn_level = "10", spawn_probability = "0.8" },
+		["ADD_DEATH_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0.8" },
+		["SCATTER_2"] = {
+			action = function()
+				draw_actions(2, true)
+				c.spread_degrees = c.spread_degrees + 4.0
+			end,
+		},
+		["SCATTER_3"] = {
+			action = function()
+				draw_actions(2, true)
+				c.spread_degrees = c.spread_degrees + 8.0
+			end,
+		},
+		["SCATTER_4"] = {
+			action = function()
+				draw_actions(2, true)
+				c.spread_degrees = c.spread_degrees + 16.0
+			end,
+		},
 		["SUMMON_WANDGHOST"] = {
 			spawn_level = "10",
 			spawn_probability = "0.1",

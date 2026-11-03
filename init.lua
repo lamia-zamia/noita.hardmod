@@ -152,15 +152,17 @@ utils.modifile("data/scripts/perks/perk_reflect.lua",
 		perk.ui_description,
 		perk.ui_icon,
 		perk.perk_icon
-		) end]])
+		) end]]
+)
 
-utils.patchifile("data/scripts/gun/gun_collect_metadata.lua", {
-	{
-		from = [[register_action( c )]],
-		insert_before = [[ if not action.not_progress then ]],
-		insert_after = [[ end ]]
-	}
-})
+-- todo this doesnt work
+-- utils.patchifile("data/scripts/gun/gun_collect_metadata.lua", {
+-- 	{
+-- 		from = [[register_action( c )]],
+-- 		insert_before = [[ if not action.not_progress then ]],
+-- 		insert_after = [[ end ]]
+-- 	}
+-- })
 
 function OnModPreInit()
 	for _,func in ipairs(hooks.mod_pre_init) do

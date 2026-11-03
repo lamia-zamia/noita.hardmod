@@ -1,4 +1,7 @@
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
+local lootlib = dofile_once("mods/noita.hardmod/lib/lootlib.lua") ---@type lootlib
+
+lootlib.add_patch_script("mods/noita.hardmod/files/modules/vanilla_spell_rebalances/lootlib_patch.lua")
 
 local mists = { "slime", "alcohol", "blood", "radioactive" }
 for _,mist in pairs(mists) do

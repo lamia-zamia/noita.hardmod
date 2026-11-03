@@ -34,7 +34,7 @@ hooks.spell_patches = {
 	["SPREAD_REDUCE"] = {
 		mana = 2,
 		action = function ()
-			c.spread_degrees = c.spread_degrees - 20.0
+			c.spread_degrees = c.spread_degrees - 15.0
 			draw_actions(1, true)
 		end
 	},
@@ -111,7 +111,7 @@ hooks.new_spells = {
 		sprite = "mods/noita.hardmod/files/modules/rapidfire_nerfs/ui_gfx/null_mana.png",
 		type = ACTION_TYPE_MODIFIER,
 		spawn_level = "2,3,4,5,6",
-		spawn_probability = "0.7,0.9,0.9,1,1",
+		spawn_probability = "0.6,0.8,0.9,1,1",
 		price = 160,
 		mana = -20,
 		action = function()
@@ -172,8 +172,8 @@ hooks.new_spells = {
 		sprite			  = "mods/noita.hardmod/files/modules/rapidfire_nerfs/ui_gfx/mini_chainsaw.png",
 		related_projectiles = { "mods/noita.hardmod/files/modules/rapidfire_nerfs/entities/chainsaw_mini.xml" },
 		type				= ACTION_TYPE_PROJECTILE,
-		spawn_level		 = "0,2",
-		spawn_probability   = "1,1",
+		spawn_level		 = "1,2,3,4",
+		spawn_probability   = "0.7,0.8,0.9,0.9",
 		price			   = 80,
 		mana				= 6,
 		sound_loop_tag	  = "sound_chainsaw",
