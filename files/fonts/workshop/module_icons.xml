@@ -9,10 +9,14 @@
 <!-- default_module_icon --><QuadChar id="66" rect_x="16" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
 <!-- disabled --><QuadChar id="67" rect_x="32" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
 <!-- alt_fire_anything --><QuadChar id="68" rect_x="48" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
-<!-- nerfed_combat_healing --><QuadChar id="69" rect_x="64" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
-<!-- phantom_nemesis --><QuadChar id="70" rect_x="80" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
-<!-- rapidfire_nerfs --><QuadChar id="71" rect_x="96" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
-<!-- ring_of_returning --><QuadChar id="72" rect_x="112" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
-<!-- trial_perks --><QuadChar id="73" rect_x="128" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
-<!-- vanilla_perk_rebalances --><QuadChar id="74" rect_x="144" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
+<!-- enemy_perks --><QuadChar id="69" rect_x="64" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
+<!-- holy_mountain_rework --><QuadChar id="70" rect_x="80" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
+<!-- nerfed_combat_healing --><QuadChar id="71" rect_x="96" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
+<!-- phantom_nemesis --><QuadChar id="72" rect_x="112" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
+<!-- polymorph_gui --><QuadChar id="73" rect_x="128" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
+<!-- rapidfire_nerfs --><QuadChar id="74" rect_x="144" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
+<!-- ring_of_returning --><QuadChar id="75" rect_x="160" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
+<!-- trial_perks --><QuadChar id="76" rect_x="176" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
+<!-- unshuffle --><QuadChar id="77" rect_x="192" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
+<!-- vanilla_perk_rebalances --><QuadChar id="78" rect_x="208" rect_y="0" width="16" rect_h="16" rect_w="16" offset_x="0" offset_y="0" />
 </FontData>
