@@ -1,5 +1,4 @@
-<Entity name="$hardmod_animal_wizard_confusion" tags="polymorphable_NOT,hardmod_blessed">
-  
+<Entity name="$hardmod_animal_wizard_confusion_name" tags="polymorphable_NOT,hardmod_blessed">
 	<Base file="data/entities/base_enemy_basic.xml" >
 		<ItemChestComponent level="2" > </ItemChestComponent>
 		
@@ -24,7 +23,7 @@
 		</AnimalAIComponent>
 		
 		<DamageModelComponent 
-            hp="6"
+            hp="5"
             ragdoll_material="meat_confusion"
 			ragdoll_filenames_file="data/ragdolls/wizard_tele/filenames.txt" 
 			critical_damage_resistance="1.0"
