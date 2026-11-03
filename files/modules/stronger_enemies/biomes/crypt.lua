@@ -12,7 +12,7 @@ PatchEnemies(g_big_enemies, {
 
 AddEnemies(g_small_enemies, {
 	{
-		prob = 0.05,
+		prob = 0.07,
 		entity = "mods/noita.hardmod/files/modules/stronger_enemies/entities/hardmod_wizard_confusion.xml"
 	},
 })
@@ -27,11 +27,7 @@ AddEnemies(g_big_enemies, {
 		entity = "data/entities/animals/thundermage_big.xml"
 	},
 	{
-		prob = 0.07,
-		entity = "mods/noita.hardmod/files/modules/stronger_enemies/entities/hardmod_wizard_confusion.xml"
-	},
-	{
-		prob = 0.1,
+		prob = 0.15,
 		entity = "mods/noita.hardmod/files/modules/stronger_enemies/entities/hardmod_wizard_confusion.xml"
 	},
 })
