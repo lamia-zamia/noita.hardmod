@@ -15,6 +15,7 @@ local function patch_spawn_rules()
 		"the_end",
 		"vault",
 		"wandcave",
+		"winter",
 		"wizardcave",
 	}
 
