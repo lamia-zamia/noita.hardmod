@@ -10,7 +10,11 @@ AddEnemies(g_big_enemies, {
 		entity = "data/entities/animals/barfer.xml"
 	},
 	{
-		prob = 0.03,
+		prob = 0.04,
 		entity = "data/entities/animals/weakspirit.xml",
+	},
+	{
+		prob = 0.05,
+		entity = "mods/noita.hardmod/files/modules/stronger_enemies/entities/hardmod_wizard_confusion.xml"
 	},
 })

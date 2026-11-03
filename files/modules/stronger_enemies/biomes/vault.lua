@@ -6,6 +6,10 @@ PatchEnemies(g_small_enemies, {
 
 AddEnemies(g_big_enemies, {
 	{
+		prob = 0.07,
+		entity = "mods/noita.hardmod/files/modules/stronger_enemies/entities/hardmod_wizard_confusion.xml"
+	},
+	{
 		prob = 0.09,
 		entity = "data/entities/animals/wizard_poly.xml"
 	},
