@@ -1,8 +1,8 @@
 ---@diagnostic disable: undefined-global
 
-MaxBiomeModifierCount = { default = 1 }
+MaxBiomeModifierCount = { default = 5 }
 BiomeModifierChances = {
-	default = 10.3,
+	default = 0.3,
 	coalmine = 0.2,
 	excavationsite = 0.15,
 	fungiforest = 0.4,
@@ -47,7 +47,6 @@ PatchModifiers({
 		ui_name = "$hardmod_biomemodifier_name_freezing"
 	},
 	SPOOKY = {
-		probability = 1000,
 		action = function(name, filename)
 			-- BiomeSetValue(filename, "color_grading_grayscale", 1)
 			BiomeObjectSetValue(filename, "modifiers", "dust_amount", 0.9)
