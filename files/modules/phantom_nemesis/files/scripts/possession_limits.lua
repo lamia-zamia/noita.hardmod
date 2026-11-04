@@ -5,6 +5,7 @@ possession_limit_per_biome = {
     {id="$biome_forest",limit=2},
     {id="$biome_holymountain",limit=0},
     {id="$biome_excavationsite",limit=1},
+    {id="$hardmod_biomename_sand_pits",limit=1},
     {id="$biome_fungicave",limit=1},
     {id="$biome_snowcave",limit=1},
     {id="$biome_snowcastle",limit=1},
@@ -21,6 +22,15 @@ possession_limit_per_biome = {
 }
 
 default_biome_limit = 3
+
+-- local alts = dofile_once("mods/noita.hardmod/files/modules/alternate_biomes/biome_list.lua")
+
+-- for original,variants in pairs(alts.list) do
+--   for _,variant in pairs(variants) do
+--     if original.name == variant.name then
+--   end
+-- end
+-- TODO: Have alternate versions of vanilla biomes have their limit be automatically filled in
 
 return {
     possession_limit_per_biome   = possession_limit_per_biome,
