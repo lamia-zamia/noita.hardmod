@@ -95,6 +95,6 @@ patch_enemy_changes()
 
 return {
 	player_spawned = function()
-		EntityLoad("mods/noita.hardmod/files/modules/stronger_enemies/entities/hardmod_wizard_confusion.xml", 627, -125)
+		-- EntityLoad("mods/noita.hardmod/files/modules/stronger_enemies/entities/hardmod_wizard_confusion.xml", 627, -125)
 	end
 }

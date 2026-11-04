@@ -24,46 +24,46 @@ local module_data = {
 	{
 		id = "nerfed_combat_healing",
 		name = {
-			en = "Nerfed Combat Healing"
+			en = "Nerfed Combat Healing",
 		},
 		desc = {
-			en = "Whenever you take damage, your healing is disabled for up to 1 minute."
+			en = "Taking damage can give you the Wounded effect, which prevents healing spells and perks.",
 		},
 	},
 	{
 		id = "enemy_perks",
 		name = {
-			en = "Enemy Perks"
+			en = "Enemy Perks",
 		},
 		desc = {
-			en = "Some enemies now spawn with enemy-unique perks!\n(Note, they have a different pool of perks, there are no Glass Cannon enemies!!)"
+			en = "Some enemies now spawn with enemy-unique perks!\n(Note, they have a different pool of perks, there are no Glass Cannon enemies!!)",
 		},
 	},
 	{
 		id = "trappier_traps",
 		name = {
-			en = "Trappier Traps"
+			en = "Trappier Traps",
 		},
 		desc = {
-			en = "Makes traps more dangerous."
+			en = "Makes traps more dangerous.",
 		},
 	},
 	{
 		id = "cheeseless_triggers",
 		name = {
-			en = "Cheeseless Triggers"
+			en = "Cheeseless Triggers",
 		},
 		desc = {
-			en = "The cast delay of spells is now also applied when they are part of a trigger payload."
+			en = "The cast delay & spread of spells is now also applied when they are part of a trigger payload.\n(Note: best enabled together with 'Vanilla Spell Rebalances' and 'Rapidfire Nerfs')",
 		},
 	},
 	{
 		id = "starter_wands",
 		name = {
-			en = "Buff Starter Wands"
+			en = "Buff Starter Wands",
 		},
 		desc = {
-			en = "What it says on the tin."
+			en = "What it says on the tin.",
 		},
 	},
 	{
@@ -90,25 +90,34 @@ local module_data = {
 			en = "Vanilla Spell Rebalances"
 		},
 		desc = {
-			en = ""
+			en = "Rebalances, reworks, removes and replaces some vanilla spells.\nIntegral to the progression."
 		},
+	},
+	{
+		id = "spells_reweighted",
+		name = {
+			en = "Spells Reweighted"
+		},
+		desc = {
+			en = "Changes vanilla spell spawn chances, where they spawn, and their mana consumption"
+		}
 	},
 	{
 		id = "vanilla_quests",
 		name = {
-			en = "Vanilla Quests"
+			en = "Vanilla Quest Reworks"
 		},
 		desc = {
-			en = ""
+			en = "Important changes & rebalances to vanilla quests"
 		},
 	},
 	{
 		id = "vanilla_bosses",
 		name = {
-			en = "Vanilla Bosses"
+			en = "Vanilla Boss Reworks"
 		},
 		desc = {
-			en = ""
+			en = "Important changes & rebalances to vanilla bosses"
 		},
 	},
 	{
@@ -135,7 +144,7 @@ local module_data = {
 			en = "Holy Mountain Items"
 		},
 		desc = {
-			en = ""
+			en = "Makes healing and spell refresh in Holy Mountains paid"
 		},
 	},
 	{
@@ -153,7 +162,7 @@ local module_data = {
 			en = "No More Max HP Cheesing"
 		},
 		desc = {
-			en = ""
+			en = "It had to go, sorry."
 		},
 	},
 	{
@@ -177,28 +186,19 @@ local module_data = {
 	{
 		id = "ending",
 		name = {
-			en = "Ending"
+			en = "Victory"
 		},
 		desc = {
-			en = ""
+			en = "Changes the final boss of the game, and adds a cosmetic that you get for winning.\nNote: the cosmetic is only given if you have all modules integral to the progression enabled"
 		},
 	},
 	{
 		id = "nerf_vanilla_cheeses",
 		name = {
-			en = "Nerf Vanilla Cheeses"
+			en = "Nerf Vanilla Cheeses",
 		},
 		desc = {
-			en = ""
-		},
-	},
-	{
-		id = "nerf_vanilla_damage",
-		name = {
-			en = "Nerf Vanilla Damage"
-		},
-		desc = {
-			en = ""
+			en = "Can't let ya have too much cheese, sorry.",
 		},
 	},
 	{
@@ -207,7 +207,7 @@ local module_data = {
 			en = "Chest Tweaks"
 		},
 		desc = {
-			en = ""
+			en = "Changes chest loot and adds two chest-related perks"
 		},
 	},
 	{
@@ -216,17 +216,21 @@ local module_data = {
 			en = "Better Hiisi Anvil"
 		},
 		desc = {
-			en = ""
+			en = "Makes repaired broken wands better, and lets you find & repair broken spells2,\nat the cost of randomizing the anvil's location."
 		},
 	},
 	{
+		-- TODO: merge to vanilla spell rebalances?
 		id = "rapidfire_nerfs",
 		name = {
 			en = "Rapidfire Nerfs"
 		},
-		desc = "The Chainsaw spell only halves cast delay, and spawns later. Early on, you may find the Mini Chainsaw spell instead.",
+		desc = {
+			en = "Changes to Chainsaw and Add Mana; also adds more alternative spells",
+		}
 	},
 	{
+		-- TODO: merge to vanilla perk rebalances?
 		id = "trial_perks",
 		name = {
 			en = "Trial Perks"
@@ -241,7 +245,7 @@ local module_data = {
 			en = "Biome Map Changes"
 		},
 		desc = {
-			en = ""
+			en = "Changes the entire world layout, and adds some custom things.\nIntegral to the progression"
 		},
 	},
 	{
@@ -250,25 +254,25 @@ local module_data = {
 			en = "Biome Modifiers+"
 		},
 		desc = {
-			en = ""
+			en = "Reworks the biome modifier system"
 		},
 	},
 	{
 		id = "stronger_enemies",
 		name = {
-			en = "Stronger Enemies"
+			en = "Enemy Rebalances"
 		},
 		desc = {
-			en = ""
+			en = "Changes what enemies spawn where, rebalances existing enemies and adds custom ones.\nIntegral to the progression."
 		},
 	},
 	{
 		id = "potions",
 		name = {
-			en = "Potions"
+			en = "Potion Rebalances"
 		},
 		desc = {
-			en = ""
+			en = "Makes the alchemist's flasks actually larger, and changes what potions can generate on pedestals"
 		},
 	},
 	{
@@ -277,7 +281,7 @@ local module_data = {
 			en = "Alt. Biomes"
 		},
 		desc = {
-			en = ""
+			en = "Adds some alternative variants to existing biomes"
 		},
 	},
 	{
@@ -286,7 +290,7 @@ local module_data = {
 			en = "Polymorph GUI"
 		},
 		desc = {
-			en = ""
+			en = "Baa"
 		},
 	},
 	{
@@ -295,7 +299,7 @@ local module_data = {
 			en = "Vanilla Bugfixes"
 		},
 		desc = {
-			en = ""
+			en = "Some vanilla bugfixes"
 		},
 	},
 }
@@ -306,7 +310,7 @@ local lang_keys = {
 	["Português (Brasil)"] = "ptbr",
 	["Español"] = "eses",
 	["Deutsch"] = "de",
-	["Français"] = "frfr",
+	["Français"] = "frfr", -- for real for real
 	["Italiano"] = "it",
 	["Polska"] = "pl",
 	["简体中文"] = "zhcn",
@@ -740,29 +744,6 @@ local mod_id = "noita.hardmod" -- This should match the name of your mod's folde
 mod_settings_version = 1 -- This is a magic global that can be used to migrate settings to new mod versions. call mod_settings_get_version() before mod_settings_update() to get the old value.
 mod_settings =
 {
-	{
-		category_id = "limited_spells_settings",
-		ui_name = "Truly Limited Spells",
-		ui_description = "Which button should be used to cast Alt Fire Anything?",
-		foldable = true,
-		_folded = true,
-		settings = {
-			{
-				id = "print_indulgence_cost",
-				ui_name = "Print Indulgence cost",
-				ui_description = "When enabled, casting the Indulgence spell will print\nits cost at the tip of your wand.",
-				value_default = true,
-				scope = MOD_SETTING_SCOPE_RUNTIME,
-			},
-			{
-				id = "spawn_truly_unlimited_spells_test_package",
-				ui_name = "[TEMP] Test Mode",
-				ui_description = "For testing this module. Requires a new game.\n(REMOVE THIS SETTING BEFORE RELEASE)",
-				value_default = false,
-				scope = MOD_SETTING_SCOPE_NEW_GAME,
-			},
-		}
-	},
 	{
 		category_id = "alt_fire_settings",
 		ui_name = "Alt Fire Anything",

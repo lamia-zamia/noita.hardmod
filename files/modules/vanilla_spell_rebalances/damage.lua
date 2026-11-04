@@ -42,17 +42,3 @@ for _,proj in pairs(lasers) do
     end
   end
 end
-
-return {
-  new_eid = function (eid)
-    if not EntityHasTag(eid, "enemy") then return end
-
-    local dmc = EntityGetComponent(eid, "DamageModelComponent")
-    if not dmc then return end
-
-    for _,comp in pairs(dmc) do
-      -- :)
-      ComponentObjectSetValue2(comp, "damage_multipliers", "physics_hit", 0.001)
-    end
-  end
-}

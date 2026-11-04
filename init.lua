@@ -20,6 +20,7 @@ local modules = {
 	"unshuffle",
 	"vanilla_perk_rebalances",
 	"vanilla_spell_rebalances",
+	"spells_reweighted",
 	"vanilla_quests",
 	"vanilla_bosses",
 	--"no_more_chainsaw_wrapping", -- shit module never enable
@@ -33,7 +34,6 @@ local modules = {
 	"ending",
 	"credits",
 	"nerf_vanilla_cheeses",
-	"nerf_vanilla_damage",
 	-- replaced by `ending` module requiring 11 orbs to pickup sampo
 	-- "stronger_kolmi",
 	"chest_tweaks",
@@ -42,7 +42,6 @@ local modules = {
 	"trial_perks",
 	"biome_map",
 	"biome_modifiers",
-	"wizards",
 	"stronger_enemies",
 	"potions",
 	"alternate_biomes",
@@ -95,6 +94,7 @@ local hooks = {
 }
 
 HARDMOD_GLOBAL_DATA = { ---@class HardmodGlobalInitData
+	module_ids = modules,
 	player = nil, --player EID.
 	player_poly_identity = nil, --contains some data on the player if they are polymorphed, nil if not polymorphed.
 	player_does_not_exist = true, --this is set to false on `player_spawned` and set to true on `player_destroyed`.
@@ -152,15 +152,17 @@ utils.modifile("data/scripts/perks/perk_reflect.lua",
 		perk.ui_description,
 		perk.ui_icon,
 		perk.perk_icon
-		) end]])
+		) end]]
+)
 
-utils.patchifile("data/scripts/gun/gun_collect_metadata.lua", {
-	{
-		from = [[register_action( c )]],
-		insert_before = [[ if not action.not_progress then ]],
-		insert_after = [[ end ]]
-	}
-})
+-- todo this doesnt work
+-- utils.patchifile("data/scripts/gun/gun_collect_metadata.lua", {
+-- 	{
+-- 		from = [[register_action( c )]],
+-- 		insert_before = [[ if not action.not_progress then ]],
+-- 		insert_after = [[ end ]]
+-- 	}
+-- })
 
 function OnModPreInit()
 	for _,func in ipairs(hooks.mod_pre_init) do
