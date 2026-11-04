@@ -144,17 +144,14 @@ local hooks = {
 		["BOMB"] = { max_uses = 5 },
 		["MINE"] = { max_uses = 20 },
 		["GRENADE"] = { max_uses = 30 },
-		["TELEPORT_PROJECTILE"] = { mana = 20 },
-		["TELEPORT_PROJECTILE_SHORT"] = { mana = 30 },
 		["ALPHA"] = { mana = 80 },
 		["GAMMA"] = { mana = 80 },
 		["TAU"] = { mana = 120 },
 		["SIGMA"] = { mana = 90 },
 		["MU"] = { mana = 90 },
-		["ELECTRIC_CHARGE"] = { mana = 15 },
-		["ADD_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0.8" },
-		["ADD_TIMER"] = { mana = 88, spawn_level = "10", spawn_probability = "0.8" },
-		["ADD_DEATH_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0.8" },
+		["ADD_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0.2" },
+		["ADD_TIMER"] = { mana = 88, spawn_level = "10", spawn_probability = "0.2" },
+		["ADD_DEATH_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0.2" },
 		["SCATTER_2"] = {
 			action = function()
 				draw_actions(2, true)
@@ -179,7 +176,7 @@ local hooks = {
 			max_uses = 0,
 		},
 		["FREEZE"] = {
-			mana = 20,
+			mana = 25,
 			action = function()
 				apply_freeze()
 				c.damage_ice_add = c.damage_ice_add + 0.2
@@ -233,10 +230,26 @@ local hooks = {
 	}
 }
 
+local mats = { "MATERIAL_WATER", "MATERIAL_OIL", "MATERIAL_BLOOD", "MATERIAL_CEMENT", "WATER_TRAIL" }
+local crits = { "HITFX_CRITICAL_WATER", "HITFX_CRITICAL_OIL", "HITFX_CRITICAL_BLOOD" }
+
+for _,spell in pairs(mats) do hooks.spell_patches[spell] = { mana = 15 } end
+for _,spell in pairs(crits) do hooks.spell_patches[spell] = { mana = 20 } end
+
+local curses = { "CURSE_WITHER_PROJECTILE", "CURSE_WITHER_EXPLOSION", "CURSE_WITHER_MELEE", "CURSE_WITHER_ELECTRICITY" }
+for _,spell in pairs(curses) do
+	hooks.spell_patches[spell] = {
+		spawn_level = "5,6,10",
+		spawn_probability = "0.7,0.7,0.1",
+	}
+end
+
 local reduce_dmg = {
 	HOMING = 0.3,
+	HOMING_ACCELERATING = 0.3,
 	HOMING_SHORT = 0.2,
 	HOMING_ROTATE = 0.2,
+	AUTOAIM = 0.2,
 }
 
 hooks.edit_spell = function(spell)

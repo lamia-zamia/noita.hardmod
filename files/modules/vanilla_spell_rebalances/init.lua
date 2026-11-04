@@ -2,6 +2,7 @@ local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 local lootlib = dofile_once("mods/noita.hardmod/lib/lootlib.lua") ---@type lootlib
 
 lootlib.add_patch_script("mods/noita.hardmod/files/modules/vanilla_spell_rebalances/lootlib_patch.lua")
+ModMagicNumbersFileAdd("mods/noita.hardmod/files/modules/vanilla_spell_rebalances/magic_numbers.xml")
 
 local mists = { "slime", "alcohol", "blood", "radioactive" }
 for _,mist in pairs(mists) do
@@ -42,6 +43,25 @@ for file in nxml.edit_file("data/entities/misc/homing.xml") do
 		comp:set("homing_targeting_coeff", 200)
 		comp:set("homing_velocity_multiplier", 0.7)
 		comp:set("detect_distance", 120)
+	end
+end
+
+local notes = {
+	"kantele/kantele_a", "kantele/kantele_d",
+	"kantele/kantele_dis", "kantele/kantele_e",
+	"kantele/kantele_g", "ocarina/ocarina_a",
+	"ocarina/ocarina_a2", "ocarina/ocarina_b",
+	"ocarina/ocarina_c", "ocarina/ocarina_d",
+	"ocarina/ocarina_e", "ocarina/ocarina_f",
+	"ocarina/ocarina_gsharp",
+}
+
+for _,note in pairs(notes) do
+	for file in nxml.edit_file("data/entities/projectiles/deck/"..note..".xml") do
+		local proj = file:first_of("ProjectileComponent")
+		if not proj then break end
+
+		proj:set("on_collision_die", true)
 	end
 end
 

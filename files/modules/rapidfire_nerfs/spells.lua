@@ -31,6 +31,15 @@ hooks.spell_patches = {
 			draw_actions(1, true)
 		end
 	},
+	["SLOW_BUT_STEADY"] = {
+		description = "$hardmod_spell_slow_but_steady_desc",
+		mana = -40,
+		action = function ()
+			current_reload_time = math.max(90, current_reload_time)
+			shot_effects.recoil_knockback = shot_effects.recoil_knockback - 100.0
+			draw_actions(1, true)
+		end
+	},
 	["SPREAD_REDUCE"] = {
 		mana = 2,
 		action = function ()
@@ -201,19 +210,12 @@ hooks.new_spells = {
 	},
 }
 
-local materials = { "MATERIAL_WATER", "MATERIAL_OIL", "MATERIAL_BLOOD", "MATERIAL_CEMENT" }
-for _,material in pairs(materials) do
-	hooks.spell_patches[material] = {
-		mana = 12
-	}
-end
-
 hooks.edit_spell = function(spell)
 	if spell.spawn_requires_flag == "card_unlocked_paint" then
 		-- they're still very good, but you have to do a quest to get them
 		spell.spawn_level = ""
 		spell.spawn_probability = "0"
-		spell.mana = 1
+		spell.mana = 3
 
 		--local orig_action = action.action
 		--action.action = function()
