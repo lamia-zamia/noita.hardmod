@@ -71,7 +71,7 @@ function GenerateToolboxSpells( toolbox, amount, do_print )
 end
 
 local function get_actions_lua_data( action_id )
-    dofile_once( "data/scripts/gun/gun_actions.lua" )
+    if not actions then dofile_once("data/scripts/gun/gun_actions.lua") end
     for i,action in ipairs( actions ) do
         if action.id == action_id then
             return action

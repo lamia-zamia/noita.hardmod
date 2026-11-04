@@ -1,7 +1,7 @@
 local dev_messages = {
 	{
 		from = "qtyui_",
-		message = "Working on this mod was very fun. I hope you had fun, player,\nand congratulations on winning Hard Mod!",
+		message = "Working on this mod was very fun. This is my first time ever working on a mod this large,\nand I'm proud to have written more than 10,000 lines of code for this mod!\nI hope you had fun, player, and congratulations on winning Hard Mod!",
 		credit = "https://yui.dev"
 	},
 	{
@@ -11,20 +11,49 @@ local dev_messages = {
 	}
 }
 
-local credits = ModTextFileGetContent("mods/noita.hardmod/files/credits.txt")
+local FINAL_WORDS = [[
+ 
+ 
+===========
+FINAL WORDS
+===========
+ 
+ 
+ 
+ 
+ 
+]]
+local COMMIT_HISTORY = [[
+ 
+==============
+COMMIT HISTORY
+==============
+ 
+ 
+]]
 
-if #dev_messages > 0 then
-	credits = credits .. "\n \n \n \n \n \n \n===========\nFINAL WORDS\n===========\n \n"
-	for _,msg in pairs(dev_messages) do
-		credits = credits.."MESSAGE FROM "..msg.from.."\n~"..msg.message.."~\n(c) "..msg.credit.."\n \n"
+local credits = ModTextFileGetContent("mods/noita.hardmod/files/credits.txt")
+local commit_log = ModTextFileGetContent("mods/noita.hardmod/files/modules/credits/commit_log.txt")
+
+local disabled_modules = {}
+for _,module in pairs(HARDMOD_GLOBAL_DATA.module_ids) do
+	if ModSettingGet("noita.hardmod."..module..".disabled") then
+		table.insert(disabled_modules, module)
 	end
 end
 
-credits = (
-	credits
-	.. "\n \n=============\nCOMMIT HISTORY\n=============\n \n \n"
-	.. ModTextFileGetContent("mods/noita.hardmod/files/modules/credits/commit_log.txt")
-)
+if #disabled_modules > 0 then
+	credits = credits .. "\n \nDisabled modules:\n- " .. table.concat(disabled_modules, "\n- ") .. "\n \nTry again with these modules enabled? :)\n \n \n"
+end
+
+if #dev_messages > 0 then
+	credits = credits .. FINAL_WORDS
+	for _,msg in pairs(dev_messages) do
+		credits = credits.." \n \n \n \n \nMESSAGE FROM "..msg.from.."\n~"..msg.message.."~\n(c) "..msg.credit.."\n \n \n \n \n"
+	end
+end
+
+credits = credits .. COMMIT_HISTORY .. commit_log
 
 local function escape(str) return str:gsub("[%(%)%.%%%+%-%*%?%[%^%$%]]", "%%%1") end
 local function add_release_break(target, release)

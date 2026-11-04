@@ -1,0 +1,101 @@
+local hooks = {
+	spell_patches = {
+		["BOMB"] = { max_uses = 5 },
+		["MINE"] = { max_uses = 20 },
+		["GRENADE"] = { max_uses = 30 },
+		["TELEPORT_PROJECTILE"] = { mana = 20 },
+		["TELEPORT_PROJECTILE_SHORT"] = { mana = 30 },
+		["ALPHA"] = { mana = 80 },
+		["GAMMA"] = { mana = 80 },
+		["TAU"] = { mana = 120 },
+		["SIGMA"] = { mana = 90 },
+		["MU"] = { mana = 90 },
+		["ELECTRIC_CHARGE"] = { mana = 25 },
+		["ADD_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
+		["ADD_TIMER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
+		["ADD_DEATH_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
+		["LIGHT_BULLET"] = { mana = 6 },
+		["LIGHT_BULLET_TIMER"] = { mana = 20, spawn_level = "2,3,4,5", spawn_probability = "0.5,0.6,0.8,0.8" },
+		["LIGHT_BULLET_TRIGGER"] = { mana = 25, spawn_level = "2,3,4,5", spawn_probability = "0.4,0.5,0.7,0.7" },
+		["LIGHT_BULLET_TRIGGER_2"] = { mana = 30, spawn_level = "2,3,4,5", spawn_probability = "0.3,0.4,0.6,0.6" },
+		["BULLET"] = { mana = 10 },
+		["HEAVY_BULLET"] = { mana = 13 },
+		["BULLET_TIMER"] = { mana = 20 },
+		["HEAVY_BULLET_TIMER"] = { mana = 20 },
+		["BULLET_TRIGGER"] = { mana = 25 },
+		["HEAVY_BULLET_TRIGGER"] = { mana = 25 },
+		["HOOK"] = { mana = 10, spawn_level = "1,2,3,4,5", spawn_probability = "0.4,0.5,0.5,0.3,0.2" },
+		["BLACK_HOLE"] = { spawn_level = "3,4,5,6,10", spawn_probability = "0.8,0.8,0.9,1,1" },
+		["BLACK_HOLE_DEATH_TRIGGER"] = { spawn_level = "3,4,5,6,10", spawn_probability = "0.8,0.8,0.9,1,1" },
+		["WHITE_HOLE"] = { spawn_level = "3,4,5,6,10", spawn_probability = "0.05,0.1,0.2,0.3,0.5" },
+		["SPITTER_TIER_2"] = { mana = 14 },
+		["SPITTER_TIER_2_TIMER"] = { mana = 21 },
+		["SPITTER_TIER_3"] = { mana = 17 },
+		["SPITTER_TIER_3_TIMER"] = { mana = 24 },
+		["FISH"] = { never_unlimited = true, max_uses = 10 },
+		["EXPLODING_DEER"] = { never_unlimited = true, max_uses = 5 },
+		["EXPLODING_DUCKS"] = { never_unlimited = true, max_uses = 10, mana = 120 },
+		["LASER"] = { mana = 15 },
+		["TENTACLE"] = { mana = 40, spawn_level = "5,6", spawn_probability = "0.5,0.5" },
+		["TENTACLE_TIMER"] = { mana = 40, spawn_level = "5,6", spawn_probability = "0.5,0.5" },
+		["BUCKSHOT"] = { mana = 20 },
+		["FREEZING_GAZE"] = { never_unlimited = true },
+		["MIST_SLIME"] = { mana = 50 },
+		["LIFETIME"] = { mana = 20 },
+		["LIFETIME_DOWN"] = { mana = 15 },
+		["NOLLA"] = { mana = 5 },
+		["EXPLOSION_REMOVE"] = { mana = 15 },
+		["PINGPONG_PATH"] = { mana = 15 },
+		["HORIZONTAL_ARC"] = { mana = 15 },
+		["LINE_ARC"] = { mana = 11 },
+		["ORBIT_SHOT"] = { mana = 12 },
+		["SPIRALING_SHOT"] = { mana = 13 },
+		["PHASING_ARC"] = { mana = 10 },
+		["TRUE_ORBIT"] = { mana = 10 },
+		["HOMING"] = { spawn_level = "3,4,5,6", spawn_probability = "0.2,0.3,0.3,0.3" },
+		["HOMING_SHORT"] = { mana = 50, spawn_level = "3,4,5,6", spawn_probability = "0.3,0.4,0.4,0.4" },
+		["HOMING_ROTATE"] = { mana = 50, spawn_level = "3,4,5,6", spawn_probability = "0.3,0.4,0.4,0.4" },
+		["AUTOAIM"] = { mana = 40 },
+		["HOMING_ACCELERATING"] = { mana = 60, spawn_level = "3,4,5,6", spawn_probability = "0.2,0.3,0.3,0.3" },
+		["HOMING_AREA"] = { mana = 100 },
+		["DAMAGE"] = { mana = 11 },
+		["BLOODLUST"] = { mana = 11 },
+		["HEAVY_SHOT"] = { mana = 30 },
+		["SPEED"] = { mana = 5 },
+		["FLY_DOWNWARDS"] = { mana = 4 },
+		["FLY_UPWARDS"] = { mana = 4 },
+		["ACCELERATING_SHOT"] = { mana = 30 },
+		["CLUSTERMOD"] = { mana = 40 },
+		["LAVA_TO_BLOOD"] = { mana = 50 },
+		["DAMAGE_FOREVER"] = { never_unlimited = true },
+		["FIREBALL_RAY_ENEMY"] = { max_uses = 10 },
+		["LIGHTNING_RAY_ENEMY"] = { max_uses = 10 },
+		["TENTACLE_RAY_ENEMY"] = { max_uses = 10 },
+		["ORBIT_FIREBALLS"] = { mana = 60 },
+		["BURST_X"] = { max_uses = -1 },
+		["SUMMON_WANDGHOST"] = { spawn_level = "10", spawn_probability = "0.1", max_uses = 0 },
+		["FREEZE"] = { mana = 25 },
+		["FREEZE_FIELD"] = { mana = 75, max_uses = 3, never_unlimited = true },
+		["POLYMORPH_FIELD"] = { mana = 90, max_uses = 3, never_unlimited = true },
+		["ELECTROCUTION_FIELD"] = { mana = 50, max_uses = 10 },
+		["CHAOS_POLYMORPH_FIELD"] = { mana = 50 },
+  		["AREA_DAMAGE"] = { mana = 60 },
+		["EXPLOSIVE_PROJECTILE"] = { mana = 60 }
+	}
+}
+
+local mats = { "MATERIAL_WATER", "MATERIAL_OIL", "MATERIAL_BLOOD", "MATERIAL_CEMENT", "WATER_TRAIL" }
+local crits = { "HITFX_CRITICAL_WATER", "HITFX_CRITICAL_OIL", "HITFX_CRITICAL_BLOOD" }
+
+for _,spell in pairs(mats) do hooks.spell_patches[spell] = { mana = 15 } end
+for _,spell in pairs(crits) do hooks.spell_patches[spell] = { mana = 20 } end
+
+local curses = { "CURSE_WITHER_PROJECTILE", "CURSE_WITHER_EXPLOSION", "CURSE_WITHER_MELEE", "CURSE_WITHER_ELECTRICITY" }
+for _,spell in pairs(curses) do
+	hooks.spell_patches[spell] = {
+		spawn_level = "5,6,10",
+		spawn_probability = "0.7,0.7,0.1",
+	}
+end
+
+return hooks

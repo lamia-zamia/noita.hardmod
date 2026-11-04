@@ -57,9 +57,7 @@
     </BitmapCaves>
   </Topology>
 
-  <Materials 
-    name="coalmine" 
-     >
+  <Materials name="coalmine">
     <MaterialComponent 
       _enabled="1" 
       is_rare="1" 

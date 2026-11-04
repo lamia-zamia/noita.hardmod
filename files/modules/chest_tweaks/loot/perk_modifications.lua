@@ -2,15 +2,15 @@ local lootlib = dofile_once("mods/noita.hardmod/lib/lootlib.lua")---@type lootli
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
 lootlib.on_chest_pre_open(function (ctx, tbl, tname)
-  local extra_rolls = (utils.GetPerkPickupCount("HARDMOD_BETTER_CHESTS") or 0) * 4
+	local extra_rolls = (utils.GetPerkPickupCount("HARDMOD_BETTER_CHESTS") or 0) * 3
 
-  if tname == "chest_random_super" then
-    extra_rolls = extra_rolls + 4
-  elseif tname == "chest_random" then
-    extra_rolls = extra_rolls + 1
-  end
+	if tname == "chest_random_super" then
+		extra_rolls = extra_rolls + 5
+	elseif tname == "chest_random" then
+		extra_rolls = extra_rolls + (Random() > 0.5 and 1 or 0)
+	end
 
-  ctx.vars.rolls = ctx.vars.rolls + extra_rolls
+	ctx.vars.rolls = ctx.vars.rolls + extra_rolls
 end)
 
 lootlib.on_chest_post_open(function (ctx, tbl, tname)

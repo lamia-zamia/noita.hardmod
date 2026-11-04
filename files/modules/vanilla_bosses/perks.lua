@@ -10,7 +10,8 @@ return {
 			perk_icon = "mods/noita.hardmod/files/modules/vanilla_bosses/gfx/ui_gfx/perks/gold_shield.png",
 			stackable = false,
 			one_off_effect = false,
-			usable_by_enemies = true,
+			usable_by_enemies = false,
+			not_in_default_perk_pool = true,
 			func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
 				local x, y = EntityGetTransform( entity_who_picked )
 				local shield = EntityLoad( "mods/noita.hardmod/files/modules/vanilla_bosses/entity/gold_shield.xml", x, y )
