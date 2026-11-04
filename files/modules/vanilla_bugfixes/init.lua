@@ -3,6 +3,7 @@ local hooks = {} ---@type hooks
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 
+local _g = HARDMOD_GLOBAL_DATA
 
 
 --[[ NB-1: Spells To Crashes ]]
@@ -307,6 +308,79 @@ utils.modifile("data/scripts/perks/perk.lua", [[perk_spawn( x + (i-0.5)*item_wid
 		[[local perk = perk_spawn( x + (i-0.5)*item_width, y, perk_id, dont_remove_others )
 		if perk then EntityAddChild(perk_group, perk) end]]
 )
+
+
+
+--[[ NB-293: Attract Gold Is Weak ]]
+-- Attract Gold is good at picking up $10 nuggets, bad with $50 nuggets and useless with anything larger.
+
+-- Fix this by scaling the strength with mass (small gold nuggets are 25px, use it as a base).
+utils.modifile("data/scripts/perks/attract_items.lua", [[
+					local vel_x = math.cos( direction ) * power
+					local vel_y = 0 - math.sin( direction ) * power]],[[
+					local mass = ComponentGetValue2(physicscomponents[1], "mPixelCount") / 25
+					if mass == 0 then mass = 25 end
+					local vel_x = math.cos( direction ) * power * mass
+					local vel_y = 0 - math.sin( direction ) * power * mass]]
+)
+
+
+
+--[[ NB-295: Polymorphed Player Lacks Drown SFX ]]
+-- The sound loop that plays when drowning or taking curse damage is not applied to polymorphed player.
+
+hooks.player_changed[#hooks.player_changed+1] = function(player_poly_identity)
+	if not player_poly_identity then return end
+
+	if not (EntityGetComponent(_g.player, "AudioLoopComponent", "sound_suffocating") or EntityGetComponent(_g.player, "AudioLoopComponent", "sound_underwater")) then
+		EntityAddComponent2(_g.player, "AudioLoopComponent", {
+			_tags = "sound_underwater",
+			file = "data/audio/Desktop/player.bank",
+			event_name = "player/underwater",
+			volume_autofade_speed = 0.25
+		})
+		EntityAddComponent2(_g.player, "AudioLoopComponent", {
+			_tags = "sound_suffocating",
+			file = "data/audio/Desktop/player.bank",
+			event_name = "player/suffocating",
+			volume_autofade_speed = 0.25
+		})
+
+		EntityAddComponent2(_g.player, "LuaComponent", {
+			script_source_file = "mods/noita.hardmod/files/modules/vanilla_bugfixes/scripts/manage_suffocate_audio.lua"
+		})
+	end
+
+	--if not EntityGetComponent(player, "AudioLoopComponent", "sound_damage_curse") then
+	--	EntityAddComponent2(player, "AudioLoopComponent", {
+	--		_tags = "sound_damage_curse",
+	--		file = "data/audio/Desktop/player.bank",
+	--		event_name = "player/underwater",
+	--		volume_autofade_speed = 0.25
+	--	})
+	--end
+end
+
+
+
+--[[ NB-299: Brazilian Portuguese /Secrets Counter ]]
+-- The number of discovered secrets in the progress menu on Brazilian Portuguese has a "/" before it.
+
+utils.modifile("data/translations/common.csv", [[,$0/$1 segredos encontrados,]], [[,$0 $1 segredos encontrados,]])
+
+
+
+--[[ NB-308: Twitchy Storage ]]
+-- When the Twitchy game effect is removed it, it doesn't clear the player's <PlatformShooterPlayerComponent::mForceFireOnNextUpdate/>.
+-- This forces the player to shoot their wand next time they switch to it despite the effect having run out.
+
+for xml in nxml.edit_file("data/entities/misc/effect_twitchy.xml") do
+	xml:add_child(nxml.new_element("LuaComponent", {
+		script_source_file = "mods/noita.hardmod/files/modules/vanilla_bugfixes/scripts/remove_twitchy.lua",
+		execute_every_n_frame = "-1",
+		execute_on_removed = "1",
+	}))
+end
 
 
 

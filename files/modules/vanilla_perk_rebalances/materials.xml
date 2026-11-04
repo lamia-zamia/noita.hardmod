@@ -27,7 +27,7 @@
 		_inherit_reactions="1"
 		name="hardmod.bloody_gold"
 		wang_color="fff73a36"
-		ui_name="$hardmod_bloody_gold.material"
+		ui_name="$hardmod_bloody_gold_material"
 	>
 		<Graphics
 			texture_file="mods/noita.hardmod/files/modules/vanilla_perk_rebalances/gold_is_dust/bloody_gold.png"

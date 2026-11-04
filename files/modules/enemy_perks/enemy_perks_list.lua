@@ -296,7 +296,7 @@ local perks = {
 		id = "CURSER",
 		name = "$hardmod_eperk_curser_name",
 		description = "$hardmod_eperk_curser_desc",
-		weight = 4,
+		weight = 3,
 		priority = 7,
 		max = 1,
 		condition = function(self, data)
@@ -329,7 +329,7 @@ local perks = {
 		id = "RECYCLE_HEALTH",
 		name = "$hardmod_eperk_recycle_health_name",
 		description = "$hardmod_eperk_recycle_health_desc",
-		weight = 9000,
+		weight = 9,
 		priority = 6,
 		max = 1,
 		func = function(self, entity_id, data)
@@ -513,6 +513,11 @@ local perks = {
 		description = "$hardmod_eperk_electricity_desc",
 		weight = 8,
 		max = 1,
+		condition = function(self, data)
+			if data.biome == "$biome_vault" or data.biome == "$biome_fungicave" then
+				self.weight = 3
+			end
+		end,
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_ELECTRICITY", false)
 			local child_id = EntityLoad("data/entities/misc/perks/electricity.xml", data.x, data.y)
