@@ -1,5 +1,7 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
+local biomes = dofile_once("mods/noita.hardmod/lib/biome_index.lua")
+
 ---@class enemy_perk
 ---@field id string string ID
 ---@field name string? string name (viewable in progress)
@@ -294,7 +296,7 @@ local perks = {
 		id = "CURSER",
 		name = "$hardmod_eperk_curser_name",
 		description = "$hardmod_eperk_curser_desc",
-		weight = 4,
+		weight = 3,
 		priority = 7,
 		max = 1,
 		condition = function(self, data)
@@ -511,6 +513,11 @@ local perks = {
 		description = "$hardmod_eperk_electricity_desc",
 		weight = 8,
 		max = 1,
+		condition = function(self, data)
+			if data.biome == "$biome_vault" or data.biome == "$biome_fungicave" then
+				self.weight = 3
+			end
+		end,
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_ELECTRICITY", false)
 			local child_id = EntityLoad("data/entities/misc/perks/electricity.xml", data.x, data.y)

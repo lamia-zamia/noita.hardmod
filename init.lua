@@ -5,6 +5,12 @@
 -- D2D2
 -- qtyui_ too!!!!
 
+local nxml_missing
+if not ModDoesFileExist("mods/noita.hardmod/lib/nxml/nxml.lua") then
+	ModTextFileSetContent("mods/noita.hardmod/lib/nxml/nxml.lua", ModTextFileGetContent("mods/noita.hardmod/files/scripts/nxml_backup.lua"))
+	nxml_missing = true
+end
+
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 
@@ -107,6 +113,7 @@ ModTextFileSetContent("mods/noita.hardmod/files/__spell_appends.lua", "--")
 ModTextFileSetContent("mods/noita.hardmod/files/__perk_appends.lua", "--")
 
 for _,module in ipairs(enabled_modules) do
+	print("adding module: "..module)
 	local module_path = table.concat({"mods/noita.hardmod/files/modules/",module,"/"})
 	local module_hooks = dofile(module_path.."init.lua") or {}
 	for hook_name,hook in pairs(module_hooks) do
@@ -226,8 +233,9 @@ function OnPlayerSpawned(p)
 	for _,func in ipairs(hooks.player_spawned) do
 		func(p, is_run_start)
 	end
-
 	GameAddFlagRun("noita.hardmod.on_player_spawned_flag")
+
+	if nxml_missing then GamePrint("$hardmod_nxml_missing") end
 end
 
 function OnPlayerDied(p)

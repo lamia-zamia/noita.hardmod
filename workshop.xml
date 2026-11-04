@@ -1,10 +1,10 @@
 
 <Mod
 	name="Hard Mod"
-	description="A community collab to make Noita harder."
+	description=""
 	tags=""
 	dont_upload_folders=""
 	dont_upload_files=""
 > 
 </Mod>	
-	
+<!--do NOT put anything into description here, doing so makes it override the workshop description whenever its pushed-->
