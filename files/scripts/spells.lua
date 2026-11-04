@@ -1,3 +1,5 @@
+---@diagnostic disable: undefined-global
+
 local new_spells = {}
 local spell_patches = {}
 local edit_spell_hooks = {}
@@ -13,7 +15,8 @@ for _,path in ipairs(ModLuaFileGetAppends("mods/noita.hardmod/files/__spell_appe
 	for spell_id,spell_patch in pairs(hooks.spell_patches or {}) do
 		spell_patches[spell_id] = spell_patches[spell_id] or {}
 		for key, value in pairs(spell_patch) do
-			if spell_patches[spell_id][key] then print(('[%s] COLLISION at "%s": %s -> %s'):format(spell_id, key, spell_patches[spell_id][key], value)) end
+			local curr_value = spell_patches[spell_id][key]
+			if curr_value ~= nil and value ~= curr_value then print(('[%s] COLLISION at "%s": %s -> %s'):format(spell_id, key, curr_value, value)) end
 			spell_patches[spell_id][key] = value
 		end
 	end
@@ -25,8 +28,7 @@ for _,path in ipairs(ModLuaFileGetAppends("mods/noita.hardmod/files/__spell_appe
 	end
 end
 
----@diagnostic disable-next-line: lowercase-global
-actions = actions
+
 
 local num_spells = #actions
 for i,spell in ipairs(new_spells) do
@@ -44,4 +46,3 @@ for _,spell in ipairs(actions) do
 		func(spell)
 	end
 end
-

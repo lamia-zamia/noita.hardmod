@@ -2,12 +2,14 @@ dofile_once("data/scripts/lib/utilities.lua")
 dofile_once("data/scripts/game_helpers.lua")
 
 ---@class nugget
----@field filepath string filepath to target entity file
+---@field path string filepath to target entity file
 ---@field x number? relative x position to spawn at, default 0
 ---@field y number? relative y position to spawn at, default 0
 ---@field func function? optional function to run after spawning this nugget
 
-local hooks = {
+local hooks = {} ---@type drop_money_hooks
+
+hooks = { ---@class drop_money_hooks
 	pre_funcs = {
 		{
 			id = "trailer_mode_disable_gold",
@@ -39,15 +41,99 @@ local hooks = {
 				data.blood_money_chance = data.multiplier * data.blood_money_chance
 				if data.blood_money_chance > 0 and Random(1, 100) <= data.blood_money_chance then
 					data.nuggets[#data.nuggets+1] = {
-						filepath = "data/entities/items/pickup/bloodmoney_50.xml",
+						path = "data/entities/items/pickup/bloodmoney_50.xml",
 						x = data.x,
 						y = data.y-8
 					}
 					data.amount = data.amount - 50
 				end
 			end
-		}
+		},
+		{
+			id = "trick_blood_money",
+			func = function(data)
+				if data.trick_kill and ComponentGetValue2(data.comp_worldstate, "perk_trick_kills_blood_money") then
+					data.blood_money_chance = 1
+				end
+			end
+		},
+		{
+			id = "force_drop_10g_nuggets",
+			func = function(data)
+				if not (data.trick_kill and ComponentGetValue2(data.comp_worldstate, "perk_trick_kills_blood_money")) then
+					for i = 1, math.min(math.floor(data.amount * .1), 5) do
+						data.nuggets[#data.nuggets+1] = {
+							hooks.nuggets
+						}
+					end
+					local nugget_10_count = 0
+					while data.amount >= 10 and nugget_10_count < 5 do
+						local eid = load_gold_entity(gold_entity .. "10.xml", x, y-8, data.remove_timer)
+						data.amount = data.amount - 10
+						nugget_10_count = nugget_10_count + 1
+
+						table.insert(data.nuggets, {eid, 6})
+					end
+				end
+			end
+		},
 	},
+
+	nuggets = {
+		gold = { ---@type nugget[]
+			{
+				path = "data/entities/items/pickup/goldnugget_200000.xml",
+				value = 200000,
+			},
+			{
+				path = "data/entities/items/pickup/goldnugget_10000.xml",
+				value = 10000,
+			},
+			{
+				path = "data/entities/items/pickup/goldnugget_1000.xml",
+				value = 1000,
+			},
+			{
+				path = "data/entities/items/pickup/goldnugget_200.xml",
+				value = 200,
+			},
+			{
+				path = "data/entities/items/pickup/goldnugget_50.xml",
+				value = 50,
+			},
+			{
+				path = "data/entities/items/pickup/goldnugget_10.xml",
+				value = 10,
+			},
+		},
+		blood = {
+			{
+				path = "data/entities/items/pickup/goldnugget_200000.xml",
+				value = 200000,
+			},
+			{
+				path = "data/entities/items/pickup/goldnugget_10000.xml",
+				value = 10000,
+			},
+			{
+				path = "data/entities/items/pickup/goldnugget_1000.xml",
+				value = 1000,
+			},
+			{
+				path = "data/entities/items/pickup/goldnugget_200.xml",
+				value = 200,
+			},
+			{
+				path = "data/entities/items/pickup/goldnugget_50.xml",
+				value = 50,
+			},
+			{
+				path = "data/entities/items/pickup/goldnugget_10.xml",
+				value = 10,
+			},
+		},
+	},
+	nuggets_indexed = {}
 }
 
 for _,path in ipairs(ModLuaFileGetAppends("data/scripts/items/_drop_money.lua")) do
@@ -66,6 +152,17 @@ for _,key in ipairs(function_tables) do
 	end
 end
 
+for key,list in pairs(hooks.nuggets) do --order nuggets from most to least (ignore nuggets of same value)
+	table.sort(list, function(a, b)
+		return (a.value or 0) > (b.value or 0)
+	end)
+
+	for _,nugget in ipairs(list) do
+		hooks.nuggets_indexed[key][nugget.value] = nugget
+	end
+end
+
+---@diagnostic disable-next-line: lowercase-global
 function do_money_drop(amount_multiplier, trick_kill, damage_type_bit_field, message, attacker, drop_items)
 	do return end
 	local entity = GetUpdatedEntityID()
@@ -78,6 +175,7 @@ function do_money_drop(amount_multiplier, trick_kill, damage_type_bit_field, mes
 		comp_worldstate = comp_worldstate,
 		blood_money_chance = ComponentGetValue2(comp_worldstate, "perk_hp_drop_chance"),
 		multiplier = amount_multiplier,
+		target_gold_group = "gold",
 		greed_curse_multiplier = 3,
 		no_gold_drop = false,
 		remove_timer = false,
@@ -114,21 +212,12 @@ function do_money_drop(amount_multiplier, trick_kill, damage_type_bit_field, mes
 	end
 
 	local gold_entity = "data/entities/items/pickup/goldnugget_"
-	local remove_timer = false
 	local drop_first_10 = true
 
 	local comp_worldstate = EntityGetFirstComponent(GameGetWorldStateEntity(), "WorldStateComponent")
 	if(comp_worldstate ~= nil) then
 		if(ComponentGetValue2(comp_worldstate, "perk_gold_is_forever")) then
-			remove_timer = true
-		end
-
-		if(trick_kill) then
-			-- if worldstate perk_trick_kills_blood_money == 1
-			if(ComponentGetValue2(comp_worldstate, "perk_trick_kills_blood_money")) then
-				gold_entity = "data/entities/items/pickup/bloodmoney_"
-				drop_first_10 = false
-			end
+			data.remove_timer = true
 		end
 
 		-- drop hp?
@@ -136,14 +225,6 @@ function do_money_drop(amount_multiplier, trick_kill, damage_type_bit_field, mes
 
 	--- spawn first 10 gold as small nuggets
 	if(drop_first_10) then
-		local nugget_10_count = 0
-		while data.amount >= 10 and nugget_10_count < 5 do
-			local eid = load_gold_entity(gold_entity .. "10.xml", x, y-8, remove_timer)
-			data.amount = data.amount - 10
-			nugget_10_count = nugget_10_count + 1
-
-			table.insert(data.nuggets, {eid, 6})
-		end
 	end
 	-------
 
@@ -159,7 +240,7 @@ function do_money_drop(amount_multiplier, trick_kill, damage_type_bit_field, mes
 			data.amount = 0
 		end
 
-		local eid = load_gold_entity(gold_entity .. "x.xml", x, y-8, remove_timer)
+		local eid = load_gold_entity(gold_entity .. "x.xml", x, y-8, data.remove_timer)
 
 		local var_comps = EntityGetComponent(eid, "VariableStorageComponent")
 		if (var_comps ~= nil) then
@@ -177,42 +258,42 @@ function do_money_drop(amount_multiplier, trick_kill, damage_type_bit_field, mes
 
 	---
 	while data.amount >= 200000 do
-		local eid = load_gold_entity(gold_entity .. "200000.xml", x, y-8, remove_timer)
+		local eid = load_gold_entity(gold_entity .. "200000.xml", x, y-8, data.remove_timer)
 		data.amount = data.amount - 200000
 
 		table.insert(data.nuggets, {eid, 12})
 	end
 
 	while data.amount >= 10000 do
-		local eid = load_gold_entity(gold_entity .. "10000.xml", x, y-8, remove_timer)
+		local eid = load_gold_entity(gold_entity .. "10000.xml", x, y-8, data.remove_timer)
 		data.amount = data.amount - 10000
 
 		table.insert(data.nuggets, {eid, 12})
 	end
 
 	while data.amount >= 1000 do
-		local eid = load_gold_entity(gold_entity .. "1000.xml", x, y-8, remove_timer)
+		local eid = load_gold_entity(gold_entity .. "1000.xml", x, y-8, data.remove_timer)
 		data.amount = data.amount - 1000
 
 		table.insert(data.nuggets, {eid, 20})
 	end
 
 	while data.amount >= 200 do
-		local eid = load_gold_entity(gold_entity .. "200.xml", x, y-8, remove_timer)
+		local eid = load_gold_entity(gold_entity .. "200.xml", x, y-8, data.remove_timer)
 		data.amount = data.amount - 200
 
 		table.insert(data.nuggets, {eid, 12})
 	end
 
 	while data.amount >= 50 do
-		local eid = load_gold_entity(gold_entity .. "50.xml", x, y-8, remove_timer)
+		local eid = load_gold_entity(gold_entity .. "50.xml", x, y-8, data.remove_timer)
 		data.amount = data.amount - 50
 
 		table.insert(data.nuggets, {eid, 9})
 	end
 
 	while data.amount >= 10 do
-		local eid = load_gold_entity(gold_entity .. "10.xml", x, y-8, remove_timer)
+		local eid = load_gold_entity(gold_entity .. "10.xml", x, y-8, data.remove_timer)
 		data.amount = data.amount - 10
 
 		table.insert(data.nuggets, {eid, 6})

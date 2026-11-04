@@ -1,5 +1,7 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
+local biomes = dofile_once("mods/noita.hardmod/lib/biome_index.lua")
+
 ---@class enemy_perk
 ---@field id string string ID
 ---@field name string? string name (viewable in progress)

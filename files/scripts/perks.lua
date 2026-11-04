@@ -1,3 +1,5 @@
+---@diagnostic disable: undefined-global
+
 local new_perks = {}
 local perk_patches = {}
 local edit_perk_hooks = {}
@@ -11,7 +13,8 @@ for _,path in ipairs(ModLuaFileGetAppends("mods/noita.hardmod/files/__perk_appen
 	for perk_id,perk_patch in pairs(hooks.perk_patches or {}) do
 		perk_patches[perk_id] = perk_patches[perk_id] or {}
 		for key, value in pairs(perk_patch) do
-			if perk_patches[perk_id][key] then print(('[%s] COLLISION at "%s": %s -> %s'):format(perk_id, key, perk_patches[perk_id][key], value)) end
+			local curr_value = perk_patches[perk_id][key]
+			if curr_value ~= nil and value ~= curr_value then print(('[%s] COLLISION at "%s": %s -> %s'):format(perk_id, key, curr_value, value)) end
 			perk_patches[perk_id][key] = value
 		end
 	end
@@ -24,8 +27,6 @@ for _,path in ipairs(ModLuaFileGetAppends("mods/noita.hardmod/files/__perk_appen
 end
 
 
----@diagnostic disable-next-line: lowercase-global
-perk_list = perk_list
 
 local num_perks = #perk_list
 for i,perk in ipairs(new_perks) do
@@ -47,4 +48,3 @@ for _,perk in ipairs(perk_list) do
 	end
 	--AddFlagPersistent("perk_picked_"..perk.id:lower())
 end
-
