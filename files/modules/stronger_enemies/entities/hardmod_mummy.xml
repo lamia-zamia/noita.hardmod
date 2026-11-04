@@ -1,4 +1,4 @@
-<Entity tags="zombie" name="$animal_bigzombie">
+<Entity tags="zombie" name="$hardmod_animal_mummy_name">
 	<LuaComponent
 		execute_every_n_frame="-1"
 		script_shot="mods/noita.hardmod/files/modules/stronger_enemies/scripts/mummy_shot.lua"

@@ -123,7 +123,7 @@ g_small_enemies =
 		prob = 0.45,
 		min_count = 1,
 		max_count = 2,
-		entity = "mods/noita.hardmod/files/modules/stronger_enemies/entities/mummy.xml"
+		entity = "mods/noita.hardmod/files/modules/stronger_enemies/entities/hardmod_mummy.xml"
 	}
 }
 

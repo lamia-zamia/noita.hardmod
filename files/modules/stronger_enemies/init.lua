@@ -4,6 +4,7 @@ local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 local alt_biomes = dofile_once("mods/noita.hardmod/files/modules/alternate_biomes/biome_list.lua")
 
 utils.AddEnemyToProgress("hardmod_wizard_confusion", "wizard_twitchy")
+utils.AddEnemyToProgress("hardmod_mummy", "icer")
 
 local function patch_spawn_rules()
 	local patch_biomes = {
