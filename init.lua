@@ -34,7 +34,6 @@ local modules = {
 	"ending",
 	"credits",
 	"nerf_vanilla_cheeses",
-	"nerf_vanilla_damage",
 	-- replaced by `ending` module requiring 11 orbs to pickup sampo
 	-- "stronger_kolmi",
 	"chest_tweaks",

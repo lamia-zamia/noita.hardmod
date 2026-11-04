@@ -34,6 +34,19 @@ function hooks.edit_material(elem)
     end
 end
 
+-- Tablets & statues are no more
+function hooks.new_eid(eid)
+	if not EntityHasTag(eid, "enemy") then return end
+
+	local dmc = EntityGetComponent(eid, "DamageModelComponent")
+	if not dmc then return end
+
+	for _,comp in pairs(dmc) do
+		-- :)
+		ComponentObjectSetValue2(comp, "damage_multipliers", "physics_hit", 0.001)
+	end
+end
+
 -- Fix cursed rock not damaging the player between chunks
 for file in nxml.edit_file("data/entities/misc/rock_curse.xml") do
   local comp = file:first_of("AreaDamageComponent")

@@ -8,10 +8,10 @@ local mana_reducing_spells = { "MANA_REDUCE", "HARDMOD_MANA_REDUCE", "APOTHEOSIS
 
 hooks.spell_patches = {
 	["CHAINSAW"] = {
-		spawn_level	   = "4,5,6,10",
+		spawn_level	= "4,5,6,10",
 		spawn_probability = "0.8,0.9,1,1",
-		price			 = 160,
-		mana			  = 12,
+		price = 160,
+		mana = 12,
 		action = function()
 			add_projectile("data/entities/projectiles/deck/chainsaw.xml")
 			c.fire_rate_wait = 0
@@ -49,7 +49,7 @@ hooks.spell_patches = {
 	},
 	["HEAVY_SPREAD"] = {
 		description = "$hardmod_spell_heavy_spread_desc",
-		mana   = 6,
+		mana = 6,
 		sprite = "mods/noita.hardmod/files/modules/rapidfire_nerfs/ui_gfx/heavy_spread.png",
 		action = function()
 			-- parity with cheeseless_triggers
@@ -70,8 +70,8 @@ hooks.spell_patches = {
 	},
 	["APOTHEOSIS_WATER_POWER"] = {
 		description = "$hardmod_spell_apotheosis_water_power_desc",
-		mana		= 0,
-		action  = function()
+		mana = 0,
+		action = function()
 			draw_actions( 1, true )
 
 			if reflecting or GameGetGameEffectCount( GetUpdatedEntityID(), "WET" ) > 0 then
@@ -131,15 +131,15 @@ hooks.new_spells = {
 		end
 	},
 	{
-		id				  = "HARDMOD_MANA_REDUCE",
-		name				= "$hardmod_spell_mana_reduce_name",
-		description		 = "$hardmod_spell_mana_reduce_desc",
-		sprite			  = "mods/noita.hardmod/files/modules/rapidfire_nerfs/ui_gfx/add_mana.png",
-		type				= ACTION_TYPE_MODIFIER,
-		spawn_level		 = "1,2,3,4,5,6",
-		spawn_probability   = "0.7,0.9,1,1,1,1",
-		price			   = 160,
-		mana				= 0,
+		id = "HARDMOD_MANA_REDUCE",
+		name = "$hardmod_spell_mana_reduce_name",
+		description = "$hardmod_spell_mana_reduce_desc",
+		sprite = "mods/noita.hardmod/files/modules/rapidfire_nerfs/ui_gfx/add_mana.png",
+		type = ACTION_TYPE_MODIFIER,
+		spawn_level = "1,2,3,4,5,6",
+		spawn_probability = "0.7,0.9,1,1,1,1",
+		price = 160,
+		mana = 0,
 		action = function()
 			draw_actions( 1, true )
 
@@ -175,18 +175,18 @@ hooks.new_spells = {
 		end,
 	},
 	{
-		id				  = "HARDMOD_MINI_CHAINSAW",
-		name				= "$hardmod_spell_mini_chainsaw_name",
-		description		 = "$hardmod_spell_mini_chainsaw_desc",
-		sprite			  = "mods/noita.hardmod/files/modules/rapidfire_nerfs/ui_gfx/mini_chainsaw.png",
+		id = "HARDMOD_MINI_CHAINSAW",
+		name = "$hardmod_spell_mini_chainsaw_name",
+		description = "$hardmod_spell_mini_chainsaw_desc",
+		sprite = "mods/noita.hardmod/files/modules/rapidfire_nerfs/ui_gfx/mini_chainsaw.png",
 		related_projectiles = { "mods/noita.hardmod/files/modules/rapidfire_nerfs/entities/chainsaw_mini.xml" },
-		type				= ACTION_TYPE_PROJECTILE,
-		spawn_level		 = "1,2,3,4",
-		spawn_probability   = "0.7,0.8,0.9,0.9",
-		price			   = 80,
-		mana				= 6,
-		sound_loop_tag	  = "sound_chainsaw",
-		action			  = function()
+		type = ACTION_TYPE_PROJECTILE,
+		spawn_level = "1,2,3,4",
+		spawn_probability = "0.7,0.8,0.9,0.9",
+		price = 80,
+		mana = 6,
+		sound_loop_tag = "sound_chainsaw",
+		action = function()
 			add_projectile("mods/noita.hardmod/files/modules/rapidfire_nerfs/entities/chainsaw_mini.xml")
 			c.fire_rate_wait = c.fire_rate_wait * 0.5
 			c.spread_degrees = c.spread_degrees + 6.0
@@ -194,16 +194,16 @@ hooks.new_spells = {
 		end,
 	},
 	{
-		id				  = "HARDMOD_SPELL_MANA_REGEN",
-		name				= "$hardmod_spell_mana_regen_name",
-		description		 = "$hardmod_spell_mana_regen_desc",
-		sprite			  = "mods/noita.hardmod/files/modules/rapidfire_nerfs/ui_gfx/mana_regen.png",
-		type				= ACTION_TYPE_PASSIVE,
-		spawn_level		 = "1,2,3,4,5,6", -- MANA_REDUCE
-		spawn_probability   = "0.7,0.9,1,1,1,1", -- MANA_REDUCE
-		price			   = 100,
-		mana				= 0,
-		custom_xml_file	 = "mods/noita.hardmod/files/modules/rapidfire_nerfs/entities/card_mana_regen.xml",
+		id = "HARDMOD_SPELL_MANA_REGEN",
+		name = "$hardmod_spell_mana_regen_name",
+		description = "$hardmod_spell_mana_regen_desc",
+		sprite = "mods/noita.hardmod/files/modules/rapidfire_nerfs/ui_gfx/mana_regen.png",
+		type = ACTION_TYPE_PASSIVE,
+		spawn_level = "1,2,3,4,5,6", -- MANA_REDUCE
+		spawn_probability = "0.7,0.9,1,1,1,1", -- MANA_REDUCE
+		price = 100,
+		mana = 0,
+		custom_xml_file = "mods/noita.hardmod/files/modules/rapidfire_nerfs/entities/card_mana_regen.xml",
 		action = function()
 			draw_actions( 1, true )
 		end,

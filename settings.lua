@@ -195,20 +195,10 @@ local module_data = {
 	{
 		id = "nerf_vanilla_cheeses",
 		name = {
-			en = "Nerf Vanilla Cheeses"
+			en = "Nerf Vanilla Cheeses",
 		},
 		desc = {
-			en = "For those who are lactose intolerant"
-		},
-	},
-	{
-		-- TODO: remove and merge to other modules
-		id = "nerf_vanilla_damage",
-		name = {
-			en = "Nerf Vanilla Damage"
-		},
-		desc = {
-			en = ""
+			en = "Can't let ya have too much cheese, sorry.",
 		},
 	},
 	{
@@ -754,29 +744,6 @@ local mod_id = "noita.hardmod" -- This should match the name of your mod's folde
 mod_settings_version = 1 -- This is a magic global that can be used to migrate settings to new mod versions. call mod_settings_get_version() before mod_settings_update() to get the old value.
 mod_settings =
 {
-	{
-		category_id = "limited_spells_settings",
-		ui_name = "Truly Limited Spells",
-		ui_description = "Which button should be used to cast Alt Fire Anything?",
-		foldable = true,
-		_folded = true,
-		settings = {
-			{
-				id = "print_indulgence_cost",
-				ui_name = "Print Indulgence cost",
-				ui_description = "When enabled, casting the Indulgence spell will print\nits cost at the tip of your wand.",
-				value_default = true,
-				scope = MOD_SETTING_SCOPE_RUNTIME,
-			},
-			{
-				id = "spawn_truly_unlimited_spells_test_package",
-				ui_name = "[TEMP] Test Mode",
-				ui_description = "For testing this module. Requires a new game.\n(REMOVE THIS SETTING BEFORE RELEASE)",
-				value_default = false,
-				scope = MOD_SETTING_SCOPE_NEW_GAME,
-			},
-		}
-	},
 	{
 		category_id = "alt_fire_settings",
 		ui_name = "Alt Fire Anything",

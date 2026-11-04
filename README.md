@@ -97,8 +97,6 @@ Note: This list is not complete. Also, its best to experience the mod yourself f
   - TANNEREYE IS DEAD.
   - Steve and Scott are now 95% resistant to physics damage
   - The cursed rock entity has been fixed, you can no longer stand inbetween chunk borders to not get damaged
-- `nerf_vanilla_damage`
-  - Changes to some vanilla damage values
 - `vanilla_spell_rebalances`
   - Changes to some vanilla spells
 - `no_more_max_hp_cheesing`
