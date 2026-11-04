@@ -1,6 +1,12 @@
 dofile_once("data/scripts/lib/utilities.lua")
 dofile_once("data/scripts/game_helpers.lua")
 
+---@class nugget
+---@field filepath string filepath to target entity file
+---@field x number? relative x position to spawn at, default 0
+---@field y number? relative y position to spawn at, default 0
+---@field func function? optional function to run after spawning this nugget
+
 local hooks = {
 	pre_funcs = {
 		{
@@ -24,7 +30,24 @@ local hooks = {
 			end,
 		},
 	},
-	funcs = {},
+	funcs = {
+		{
+			id = "legacy_nwt_blood_money_drop",
+			func = function(data) ---@param data gold_drop_data
+				if not data.legacy_nwt_blood_money_drops then return end
+
+				data.blood_money_chance = data.multiplier * data.blood_money_chance
+				if data.blood_money_chance > 0 and Random(1, 100) <= data.blood_money_chance then
+					data.nuggets[#data.nuggets+1] = {
+						filepath = "data/entities/items/pickup/bloodmoney_50.xml",
+						x = data.x,
+						y = data.y-8
+					}
+					data.amount = data.amount - 50
+				end
+			end
+		}
+	},
 }
 
 for _,path in ipairs(ModLuaFileGetAppends("data/scripts/items/_drop_money.lua")) do
@@ -43,17 +66,17 @@ for _,key in ipairs(function_tables) do
 	end
 end
 
-local nugget_data = {}
-
 function do_money_drop(amount_multiplier, trick_kill, damage_type_bit_field, message, attacker, drop_items)
 	do return end
 	local entity = GetUpdatedEntityID()
 	local x, y = EntityGetTransform(entity)
 	local comp_worldstate = EntityGetFirstComponent(GameGetWorldStateEntity(), "WorldStateComponent")
 	if not comp_worldstate then return end
+	SetRandomSeed(x + entity, y - entity)
 
-	local data = {
+	local data = { ---@class gold_drop_data
 		comp_worldstate = comp_worldstate,
+		blood_money_chance = ComponentGetValue2(comp_worldstate, "perk_hp_drop_chance"),
 		multiplier = amount_multiplier,
 		greed_curse_multiplier = 3,
 		no_gold_drop = false,
@@ -61,6 +84,7 @@ function do_money_drop(amount_multiplier, trick_kill, damage_type_bit_field, mes
 		entity = entity,
 		x = x, y = y,
 		amount = 10,
+		nuggets = {}, ---@type nugget[]
 		death = {
 			damage_type_bit_field = damage_type_bit_field,
 			message = message,
@@ -68,7 +92,7 @@ function do_money_drop(amount_multiplier, trick_kill, damage_type_bit_field, mes
 			drop_items = drop_items,
 		},
 
-		fix_nwt_blood_money_drops = true
+		legacy_nwt_blood_money_drops = true
 	}
 
 	for _,func in ipairs(hooks.pre_funcs) do
@@ -83,13 +107,11 @@ function do_money_drop(amount_multiplier, trick_kill, damage_type_bit_field, mes
 		data.amount = math.max(data.amount, math.floor(data.health) * 100)
 	end
 
-	data.amount = data.amount * data.amount_multiplier
+	data.amount = data.amount * data.multiplier
 
 	for _,func in ipairs(hooks.funcs) do
 		func(data)
 	end
-
-	local nuggets = {}
 
 	local gold_entity = "data/entities/items/pickup/goldnugget_"
 	local remove_timer = false
@@ -120,7 +142,7 @@ function do_money_drop(amount_multiplier, trick_kill, damage_type_bit_field, mes
 			data.amount = data.amount - 10
 			nugget_10_count = nugget_10_count + 1
 
-			table.insert(nuggets, {eid, 6})
+			table.insert(data.nuggets, {eid, 6})
 		end
 	end
 	-------
@@ -150,7 +172,7 @@ function do_money_drop(amount_multiplier, trick_kill, damage_type_bit_field, mes
 			end
 		end
 
-		table.insert(nuggets, {eid, 12})
+		table.insert(data.nuggets, {eid, 12})
 	end
 
 	---
@@ -158,46 +180,46 @@ function do_money_drop(amount_multiplier, trick_kill, damage_type_bit_field, mes
 		local eid = load_gold_entity(gold_entity .. "200000.xml", x, y-8, remove_timer)
 		data.amount = data.amount - 200000
 
-		table.insert(nuggets, {eid, 12})
+		table.insert(data.nuggets, {eid, 12})
 	end
 
 	while data.amount >= 10000 do
 		local eid = load_gold_entity(gold_entity .. "10000.xml", x, y-8, remove_timer)
 		data.amount = data.amount - 10000
 
-		table.insert(nuggets, {eid, 12})
+		table.insert(data.nuggets, {eid, 12})
 	end
 
 	while data.amount >= 1000 do
 		local eid = load_gold_entity(gold_entity .. "1000.xml", x, y-8, remove_timer)
 		data.amount = data.amount - 1000
 
-		table.insert(nuggets, {eid, 20})
+		table.insert(data.nuggets, {eid, 20})
 	end
 
 	while data.amount >= 200 do
 		local eid = load_gold_entity(gold_entity .. "200.xml", x, y-8, remove_timer)
 		data.amount = data.amount - 200
 
-		table.insert(nuggets, {eid, 12})
+		table.insert(data.nuggets, {eid, 12})
 	end
 
 	while data.amount >= 50 do
 		local eid = load_gold_entity(gold_entity .. "50.xml", x, y-8, remove_timer)
 		data.amount = data.amount - 50
 
-		table.insert(nuggets, {eid, 9})
+		table.insert(data.nuggets, {eid, 9})
 	end
 
 	while data.amount >= 10 do
 		local eid = load_gold_entity(gold_entity .. "10.xml", x, y-8, remove_timer)
 		data.amount = data.amount - 10
 
-		table.insert(nuggets, {eid, 6})
+		table.insert(data.nuggets, {eid, 6})
 	end
 
 	if GameHasFlagRun("exploding_gold") then
-		for i,v in ipairs(nuggets) do
+		for i,v in ipairs(data.nuggets) do
 			local eid = v[1]
 			local size = tostring(v[2])
 
