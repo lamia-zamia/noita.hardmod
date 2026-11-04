@@ -87,7 +87,7 @@ Note: This list is not complete. Also, its best to experience the mod yourself f
   - Add Mana now restores only 15 mana, and appears later & rarer
   - A new spell called Mini Chainsaw replaces the original spawns, which costs 6 mana and halves cast delay instead of setting it to 0.
   - A new spell called Mana Burst restores less mana the longer you hold the fire button, working in bursts only
-  - A new spell called Mana Regen restores 12% of a wand's max mana per second, intended to make high mana, low charge speed wands more usable.
+  - A new spell called Mana Regen restores 8% of a wand's max mana per second, intended to make high mana, low charge speed wands more usable.
   - Material spells now cost 8 mana. Heavy spread now costs 6 mana, and only adds 9 degrees of spread to work better with `cheeseless_triggers`
 - `trappier_traps`
   - Made a bunch of the box traps unkickable.

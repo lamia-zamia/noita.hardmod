@@ -1,4 +1,4 @@
-dofile_once( "data/scripts/gun/gun_actions.lua" )
+if not actions then dofile_once("data/scripts/gun/gun_actions.lua") end
 
 local utils = dofile_once( "mods/noita.hardmod/lib/utilities.lua" )---@type utils
 local EZWand = dofile_once( "mods/noita.hardmod/lib/ezwand.lua" )

@@ -47,6 +47,11 @@ PatchModifiers({
 		ui_name = "$hardmod_biomemodifier_name_freezing"
 	},
 	SPOOKY = {
+		action = function(name, filename)
+			-- BiomeSetValue(filename, "color_grading_grayscale", 1)
+			BiomeObjectSetValue(filename, "modifiers", "dust_amount", 0.9)
+			BiomeSetValue(filename, "color_grading_grayscale", 0.5)
+		end,
 		inject_spawns_action = function()
 			-- mostly a copy paste just to adjust confusion spirit's spawn chance
 			InjectSpawns({

@@ -48,8 +48,10 @@ hooks.spell_patches = {
 		end
 	},
 	["HEAVY_SPREAD"] = {
+		spawn_level = "2,4,5,6",
+		spawn_probability = "0.6,0.7,0.7,0.6",
 		description = "$hardmod_spell_heavy_spread_desc",
-		mana = 6,
+		mana = 8,
 		sprite = "mods/noita.hardmod/files/modules/rapidfire_nerfs/ui_gfx/heavy_spread.png",
 		action = function()
 			-- parity with cheeseless_triggers
@@ -199,8 +201,8 @@ hooks.new_spells = {
 		description = "$hardmod_spell_mana_regen_desc",
 		sprite = "mods/noita.hardmod/files/modules/rapidfire_nerfs/ui_gfx/mana_regen.png",
 		type = ACTION_TYPE_PASSIVE,
-		spawn_level = "1,2,3,4,5,6", -- MANA_REDUCE
-		spawn_probability = "0.7,0.9,1,1,1,1", -- MANA_REDUCE
+		spawn_level = "2,3,4,5,6",
+		spawn_probability = "0.7,0.8,0.9,0.9,0.9",
 		price = 100,
 		mana = 0,
 		custom_xml_file = "mods/noita.hardmod/files/modules/rapidfire_nerfs/entities/card_mana_regen.xml",

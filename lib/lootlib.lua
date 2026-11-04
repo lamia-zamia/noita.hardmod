@@ -105,7 +105,7 @@
 
 --------------------------------
 
-dofile_once("data/scripts/gun/gun_actions.lua")
+if not actions then dofile_once("data/scripts/gun/gun_actions.lua") end
 
 --------------------------------
 

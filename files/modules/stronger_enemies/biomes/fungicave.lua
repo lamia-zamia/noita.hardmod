@@ -17,7 +17,7 @@ AddEnemies(g_big_enemies, {
 		entity = "data/entities/animals/barfer.xml"
 	},
 	{
-		prob = 0.04,
+		prob = 0.06,
 		entity = "data/entities/animals/weakspirit.xml",
 	},
 })
