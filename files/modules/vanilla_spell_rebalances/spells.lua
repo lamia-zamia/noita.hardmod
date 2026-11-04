@@ -4,7 +4,6 @@ local action_id_table = nil
 local function get_actions_lua_data(action_id)
 	if not action_id_table then
 		action_id_table = {}
-		dofile_once("data/scripts/gun/gun_actions.lua")
 		for _,action in pairs(actions) do
 			action_id_table[action.id] = action
 		end
