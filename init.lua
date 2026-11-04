@@ -94,6 +94,7 @@ local hooks = {
 }
 
 HARDMOD_GLOBAL_DATA = { ---@class HardmodGlobalInitData
+	module_ids = modules,
 	player = nil, --player EID.
 	player_poly_identity = nil, --contains some data on the player if they are polymorphed, nil if not polymorphed.
 	player_does_not_exist = true, --this is set to false on `player_spawned` and set to true on `player_destroyed`.
