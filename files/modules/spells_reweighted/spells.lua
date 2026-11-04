@@ -36,8 +36,6 @@ local hooks = {
 		["EXPLODING_DEER"] = { never_unlimited = true, max_uses = 5 },
 		["EXPLODING_DUCKS"] = { never_unlimited = true, max_uses = 10, mana = 120 },
 		["LASER"] = { mana = 15 },
-		["LUMINOUS_DRILL"] = { mana = 20, spawn_level = "2,3,4,5", spawn_probability = "0.4,0.6,0.8,0.8" },
-		["LASER_LUMINOUS_DRILL"] = { mana = 25, spawn_level = "2,3,4,5", spawn_probability = "0.4,0.6,0.8,0.8" },
 		["TENTACLE"] = { mana = 40, spawn_level = "5,6", spawn_probability = "0.5,0.5" },
 		["TENTACLE_TIMER"] = { mana = 40, spawn_level = "5,6", spawn_probability = "0.5,0.5" },
 		["BUCKSHOT"] = { mana = 20 },
