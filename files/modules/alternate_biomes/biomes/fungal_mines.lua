@@ -6,27 +6,27 @@ dofile_once("data/scripts/director_helpers.lua")
 dofile_once("data/scripts/director_helpers_design.lua")
 dofile_once("data/scripts/biome_scripts.lua")
 dofile_once("data/scripts/biome_modifiers.lua")
-dofile( "data/scripts/items/generate_shop_item.lua" )
+dofile("data/scripts/items/generate_shop_item.lua")
 
-RegisterSpawnFunction( 0xff0000ff, "spawn_nest" )
-RegisterSpawnFunction( 0xffB40000, "spawn_fungi" )
-RegisterSpawnFunction( 0xff969678, "load_structures" )
-RegisterSpawnFunction( 0xff967878, "load_large_structures" )
-RegisterSpawnFunction( 0xff967896, "load_i_structures" )
-RegisterSpawnFunction( 0xff80FF5A, "spawn_vines" )
-RegisterSpawnFunction( 0xffC35700, "load_oiltank" )
-RegisterSpawnFunction( 0xff55AF4B, "load_altar" )
-RegisterSpawnFunction( 0xff23B9C3, "spawn_altar_torch" )
-RegisterSpawnFunction( 0xff55AF8C, "spawn_skulls" )
-RegisterSpawnFunction( 0xff55FF8C, "spawn_chest" )
-RegisterSpawnFunction( 0xff4e175e, "load_oiltank_alt" )
-RegisterSpawnFunction( 0xff33934c, "spawn_shopitem" )
-RegisterSpawnFunction( 0xff50fafa, "spawn_trapwand" )
-RegisterSpawnFunction( 0xfff12ab5, "spawn_bbqbox" )
-RegisterSpawnFunction( 0xff005cfd, "spawn_swing_puzzle_box" )
-RegisterSpawnFunction( 0xff00b5fc, "spawn_swing_puzzle_target" )
-RegisterSpawnFunction( 0xff93ca00, "spawn_oiltank_puzzle" )
-RegisterSpawnFunction( 0xffb97300, "spawn_receptacle_oil" )
+RegisterSpawnFunction(0xff0000ff, "spawn_nest")
+RegisterSpawnFunction(0xffB40000, "spawn_fungi")
+RegisterSpawnFunction(0xff969678, "load_structures")
+RegisterSpawnFunction(0xff967878, "load_large_structures")
+RegisterSpawnFunction(0xff967896, "load_i_structures")
+RegisterSpawnFunction(0xff80FF5A, "spawn_vines")
+RegisterSpawnFunction(0xffC35700, "load_oiltank")
+RegisterSpawnFunction(0xff55AF4B, "load_altar")
+RegisterSpawnFunction(0xff23B9C3, "spawn_altar_torch")
+RegisterSpawnFunction(0xff55AF8C, "spawn_skulls")
+RegisterSpawnFunction(0xff55FF8C, "spawn_chest")
+RegisterSpawnFunction(0xff4e175e, "load_oiltank_alt")
+RegisterSpawnFunction(0xff33934c, "spawn_shopitem")
+RegisterSpawnFunction(0xff50fafa, "spawn_trapwand")
+RegisterSpawnFunction(0xfff12ab5, "spawn_bbqbox")
+RegisterSpawnFunction(0xff005cfd, "spawn_swing_puzzle_box")
+RegisterSpawnFunction(0xff00b5fc, "spawn_swing_puzzle_target")
+RegisterSpawnFunction(0xff93ca00, "spawn_oiltank_puzzle")
+RegisterSpawnFunction(0xffb97300, "spawn_receptacle_oil")
 
 ------------ small enemies -------------------------------
 
@@ -71,27 +71,6 @@ g_small_enemies =
 		max_count	= 1,    
 		entity 	= "data/entities/animals/shotgunner_weak.xml"
 	},
-	-- Demo case for Arvi
-	--[[
-	{
-		prob 		= 10,
-		min_count	= 1,
-		max_count 	= 1,
-		entities = {
-			{
-				min_count	= 1,
-				max_count 	= 5,
-				entity = "data/entities/animals/shotgunner.xml",
-			},
-			{
-				min_count = 10,
-				max_count= 12,
-				entity = "data/entities/animals/roboguard.xml",
-			},
-			"data/entities/items/chest_stash.xml",
-		}
-	},
-	]]--
 }
 
 g_big_enemies =
