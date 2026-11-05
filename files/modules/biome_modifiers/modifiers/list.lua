@@ -44,6 +44,7 @@ PatchModifiers({
 		ui_name = "$hardmod_biomemodifier_name_gloomy"
 	},
 	FREEZING_COSMETIC = {
+		ui_decoration_file = "data/ui_gfx/decorations_biome_modifier/freezing.png",
 		ui_name = "$hardmod_biomemodifier_name_freezing"
 	},
 	SPOOKY = {

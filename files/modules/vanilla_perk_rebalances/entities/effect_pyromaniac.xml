@@ -10,8 +10,7 @@
 		is_circle="1"
 		radius="48"
 		ignite_materials="1"
-		temperature_reaction_temp="10"
+		temperature_reaction_temp="7"
 		clean_stains="0"
 	></MagicConvertMaterialComponent>
-		<!-- fan_the_flames="1" -->
 </Entity>
