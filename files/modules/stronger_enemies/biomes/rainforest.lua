@@ -1,7 +1,7 @@
 dofile_once("mods/noita.hardmod/files/modules/stronger_enemies/patcher.lua")
 
 PatchEnemies(g_small_enemies, {
-	[""] = { prob = 0.3 },
+	[""] = { prob = 0.25 },
 })
 
 PatchEnemies(g_big_enemies, {

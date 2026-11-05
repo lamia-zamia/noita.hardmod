@@ -12,7 +12,7 @@ local hooks = {
 		["ADD_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
 		["ADD_TIMER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
 		["ADD_DEATH_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
-		["LIGHT_BULLET"] = { mana = 6 },
+		["LIGHT_BULLET"] = { mana = 9 },
 		["RECHARGE"] = { mana = 16, spawn_level = "2,3,4,5", spawn_probability = "0.6,0.7,0.8,0.9" },
 		["LIGHT_BULLET_TIMER"] = { mana = 20, spawn_level = "2,3,4,5", spawn_probability = "0.5,0.6,0.8,0.8" },
 		["LIGHT_BULLET_TRIGGER"] = { mana = 25, spawn_level = "2,3,4,5", spawn_probability = "0.4,0.5,0.7,0.7" },
@@ -77,14 +77,17 @@ local hooks = {
 		["EXPANDING_ORB"] = { mana = 30 },
 		["INFESTATION"] = { mana = 80 },
 		["BLOOD_MAGIC"] = { mana = -50 },
+		["BUBBLESHOT"] = { mana = 10 },
+		["SPITTER"] = { mana = 10 },
+		["BOUNCY_ORB"] = { mana = 15 },
 	}
 }
 
 local mats = { "MATERIAL_WATER", "MATERIAL_OIL", "MATERIAL_BLOOD", "MATERIAL_CEMENT", "WATER_TRAIL" }
 local crits = { "HITFX_CRITICAL_WATER", "HITFX_CRITICAL_OIL", "HITFX_CRITICAL_BLOOD" }
 
-for _,spell in pairs(mats) do hooks.spell_patches[spell] = { mana = 15 } end
-for _,spell in pairs(crits) do hooks.spell_patches[spell] = { mana = 20 } end
+for _,spell in pairs(mats) do hooks.spell_patches[spell] = { mana = 18 } end
+for _,spell in pairs(crits) do hooks.spell_patches[spell] = { mana = 25 } end
 
 local curses = { "CURSE_WITHER_PROJECTILE", "CURSE_WITHER_EXPLOSION", "CURSE_WITHER_MELEE", "CURSE_WITHER_ELECTRICITY" }
 for _,spell in pairs(curses) do

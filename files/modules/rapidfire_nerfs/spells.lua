@@ -75,7 +75,7 @@ hooks.spell_patches = {
 		end,
 	},
 	["DIGGER"] = {
-		mana = 6,
+		mana = 7,
 		action = function()
 			add_projectile("data/entities/projectiles/deck/digger.xml")
 			c.fire_rate_wait = c.fire_rate_wait + 2

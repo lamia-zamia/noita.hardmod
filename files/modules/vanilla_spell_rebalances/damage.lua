@@ -2,8 +2,8 @@ local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 local deck = "data/entities/projectiles/deck/"
 
 local damage_nerfs = {
-  ["chainsaw.xml"] = { slice = 0.4 },
-  ["digger.xml"] = { drill = 0.2 },
+  ["chainsaw.xml"] = { slice = 0.3 },
+  ["digger.xml"] = { drill = 0.1 },
 
   -- Already can't have any damage, just want to fix the lying tooltip
   -- (smh nolla)
@@ -56,7 +56,7 @@ end
 for file in nxml.edit_file(deck.."luminous_drill.xml") do
 	local pcomp = file:first_of("ProjectileComponent")
 	if pcomp then
-		pcomp:set("ground_penetration_max_durability_to_destroy", 12)
+		pcomp:set("ground_penetration_max_durability_to_destroy", 11)
 		pcomp:set("friendly_fire", true) -- >:)
 		pcomp:set("damage", 0.25)
 	end
