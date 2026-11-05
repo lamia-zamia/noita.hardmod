@@ -9,7 +9,7 @@
 	
 	<PhysicsBody2Component
 		kill_entity_if_body_destroyed="1"
-		allow_sleep="1"
+		allow_sleep="0"
 		angular_damping=".2"
 		fixed_rotation="0"
 		is_bullet="0"
