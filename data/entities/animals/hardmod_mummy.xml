@@ -1,4 +1,4 @@
-<Entity name="$hardmod_animal_mummy_name">
+<Entity name="$animal_hardmod_mummy">
 	<!-- Do not use this file, this is a placeholder for the progress log -->
 	<Base file="mods/noita.hardmod/files/modules/stronger_enemies/entities/mummy.xml" include_children="1"></Base>
 </Entity>
