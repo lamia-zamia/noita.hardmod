@@ -1,7 +1,7 @@
 ---@diagnostic disable: undefined-global
 
 local action_id_table = nil
-local function get_actions_lua_data(action_id)
+local function get_spell_data(action_id)
 	if not action_id_table then
 		action_id_table = {}
 		for _,action in pairs(actions) do
@@ -66,6 +66,43 @@ local function apply_freeze()
 	end
 end
 
+local last_greek_error = 0
+
+local function run_greek(data, recursion_level, dont_draw, no_recursion)
+	local rec = check_recursion(data, recursion_level)
+
+	if no_recursion and data.recursive then return false end
+	if not no_recursion and rec < 0 then return false end
+
+	local spell = get_spell_data(data.id)
+	if spell.never_unlimited then
+		local frame = GameGetFrameNum()
+		if not reflecting and frame - last_greek_error > 20 then
+			GamePrint(GameTextGet("$hardmod_spell_greek_limited", GameTextGetTranslatedOrNot(spell.name)))
+			GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/out_of_mana", x, y)
+			last_greek_error = frame
+		end
+
+		return false
+	end
+
+	if dont_draw then dont_draw_actions = true end
+	data.action(rec)
+	if dont_draw then dont_draw_actions = false end
+
+	return true
+end
+
+local function run_greek_all(list, recursion_level, spell_type, no_recursion, blacklist_spell_id)
+	for _,data in pairs(list) do
+		if spell_type and data.type ~= spell_type then goto continue end
+		if blacklist_spell_id and data.id == blacklist_spell_id then goto continue end
+
+		run_greek(data, recursion_level, true, no_recursion)
+		::continue::
+	end
+end
+
 local hooks = {}
 
 hooks.new_spells = {
@@ -83,10 +120,10 @@ hooks.new_spells = {
 		action = function()
 			if reflecting then return end
 
-			local data = {}
+			local data = nil
 			if #deck > 0 then data = deck[1]
 			elseif #hand > 0 then data = hand[1]
-			else data = nil end
+			end
 
 			local rec = check_recursion(data, recursion_level)
 			if not data or rec < 0 or data.uses_remaining > 0 then
@@ -100,7 +137,7 @@ hooks.new_spells = {
 			if wcomp == nil then return end
 			local money = ComponentGetValue2(wcomp, "money")
 
-			local max_uses = get_actions_lua_data(data.id).max_uses or -1
+			local max_uses = get_spell_data(data.id).max_uses or -1
 			local cast_price = 10
 
 			if data.id == "DIVIDE_10" then cast_price = 500
@@ -145,14 +182,106 @@ hooks.spell_patches = {
 	["BOMB"] = { max_uses = 5 },
 	["MINE"] = { max_uses = 20 },
 	["GRENADE"] = { max_uses = 30 },
-	["ALPHA"] = { mana = 80 },
-	["GAMMA"] = { mana = 80 },
-	["TAU"] = { mana = 120 },
-	["SIGMA"] = { mana = 90 },
-	["MU"] = { mana = 90 },
-	["ADD_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0.2" },
-	["ADD_TIMER"] = { mana = 88, spawn_level = "10", spawn_probability = "0.2" },
-	["ADD_DEATH_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0.2" },
+	["ALPHA"] = {
+		mana = 80,
+		action = function(rec)
+			c.fire_rate_wait = c.fire_rate_wait + 15
+
+			local data = discarded[1] or hand[1] or deck[1]
+			if data then run_greek(data, rec) end
+		end
+	},
+	["GAMMA"] = {
+		mana = 80,
+		action = function(rec)
+			c.fire_rate_wait = c.fire_rate_wait + 15
+
+			local data = nil
+
+			if #deck > 0 then data = deck[#deck]
+			elseif #hand > 0 then data = hand[#hand]
+			end
+
+			if data then run_greek(data, rec) end
+		end
+	},
+	["TAU"] = {
+		mana = 120,
+		action = function(rec)
+			c.fire_rate_wait = c.fire_rate_wait + 35
+
+			local a = deck[1]
+			local b = deck[2]
+
+			if a then run_greek(a, rec) end
+			if b then run_greek(b, rec) end
+		end
+	},
+	["OMEGA"] = {
+		action = function(rec)
+			run_greek_all(discarded, rec, nil, false, "RESET")
+			run_greek_all(hand, rec, nil, true)
+			run_greek_all(deck, rec, nil, false, "RESET")
+		end
+	},
+	["MU"] = {
+		mana = 90,
+		action = function(rec)
+			c.fire_rate_wait = c.fire_rate_wait + 50
+
+			local old_cd = c.fire_rate_wait
+			local old_rt = current_reload_time
+			local old_mana = mana
+
+			run_greek_all(discarded, rec, 2)
+			run_greek_all(hand, rec, 2)
+			run_greek_all(deck, rec, 2)
+
+			c.fire_rate_wait = old_cd
+			current_reload_time = old_rt
+			mana = old_mana
+
+			draw_actions(1, true)
+		end
+	},
+	["PHI"] = {
+		action = function(rec)
+			c.fire_rate_wait = c.fire_rate_wait + 50
+
+			local old_cd = c.fire_rate_wait
+			local old_rt = current_reload_time
+			local old_mana = mana
+
+			run_greek_all(discarded, rec, 0)
+			run_greek_all(hand, rec, 0)
+			run_greek_all(deck, rec, 0)
+
+			c.fire_rate_wait = old_cd
+			current_reload_time = old_rt
+			mana = old_mana
+		end
+	},
+	["SIGMA"] = {
+		mana = 90,
+		action = function(rec)
+			c.fire_rate_wait = c.fire_rate_wait + 30
+
+			local old_cd = c.fire_rate_wait
+			local old_rt = current_reload_time
+			local old_mana = mana
+
+			run_greek_all(discarded, rec, 1)
+			run_greek_all(hand, rec, 1)
+			run_greek_all(deck, rec, 1)
+
+			c.fire_rate_wait = old_cd
+			current_reload_time = old_rt
+			mana = old_mana
+		end
+	},
+	["ADD_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
+	["ADD_TIMER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
+	["ADD_DEATH_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
 	["SCATTER_2"] = {
 		action = function()
 			draw_actions(2, true)
