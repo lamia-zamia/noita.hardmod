@@ -388,7 +388,7 @@ local perks = {
 		weight = 6,
 		priority = 0,
 		max = 1,
-		condition = function(self, data) return data.level > 3 end,
+		condition = function(self, data) return data.level > 2 end,
 		func = function(self, entity_id, data)
 			EntityAddChild(entity_id, EntityLoad("mods/noita.hardmod/files/modules/enemy_perks/entities/damage_buffer.xml", data.x, data.y))
 		end
