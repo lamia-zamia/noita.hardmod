@@ -1,4 +1,4 @@
-<Entity name="hardmod.hm_rework.collapse_crystal" tags="hm_crystal,mortal">
+<Entity name="hardmod.collapse_crystal" tags="hm_crystal,mortal">
 
 	<PhysicsImageShapeComponent
 		is_root="1"

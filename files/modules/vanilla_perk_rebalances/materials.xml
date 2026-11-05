@@ -1,0 +1,67 @@
+<Materials>
+	<CellDataChild
+		_parent="gold"
+		_inherit_reactions="1"
+		name="hardmod.greedy_gold"
+		tags="[sand_metal],[corrodible],[alchemy],[gold],[solid],[earth],[hardmod.gold],[wallet_money]"
+		wang_color="ffebc802"
+	/>
+
+	<CellDataChild
+		_parent="hardmod.greedy_gold"
+		_inherit_reactions="1"
+		name="hardmod.greedy_gold.10"
+		wang_color="ffebc803"
+	/>
+
+	<CellDataChild
+		_parent="hardmod.greedy_gold"
+		_inherit_reactions="1"
+		name="hardmod.greedy_gold.100"
+		wang_color="ffebc804"
+	/>
+
+
+	<CellDataChild
+		_parent="hardmod.greedy_gold"
+		_inherit_reactions="1"
+		name="hardmod.bloody_gold"
+		wang_color="fff73a36"
+		ui_name="$hardmod_bloody_gold_material"
+	>
+		<Graphics
+			texture_file="mods/noita.hardmod/files/modules/vanilla_perk_rebalances/gold_is_dust/bloody_gold.png"
+			color="fff73a36"
+		/>
+	</CellDataChild>
+
+	<CellDataChild
+		_parent="hardmod.bloody_gold"
+		_inherit_reactions="1"
+		name="hardmod.bloody_gold.10"
+		wang_color="fff73a37"
+	/>
+
+	<CellDataChild
+		_parent="hardmod.bloody_gold"
+		_inherit_reactions="1"
+		name="hardmod.bloody_gold.100"
+		wang_color="fff73a38"
+	/>
+
+	<CellDataChild
+		_parent="gem_box2d"
+		_inherit_reactions="1"
+		tags="[box2d],[gold],[alchemy]"
+		name="spell_gem_box2d"
+		ui_name="$mat_gold_box2d"
+		gfx_glow_color="0xa2f097"
+		wang_color="ff65a277"
+		electrical_conductivity="1"
+		audio_physics_material_wall="gravel"
+		audio_physics_material_solid="gold"
+		show_in_creative_mode="1"
+	>
+		<Graphics color="ff76cc6b"></Graphics>
+	</CellDataChild>
+</Materials>

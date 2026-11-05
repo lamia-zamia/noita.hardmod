@@ -14,6 +14,5 @@ if dmg_comp then
 	-- only trigger kamikaze explosion if the owner has low enough HP to die from it
 	if ( hp * expl_mtp ) < 5 then -- bomb deals 5 (i.e. 125) damage
 		EntityLoad( "mods/noita.hardmod/files/modules/enemy_perks/entities/kamikaze_explosion.xml", x, y )
-		EntityKill( GetUpdatedEntityID() )
 	end
 end

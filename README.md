@@ -3,7 +3,7 @@ A Noita Community Mod Collaboration! Following the Noita Fair Mod, this mod inte
 (Note that this does NOT mean adding memey bullshit or otherwise making the game more frustrating, this isn't Fairmod! The difficulty should ideally be fun and engaging.)
 
 
-<ins>Development has officially begun as of October 1st</ins> and the mod will be released midnight after Halloween, or Novermber 1st 00:00 (you can still further develop/work on the mod post-release).
+<ins>Development has officially begun as of October 1st</ins> and the mod release time is to be determined. (you can still further develop/work on the mod post-release).
 
 # Implemented Features
 
@@ -18,13 +18,6 @@ Note: This list is not complete. Also, its best to experience the mod yourself f
   - The Phantom is named Ira and will grow stronger with each biome you visit, they will take the situation & previous encounters into consideration when selecting abilities to grant their next host in order to best slay you.
   - You have a 3 minute grace period before Ira begins haunting you, after which Ira will continually possess a new target every minute to hunt you down; however Ira will stop haunting you briefly if you banish them by killing their host, this grace period timer after each kill also grows longer with each biome you visit.
   - Ira can be banished instantly by charming their host with pheromones but this will anger Ira greatly and you may have a harder time fending them off in future encounters.
-- `truly_limited_spells`
-  - The Unlimited Spells perk has been removed.
-  - Spell Refresh is no longer automatically picked up (quality of life change)
-  - A new perk gives enemies a chance to drop "spell gems", which restore a few spell charges on pickup.
-  - Greek spells are now (by default) limited to 30 uses.
-  - Two new late-game spells allow you to cast limited spells with 0 remaining charges.
-  - More info: [readme.md](files/modules/truly_limited_spells/readme.md)
 - `vanilla_perk_rebalances`
   - All-Seeing Eye (perk) now grants vision around the cursor only, rather than lighting up the entire screen.
   - All-Seeing Eye (spell) is now less common early, and has fewer uses.
@@ -52,8 +45,12 @@ Note: This list is not complete. Also, its best to experience the mod yourself f
   - Adds an uncommon Healthy Extra HP dropped from chests, which increases your max HP by 25 and heals you by the same amount
 - `stronger_enemies`
   - Changes which enemies spawn where
-  - Some enemies that spawn in NG+1 now spawn in regular New Game
+  - Some enemies that spawn in NG+1 now spawn in regular New Game, along with some custom spawn rules
+  - Parallel Worlds have *all* possible spawns from all NG+ levels (no scaling is applied)
   - The blinding effect has a bigger visible area, and now only lasts 11 seconds (this is to compensate the fact that blinding mages now spawn in collapsed mines and coal pits)
+  - The confusion spirit has much less HP and is much easier to kill
+  - The weak spirit now disables all your protection perks (instead of increasing the damage you take), and spawns in much more areas
+  - Fixed swapper bypass
 - `better_anvil`
   - Hiisi Anvil has been moved! You now have to explore the Hiisi Base a bit to find it.
   - In the old place in the bottom right there is a book hinting at the general location of the anvil, so you don't have to search everything
@@ -90,7 +87,7 @@ Note: This list is not complete. Also, its best to experience the mod yourself f
   - Add Mana now restores only 15 mana, and appears later & rarer
   - A new spell called Mini Chainsaw replaces the original spawns, which costs 6 mana and halves cast delay instead of setting it to 0.
   - A new spell called Mana Burst restores less mana the longer you hold the fire button, working in bursts only
-  - A new spell called Mana Regen restores 12% of a wand's max mana per second, intended to make high mana, low charge speed wands more usable.
+  - A new spell called Mana Regen restores 8% of a wand's max mana per second, intended to make high mana, low charge speed wands more usable.
   - Material spells now cost 8 mana. Heavy spread now costs 6 mana, and only adds 9 degrees of spread to work better with `cheeseless_triggers`
 - `trappier_traps`
   - Made a bunch of the box traps unkickable.
@@ -100,8 +97,6 @@ Note: This list is not complete. Also, its best to experience the mod yourself f
   - TANNEREYE IS DEAD.
   - Steve and Scott are now 95% resistant to physics damage
   - The cursed rock entity has been fixed, you can no longer stand inbetween chunk borders to not get damaged
-- `nerf_vanilla_damage`
-  - Changes to some vanilla damage values
 - `vanilla_spell_rebalances`
   - Changes to some vanilla spells
 - `no_more_max_hp_cheesing`

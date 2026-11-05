@@ -1,0 +1,4 @@
+mods/noita.hardmod/files/modules/stronger_enemies/gfx/ragdolls/wizard_confusion/torso.png
+mods/noita.hardmod/files/modules/stronger_enemies/gfx/ragdolls/wizard_confusion/hand.png
+mods/noita.hardmod/files/modules/stronger_enemies/gfx/ragdolls/wizard_confusion/feet.png
+mods/noita.hardmod/files/modules/stronger_enemies/gfx/ragdolls/wizard_confusion/head.png

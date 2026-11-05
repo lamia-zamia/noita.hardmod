@@ -309,7 +309,102 @@ reduce EP's cost
 fix this time for real
 make lukki lair able to have modifiers too
 more spell nerfs
+make null mana restore 20 mana
 added 3 more perks, did lots of tweaking
 fixed perks not being unlocked when killing enemies
+add toggle for Less Explosive module
 fixed small bug with orphaned perk entities
+some eperk tweaks
+oopie
+some nerfs to bosses
+make PWs spawn all enemies from ng+
+fix buried eye teleport location
 some basic fixes
+Add utils.patchifile
+change starter bomb spell uses & swap tele and short tele mana cost
+change biome modifier chances
+increase biome modifier chance for wandmart
+unshuffle: Remove shuffle wands, and change starter wands
+separate module starter_wands
+add a book hint
+some perks for altar sacrifices
+update readmE
+update electric stun immunity sprite and name
+added polymorph gui and vanilla bugfixes modules, added wormy flight eperk
+oops, forgor to remove debug stuff
+forgor about a few debug prints
+forgot to remove test item
+grrr
+Add a custom .yaml locale system
+Update 02_ru.yaml
+added 2 new damage modifiers
+fix broken translation file
+update credits
+reward for winning :)
+replaced ominous liquid PW barriers with apoth cursed liquid, fixed polymorph stain status inconsistencies
+worms and lukki no longer dig HM brickwork
+ported over some reworked perk code userk.things, hope it works
+Update perk_list.lua
+oops forgot to remove debug thingy
+rework Teleportititis
+turn Pinpointer perk into a spell
+>.<
+SHOOT nor BOOM
+perky entity
+Glass Heart no longer breaks on material damage
+fix Time Trial not working for deeper HMs
+add translations for trial perk messages
+fixed some small issues
+make Blink less spammable
+negate the double negation
+fixed recycle health enemies healing themselves
+buff protection perks
+added heal sparkles for Recycle Health eperk, added material damage for Cursed Liquid
+change how weak spirit works & make it spawn in more places
+add Toolbox perk
+discontinue vanilla wand upgrade perks
+more splashes
+change biome map
+change snowy depths to have FREEZING_COSMETIC instead of FREEZING modifier
+some rebalances
+Remove truly_limited_spells; move Indulgence to vanilla_spell_rebalances and Spell Gems to vanilla_perk_rebalances; restore the Unlimited Spells perk and make greeks unlimited again
+change which boss drops wandstone
+restore full immunities, will think of more ways to balance this later
+Global typo fix
+buff gate boss
+forgot i had that..
+nerf alchemist
+wait in my last commit i meant buff* lmao
+added Incognito eperk, "Perk Rain" event, and a few other tweaks/fixes
+re-removed 5wand, added perk and spell hooks
+converted spell and perk stuff to new system
+added stuff to example module
+Merge remote-tracking branch 'upstream/main' into pr/96
+STOP DELET MY STUFF
+make Kamikaze not spawn on ranged enemies
+fix missing utils prefixes
+make Squidward vegan + make him drop something nice
+low recoil -> no recoil perk
+show dev messages before commit history
+less frequent cold effect from freezing spells
+bit more lifetime for fields
+make item radar have a heart icon instead of potion
+Make Better Chests perk better
+change hiisi anvil spawning logic
+fix tabulation error
+fixes, new electricity eperk
+generic unfinished stuff
+fix top right anvil location
+nerf ionized modifier slightly
+add blue ghosts to snowy chasm
+more splash options
+move `perks.lua` and `spells.lua` to `files/scripts`
+Confusion Mage !!!!! (guh i hate nolla)
+print log
+MORE JANK
+less jank but still jank and honestly maybe this is some even more cursed jank
+remove debug wizard spawn
+Merge remote-tracking branch 'upstream/main' into pr/107
+Update list.lua
+update confusion mage
+undo my locale build script shit :p

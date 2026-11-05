@@ -52,7 +52,7 @@ if #EntityGetInRadiusWithTag(x, y, 130, "perk") == 0 then
 		found_crystal = found_crystal or EntityHasTag(entity, "hm_crystal")
 
 		local name = EntityGetName(entity)
-		if name == "hardmod.hm_rework.collapse_crystal" then collapse()
+		if name == "hardmod.collapse_crystal" then collapse()
 		elseif name == "hardmod.hm_rework.crystal_attractor" then EntityKill(entity)
 		end
 	end

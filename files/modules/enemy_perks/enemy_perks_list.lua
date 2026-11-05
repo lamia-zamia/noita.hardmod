@@ -1,8 +1,10 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
+local biomes = dofile_once("mods/noita.hardmod/lib/biome_index.lua")
+
 ---@class enemy_perk
 ---@field id string string ID
----@field name string string name (viewable in progress)
+---@field name string? string name (viewable in progress)
 ---@field description string? description of the perk (viewable in progress)
 ---@field sprite string? path to the perk's sprite
 ---@field icon string? path to the perk's icon
@@ -11,14 +13,24 @@ local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 ---@field priority number? priority for the order its shown above enemies' heads or in the inspect window, default 10
 ---@field max integer? max number of this perk an enemy can have
 ---@field condition function? if added, this function must return true, is passed the `data` table
----@field func function function that actually does the stuff, is passed the `data` table
+---@field func function? function that actually does the stuff, is passed the `data` table
+---@field func_handler function? function that runs on the perk handler every 80f, is passed sprite components of in-world perk icons
+---@field func_inspector function? function that runs every frame in the eperk inspector, is passed a table of all the perks held by the enemy
 
+local mpath = "mods/noita.hardmod/files/modules/enemy_perks/"
 local sprites_path = "mods/noita.hardmod/files/modules/enemy_perks/perk_sprites/"
 local icons_path = "mods/noita.hardmod/files/modules/enemy_perks/perk_icons/"
 
 local enemy_is_ranged = function(self, data)
 	local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy,"AnimalAIComponent")
 	if animal_ai_comp and ComponentGetValue2(animal_ai_comp,"attack_ranged_enabled") then
+		return true
+	end
+end
+
+local enemy_is_melee = function(self, data)
+	local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy,"AnimalAIComponent")
+	if animal_ai_comp and ComponentGetValue2(animal_ai_comp,"attack_melee_enabled") then
 		return true
 	end
 end
@@ -76,7 +88,9 @@ local perks = {
 		weight = 2,
 		priority = 20,
 		max = 1,
-		condition = enemy_is_ranged,
+		condition = function(self, data)
+			return enemy_is_melee(self, data) and not enemy_is_ranged(self, data) and not data.vigour
+		end,
 		func = function(self, entity_id, data)
 			-- show nuke particles on the enemy
 			local x, y = EntityGetTransform(entity_id)
@@ -93,6 +107,9 @@ local perks = {
 				script_source_file = "mods/noita.hardmod/files/modules/enemy_perks/scripts/kamikaze_update.lua",
 				execute_every_n_frame = 1,
 			})
+
+			-- make sure Vigour can't spawn
+			data.kamikaze = true
 		end
 	},
 	{
@@ -165,12 +182,7 @@ local perks = {
 		description = "$hardmod_eperk_pyrelord_desc",
 		weight = 8,
 		max = 1,
-		condition = function(self, data)
-			local comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy, "AnimalAIComponent")
-			if comp and ComponentGetValue2(comp, "attack_ranged_enabled") then
-				return true
-			end
-		end,
+		condition = enemy_is_ranged,
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_FIRE", true)
 			EntityAddComponent2(entity_id, "LuaComponent", {
@@ -186,16 +198,16 @@ local perks = {
 		weight = 2,
 		priority = 15,
 		max = 1,
-		-- condition = function(self, data)
-		-- -- @UserK how does this workkk
-		-- 	if data.how_many_of_each_perk["HARDMOD_KAMIKAZE"] == 0 then return true end
-		-- end,
+		condition = function(self, data) return not data.kamikaze end,
 		func = function(self, entity_id, data)
 			-- make the enemy explode on death
 			EntityAddComponent2(entity_id, "LuaComponent", {
 				script_death = "mods/noita.hardmod/files/modules/enemy_perks/scripts/vigour_on_death.lua",
 				execute_every_n_frame = -1,
 			})
+
+			-- make sure Kamikaze can't spawn
+			data.vigour = true
 		end
 	},
 	{
@@ -218,14 +230,7 @@ local perks = {
 		description = "$hardmod_eperk_aerolord_desc",
 		weight = 0.5,
 		max = 1,
-		condition = function(self, data)
-			if data.level < 5 then return false end
-
-			local comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy, "AnimalAIComponent")
-            if comp and ComponentGetValue2(comp, "attack_ranged_enabled") then
-            	return true
-            end
-		end,
+		condition = enemy_is_ranged,
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "KNOCKBACK_IMMUNITY", true)
 			EntityAddComponent2(entity_id, "LuaComponent", {
@@ -291,7 +296,7 @@ local perks = {
 		id = "CURSER",
 		name = "$hardmod_eperk_curser_name",
 		description = "$hardmod_eperk_curser_desc",
-		weight = 4,
+		weight = 3,
 		priority = 7,
 		max = 1,
 		condition = function(self, data)
@@ -403,7 +408,9 @@ local perks = {
 		weight = 5,
 		priority = 3,
 		max = 1,
-		condition = function(self, data) return GameGetGameEffectCount(data.target_enemy, "PROTECTION_POLYMORPH") == 0 end,
+		condition = function(self, data)
+			return GameGetGameEffectCount(data.target_enemy, "PROTECTION_POLYMORPH") == 0 and not EntityHasTag(data.target_enemy, "polymorphable_NOT")
+		end,
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_POLYMORPH", false)
 		end,
@@ -452,7 +459,74 @@ local perks = {
 
 			ComponentSetValue2(worming_it_flight_style, "gravity", 0)
 		end
-	}
+	},
+	{
+		id = "OBFUSCATION",
+		name = "$hardmod_eperk_obfuscation_name",
+		description = "$hardmod_eperk_obfuscation_desc",
+		weight = 2,
+		max = 1,
+		condition = function(self, data)
+			return #data.already_held_perks > 0 and data.level >= 5
+		end,
+		func_handler = function(self, entity_id, root, spr_comps)
+			for _,spr_comp in ipairs(spr_comps) do
+				local exceptions = {
+					["mods/noita.hardmod/files/modules/enemy_perks/perk_icons/expand.png"] = true,
+					["mods/noita.hardmod/files/modules/enemy_perks/perk_icons/obfuscation.png"] = true,
+				}
+				if not exceptions[ComponentGetValue2(spr_comp, "image_file")] then
+					ComponentSetValue2(spr_comp, "image_file", "mods/noita.hardmod/files/modules/enemy_perks/perk_icons/missing.png")
+					EntityRefreshSprite(entity_id, spr_comp)
+				end
+			end
+		end,
+		func_inspector = function(self, perks)
+			for _,perk in ipairs(perks) do
+				if perk ~= self then perk.sprite = "mods/noita.hardmod/files/modules/enemy_perks/perk_sprites/missing.png" end
+			end
+		end
+	},
+	{
+		id = "ARMED",
+		name = "$hardmod_eperk_armed_name",
+		description = "$hardmod_eperk_armed_desc",
+		weight = 7,
+		max = 0,
+		condition = function(self, data)
+			return data.level > 1 --can hold gun
+		end,
+		func = function(self, entity_id, data)
+			local wands = dofile_once(mpath.."scripts/armed_wands_list.lua")
+			local new_data = utils.deepcopy(data)
+			new_data.perk = self
+			local wand_data = utils.ConditionalRandomFromTable(wands, new_data)
+			if not wand_data then return end
+
+			local wand = EntityLoad("", data.x, data.y)
+			GamePickUpInventoryItem(entity_id, wand)
+		end,
+	},
+	{
+		id = "ELECTRICITY",
+		name = "$perk_electricity",
+		description = "$hardmod_eperk_electricity_desc",
+		weight = 8,
+		max = 1,
+		condition = function(self, data)
+			if data.biome == "$biome_vault" or data.biome == "$biome_fungicave" then
+				self.weight = 3
+			end
+		end,
+		func = function(self, entity_id, data)
+			GetGameEffectLoadTo(entity_id, "PROTECTION_ELECTRICITY", false)
+			local child_id = EntityLoad("data/entities/misc/perks/electricity.xml", data.x, data.y)
+			local elec_comp = EntityGetFirstComponent(child_id, "ElectricitySourceComponent")
+			if elec_comp then ComponentSetValue2(elec_comp, "emission_interval_frames", 48) end
+			EntityAddTag(child_id, "perk_entity")
+			EntityAddChild(entity_id, child_id)
+		end
+	},
 }
 
 for _,perk in ipairs(perks) do
@@ -474,6 +548,8 @@ for _,perk in ipairs(perks) do
 			return cond(self, data, ...) and (data.how_many_of_each_perk[self.id] or 0) < self.max
 		end
 	end
+
+	perk.func = perk.func or function(...) end
 end
 
 return perks

@@ -1,8 +1,0 @@
-<Entity tags="hardmod">
-	
-	<LuaComponent
-		script_source_file="mods/noita.hardmod/files/modules/truly_limited_spells/scripts/items/indulgence_spawner_scan.lua"
-		execute_every_n_frame="60"
-	></LuaComponent>
-	
-</Entity>

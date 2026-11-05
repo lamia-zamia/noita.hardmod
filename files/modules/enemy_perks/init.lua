@@ -39,7 +39,32 @@ local biome_levels = {
 		level = 6,
 		range = {1, 2} --guaranteed 1-2 perks base
 	},
-	["$biome_meat"] = 10
+	["$biome_meat"] = 10,
+
+	["$biome_holymountain"] = {
+		level = 3,
+		do_recursive_roll = false,
+		custom_func = function(self, entity_id, x, y)
+			local levels = {
+				2,
+				5,
+				9,
+				12,
+				16,
+				20,
+				25,
+			}
+
+			local y_chunk_level = math.floor(y/512)
+			local num = 0
+			for i,stage_boundary in ipairs(levels) do
+				if stage_boundary > y_chunk_level then break end
+				num = i
+			end
+
+			return num
+		end
+	}
 }
 
 
@@ -93,13 +118,8 @@ local function give_enemy_perks(entity_id, num, data)
 	if not (num > 0) then return end
 
 	-- do not give perks to entities who drop no gold
-	local vsc_comps = EntityGetAllChildren(entity_id, "VariableStorageComponent")
-	if vsc_comps then
-		for i,vsc_comp in ipairs(vsc_comps) do
-			if ComponentHasTag(vsc_comp, "no_gold_drop") then
-				return
-			end
-		end
+	for _,vsc_comp in ipairs(EntityGetComponent(entity_id, "VariableStorageComponent") or {}) do
+		if ComponentHasTag(vsc_comp, "no_gold_drop") then return end
 	end
 
 	local x,y = EntityGetTransform(entity_id)
@@ -158,14 +178,17 @@ local function give_enemy_perks(entity_id, num, data)
 end
 
 hooks.new_eid = function(entity_id)
-	if EntityHasTag(entity_id, "enemy") and not EntityHasTag(entity_id, "hardmod_blessed") then
+	if EntityHasTag(entity_id, "enemy") and not (EntityHasTag(entity_id, "hardmod_blessed") or EntityHasTag(entity_id, "boss")) then
 		local x,y = EntityGetTransform(entity_id)
 		local biome = BiomeMapGetName(x, y)
 		local num = 0
+
+
 		local biome_data = biome_levels[biome] or biome_levels.default_biome_data
 		if biome_data.custom_func then
-			num = biome_data:custom_func(entity_id) or num
+			num = biome_data:custom_func(entity_id, x, y) or num
 		end
+
 		local level = biome_data.level
 			+ (tonumber(SessionNumbersGetValue("NEW_GAME_PLUS_COUNT")) or 0) -- + NG+ iteration
 			+ (GetParallelWorldPosition(x, y) ~= 0 and 3 or 0) -- +3 if in a PW
@@ -180,9 +203,12 @@ hooks.new_eid = function(entity_id)
 				plus_one_perk()
 			end
 		end
+
 		if biome_data.range then
 			num = num + Random(biome_data.range[1], biome_data.range[2])
 		end
+
+
 		--if not biome_levels[biome] then print(biome) end --use to find biomes not yet assigned levels
 		--num = 1
 		local data = {
@@ -218,6 +244,7 @@ local selected_creature = nil
 function hooks.post_update(frame)
 	if GameHasFlagRun("hardmod_new_enemy_perk_discovered") then
 		update_perk_unlock_states()
+		GameRemoveFlagRun("hardmod_new_enemy_perk_discovered")
 	end
 
 
@@ -228,6 +255,8 @@ function hooks.post_update(frame)
 		if (creature_x-x)^2 + (creature_y-y)^2 > 16^2 then selected_creature = nil end
 		print("selected creature: "..tostring(selected_creature))
 	end
+
+	---@diagnostic disable-next-line: param-type-mismatch
 	if not EntityGetIsAlive(selected_creature or 0) then selected_creature = nil end
 	if not (selected_creature and EntityGetIsAlive(selected_creature)) then return end
 
@@ -264,12 +293,18 @@ function hooks.post_update(frame)
 
 	local target_perks = {}
 	for perk_id in ComponentGetValue2(enemy_perk_data, "value_string"):gmatch("([^,]+)") do
-		target_perks[#target_perks+1] = enemy_perks_indexed[perk_id]
+		target_perks[#target_perks+1] = utils.deepcopy(enemy_perks_indexed[perk_id])
 	end
 
 	table.sort(target_perks, function(a, b)
 		return a.priority > b.priority
 	end)
+
+	for _,perk in ipairs(target_perks) do
+		if perk.func_inspector then
+			perk:func_inspector(target_perks)
+		end
+	end
 
 	local function render_perk(perk, x, y)
 		if perk.locked then GuiColorSetForNextWidget(gui, 0.3, 0.3, 0.3, 1) end

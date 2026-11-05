@@ -3,6 +3,7 @@ local hooks = {} ---@type hooks
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 
+local _g = HARDMOD_GLOBAL_DATA
 
 
 --[[ NB-1: Spells To Crashes ]]
@@ -76,7 +77,7 @@ for xml in nxml.edit_file("data/entities/player.xml") do
 end
 
 -- Script that activates when the player has been polymorphed to ensure the entity they polymorph into also has the death message fix applied.
-function hooks.player_changed(player, poly_identity)
+local function fix_NB5(p, poly_identity)
 	for _,luacomp in ipairs(EntityGetComponent(player, "LuaComponent") or {}) do
 		if ComponentGetValue2(luacomp, "script_death") == "mods/noita.hardmod/files/modules/vanilla_bugfixes/fix_death_message/add_message.lua" then return end
 	end --Check if the polymorphed player already has the script. If yes, then early return to halt the function.
@@ -287,6 +288,40 @@ end
 
 
 
+--[[ NB-270: GOLD NUGGET PICKUP LOG ]]
+-- The log message from picking up gold nuggets does not account for the amount of greed stacks currently held by the player.
+
+local list_of_nuggets = {
+	"data/entities/items/pickup/goldnugget.xml",
+	"data/entities/items/pickup/goldnugget_10.xml",
+	"data/entities/items/pickup/goldnugget_50.xml",
+	"data/entities/items/pickup/goldnugget_200.xml",
+	"data/entities/items/pickup/goldnugget_1000.xml",
+	"data/entities/items/pickup/goldnugget_10000.xml",
+	"data/entities/items/pickup/goldnugget_200000.xml",
+	"data/entities/items/pickup/goldnugget_x.xml",
+}
+
+local maybe_list_of_nuggets = {}
+
+for _,maybe_nugget in ipairs(maybe_list_of_nuggets) do
+	if ModDoesFileExist(maybe_nugget) then list_of_nuggets[#list_of_nuggets+1] = maybe_nugget end
+end
+
+local lua_comp = nxml.new_element("LuaComponent", {
+	script_source_file = "mods/noita.hardmod/files/modules/vanilla_bugfixes/scripts/nugget_log_fix.lua",
+	execute_on_added = "1",
+	remove_after_executed = "1",
+})
+
+for _,nugget in ipairs(list_of_nuggets) do
+	for xml in nxml.edit_file(nugget) do
+		xml:add_child(lua_comp)
+	end
+end
+
+
+
 --[[ NB-281: Missing Perk ]]
 ---In Holy Mountain, when entering a portal that's not one of the two directly above the Perk Altar, or if in the starting area above where you enter
 --- the Holy Mountain and restarting/crashing, the third perk will be missing from the Perk Altar, on account of it being loaded into a chunk that was
@@ -307,6 +342,79 @@ utils.modifile("data/scripts/perks/perk.lua", [[perk_spawn( x + (i-0.5)*item_wid
 		[[local perk = perk_spawn( x + (i-0.5)*item_width, y, perk_id, dont_remove_others )
 		if perk then EntityAddChild(perk_group, perk) end]]
 )
+
+
+
+--[[ NB-293: Attract Gold Is Weak ]]
+-- Attract Gold is good at picking up $10 nuggets, bad with $50 nuggets and useless with anything larger.
+
+-- Fix this by scaling the strength with mass (small gold nuggets are 25px, use it as a base).
+utils.modifile("data/scripts/perks/attract_items.lua", [[
+					local vel_x = math.cos( direction ) * power
+					local vel_y = 0 - math.sin( direction ) * power]],[[
+					local mass = ComponentGetValue2(physicscomponents[1], "mPixelCount") / 25
+					if mass == 0 then mass = 25 end
+					local vel_x = math.cos( direction ) * power * mass
+					local vel_y = 0 - math.sin( direction ) * power * mass]]
+)
+
+
+
+--[[ NB-295: Polymorphed Player Lacks Drown SFX ]]
+-- The sound loop that plays when drowning or taking curse damage is not applied to polymorphed player.
+
+local function fix_NB295(p, poly_identity)
+	if not poly_identity then return end
+
+	if not (EntityGetComponent(_g.player, "AudioLoopComponent", "sound_suffocating") or EntityGetComponent(_g.player, "AudioLoopComponent", "sound_underwater")) then
+		EntityAddComponent2(_g.player, "AudioLoopComponent", {
+			_tags = "sound_underwater",
+			file = "data/audio/Desktop/player.bank",
+			event_name = "player/underwater",
+			volume_autofade_speed = 0.25
+		})
+		EntityAddComponent2(_g.player, "AudioLoopComponent", {
+			_tags = "sound_suffocating",
+			file = "data/audio/Desktop/player.bank",
+			event_name = "player/suffocating",
+			volume_autofade_speed = 0.25
+		})
+
+		EntityAddComponent2(_g.player, "LuaComponent", {
+			script_source_file = "mods/noita.hardmod/files/modules/vanilla_bugfixes/scripts/manage_suffocate_audio.lua"
+		})
+	end
+
+	--if not EntityGetComponent(player, "AudioLoopComponent", "sound_damage_curse") then
+	--	EntityAddComponent2(player, "AudioLoopComponent", {
+	--		_tags = "sound_damage_curse",
+	--		file = "data/audio/Desktop/player.bank",
+	--		event_name = "player/underwater",
+	--		volume_autofade_speed = 0.25
+	--	})
+	--end
+end
+
+
+
+--[[ NB-299: Brazilian Portuguese /Secrets Counter ]]
+-- The number of discovered secrets in the progress menu on Brazilian Portuguese has a "/" before it.
+
+utils.modifile("data/translations/common.csv", [[,$0/$1 segredos encontrados,]], [[,$0 $1 segredos encontrados,]])
+
+
+
+--[[ NB-308: Twitchy Storage ]]
+-- When the Twitchy game effect is removed it, it doesn't clear the player's <PlatformShooterPlayerComponent::mForceFireOnNextUpdate/>.
+-- This forces the player to shoot their wand next time they switch to it despite the effect having run out.
+
+for xml in nxml.edit_file("data/entities/misc/effect_twitchy.xml") do
+	xml:add_child(nxml.new_element("LuaComponent", {
+		script_source_file = "mods/noita.hardmod/files/modules/vanilla_bugfixes/scripts/remove_twitchy.lua",
+		execute_every_n_frame = "-1",
+		execute_on_removed = "1",
+	}))
+end
 
 
 
@@ -337,8 +445,6 @@ local translation_overrides = {
 
 -- Add new translations, read common.csv for more individual info.
 local translations = ModTextFileGetContent("data/translations/common.csv")
-translations = translations .. "\n" .. ModTextFileGetContent("mods/noita.hardmod/files/modules/vanilla_bugfixes/missing_translations.csv") .. "\n"
-translations = translations:gsub("\r", ""):gsub("\n\n+", "\n")
 for _,value in ipairs(translation_overrides) do
 	translations = translations:gsub(utils.escape(value.target), value.new)
 end
@@ -393,5 +499,11 @@ function hooks.world_init()
 end
 --This approach might theoretically be undesirable for a mod that intentionally has things discovered "this run" while not permanently marking them as discovered.
 -- If such a case were to occur, I may end up taking out this fix and relegating it to my Extended Fixes mod, we shall see.
+
+
+function hooks.player_changed(p, poly_identity)
+	fix_NB5(p, poly_identity)
+	fix_NB295(p, poly_identity)
+end
 
 return hooks

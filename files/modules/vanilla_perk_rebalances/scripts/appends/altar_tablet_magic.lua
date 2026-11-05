@@ -64,7 +64,7 @@ if brimstone and not sac_brimstone and in_world(brimstone) then
 		GamePrintImportant("$log_altar_magic")
 
 		dofile_once("data/scripts/perks/perk.lua")
-		perk_spawn(sx, sy - 10, "HARDMOD_PROTECTION_FIRE", true)
+		perk_spawn(sx, sy - 10, "PROTECTION_FIRE", true)
 
 		EntityKill(brimstone)
 		GameAddFlagRun("HARDMOD_SACRIFICE_BRIMSTONE")

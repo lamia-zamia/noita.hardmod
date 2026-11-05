@@ -14,7 +14,7 @@ local player = EntityGetWithTag("player_unit")[1]
 if not player then return end
 value = value * 2^GameGetGameEffectCount(player, "EXTRA_MONEY")
 
-local name = GameTextGet(is_bloody and "$userkfixes.bloody_nugget_pickup_name" or "$userkfixes.gold_nugget_pickup_name", tostring(value))
+local name = GameTextGet(is_bloody and "$hardmod_bloody_nugget_pickup_name" or "$hardmod_gold_nugget_pickup_name", tostring(value))
 for _,itemcomp in ipairs(EntityGetComponent(entity_id, "ItemComponent") or {}) do
     ComponentSetValue2(itemcomp, "item_name", name)
 end

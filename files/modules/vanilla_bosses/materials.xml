@@ -1,0 +1,12 @@
+<Materials>
+	<CellDataChild
+		_parent="rock_box2d_nohit_hard"
+		_inherit_reactions="0"
+		name="hardmod_gate_boss_material"
+		tags="[box2d],[solid],[indestructible],[matter_eater_ignore_list]"
+		wang_color="732fa202"
+		durability="100"
+		hp="10000000"
+		density="30"
+	></CellDataChild>
+</Materials>

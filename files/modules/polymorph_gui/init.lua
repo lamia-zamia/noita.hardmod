@@ -2,6 +2,9 @@ local hooks = {} ---@type hooks
 local _g = HARDMOD_GLOBAL_DATA
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
+
+ModLuaFileAppend("data/scripts/status_effects/status_list.lua", "mods/noita.hardmod/files/modules/polymorph_gui/status_list_append.lua")
+
 hooks.player_changed = function()
 	if not _g.player_poly_identity then return end
 

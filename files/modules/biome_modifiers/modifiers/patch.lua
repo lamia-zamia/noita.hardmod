@@ -167,6 +167,8 @@ local function pick_modifiers_for(biome, count)
 end
 
 local function resolve_modifier(modifier)
+	if not modifier then return end
+
 	local id
 	local chance = 1
 
@@ -234,6 +236,10 @@ function get_modifier_mappings()
 	end
 
 	return result
+end
+
+local function string_starts(str, start)
+  return string.sub(str, 1, #start) == start
 end
 
 -- called from init_biome_modifiers

@@ -2,7 +2,7 @@ local entity_id = GetUpdatedEntityID()
 local root = EntityGetRootEntity(entity_id)
 
 local cooldown = 60
-local amount_add_frames = 600 --can be nerfed to 300f (5s), but then nerf cd to 30f
+local amount_add_frames = 300
 
 for _,child in ipairs(EntityGetAllChildren(root) or {}) do
 	local name = EntityGetName(child)

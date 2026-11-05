@@ -1,15 +1,15 @@
 <Entity tags="hardmod_cold">
 	<InheritTransformComponent _enabled="1"></InheritTransformComponent>
 
-  <GameEffectComponent 
-    effect="INTERNAL_ICE"
-    frames="300"
-    disable_movement="0"
-  ></GameEffectComponent>
+	<GameEffectComponent 
+		effect="INTERNAL_ICE"
+		frames="300"
+		disable_movement="0"
+	></GameEffectComponent>
 
-  <UIIconComponent
-    name="$hardmod_status_cold_name"
-    description="$hardmod_status_cold_spells_desc"
-    icon_sprite_file="data/ui_gfx/status_indicators/ingestion_freezing.png"
-  ></UIIconComponent>
+	<UIIconComponent
+		name="$hardmod_status_cold_name"
+		description="$hardmod_status_cold_spells_desc"
+		icon_sprite_file="data/ui_gfx/status_indicators/ingestion_freezing.png"
+	></UIIconComponent>
 </Entity>

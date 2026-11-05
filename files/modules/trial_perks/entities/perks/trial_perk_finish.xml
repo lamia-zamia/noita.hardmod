@@ -1,0 +1,8 @@
+<Entity>
+	
+	<LuaComponent
+		script_source_file="mods/noita.hardmod/files/modules/trial_perks/scripts/biomes/trial_perk_finish_scan.lua"
+		execute_every_n_frame="15"
+	></LuaComponent>
+	
+</Entity>

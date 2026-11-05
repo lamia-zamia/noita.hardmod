@@ -22,6 +22,7 @@ end
 ---@field insert_before string? String to insert before the result
 ---@field insert_after string? String to insert after the result
 ---@field pattern boolean? Use `from` as a pattern instead of escaping it
+---@field count integer? Amount of max replacements (e.g. 1 = only the first instance)
 
 ---More advanced version of `modifile`
 ---@param file string filepath
@@ -35,7 +36,7 @@ function utils.patchifile(file, replacements)
 		if replacement.insert_before then to = replacement.insert_before..to end
 		if replacement.insert_after then to = to..replacement.insert_after end
 
-		content = content:gsub(from, to)
+		content = content:gsub(from, to, replacement.count)
 	end
 
 	ModTextFileSetContent(file, content)
@@ -384,6 +385,18 @@ function utils.TriggerScriptDelayed(entity_id, script_path, delay)
 	})
 end
 
+---Formats an integer as an ordinal (1st, 2nd, 3rd, 4th, etc).
+---English-only, currently used only for splashes which aren't translated
+---@param int integer
+---@return string
+function utils.EnglishOrd(int)
+	local frac = int % 10
+	if frac == 1 then return int.."st" end
+	if frac == 2 then return int.."nd" end
+	if frac == 3 then return int.."rd" end
+	return int.."th"
+end
+
 ---Changes an entity's HP/max HP in DamageModelComponent. Values are 1/25
 ---@param eid entity_id Entity's ID
 ---@param hp integer? New HP (if nil and max_hp is present, will keep the entity's old HP but cap it)
@@ -419,6 +432,46 @@ function utils.EntityAddHp(eid, increment)
 	local hp = utils.EntityGetHp(eid)
 	if not hp then return end
 	utils.EntitySetHp(eid, hp.hp + increment)
+end
+
+---Add an enemy `enemy` to the progress list after `after_enemy`.
+---The enemy must be defined in `data/ui_gfx/animal_icons` and `data/entities/animals` (see existing enemies).
+---This function simply changes the order of the custom enemy.
+---
+---Must be called during mod init.
+function utils.AddEnemyToProgress(enemy, after_existing_enemy)
+	utils.patchifile("data/ui_gfx/animal_icons/_list.txt", {
+		{
+			from = after_existing_enemy .. "\n",
+			insert_after = enemy .. "\n",
+			count = 1
+		}
+	})
+end
+
+---Clones a table
+---@param orig table
+---@param copies nil
+---@return table
+function utils.deepcopy(orig, copies)
+    copies = copies or {}
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        if copies[orig] then
+            copy = copies[orig]
+        else
+            copy = {}
+            copies[orig] = copy
+            for orig_key, orig_value in next, orig, nil do
+                copy[utils.deepcopy(orig_key, copies)] = utils.deepcopy(orig_value, copies)
+            end
+            setmetatable(copy, utils.deepcopy(getmetatable(orig), copies))
+        end
+    else -- number, string, boolean, etc
+        copy = orig
+    end
+    return copy
 end
 
 return utils

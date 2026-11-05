@@ -1,0 +1,8 @@
+<Entity>
+	<LuaComponent
+		script_source_file="mods/noita.hardmod/files/modules/stronger_enemies/scripts/orb_confusion.lua"
+		execute_every_n_frame="1"
+		execute_times="-1"
+	/>
+	<LifetimeComponent lifetime="10"/>
+</Entity>

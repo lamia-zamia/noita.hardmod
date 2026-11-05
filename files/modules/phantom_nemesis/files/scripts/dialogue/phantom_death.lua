@@ -8,7 +8,7 @@ function death( damage_type_bit_field, damage_message, entity_thats_responsible,
     local pos_x,pos_y = EntityGetTransform(entity_id)
     local currbiome = BiomeMapGetName( pos_x, pos_y )
     local total_banishments_in_current_biome = tonumber(GlobalsGetValue(table.concat({"felcesis_",currbiome,"_count"}),"0"))
-    local total_deaths = tonumber(GlobalsGetValue("felcesis_last_deaths","0"))
+    local total_deaths = tonumber(GlobalsGetValue("felcesis_total_deaths","0"))
     total_banishments_in_current_biome = total_banishments_in_current_biome + 1
     total_deaths = total_deaths + 1
     GlobalsSetValue(table.concat({"felcesis_",currbiome,"_count"}),tostring(total_banishments_in_current_biome))

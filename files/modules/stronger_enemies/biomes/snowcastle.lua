@@ -10,10 +10,13 @@ PatchEnemies(g_big_enemies, {
 })
 
 AddEnemies(g_big_enemies, {
-  {
-    prob      = 0.5,
-    min_count = 1,
-    max_count = 1,
-    entity    = "data/entities/animals/roboguard.xml"
-  },
+	{
+		prob = 0.5,
+		entity = "data/entities/animals/roboguard.xml"
+	},
+	-- evil and fucked up spirit coming your way to ruin your explosion immunity
+  	{
+		prob = 0.2,
+		entity = "data/entities/animals/weakspirit.xml",
+	},
 })

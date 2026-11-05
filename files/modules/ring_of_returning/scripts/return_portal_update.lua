@@ -7,7 +7,10 @@ local player = EntityGetInRadiusWithTag( x, y, 15, "player_unit" )[1]
 if player ~= nil then
 	local tx = utils.GetInternalInt( player, "hardmod_return_portal_dest_x" )
 	local ty = utils.GetInternalInt( player, "hardmod_return_portal_dest_y" )
-	if tx == nil or tx == 0 then return end
+	if tx == nil or tx == 0 then
+		tx = 766
+		ty = -808
+	end
 
 	-- "teleport"
 	GamePlaySound( "data/audio/Desktop/misc.bank", "misc/teleport_use_end", tx, ty )

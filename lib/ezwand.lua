@@ -13,7 +13,7 @@ dofile_once("data/scripts/gun/procedural/wands.lua")
 
 if not spell_lookup then
   spell_lookup = {}
-  dofile_once("data/scripts/gun/gun_actions.lua")
+  if not actions then dofile_once("data/scripts/gun/gun_actions.lua") end
   for i, action in ipairs(actions) do
     spell_lookup[action.id] = {
       icon = action.sprite,
@@ -24,8 +24,8 @@ end
 
 -- Removes spells from a table whose ID is not found in the gun_actions table
 local function filter_spells(spells)
-  dofile_once("data/scripts/gun/gun_actions.lua")
   if not spell_exist_lookup then
+    if not actions then dofile_once("data/scripts/gun/gun_actions.lua") end
     spell_exist_lookup = {}
     for i, v in ipairs(actions) do
       spell_exist_lookup[v.id] = true

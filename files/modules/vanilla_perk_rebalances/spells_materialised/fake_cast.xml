@@ -1,0 +1,39 @@
+<Entity name="$animal_player">
+	<LifetimeComponent lifetime="1"/>
+
+	<InheritTransformComponent/>
+
+	<SpriteAnimatorComponent/>
+
+	<CharacterDataComponent/>
+
+	<CharacterPlatformingComponent/>
+
+	<ControlsComponent/>
+
+	<GunComponent />
+
+	<Inventory2Component/>
+
+	<PlatformShooterPlayerComponent/>
+
+	<LuaComponent
+		script_shot="mods/noita.hardmod/files/modules/vanilla_perk_rebalances/spells_materialised/assign_blame.lua"
+	/>
+
+	<Entity name="inventory_quick">
+		<Entity>
+			<AbilityComponent
+				mana="10000"
+				mana_max="10000"
+				use_gun_script="1"
+				never_reload="1"
+			/>
+			<HotspotComponent
+				_tags="shoot_pos"
+				offset.x="7"
+				offset.y="-.5"
+			/>
+		</Entity>
+	</Entity>
+</Entity>

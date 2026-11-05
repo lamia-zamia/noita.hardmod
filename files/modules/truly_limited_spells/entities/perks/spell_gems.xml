@@ -1,8 +1,0 @@
-<Entity tags="perk_entity,hardmod_spell_gems_perk_entity">
-
-    <LuaComponent
-    	script_source_file="mods/noita.hardmod/files/modules/truly_limited_spells/scripts/perks/spell_gems_update.lua"
-        execute_every_n_frame="60"
-    ></LuaComponent>
-
-</Entity>

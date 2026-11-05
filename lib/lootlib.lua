@@ -105,7 +105,7 @@
 
 --------------------------------
 
-dofile_once("data/scripts/gun/gun_actions.lua")
+if not actions then dofile_once("data/scripts/gun/gun_actions.lua") end
 
 --------------------------------
 
@@ -722,6 +722,7 @@ local function chest_on_open_patch(entity)
   local loot_table = lootlib.get_loot_table(loot_table_name)
 
   for _,hook in pairs(LOOTLIB_DATA.chest_pre_open_hooks) do
+	SetRandomSeed(ctx.vars.rand_x, ctx.vars.rand_y)
     hook(ctx, loot_table, loot_table_name)
   end
 

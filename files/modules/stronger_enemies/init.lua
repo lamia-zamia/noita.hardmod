@@ -1,27 +1,60 @@
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua")---@type nxml
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
+local alt_biomes = dofile_once("mods/noita.hardmod/files/modules/alternate_biomes/biome_list.lua")
+
+utils.AddEnemyToProgress("hardmod_wizard_confusion", "wizard_twitchy")
+utils.AddEnemyToProgress("hardmod_mummy", "icer")
+
 local function patch_spawn_rules()
 	local patch_biomes = {
 		"coalmine_alt",
 		"crypt",
 		"excavationsite",
 		"fungicave",
+		"fungiforest",
+		"rainforest_dark",
 		"rainforest",
+		"sandcave",
 		"snowcastle",
 		"snowcave",
 		"the_end",
 		"vault",
+		"wandcave",
+		"winter",
+		"wizardcave",
 	}
 
 	for _,biome in pairs(patch_biomes) do
-		ModLuaFileAppend(
-		"data/scripts/biomes/" .. biome .. ".lua",
-		"mods/noita.hardmod/files/modules/stronger_enemies/biomes/" .. biome .. ".lua"
-		)
+		local append = "mods/noita.hardmod/files/modules/stronger_enemies/biomes/" .. biome .. ".lua"
+		ModLuaFileAppend("data/scripts/biomes/" .. biome .. ".lua", append)
+
+		for _,alt in pairs(alt_biomes.list[biome] or {}) do
+			if alt.script then
+				ModLuaFileAppend(alt.script, append)
+			end
+		end
 	end
 
 	ModLuaFileAppend("data/scripts/director_helpers.lua", "mods/noita.hardmod/files/modules/stronger_enemies/appends/director_helpers.lua")
+end
+
+local function patch_enemy_changes()
+	utils.patchifile("data/scripts/animals/spirit_aura_weak.lua", {
+		{
+			from = [["GameEffectComponent", "spirit_weakness"]],
+			to = [["VariableStorageComponent", "hardmod_spirit_weaken"]]
+		},
+		{
+			from = [[data/entities/misc/effect_spirit_weakness.xml]],
+			to = [[mods/noita.hardmod/files/modules/stronger_enemies/entities/effect_spirit_weaken.xml]]
+		},
+	})
+
+	utils.patchifile("data/entities/projectiles/orb_poly.xml", {
+		{ from = [[damage="0.3"]], to=[[damage="0"]] },
+		{ from = [[damage = "0.1"]], to=[[damage="0"]] },
+	})
 end
 
 local function patch_less_annoyances()
@@ -66,5 +99,10 @@ end
 patch_spawn_rules()
 patch_less_annoyances()
 patch_fixes()
+patch_enemy_changes()
 
-return {}
+return {
+	player_spawned = function()
+		-- EntityLoad("mods/noita.hardmod/files/modules/stronger_enemies/entities/hardmod_wizard_confusion.xml", 627, -125)
+	end
+}

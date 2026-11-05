@@ -5,6 +5,12 @@
 -- D2D2
 -- qtyui_ too!!!!
 
+local nxml_missing
+if not ModDoesFileExist("mods/noita.hardmod/lib/nxml/nxml.lua") then
+	ModTextFileSetContent("mods/noita.hardmod/lib/nxml/nxml.lua", ModTextFileGetContent("mods/noita.hardmod/files/scripts/nxml_backup.lua"))
+	nxml_missing = true
+end
+
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 
@@ -18,8 +24,10 @@ local modules = {
 	"logo_splash",
 	"starter_wands",
 	"unshuffle",
+	"limited_spells",
 	"vanilla_perk_rebalances",
 	"vanilla_spell_rebalances",
+	"spells_reweighted",
 	"vanilla_quests",
 	"vanilla_bosses",
 	--"no_more_chainsaw_wrapping", -- shit module never enable
@@ -29,12 +37,10 @@ local modules = {
 	"ring_of_returning",
 	"no_more_max_hp_cheesing",
 	"phantom_nemesis",
-	"truly_limited_spells",
 	"alt_fire_anything",
 	"ending",
 	"credits",
 	"nerf_vanilla_cheeses",
-	"nerf_vanilla_damage",
 	-- replaced by `ending` module requiring 11 orbs to pickup sampo
 	-- "stronger_kolmi",
 	"chest_tweaks",
@@ -94,7 +100,8 @@ local hooks = {
 	count_secrets = {}, --OnCountSecrets
 }
 
-HARDMOD_GLOBAL_DATA = {
+HARDMOD_GLOBAL_DATA = { ---@class HardmodGlobalInitData
+	module_ids = modules,
 	player = nil, --player EID.
 	player_poly_identity = nil, --contains some data on the player if they are polymorphed, nil if not polymorphed.
 	player_does_not_exist = true, --this is set to false on `player_spawned` and set to true on `player_destroyed`.
@@ -103,19 +110,66 @@ HARDMOD_GLOBAL_DATA = {
 }
 local gd = HARDMOD_GLOBAL_DATA
 
+ModTextFileSetContent("mods/noita.hardmod/files/__spell_appends.lua", "--")
+ModTextFileSetContent("mods/noita.hardmod/files/__perk_appends.lua", "--")
+
 for _,module in ipairs(enabled_modules) do
-	for hook_name,hook in pairs(dofile("mods/noita.hardmod/files/modules/"..module.."/init.lua") or {}) do
+	print("adding module: "..module)
+	local module_path = table.concat({"mods/noita.hardmod/files/modules/",module,"/"})
+	local module_hooks = dofile(module_path.."init.lua") or {}
+	for hook_name,hook in pairs(module_hooks) do
 		if hooks[hook_name] ~= nil then --Throw that shit away, let me stuff random shit in the hooks table >:(
 			hooks[hook_name][#hooks[hook_name]+1] = hook
 		end
 	end
+
+	local spell_append_path = module_path..(module_hooks.spells_path or "spells.lua")
+	if ModDoesFileExist(spell_append_path) then
+		ModLuaFileAppend("mods/noita.hardmod/files/__spell_appends.lua", spell_append_path)
+	end
+
+	local perk_append_path = module_path..(module_hooks.perks_path or "perks.lua")
+	if ModDoesFileExist(perk_append_path) then
+		ModLuaFileAppend("mods/noita.hardmod/files/__perk_appends.lua", perk_append_path)
+	end
 end
 
+ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/noita.hardmod/files/scripts/spells.lua")
+ModLuaFileAppend("data/scripts/perks/perk_list.lua", "mods/noita.hardmod/files/scripts/perks.lua")
+
+dofile("mods/noita.hardmod/files/translations/debug_split.lua")
 local translations = ModTextFileGetContent("data/translations/common.csv")
-translations = translations .. "\n" .. ModTextFileGetContent("mods/noita.hardmod/files/standard.csv").."\n"
+translations = translations .. "\n" .. ModTextFileGetContent("mods/noita.hardmod/files/translations/standard.csv").."\n"
 translations = translations:gsub("\r", ""):gsub("\n\n+", "\n")
 ModTextFileSetContent("data/translations/common.csv", translations)
 
+
+-- remove perks with not_progress from progress menu
+utils.modifile("data/scripts/perks/perk_reflect.lua",
+[[	RegisterPerk( 
+		perk.id,
+		perk.ui_name,
+		perk.ui_description,
+		perk.ui_icon,
+		perk.perk_icon
+		)]],
+[[	if not perk.not_progress then RegisterPerk( 
+		perk.id,
+		perk.ui_name,
+		perk.ui_description,
+		perk.ui_icon,
+		perk.perk_icon
+		) end]]
+)
+
+-- todo this doesnt work
+-- utils.patchifile("data/scripts/gun/gun_collect_metadata.lua", {
+-- 	{
+-- 		from = [[register_action( c )]],
+-- 		insert_before = [[ if not action.not_progress then ]],
+-- 		insert_after = [[ end ]]
+-- 	}
+-- })
 
 function OnModPreInit()
 	for _,func in ipairs(hooks.mod_pre_init) do
@@ -179,8 +233,9 @@ function OnPlayerSpawned(p)
 	for _,func in ipairs(hooks.player_spawned) do
 		func(p, is_run_start)
 	end
-
 	GameAddFlagRun("noita.hardmod.on_player_spawned_flag")
+
+	if nxml_missing then GamePrint("$hardmod_nxml_missing") end
 end
 
 function OnPlayerDied(p)
