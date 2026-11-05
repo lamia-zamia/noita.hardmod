@@ -274,6 +274,9 @@ hardmod_perk_blessed_blood_money_name,Blessed Blood Money,Благословен
 hardmod_perk_blessed_blood_money_desc,Enemies with perks drop Blood Money when killed.,Из сущности выпадут кровавые деньги при её смерти.,,,,,,,,,,,
 hardmod_eperk_electricity_desc,"This enemy electrifies the environment around themselves, and is immune to electricity","Эта сущность электризует все вокруг и иммунна к электричеству",,,,,,,,,,,
 hardmod_nxml_missing,"Warning, NXML could not be found, it has been substituted with a backup",RU_MISSING,,,,,,,,,,,
+hardmod_spell_damage_double_name,Double Damage,,,,,,,,,,,,,
+hardmod_spell_damage_double_desc,Doubles a projectile's total damage dealt,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,vanilla_bugfixes,
 ,,,,,,,,,,,,,,
 hardmod_damage_projectile_area,damage field,Поле Урона,,,,,,,,,,,Death message for dying to Projectile Area Damage,Use this for damage field deaths instead of 'cursed rock'.
