@@ -178,7 +178,7 @@ local function give_enemy_perks(entity_id, num, data)
 end
 
 hooks.new_eid = function(entity_id)
-	if EntityHasTag(entity_id, "enemy") and not EntityHasTag(entity_id, "hardmod_blessed") then
+	if EntityHasTag(entity_id, "enemy") and not (EntityHasTag(entity_id, "hardmod_blessed") or EntityHasTag(entity_id, "boss")) then
 		local x,y = EntityGetTransform(entity_id)
 		local biome = BiomeMapGetName(x, y)
 		local num = 0
