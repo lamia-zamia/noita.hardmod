@@ -330,7 +330,7 @@ function CreateMiniboss(entity_id, x, y, tier, budget, health_mult)
     local phantom_name = GameTextGetTranslatedOrNot("$hardmod_phantom_phantom_name") --Ira, Latin for angeeeee
     local victim_name = GameTextGetTranslatedOrNot(EntityGetName(entity_id))
 
-    if victim_name == "" then victim_name = table.concat({"$animal_",EntityGetFilename(entity_id):gsub("^.*/(.-)%.xml$", "%1")}) end
+    if victim_name == "" then victim_name = GameTextGetTranslatedOrNot(table.concat({"$animal_",EntityGetFilename(entity_id):gsub("^.*/(.-)%.xml$", "%1")})) end
     local selected_abilities_list = {}
     GamePrint(GameTextGet("$hardmod_phantom_possession",phantom_name,victim_name))
 
