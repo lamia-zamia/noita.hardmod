@@ -12,7 +12,7 @@ wand.manaMax = 1
 wand.mana = 1
 wand.manaChargeSpeed = 0
 wand.capacity = 20
-wand.spread = 0
+wand.spread = 120
 EntityAddTag( wand.entity_id, "hardmod_toolbox" )
 wand:SetSprite( "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/gfx/items/toolbox.png", 5, 2, 4, 3 )
 
