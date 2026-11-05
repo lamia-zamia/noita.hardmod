@@ -147,7 +147,7 @@ local events = {
             if GameGetFrameNum() > last_idle_talk + idle_talk_cd then
                 rate = 2
                 alpha = 0.7
-                local d_opts = {"You can't escape your sins","I SEE YOU","Your death will not be mourned","You can pray but you won't find forgiveness","Winter is coming for you","I will make you inanimate","Hell won't be enough for you!"}
+                local d_opts = {"You can't escape your sins","I SEE YOU","Your death will not be mourned","You can pray but you won't find forgiveness","Winter is coming for you","I will make you inanimate","Hell won't be enough for you!","Your end has come"}
                 local dialogue = d_opts[math.random(1,#d_opts)]
                 tone = "norm"
                 if dialogue == "I SEE YOU" then

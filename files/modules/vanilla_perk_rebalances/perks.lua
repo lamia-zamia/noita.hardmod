@@ -130,7 +130,7 @@ hooks.new_perks = {
 		ui_description = "$hardmod_perk_summon_toolbox_desc",
 		ui_icon = root.."ui_gfx/perks/summon_toolbox_016.png",
 		perk_icon = root.."ui_gfx/perks/summon_toolbox.png",
-		stackable = STACKABLE_NO,
+		stackable = false,
 		one_off_effect = true,
 		usable_by_enemies = false,
         func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
@@ -144,6 +144,23 @@ hooks.new_perks = {
 		        execute_every_n_frame = 60,
         	})
         end,
+	},
+	{
+		id = "HARDMOD_PYROMANIAC",
+		ui_name = "$hardmod_perk_pyromaniac_name",
+		ui_description = "$hardmod_perk_pyromaniac_desc",
+		ui_icon = root.."ui_gfx/perks/pyromaniac_016.png",
+		perk_icon = root.."ui_gfx/perks/pyromaniac.png",
+		stackable = false,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		game_effect = "PROTECTION_FIRE",
+		remove_other_perks = { "PROTECTION_FIRE" },
+		func = function(perk, entity, name)
+			local x, y = EntityGetTransform(entity)
+			local effect = EntityLoad(root.."entities/effect_pyromaniac.xml", x, y)
+			EntityAddChild(entity, effect)
+		end
 	},
 }
 
@@ -367,7 +384,13 @@ hooks.perk_patches = {
 	["ITEM_RADAR"] = {
 		ui_icon = root.."ui_gfx/perks/item_radar_016.png",
 		perk_icon = root.."ui_gfx/perks/item_radar.png",
-	}
+	},
+	["CONTACT_DAMAGE"] = {
+		ui_icon = root.."ui_gfx/perks/contact_damage_016.png",
+		perk_icon = root.."ui_gfx/perks/contact_damage.png",
+		ui_description = "$hardmod_perk_contact_damage_desc",
+		game_effect = "PROTECTION_MELEE",
+	},
 }
 
 local remove_perks = {
@@ -386,10 +409,12 @@ local remove_perks = {
 	"WORM_ATTRACTOR",
 	"WORM_SMALLER_HOLES",
 	"DUPLICATE_PROJECTILE",
+	"MEGA_BEAM_STONE",
 	"LASER_AIM", -- replaced by Pinpointer spell
 	"EXTRA_MANA", -- replaced by Summon Toolbox
 	"EXTRA_SLOTS", -- replaced by Summon Toolbox
 	"FASTER_WANDS", -- replaced by Summon Toolbox
+	"FIRE_GAS", -- replaced by Pyromaniac
 }
 
 --bomb materialised, lukki mutation, no wand tinkering, more blood, personal plasma beam, low recoil, phasing, pinpointer, proj dupe, levitation trail, worm perks

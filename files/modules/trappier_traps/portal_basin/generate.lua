@@ -36,7 +36,6 @@ local basin_mats = {
 }
 
 local evil_hms = {
-	{ 2400, 3000 },
 	{ 4400, 5100 },
 	{ 6000, 6700 },
 	{ 8000, 8700 },
@@ -45,7 +44,7 @@ local evil_hms = {
 local function get_material(x, y)
 
 	SetRandomSeed(666, 666)
-	local evil = Random(1, 15)
+	local evil = Random(1, 16)
 	if evil <= #evil_hms then
 		local hm = evil_hms[evil]
 		if y >= hm[1] and y <= hm[2] then

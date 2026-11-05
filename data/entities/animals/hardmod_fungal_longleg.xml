@@ -1,4 +1,4 @@
-<Entity name="$hardmod_animal_fungal_longleg_name">
+<Entity name="$animal_hardmod_fungal_longleg">
 	<!-- Do not use this file, this is a placeholder for the progress log -->
 	<Base file="mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/hardmod_fungal_longleg.xml" include_children="1"></Base>
 </Entity>

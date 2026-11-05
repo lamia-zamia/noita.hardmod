@@ -1,5 +1,6 @@
 local hooks = {}
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
+local simple_ids = dofile_once("mods/noita.hardmod/lib/biome_index.lua")
 
 MinibossCreator = dofile_once("mods/noita.hardmod/files/modules/phantom_nemesis/files/scripts/miniboss_creator.lua")
 local possession_limit_data = dofile_once("mods/noita.hardmod/files/modules/phantom_nemesis/files/scripts/possession_limits.lua")
@@ -21,7 +22,9 @@ hooks.post_update = function ()
     local felcesis_summon_lastdeath_time = tostring(GlobalsGetValue("felcesis_last_death","0"))
 
     local cam_x,cam_y = GameGetCameraBounds()
-    local currbiome = BiomeMapGetName( cam_x, cam_y )
+    local currbiome_path = DebugBiomeMapGetFilename( cam_x, cam_y )
+    local currbiome = simple_ids[currbiome_path] or currbiome_path
+
     local last_frame_entered_new_biome = tonumber(GlobalsGetValue("felceis_last_biome_frame","0"))
     local entered_new_biome_graceperiod = 60 * 45 --45 second safeguard against Ira when entering a new biome
     GlobalsSetValue("felcesis_last_biome",currbiome)
