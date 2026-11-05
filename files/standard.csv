@@ -116,7 +116,7 @@ hardmod_spell_heavy_spread_desc,"Gives a projectile much lower cast delay, but l
 hardmod_perk_item_immunities_name,"Amplified Items",,,,,,,,,,
 hardmod_perk_item_immunities_desc,"Some items in your inventory will give their protection at all times",,,,,,,,,,
 hardmod_spell_blink_name,"Blink",,,,,,,,,,
-hardmod_spell_blink_desc,"Teleports you to the cursor",,,,,,,,,,
+hardmod_spell_blink_desc,"Teleports you to the cursor, at the cost of some health",,,,,,,,,,
 hardmod_spell_parry_name,"Parry",,,,,,,,,,
 hardmod_spell_parry_desc,"Heals you by rebounding enemy projectiles",,,,,,,,,,
 hardmod_book_ending_hint_title,"Obseratum",,,,,,,,,,
