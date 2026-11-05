@@ -77,11 +77,10 @@ local matter_eatent_list = {
 
 function hooks.edit_material(mat)
 	if matter_eatent_list[mat.attr.name] then
-		mat.attr.tags = mat.attr.tags .. ",[matter_eater_ignore_list]"
+		local tags = mat.attr.tags
+		tags = tags and (tags .. ",") or ""
+		mat.attr.tags = tags .. "[matter_eater_ignore_list]"
 	end
-	-- matter_eater_ignore_list
-	-- templebrick_static
-	-- templebrick_noedge_static
 end
 
 return hooks

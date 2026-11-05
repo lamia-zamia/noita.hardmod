@@ -12,6 +12,7 @@ local hooks = {
 		["ADD_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
 		["ADD_TIMER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
 		["ADD_DEATH_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
+		["RESET"] = { mana = 30, spawn_level = "10", spawn_probability = "0" },
 		["LIGHT_BULLET"] = { mana = 9 },
 		["RECHARGE"] = { mana = 16, spawn_level = "2,3,4,5", spawn_probability = "0.6,0.7,0.8,0.9" },
 		["LIGHT_BULLET_TIMER"] = { mana = 20, spawn_level = "2,3,4,5", spawn_probability = "0.5,0.6,0.8,0.8" },

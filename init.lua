@@ -130,7 +130,6 @@ for _,module in ipairs(enabled_modules) do
 
 	local perk_append_path = module_path..(module_hooks.perks_path or "perks.lua")
 	if ModDoesFileExist(perk_append_path) then
-		print("appending...")
 		ModLuaFileAppend("mods/noita.hardmod/files/__perk_appends.lua", perk_append_path)
 	end
 end

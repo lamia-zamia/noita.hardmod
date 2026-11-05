@@ -49,6 +49,48 @@ local function entity_load_at_wand_tip(player_entity_id, load_this_entity)
 	return nil
 end
 
+local last_greek_error = 0
+local has_aleph = nil
+
+local function run_greek(data, recursion_level, dont_draw, no_recursion)
+	local rec = check_recursion(data, recursion_level)
+
+	if no_recursion and data.recursive then return false end
+	if not no_recursion and rec < 0 then return false end
+
+	if has_aleph == nil then
+		has_aleph = GameHasFlagRun("HARDMOD_HAS_ALEPH_PERK")
+	end
+
+	local spell = not has_aleph and get_spell_data(data.id)
+	if spell and spell.never_unlimited then
+		local frame = GameGetFrameNum()
+		if not reflecting and frame - last_greek_error > 20 then
+			GamePrint(GameTextGet("$hardmod_spell_greek_limited", GameTextGetTranslatedOrNot(spell.name)))
+			GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/out_of_mana", x, y)
+			last_greek_error = frame
+		end
+
+		return false
+	end
+
+	if dont_draw then dont_draw_actions = true end
+	data.action(rec)
+	if dont_draw then dont_draw_actions = false end
+
+	return true
+end
+
+local function run_greek_all(list, recursion_level, spell_type, no_recursion, blacklist_spell_id)
+	for _,data in pairs(list) do
+		if spell_type and data.type ~= spell_type then goto continue end
+		if blacklist_spell_id and data.id == blacklist_spell_id then goto continue end
+
+		run_greek(data, recursion_level, true, no_recursion)
+		::continue::
+	end
+end
+
 local hooks = {}
 
 hooks.new_spells = {
@@ -125,6 +167,112 @@ hooks.new_spells = {
 }
 
 hooks.spell_patches = {
+	["ALPHA"] = {
+		mana = 80,
+		action = function(rec)
+			c.fire_rate_wait = c.fire_rate_wait + 15
+
+			local data = discarded[1] or hand[1] or deck[1]
+			if data then run_greek(data, rec) end
+			has_aleph = nil
+		end
+	},
+	["GAMMA"] = {
+		mana = 80,
+		action = function(rec)
+			c.fire_rate_wait = c.fire_rate_wait + 15
+
+			local data = nil
+
+			if #deck > 0 then data = deck[#deck]
+			elseif #hand > 0 then data = hand[#hand]
+			end
+
+			if data then run_greek(data, rec) end
+			has_aleph = nil
+		end
+	},
+	["TAU"] = {
+		mana = 120,
+		action = function(rec)
+			c.fire_rate_wait = c.fire_rate_wait + 35
+
+			local a = deck[1]
+			local b = deck[2]
+
+			if a then run_greek(a, rec) end
+			if b then run_greek(b, rec) end
+
+			has_aleph = nil
+		end
+	},
+	["OMEGA"] = {
+		action = function(rec)
+			run_greek_all(discarded, rec, nil, false, "RESET")
+			run_greek_all(hand, rec, nil, true)
+			run_greek_all(deck, rec, nil, false, "RESET")
+			has_aleph = nil
+		end
+	},
+	["MU"] = {
+		mana = 90,
+		action = function(rec)
+			c.fire_rate_wait = c.fire_rate_wait + 50
+
+			local old_cd = c.fire_rate_wait
+			local old_rt = current_reload_time
+			local old_mana = mana
+
+			run_greek_all(discarded, rec, 2)
+			run_greek_all(hand, rec, 2)
+			run_greek_all(deck, rec, 2)
+
+			c.fire_rate_wait = old_cd
+			current_reload_time = old_rt
+			mana = old_mana
+			has_aleph = nil
+
+			draw_actions(1, true)
+		end
+	},
+	["PHI"] = {
+		action = function(rec)
+			c.fire_rate_wait = c.fire_rate_wait + 50
+
+			local old_cd = c.fire_rate_wait
+			local old_rt = current_reload_time
+			local old_mana = mana
+
+			run_greek_all(discarded, rec, 0)
+			run_greek_all(hand, rec, 0)
+			run_greek_all(deck, rec, 0)
+
+			c.fire_rate_wait = old_cd
+			current_reload_time = old_rt
+			mana = old_mana
+			has_aleph = nil
+		end
+	},
+	["SIGMA"] = {
+		mana = 90,
+		action = function(rec)
+			c.fire_rate_wait = c.fire_rate_wait + 30
+
+			local old_cd = c.fire_rate_wait
+			local old_rt = current_reload_time
+			local old_mana = mana
+
+			run_greek_all(discarded, rec, 1)
+			run_greek_all(hand, rec, 1)
+			run_greek_all(deck, rec, 1)
+
+			c.fire_rate_wait = old_cd
+			current_reload_time = old_rt
+			mana = old_mana
+			has_aleph = nil
+		end
+	},
+
 	["BOMB"] = { max_uses = 5 },
 	["MINE"] = { max_uses = 20 },
 	["GRENADE"] = { max_uses = 30 },
@@ -154,7 +302,12 @@ hooks.spell_patches = {
 	["DAMAGE_FOREVER"] = { max_uses = 0, never_unlimited = true },
 	["ALL_DISCS"] = { max_uses = 10, never_unlimited = true },
 	["ALL_ACID"] = { max_uses = 10, never_unlimited = true },
+
 	["DIVIDE_10"] = { max_uses = -1 },
+	["ADD_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
+	["ADD_TIMER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
+	["ADD_DEATH_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
+	["RESET"] = { mana = 30, spawn_level = "10", spawn_probability = "0" },
 }
 
 local never_unlimited = {
