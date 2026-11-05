@@ -262,6 +262,8 @@ hardmod_spell_upgrade_mana_charge_speed_name,Upgrade: Mana Charge Speed,Улуч
 hardmod_spell_upgrade_mana_charge_speed_desc,Drag onto a wand to raise its mana charge speed,"Перетащите на жезл для увелечения скорости регенерации маны.",,,,,,,,,,,,
 hardmod_spell_upgrade_remove_always_cast_name,Upgrade: Demote Spell,Улучшение: понижение заклинания,,,,,,,,,,,,
 hardmod_spell_upgrade_remove_always_cast_desc,"Drag onto a wand to eject a random always-cast spell, with a 50% chance for it to be destroyed","Перетащите на жезл, чтобы извлечь случайное постоянное заклинание. Оно будет уничтожено с вероятностью 50%",,,,,,,,,,,,
+hardmod_spell_upgrade_spread_name,Upgrade: Spread,Улучшение: понижение заклинания,,,,,,,,,,,,
+hardmod_spell_upgrade_spread_desc,"Drag onto a wand to reduce its spread",,,,,,,,,,,,,
 hardmod_eperk_obfuscation_name,Incognito,Инкогнито,,,,,,,,,,,,
 hardmod_eperk_obfuscation_desc,Obfuscates perks held by this enemy.,Обфусцирует перки, которые держит существо.,,,,,,,,,,,,
 hardmod_perk_divine_shield_name,Divine Shield,Божественный щит,,,,,,,,,,,,

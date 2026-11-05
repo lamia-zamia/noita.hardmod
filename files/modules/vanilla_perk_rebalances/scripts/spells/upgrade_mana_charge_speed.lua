@@ -16,8 +16,9 @@ if UpgradeWandManaChargeSpeed( wand, 0.1, 30, 5000 ) then
 	local x, y = EntityGetTransform( card_entity_id )
 	GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
 	EntityKill( card_entity_id )
-else
+elseif utils.GetInternalInt( card_entity_id, "last_wand_tried" ) ~= parent_id then
 	local x, y = EntityGetTransform( card_entity_id )
 	GamePlaySound( "data/audio/Desktop/misc.bank", "collision/barrel_water/destroy", x, y )
+	utils.SetInternalInt( card_entity_id, "last_wand_tried", parent_id )
 end
 utils.SetInternalInt( card_entity_id, "last_wand_tried", parent_id )
