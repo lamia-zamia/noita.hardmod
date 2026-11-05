@@ -65,7 +65,6 @@ for _,note in pairs(notes) do
 	end
 end
 
-ModLuaFileAppend("data/scripts/biomes/temple_altar.lua", "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/appends/temple_altar.lua")
 dofile_once("mods/noita.hardmod/files/modules/vanilla_spell_rebalances/damage.lua")
 
 return {}

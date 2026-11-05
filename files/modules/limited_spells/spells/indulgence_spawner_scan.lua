@@ -1,4 +1,3 @@
-
 local INDULGENCE_COST = 1000
 
 local x, y = EntityGetTransform(GetUpdatedEntityID())
@@ -26,7 +25,7 @@ end
 
 if purchases_left == 0 and EntityGetInRadiusWithTag(x, y, 128, "player_unit")[1] ~= nil then
 	local sx, sy = x + 88, y
-	EntityLoad("mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/indulgence_emitter.xml", sx, sy)
+	EntityLoad("mods/noita.hardmod/files/modules/limited_spells/entity/indulgence_emitter.xml", sx, sy)
 	GamePlaySound("data/audio/Desktop/projectiles.snd", "player_projectiles/crumbling_earth/create", sx, sy )
 
 	local indulgence = CreateItemActionEntity("HARDMOD_SPELL_INDULGENCE", sx, sy)
@@ -47,11 +46,8 @@ if purchases_left == 0 and EntityGetInRadiusWithTag(x, y, 128, "player_unit")[1]
 	for i=1,#text do
 		local l = string.sub(text, i, i)
 
-		if ( l ~= "1" ) then
-			textwidth = textwidth + 6
-		else
-			textwidth = textwidth + 3
-		end
+		if l ~= "1" then textwidth = textwidth + 6
+		else textwidth = textwidth + 3 end
 	end
 	offsetx = textwidth * 0.5 - 0.5
 	EntityAddComponent2(indulgence, "SpriteComponent", {

@@ -24,6 +24,7 @@ local modules = {
 	"logo_splash",
 	"starter_wands",
 	"unshuffle",
+	"limited_spells",
 	"vanilla_perk_rebalances",
 	"vanilla_spell_rebalances",
 	"spells_reweighted",
