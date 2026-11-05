@@ -3,7 +3,7 @@
 return {
 	new_spells = {
 		{
-			id                  = "D2D_ECHO_SHOT",
+			id                  = "HARDMOD_ECHO_SHOT",
 			name 		        = "$hardmod_spell_echo_shot_name",
 			description         = "$hardmod_spell_echo_shot_desc",
 			sprite              = "mods/noita.hardmod/files/modules/spell_variety/gfx/ui_gfx/spells/echo_shot.png",

@@ -1,6 +1,6 @@
 <Sprite 
   default_animation="explosion" 
-  filename="mods/D2DContentPack/files/gfx/projectiles_gfx/explosion_032_red.png" 
+  filename="mods/noita.hardmod/files/modules/spell_variety/gfx/spells/explosion_032_red.png" 
   offset_x="16" 
   offset_y="16" >
 
