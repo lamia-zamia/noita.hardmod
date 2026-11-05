@@ -24,6 +24,7 @@ utils.patchifile(starting_bomb_wand, {
 	{
 		from = "local mana_max",
 		insert_before = [[
+			gun.mana_charge_speed = {17, 20}
 			gun.shuffle_deck_when_empty = 0
 			gun.deck_capacity = 2
 		]]

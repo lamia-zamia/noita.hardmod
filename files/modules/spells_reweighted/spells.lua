@@ -1,8 +1,5 @@
 local hooks = {
 	spell_patches = {
-		["BOMB"] = { max_uses = 5 },
-		["MINE"] = { max_uses = 20 },
-		["GRENADE"] = { max_uses = 30 },
 		["TELEPORT_PROJECTILE"] = { mana = 20 },
 		["TELEPORT_PROJECTILE_SHORT"] = { mana = 30 },
 		["ALPHA"] = { mana = 80 },
@@ -10,11 +7,14 @@ local hooks = {
 		["TAU"] = { mana = 120 },
 		["SIGMA"] = { mana = 90 },
 		["MU"] = { mana = 90 },
+		["LONG_DISTANCE_CAST"] = { mana = 8 },
 		["ELECTRIC_CHARGE"] = { mana = 25 },
 		["ADD_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
 		["ADD_TIMER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
 		["ADD_DEATH_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
-		["LIGHT_BULLET"] = { mana = 6 },
+		["RESET"] = { mana = 30, spawn_level = "10", spawn_probability = "0" },
+		["LIGHT_BULLET"] = { mana = 9 },
+		["RECHARGE"] = { mana = 16, spawn_level = "2,3,4,5", spawn_probability = "0.6,0.7,0.8,0.9" },
 		["LIGHT_BULLET_TIMER"] = { mana = 20, spawn_level = "2,3,4,5", spawn_probability = "0.5,0.6,0.8,0.8" },
 		["LIGHT_BULLET_TRIGGER"] = { mana = 25, spawn_level = "2,3,4,5", spawn_probability = "0.4,0.5,0.7,0.7" },
 		["LIGHT_BULLET_TRIGGER_2"] = { mana = 30, spawn_level = "2,3,4,5", spawn_probability = "0.3,0.4,0.6,0.6" },
@@ -25,21 +25,18 @@ local hooks = {
 		["BULLET_TRIGGER"] = { mana = 25 },
 		["HEAVY_BULLET_TRIGGER"] = { mana = 25 },
 		["HOOK"] = { mana = 10, spawn_level = "1,2,3,4,5", spawn_probability = "0.4,0.5,0.5,0.3,0.2" },
-		["BLACK_HOLE"] = { spawn_level = "3,4,5,6,10", spawn_probability = "0.8,0.8,0.9,1,1" },
-		["BLACK_HOLE_DEATH_TRIGGER"] = { spawn_level = "3,4,5,6,10", spawn_probability = "0.8,0.8,0.9,1,1" },
-		["WHITE_HOLE"] = { spawn_level = "3,4,5,6,10", spawn_probability = "0.05,0.1,0.2,0.3,0.5" },
+		["BLACK_HOLE"] = { spawn_level = "4,5,6,10", spawn_probability = "0.7,0.7,0.8,1" },
+		["BLACK_HOLE_DEATH_TRIGGER"] = { spawn_level = "4,5,6,10", spawn_probability = "0.7,0.7,0.8,1" },
+		["REGENERATION_FIELD"] = { spawn_level = "3,4", spawn_probability = "0.3,0.3" },
+		["WHITE_HOLE"] = { spawn_level = "5,6,10", spawn_probability = "0.2,0.3,0.5" },
 		["SPITTER_TIER_2"] = { mana = 14 },
 		["SPITTER_TIER_2_TIMER"] = { mana = 21 },
 		["SPITTER_TIER_3"] = { mana = 17 },
 		["SPITTER_TIER_3_TIMER"] = { mana = 24 },
-		["FISH"] = { never_unlimited = true, max_uses = 10 },
-		["EXPLODING_DEER"] = { never_unlimited = true, max_uses = 5 },
-		["EXPLODING_DUCKS"] = { never_unlimited = true, max_uses = 10, mana = 120 },
 		["LASER"] = { mana = 15 },
 		["TENTACLE"] = { mana = 40, spawn_level = "5,6", spawn_probability = "0.5,0.5" },
 		["TENTACLE_TIMER"] = { mana = 40, spawn_level = "5,6", spawn_probability = "0.5,0.5" },
 		["BUCKSHOT"] = { mana = 20 },
-		["FREEZING_GAZE"] = { never_unlimited = true },
 		["MIST_SLIME"] = { mana = 50 },
 		["LIFETIME"] = { mana = 20 },
 		["LIFETIME_DOWN"] = { mana = 15 },
@@ -67,28 +64,31 @@ local hooks = {
 		["ACCELERATING_SHOT"] = { mana = 30 },
 		["CLUSTERMOD"] = { mana = 40 },
 		["LAVA_TO_BLOOD"] = { mana = 50 },
-		["DAMAGE_FOREVER"] = { never_unlimited = true },
-		["FIREBALL_RAY_ENEMY"] = { max_uses = 10 },
-		["LIGHTNING_RAY_ENEMY"] = { max_uses = 10 },
-		["TENTACLE_RAY_ENEMY"] = { max_uses = 10 },
-		["ORBIT_FIREBALLS"] = { mana = 60 },
-		["BURST_X"] = { max_uses = -1 },
 		["SUMMON_WANDGHOST"] = { spawn_level = "10", spawn_probability = "0.1", max_uses = 0 },
+		["ORBIT_FIREBALLS"] = { mana = 60 },
 		["FREEZE"] = { mana = 25 },
+		["BURST_X"] = { max_uses = -1 },
 		["FREEZE_FIELD"] = { mana = 75, max_uses = 3, never_unlimited = true },
 		["POLYMORPH_FIELD"] = { mana = 90, max_uses = 3, never_unlimited = true },
 		["ELECTROCUTION_FIELD"] = { mana = 50, max_uses = 10 },
 		["CHAOS_POLYMORPH_FIELD"] = { mana = 50 },
   		["AREA_DAMAGE"] = { mana = 60 },
-		["EXPLOSIVE_PROJECTILE"] = { mana = 60 }
+		["EXPLOSIVE_PROJECTILE"] = { mana = 60 },
+		["CURSED_ORB"] = { mana = 25 },
+		["EXPANDING_ORB"] = { mana = 30 },
+		["INFESTATION"] = { mana = 80 },
+		["BLOOD_MAGIC"] = { mana = -50 },
+		["BUBBLESHOT"] = { mana = 10 },
+		["SPITTER"] = { mana = 10 },
+		["BOUNCY_ORB"] = { mana = 15 },
 	}
 }
 
 local mats = { "MATERIAL_WATER", "MATERIAL_OIL", "MATERIAL_BLOOD", "MATERIAL_CEMENT", "WATER_TRAIL" }
 local crits = { "HITFX_CRITICAL_WATER", "HITFX_CRITICAL_OIL", "HITFX_CRITICAL_BLOOD" }
 
-for _,spell in pairs(mats) do hooks.spell_patches[spell] = { mana = 15 } end
-for _,spell in pairs(crits) do hooks.spell_patches[spell] = { mana = 20 } end
+for _,spell in pairs(mats) do hooks.spell_patches[spell] = { mana = 18 } end
+for _,spell in pairs(crits) do hooks.spell_patches[spell] = { mana = 25 } end
 
 local curses = { "CURSE_WITHER_PROJECTILE", "CURSE_WITHER_EXPLOSION", "CURSE_WITHER_MELEE", "CURSE_WITHER_ELECTRICITY" }
 for _,spell in pairs(curses) do

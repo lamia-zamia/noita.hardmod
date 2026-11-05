@@ -29,6 +29,8 @@ return {
 			description = "$hardmod_spell_potion_to_sea_desc",
 			sprite = "mods/noita.hardmod/files/modules/vanilla_quests/spells/potion_to_sea.png",
 			related_projectiles = {},
+			spawn_level = "10",
+			spawn_probability = "0",
 			spawn_requires_flag = "card_unlocked_hardmod_sea_mimic",
 			action = function()
 				if reflecting then return end

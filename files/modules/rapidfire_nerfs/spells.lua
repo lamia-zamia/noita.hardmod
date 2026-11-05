@@ -40,10 +40,23 @@ hooks.spell_patches = {
 			draw_actions(1, true)
 		end
 	},
+	["I_SHAPE"] = { mana = 4 }, --5deg
+	["W_SHAPE"] = { mana = 4 }, --5deg
+	["Y_SHAPE"] = { mana = 5 }, --8deg
+	["T_SHAPE"] = { mana = 5 }, --8deg
+	["PENTAGRAM_SHAPE"] = { mana = 8 }, --12deg
+	["CIRCLE_SHAPE"] = { mana = 9 }, --15deg
 	["SPREAD_REDUCE"] = {
-		mana = 2,
+		mana = 8,
 		action = function ()
 			c.spread_degrees = c.spread_degrees - 15.0
+			draw_actions(1, true)
+		end
+	},
+	["RECHARGE"] = {
+		action = function()
+			c.fire_rate_wait = c.fire_rate_wait - 16
+			current_reload_time = current_reload_time - 8
 			draw_actions(1, true)
 		end
 	},
@@ -57,17 +70,17 @@ hooks.spell_patches = {
 			-- parity with cheeseless_triggers
 			c.spread_degrees = c.spread_degrees + 12
 			c.fire_rate_wait = c.fire_rate_wait - 6
-			current_reload_time = current_reload_time - 10
+			current_reload_time = current_reload_time - 9
 			draw_actions(1, true)
 		end,
 	},
 	["DIGGER"] = {
-		mana = 6,
+		mana = 7,
 		action = function()
 			add_projectile("data/entities/projectiles/deck/digger.xml")
 			c.fire_rate_wait = c.fire_rate_wait + 2
 			c.spread_degrees = c.spread_degrees + 4.0
-			current_reload_time = current_reload_time - 10
+			current_reload_time = current_reload_time - 9
 		end,
 	},
 	["APOTHEOSIS_WATER_POWER"] = {
@@ -78,7 +91,7 @@ hooks.spell_patches = {
 
 			if reflecting or GameGetGameEffectCount( GetUpdatedEntityID(), "WET" ) > 0 then
 				c.fire_rate_wait	= c.fire_rate_wait - 10
-				current_reload_time = current_reload_time - 20
+				current_reload_time = current_reload_time - 10
 
 				local ctrlcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "ControlsComponent" )
 				if ctrlcomp then

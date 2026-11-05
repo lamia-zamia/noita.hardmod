@@ -85,7 +85,6 @@ local splashes = {
 	"Beat this to unlock Epilogue 3!",
 	"Lamia was drunk",
 	"qtyui_ was here",
-	"Hämis :+1:",
 	"NT Sadge",
 	"Sponsored by CEO Hiisilius IV",
 	"No Fun Allowed",

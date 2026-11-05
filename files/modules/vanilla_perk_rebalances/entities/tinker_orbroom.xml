@@ -1,0 +1,15 @@
+<Entity tags="workshop,orbroom_tinker">
+	<!-- literally eyeballed a random orb room with cheatgui lmao -->
+	<!-- not meant to fit the entire room -->
+	<HitboxComponent 
+		aabb_min_x="-165" 
+		aabb_max_x="165" 
+		aabb_min_y="-165"
+		aabb_max_y="165"
+	></HitboxComponent>
+
+	<LuaComponent
+		script_source_file="mods/noita.hardmod/files/modules/vanilla_perk_rebalances/scripts/orbroom_check_orb.lua"
+		execute_every_n_frame="60"
+	></LuaComponent>
+</Entity>

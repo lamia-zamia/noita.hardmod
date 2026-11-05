@@ -1,5 +1,6 @@
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 local lootlib = dofile_once("mods/noita.hardmod/lib/lootlib.lua") ---@type lootlib
+local hooks = {}
 
 lootlib.add_patch_script("mods/noita.hardmod/files/modules/vanilla_spell_rebalances/lootlib_patch.lua")
 ModMagicNumbersFileAdd("mods/noita.hardmod/files/modules/vanilla_spell_rebalances/magic_numbers.xml")
@@ -65,7 +66,21 @@ for _,note in pairs(notes) do
 	end
 end
 
-ModLuaFileAppend("data/scripts/biomes/temple_altar.lua", "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/appends/temple_altar.lua")
 dofile_once("mods/noita.hardmod/files/modules/vanilla_spell_rebalances/damage.lua")
 
-return {}
+-- matter eaten't
+local matter_eatent_list = {
+	rock_hard_border = true,
+	templebrick_static = true,
+	templebrick_noedge_static = true,
+}
+
+function hooks.edit_material(mat)
+	if matter_eatent_list[mat.attr.name] then
+		local tags = mat.attr.tags
+		tags = tags and (tags .. ",") or ""
+		mat.attr.tags = tags .. "[matter_eater_ignore_list]"
+	end
+end
+
+return hooks

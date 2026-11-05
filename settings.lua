@@ -96,10 +96,19 @@ local module_data = {
 	{
 		id = "spells_reweighted",
 		name = {
-			en = "Spells Reweighted"
+			en = "Spells Reweighted",
 		},
 		desc = {
-			en = "Changes vanilla spell spawn chances, where they spawn, and their mana consumption"
+			en = "Changes vanilla spell spawn chances, where they spawn, and their mana consumption\nIntegral to the progression.",
+		}
+	},
+	{
+		id = "limited_spells",
+		name = {
+			en = "Limited Spells",
+		},
+		desc = {
+			en = "Changes vanilla spell usecounts, greek letters and related",
 		}
 	},
 	{
