@@ -125,15 +125,18 @@ hooks.new_spells = {
 			if wcomp == nil then return end
 			local money = ComponentGetValue2(wcomp, "money")
 
-			local max_uses = get_spell_data(data.id).max_uses or -1
+			local spell_data = get_spell_data(data.id)
+			local max_uses = spell_data.max_uses or -1
 			local cast_price = 10
 
-			if data.id == "DIVIDE_10" then cast_price = 500
-			elseif max_uses <= 2 or data.recursive then cast_price = 250
+			if max_uses <= 2 or data.recursive then cast_price = 250
 			elseif max_uses <= 5 then cast_price = 125
 			elseif max_uses <= 10 then cast_price = 50
 			elseif max_uses <= 20 then cast_price = 25
 			end
+			if spell_data.never_unlimited then
+                cast_price = cast_price * 2
+            end
 
 			local x, y = EntityGetTransform(GetUpdatedEntityID())
 			if money < cast_price then
