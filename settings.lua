@@ -263,7 +263,7 @@ local module_data = {
 			en = "Biome Modifiers+"
 		},
 		desc = {
-			en = "Reworks the biome modifier system"
+			en = "Reworks the biome modifier system. Allows a biome to have multiple modifiers at once"
 		},
 	},
 	{
@@ -272,7 +272,7 @@ local module_data = {
 			en = "Enemy Rebalances"
 		},
 		desc = {
-			en = "Changes what enemies spawn where, rebalances existing enemies and adds custom ones.\nIntegral to the progression."
+			en = "Changes what enemies spawn where, rebalances existing enemies and adds a bunch of new ones.\nIntegral to the progression."
 		},
 	},
 	{
