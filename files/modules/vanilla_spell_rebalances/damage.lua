@@ -54,5 +54,10 @@ for file in nxml.edit_file(deck.."flamethrower.xml") do
 end
 
 for file in nxml.edit_file(deck.."luminous_drill.xml") do
-	
+	local pcomp = file:first_of("ProjectileComponent")
+	if pcomp then
+		pcomp:set("ground_penetration_max_durability_to_destroy", 12)
+		pcomp:set("friendly_fire", true) -- >:)
+		pcomp:set("damage", 0.25)
+	end
 end

@@ -91,6 +91,13 @@ local hooks = {
 		["WORM_SHOT"] = { max_uses = 5 },
 		["HEAL_BULLET"] = { max_uses = 15 },
 		["ANTIHEAL"] = { max_uses = 15 },
+		["CURSED_ORB"] = { mana = 25 },
+		["EXPANDING_ORB"] = { mana = 30 },
+		["INFESTATION"] = { mana = 80 },
+		["SWARM_FLY"] = { max_uses = 16 },
+		["SWARM_FIREBUG"] = { max_uses = 16 },
+		["SWARM_WASP"] = { max_uses = 16 },
+		["FRIEND_FLY"] = { max_uses = 16 },
 	}
 }
 
