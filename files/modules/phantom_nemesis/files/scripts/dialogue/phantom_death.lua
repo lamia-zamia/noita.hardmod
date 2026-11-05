@@ -1,3 +1,4 @@
+local simple_ids = dofile_once("mods/noita.hardmod/lib/biome_index.lua")
 local damage_types_can_resist = {"projectile","electricity","explosion","fire","melee","drill","slice","ice","radioactive","curse","holy"}
 
 function death( damage_type_bit_field, damage_message, entity_thats_responsible, drop_items )
@@ -6,7 +7,8 @@ function death( damage_type_bit_field, damage_message, entity_thats_responsible,
     local possession_limit_default = possession_limit_data.default_biome_limit
     local entity_id = GetUpdatedEntityID()
     local pos_x,pos_y = EntityGetTransform(entity_id)
-    local currbiome = BiomeMapGetName( pos_x, pos_y )
+    local currbiome_path = DebugBiomeMapGetFilename( pos_x, pos_y )
+    local currbiome = simple_ids[currbiome_path] or currbiome_path
     local total_banishments_in_current_biome = tonumber(GlobalsGetValue(table.concat({"felcesis_",currbiome,"_count"}),"0"))
     local total_deaths = tonumber(GlobalsGetValue("felcesis_total_deaths","0"))
     total_banishments_in_current_biome = total_banishments_in_current_biome + 1
@@ -20,9 +22,9 @@ function death( damage_type_bit_field, damage_message, entity_thats_responsible,
     -- Print the permanent banishment hint if Felcesis has been banished enough times to no longer be able to spawn in the current biome
     for _,biome in ipairs(possession_limit_per_biome) do
         if biome.id == currbiome then
-            if total_banishments_in_current_biome >= biome.limit then
-                return
+            if biome.limit >= 0 and total_banishments_in_current_biome >= biome.limit then
                 GamePrint(GameTextGet("$hardmod_phantom_banished_permanent",GameTextGetTranslatedOrNot("$hardmod_phantom_phantom_name")))
+                return
             end
         end
     end

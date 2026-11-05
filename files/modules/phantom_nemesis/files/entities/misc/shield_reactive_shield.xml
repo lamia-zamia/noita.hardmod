@@ -48,7 +48,7 @@
     </SpriteComponent>
 
     <LifetimeComponent
-    lifetime="420"
+    lifetime="240"
     >
     </LifetimeComponent>
 </Entity>
