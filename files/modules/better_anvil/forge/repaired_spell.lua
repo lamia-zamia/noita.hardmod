@@ -1,6 +1,6 @@
-local level = 6
+local level = 5
 local extra_level = 5
-local max_extras = 3
+local max_extras = 2
 
 return function (x, y)
   SetRandomSeed(x, y)

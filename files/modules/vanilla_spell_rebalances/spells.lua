@@ -291,13 +291,13 @@ hooks.spell_patches = {
 	["SCATTER_3"] = {
 		action = function()
 			draw_actions(2, true)
-			c.spread_degrees = c.spread_degrees + 8.0
+			c.spread_degrees = c.spread_degrees + 6.0
 		end,
 	},
 	["SCATTER_4"] = {
 		action = function()
 			draw_actions(2, true)
-			c.spread_degrees = c.spread_degrees + 16.0
+			c.spread_degrees = c.spread_degrees + 10.0
 		end,
 	},
 	["SUMMON_WANDGHOST"] = {
@@ -359,35 +359,72 @@ hooks.spell_patches = {
 	},
 	["LUMINOUS_DRILL"] = {
 		mana = 18,
-		spawn_level = "2,3,4,5", spawn_probability = "0.4,0.6,0.8,0.8",
+		spawn_level = "2,3,4,5", spawn_probability = "0.3,0.6,0.8,0.8",
 		action = function()
 			add_projectile("data/entities/projectiles/deck/luminous_drill.xml")
-			c.friendly_fire = true
+			-- c.friendly_fire = true
 			c.fire_rate_wait = c.fire_rate_wait - 16
-			current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 8
+			current_reload_time = current_reload_time - 8
 		end
 	},
 	["LASER_LUMINOUS_DRILL"] = {
 		mana = 25,
-		spawn_level = "2,3,4,5", spawn_probability = "0.4,0.6,0.8,0.8",
+		spawn_level = "2,3,4,5", spawn_probability = "0.3,0.6,0.8,0.8",
 		action = function()
 			add_projectile_trigger_timer("data/entities/projectiles/deck/luminous_drill.xml", 4, 1)
-			c.friendly_fire = true
+			-- c.friendly_fire = true
 			c.fire_rate_wait = c.fire_rate_wait - 16
-			current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 8
+			current_reload_time = current_reload_time - 8
 		end
 	},
+	["DARKFLAME"] = { max_uses = -1 },
+	["FLAMETHROWER"] = { max_uses = -1 }, -- damage is also changed in damage.lua
+	["ICEBALL"] = { never_unlimited = true },
+	["DAMAGE_FOREVER"] = { max_uses = 0 },
+	["ALL_DISCS"] = { max_uses = 10, never_unlimited = true },
+	["ALL_ACID"] = { max_uses = 10, never_unlimited = true },
+	["DIVIDE_10"] = { max_uses = -1 },
 }
+
+local never_unlimited = {
+	"BLACK_HOLE_BIG", "WHITE_HOLE_BIG", "FREEZING_GAZE", "BOMB_HOLY",
+	"PROPANE_TANK", "CRUMBLING_EARTH", "SUMMON_ROCK", "NUKE", "NUKE_GIGA",
+	"DESTRUCTION", "MASS_POLYMORPH", "STATIC_TO_SAND", "SHIELD_FIELD", "BERSERK_FIELD",
+	"PROJECTILE_TRANSMUTATION_FIELD", "PROJECTILE_THUNDER_FIELD", "VACUUM_LIQUID",
+	"TENTACLE_RAY_ENEMY", "LIGHTNING_RAY_ENEMY", "FIREBALL_RAY_ENEMY",
+	"ORBIT_NUKES", "CRUMBLING_EARTH_PROJECTILE", "X_RAY",
+	"ALL_NUKES", "ALL_ROCKETS", "ALL_DEATHCROSSES", "ALL_BLACKHOLES", "ALL_SPELLS",
+	"METEOR_RAIN", "WORM_RAIN",
+}
+
+for _,spell in pairs(never_unlimited) do hooks.spell_patches[spell] = { never_unlimited = true } end
 
 local mats = { "MATERIAL_WATER", "MATERIAL_OIL", "MATERIAL_BLOOD", "MATERIAL_CEMENT", "WATER_TRAIL" }
 local crits = { "HITFX_CRITICAL_WATER", "HITFX_CRITICAL_OIL", "HITFX_CRITICAL_BLOOD" }
 
-for _,spell in pairs(mats) do hooks.spell_patches[spell] = { mana = 15 } end
-for _,spell in pairs(crits) do hooks.spell_patches[spell] = { mana = 20 } end
+for _,spell in pairs(mats) do hooks.spell_patches[spell] = { mana = 18 } end
+for _,spell in pairs(crits) do hooks.spell_patches[spell] = { mana = 25 } end
+
+local touches = { "TOUCH_GOLD", "TOUCH_WATER", "TOUCH_OIL", "TOUCH_ALCOHOL", "TOUCH_PISS", "TOUCH_GRASS", "TOUCH_BLOOD", "TOUCH_SMOKE" }
+for _,spell in pairs(touches) do
+	hooks.spell_patches[spell] = {
+		never_unlimited = true,
+		max_uses = 3,
+	}
+end
+
+local plicates = { "I_SHOT", "Y_SHOT", "T_SHOT", "W_SHOT", "QUAD_SHOT", "PENTA_SHOT", "HEXA_SHOT" }
+for _,spell in pairs(plicates) do
+	hooks.spell_patches[spell] = {
+		never_unlimited = true,
+		max_uses = 16,
+	}
+end
 
 local curses = { "CURSE_WITHER_PROJECTILE", "CURSE_WITHER_EXPLOSION", "CURSE_WITHER_MELEE", "CURSE_WITHER_ELECTRICITY" }
 for _,spell in pairs(curses) do
 	hooks.spell_patches[spell] = {
+		max_uses = 16,
 		spawn_level = "5,6,10",
 		spawn_probability = "0.7,0.7,0.1",
 	}
@@ -401,12 +438,37 @@ local reduce_dmg = {
 	AUTOAIM = 0.2,
 }
 
+local add_cd = {
+	SPITTER_TIER_3 = 2,
+	SPITTER_TIER_3_TIMER = 2,
+	BUBBLESHOT = 4,
+	BUBBLESHOT_TRIGGER = 4,
+	LASER = 11,
+	LIFETIME_DOWN = 5,
+	NOLLA = 5,
+	EXPLOSION_REMOVE = 5,
+	HORIZONTAL_ARC = 6,
+	LINE_ARC = 4,
+	ORBIT_SHOT = 6,
+	SPIRALING_SHOT = 6,
+	PHASING_ARC = 8,
+}
+
 hooks.edit_spell = function(spell)
 	if reduce_dmg[spell.id] then
 		local orig_action = spell.action
 		local amount = reduce_dmg[spell.id]
 		spell.action = function(...)
 			c.damage_projectile_add = c.damage_projectile_add - amount
+			orig_action(...)
+		end
+	end
+
+	if add_cd[spell.id] then
+		local orig_action = spell.action
+		local amount = add_cd[spell.id]
+		spell.action = function(...)
+			c.fire_rate_wait = c.fire_rate_wait + amount
 			orig_action(...)
 		end
 	end

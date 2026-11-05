@@ -42,3 +42,17 @@ for _,proj in pairs(lasers) do
     end
   end
 end
+
+for file in nxml.edit_file(deck.."flamethrower.xml") do
+	local pcomp = file:first_of("ProjectileComponent")
+	if pcomp then
+		local expl = pcomp:first_of("config_explosion")
+		if expl then
+			expl:set("damage", 0)
+		end
+	end
+end
+
+for file in nxml.edit_file(deck.."luminous_drill.xml") do
+	
+end
