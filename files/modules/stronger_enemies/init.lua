@@ -61,6 +61,29 @@ local function patch_enemy_changes()
 	})
 end
 
+local function patch_enemy_resistances()
+	local elec_imm = {
+		"shotgunner_hell",
+		"sniper_hell",
+		"miner_hell",
+		"scavenger_leader",
+		"scavenger_poison",
+		"scavenger_clusterbomb",
+	}
+
+	for _,enemy in pairs(elec_imm) do
+		for file in nxml.edit_file("data/entities/animals/"..enemy..".xml") do
+			file:create_child("Entity", {}, {
+				nxml.new_element("InheritTransformComponent"),
+				nxml.new_element("GameEffectComponent", {
+					effect = "PROTECTION_ELECTRICITY",
+					frames = -1
+				})
+			})
+		end
+	end
+end
+
 local function patch_less_annoyances()
 	-- This does make the blinding effect easier, but patch_spawn_rules adds more blinding mages
 	-- (in e.g. collapsed mines and coal pits) so i think that's a fair tweak
@@ -104,6 +127,7 @@ patch_spawn_rules()
 patch_less_annoyances()
 patch_fixes()
 patch_enemy_changes()
+patch_enemy_resistances()
 
 return {
 	player_spawned = function()
