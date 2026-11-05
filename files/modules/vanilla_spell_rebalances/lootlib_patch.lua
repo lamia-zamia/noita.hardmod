@@ -2,8 +2,7 @@ local lootlib = dofile_once("mods/noita.hardmod/lib/lootlib.lua")---@type lootli
 
 local chest = lootlib.get_loot_table("chest_random")
 
--- same as the max wand level
-local max_allowed_chest_level = 4
+local max_allowed_chest_level = 3
 
 local random_card = lootlib.get_label(chest, "random_card")
 if random_card then
