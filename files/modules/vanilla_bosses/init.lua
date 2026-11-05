@@ -10,6 +10,7 @@ local patches = {
 	"alchemist",
 	"door_boss",
 	"boss_pit",
+	"boss_wizard",
 }
 
 local edit = {
