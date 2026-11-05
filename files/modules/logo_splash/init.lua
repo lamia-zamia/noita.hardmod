@@ -222,13 +222,14 @@ end
 local function update(paused)
 	GuiStartFrame(gui)
 	local screen_width, screen_height = GuiGetScreenDimensions(gui)
+	if not paused then death_tracker.draw(gui, screen_width, screen_height) end
 	local pool, logo_right, logo_middle = nil, 0, 0
 	if menu_tracker.should_show_splash() then
 		pool = pause_pool
 		logo_right, logo_middle = menu_tracker.logo_right_middle()
 	elseif not paused and death_tracker.should_show_splash() then
 		pool = death_pool
-		logo_right, logo_middle = death_tracker.logo_right_middle(gui, screen_width, screen_height)
+		logo_right, logo_middle = death_tracker.logo_right_middle()
 	end
 	if pool and pool ~= shown_pool then
 		pool.current = pick_splash_index(pool)
@@ -241,15 +242,26 @@ end
 
 return {
 	-- Runs unpaused too, so GuiStartFrame clears the splash left over from the last paused frame.
-	pre_update = function() update(false) end,
+	pre_update = function()
+		death_tracker.update()
+		update(false)
+	end,
 	pause_pre_update = function()
 		-- Pausing after death has to clear the death splash even when the tracker wants no redraw.
 		if menu_tracker.pause_pre_update() or death_tracker.player_died then update(true) end
 	end,
-	pause_changed = menu_tracker.pause_changed,
+	pause_changed = function(is_paused, is_inventory_pause)
+		death_tracker.pause_changed(is_paused, is_inventory_pause)
+		menu_tracker.pause_changed(is_paused, is_inventory_pause)
+	end,
 	player_destroyed = death_tracker.player_destroyed,
 	count_secrets = function(total, found)
-		menu_tracker.count_secrets()
+		-- With the pause menu closed, Progress can only have been opened from the death screen.
+		if death_tracker.player_died and menu_tracker.menu_state == "closed" then
+			death_tracker.count_secrets()
+		else
+			menu_tracker.count_secrets()
+		end
 		return total, found
 	end,
 }
