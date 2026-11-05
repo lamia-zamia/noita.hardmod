@@ -35,19 +35,10 @@ function shot(projectile)
 end
 
 local x,y = EntityGetTransform(entity_id)
-for _,enemy in ipairs(EntityGetInRadiusWithTag(x, y, 100, "hardmod.blessed")) do
-	local enemy_perks_handler
-	for _,child in ipairs(EntityGetAllChildren(enemy) or {}) do
-		if EntityGetName(child) == "hardmod.enemy_perks" then
-			for _,varcomp in ipairs(EntityGetComponent(enemy_perks_handler, "VariableStorageComponent") or {}) do
-				if ComponentGetValue2(varcomp, "name") == "enemy_perk_data" then
-					if (","..ComponentGetValue2(varcomp, "value_string")..","):find(",damage_buffer,") then
-						return
-					end
-				end
-			end
-		end
-	end
+local name_prefix = "hardmod.damage_buff."
+local buff_benefactor = tonumber(EntityGetName(entity_id):sub(#name_prefix+1, -1))
+for _,enemy in ipairs(EntityGetInRadiusWithTag(x, y, 100, "hardmod_blessed")) do
+	if enemy == buff_benefactor then return end
 end
 
 EntityKill(entity_id)
