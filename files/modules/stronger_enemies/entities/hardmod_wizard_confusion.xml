@@ -1,4 +1,4 @@
-<Entity name="$hardmod_animal_wizard_confusion_name" tags="polymorphable_NOT,hardmod_blessed">
+<Entity name="$animal_hardmod_wizard_confusion" tags="polymorphable_NOT,hardmod_blessed">
 	<Base file="data/entities/base_enemy_basic.xml">
 		<ItemChestComponent level="2"></ItemChestComponent>
 

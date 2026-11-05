@@ -54,7 +54,6 @@ end
 
 lootlib.extend_loot_table("misc_items", {
 	{ weight = 1, entity = "data/entities/items/pickup/broken_wand.xml" },
-	{ weight = 1, entity = "data/entities/items/pickup/beamstone.xml" },
 })
 
 lootlib.extend_loot_table(chest, {

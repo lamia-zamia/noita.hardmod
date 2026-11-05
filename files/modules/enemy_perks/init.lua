@@ -178,7 +178,8 @@ local function give_enemy_perks(entity_id, num, data)
 end
 
 hooks.new_eid = function(entity_id)
-	if EntityHasTag(entity_id, "enemy") and not (EntityHasTag(entity_id, "hardmod_blessed") or EntityHasTag(entity_id, "boss")) then
+	if EntityHasTag(entity_id, "enemy") and not EntityHasTag(entity_id, "hardmod_blessed") then
+		local is_boss = EntityHasTag(entity_id, "boss")
 		local x,y = EntityGetTransform(entity_id)
 		local biome = BiomeMapGetName(x, y)
 		local num = 0
@@ -189,7 +190,7 @@ hooks.new_eid = function(entity_id)
 			num = biome_data:custom_func(entity_id, x, y) or num
 		end
 
-		local level = biome_data.level
+		local level = (is_boss and 5 or biome_data.level) --if is_boss, override biome level
 			+ (tonumber(SessionNumbersGetValue("NEW_GAME_PLUS_COUNT")) or 0) -- + NG+ iteration
 			+ (GetParallelWorldPosition(x, y) ~= 0 and 3 or 0) -- +3 if in a PW
 		if biome_data.do_recursive_roll ~= false then
@@ -218,6 +219,7 @@ hooks.new_eid = function(entity_id)
 			target_enemy = entity_id,
 			player = _g.player,
 			player_poly_identity = _g.player_poly_identity,
+			is_boss = is_boss,
 		}
 		give_enemy_perks(entity_id, num, data)
 	end
@@ -252,6 +254,7 @@ function hooks.post_update(frame)
 		local x,y = DEBUG_GetMouseWorld()
 		selected_creature = EntityGetClosestWithTag(x, y, "hardmod_blessed")
 		local creature_x,creature_y = EntityGetTransform(selected_creature)
+		if not creature_x then return end
 		if (creature_x-x)^2 + (creature_y-y)^2 > 16^2 then selected_creature = nil end
 		print("selected creature: "..tostring(selected_creature))
 	end
