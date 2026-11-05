@@ -10,6 +10,7 @@ local function patch_spawn_rules()
 	local patch_biomes = {
 		"coalmine_alt",
 		"crypt",
+		"desert",
 		"excavationsite",
 		"fungicave",
 		"fungiforest",
@@ -46,6 +47,10 @@ local function patch_enemy_changes()
 			to = [["VariableStorageComponent", "hardmod_spirit_weaken"]]
 		},
 		{
+			from = [[EntityGetInRadiusWithTag( x, y, r, "homing_target" )]],
+			to = [[{}]]
+		},
+		{
 			from = [[data/entities/misc/effect_spirit_weakness.xml]],
 			to = [[mods/noita.hardmod/files/modules/stronger_enemies/entities/effect_spirit_weaken.xml]]
 		},
@@ -55,6 +60,29 @@ local function patch_enemy_changes()
 		{ from = [[damage="0.3"]], to=[[damage="0"]] },
 		{ from = [[damage = "0.1"]], to=[[damage="0"]] },
 	})
+end
+
+local function patch_enemy_resistances()
+	local elec_imm = {
+		"shotgunner_hell",
+		"sniper_hell",
+		"miner_hell",
+		"scavenger_leader",
+		"scavenger_poison",
+		"scavenger_clusterbomb",
+	}
+
+	for _,enemy in pairs(elec_imm) do
+		for file in nxml.edit_file("data/entities/animals/"..enemy..".xml") do
+			file:create_child("Entity", {}, {
+				nxml.new_element("InheritTransformComponent"),
+				nxml.new_element("GameEffectComponent", {
+					effect = "PROTECTION_ELECTRICITY",
+					frames = -1
+				})
+			})
+		end
+	end
 end
 
 local function patch_less_annoyances()
@@ -100,6 +128,7 @@ patch_spawn_rules()
 patch_less_annoyances()
 patch_fixes()
 patch_enemy_changes()
+patch_enemy_resistances()
 
 return {
 	player_spawned = function()
