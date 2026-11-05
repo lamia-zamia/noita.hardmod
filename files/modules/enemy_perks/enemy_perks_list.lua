@@ -17,7 +17,7 @@ local biomes = dofile_once("mods/noita.hardmod/lib/biome_index.lua")
 ---@field func_handler function? function that runs on the perk handler every 80f, is passed sprite components of in-world perk icons
 ---@field func_inspector function? function that runs every frame in the eperk inspector, is passed a table of all the perks held by the enemy
 
-local mpath = "mods/noita.hardmod/files/modules/enemy_perks/"
+local dir = "mods/noita.hardmod/files/modules/enemy_perks/"
 local sprites_path = "mods/noita.hardmod/files/modules/enemy_perks/perk_sprites/"
 local icons_path = "mods/noita.hardmod/files/modules/enemy_perks/perk_icons/"
 
@@ -44,7 +44,8 @@ end
 -- The `data` table provides `target_enemy` (eid), `already_held_perks` (perk_id[]), `player` (eid) and `player_poly_identity` (table)
 
 ---@type enemy_perk[]
-local perks = {
+local enemy_perks = {}
+enemy_perks = {
 	--[[
 	{
 		id = "TEST_PERK",
@@ -157,7 +158,7 @@ local perks = {
 		id = "DRY_SPELL",
 		name = "$hardmod_eperk_dry_spell_name",
 		description = "$hardmod_eperk_dry_spell_desc",
-		weight = 7,
+		weight = 6,
 		max = 1,
 		func = function(self, entity_id, data)
 			local x, y = EntityGetTransform(entity_id)
@@ -218,7 +219,7 @@ local perks = {
 		id = "MAGIC_RESISTANCE",
 		name = "$hardmod_eperk_magic_resistance_name",
 		description = "$hardmod_eperk_magic_resistance_desc",
-		weight = 4,
+		weight = 5,
 		func = function(self, entity_id, data)
 			local dmc = EntityGetFirstComponent(entity_id, "DamageModelComponent")
 			if not dmc then return end
@@ -247,7 +248,7 @@ local perks = {
 		id = "EXTRA_HP",
 		name = "$hardmod_eperk_extra_hp_name",
 		description = "$hardmod_eperk_extra_hp_desc",
-		weight = 6,
+		weight = 8,
 		func = function(self, entity_id, data)
 			local dmc = EntityGetFirstComponent(entity_id, "DamageModelComponent")
 			if not dmc then return end
@@ -333,7 +334,7 @@ local perks = {
 		id = "RECYCLE_HEALTH",
 		name = "$hardmod_eperk_recycle_health_name",
 		description = "$hardmod_eperk_recycle_health_desc",
-		weight = 9,
+		weight = 8,
 		priority = 6,
 		max = 1,
 		func = function(self, entity_id, data)
@@ -353,7 +354,7 @@ local perks = {
 			EntityAddChild(entity_id, EntityLoad("mods/noita.hardmod/files/modules/enemy_perks/entities/wet_aura.xml", data.x, data.y))
 		end
 	},
-	{ -- TODO: Someone please nerf this??
+	{
 		id = "BLACKHOLE_DEATH",
 		name = "$hardmod_eperk_blackhole_death_name",
 		description = "$hardmod_eperk_blackhole_death_desc",
@@ -501,7 +502,7 @@ local perks = {
 			return data.level > 1 --can hold gun
 		end,
 		func = function(self, entity_id, data)
-			local wands = dofile_once(mpath.."scripts/armed_wands_list.lua")
+			local wands = dofile_once(dir.."scripts/armed_wands_list.lua")
 			local new_data = utils.deepcopy(data)
 			new_data.perk = self
 			local wand_data = utils.ConditionalRandomFromTable(wands, new_data)
@@ -533,7 +534,7 @@ local perks = {
 	},
 }
 
-for _,perk in ipairs(perks) do
+for _,perk in ipairs(enemy_perks) do
 	local id = perk.id
 	perk.id = "HARDMOD_"..perk.id
 	perk.name = perk.name or perk.id

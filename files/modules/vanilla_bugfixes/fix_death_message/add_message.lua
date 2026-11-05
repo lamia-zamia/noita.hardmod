@@ -146,7 +146,3 @@ function death(damage_type_bit_field, message, attacker, drop_items)
 		value_string = death_msg
 	})
 end
-
-function polymorphing_to(target_polymorph_path)
-	GameAddFlagRun("hardmod_player_has_polymorphed")
-end
