@@ -179,6 +179,7 @@ hooks.new_spells = {
         price = 160,
         mana = 20,
         max_uses = 10,
+        never_unlimited = true,
         custom_xml_file = "mods/noita.hardmod/files/modules/limited_spells/entities/cards/card_damage_double.xml",
         action = function()
             c.fire_rate_wait = c.fire_rate_wait + 25
