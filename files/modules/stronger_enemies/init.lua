@@ -10,6 +10,7 @@ local function patch_spawn_rules()
 	local patch_biomes = {
 		"coalmine_alt",
 		"crypt",
+		"desert",
 		"excavationsite",
 		"fungicave",
 		"fungiforest",
