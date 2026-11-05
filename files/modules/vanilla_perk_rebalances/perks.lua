@@ -409,6 +409,7 @@ local remove_perks = {
 	"WORM_ATTRACTOR",
 	"WORM_SMALLER_HOLES",
 	"DUPLICATE_PROJECTILE",
+	"MEGA_BEAM_STONE",
 	"LASER_AIM", -- replaced by Pinpointer spell
 	"EXTRA_MANA", -- replaced by Summon Toolbox
 	"EXTRA_SLOTS", -- replaced by Summon Toolbox

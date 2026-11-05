@@ -46,6 +46,10 @@ local function patch_enemy_changes()
 			to = [["VariableStorageComponent", "hardmod_spirit_weaken"]]
 		},
 		{
+			from = [[EntityGetInRadiusWithTag( x, y, r, "homing_target" )]],
+			to = [[{}]]
+		},
+		{
 			from = [[data/entities/misc/effect_spirit_weakness.xml]],
 			to = [[mods/noita.hardmod/files/modules/stronger_enemies/entities/effect_spirit_weaken.xml]]
 		},
