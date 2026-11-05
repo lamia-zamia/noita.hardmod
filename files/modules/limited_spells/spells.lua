@@ -152,7 +152,7 @@ hooks.new_spells = {
 			end
 
 			ComponentSetValue2(wcomp, "money", money - cast_price)
-
+			
 			data.action(rec)
 			mana = mana - data.mana
 
