@@ -103,7 +103,7 @@ local module_data = {
 		}
 	},
 	{
-		id = "new_spells",
+		id = "spell_variety",
 		name = {
 			en = "Spell Variety",
 		},
