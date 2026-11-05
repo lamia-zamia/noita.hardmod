@@ -47,8 +47,8 @@ return {
 		    description         = "$hardmod_controlled_reach_desc",
 		    sprite 		        = "mods/noita.hardmod/files/modules/spell_variety/gfx/ui_gfx/spells/controlled_reach.png",
 		    type 		        = ACTION_TYPE_MODIFIER,
-			spawn_level         = "0,1,2,3,4,5,6",
-			spawn_probability   = "0.5,0.6,0.7,0.8,0.6,0.4,0.2",
+			spawn_level         = "1,2,3,4,5,6", -- 2/3 of RECHARGE
+			spawn_probability   = "0.5,0.6,0.7,0.5,0.6,0.7", -- 2/3 of RECHARGE
 			related_extra_entities = { "mods/D2DContentPack/files/entities/projectiles/deck/controlled_reach.xml" },
 		    price               = 330,
 		    mana                = 3,
