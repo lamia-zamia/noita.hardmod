@@ -626,7 +626,7 @@ end
 function tracker.count_secrets()
 	tracker.progress_drawn = true
 	if tracker.menu_state == "submenu" and tracker.submenu_kind == "progress" then return end
-	-- Progress is only reachable from the main menu, so this also resyncs a model that lost track.
+	-- While paused Progress is only reachable from the main menu, so this also resyncs a model that lost track.
 	enter_submenu("progress")
 	tracker.progress_confirmed = true
 end
