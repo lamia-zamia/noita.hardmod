@@ -72,7 +72,7 @@
   <SpriteComponent 
     _enabled="1" 
     alpha="1" 
-    image_file="data/projectiles_gfx/orb_pink.xml" 
+    image_file="data/projectiles_gfx/orb_blue.xml" 
     next_rect_animation="" 
     offset_x="5" 
     offset_y="5" 
@@ -115,7 +115,7 @@
 	</VariableStorageComponent>
 	
 	<SpriteParticleEmitterComponent
-		sprite_file="data/particles/charm.xml"
+		sprite_file="mods/noita.hardmod/files/modules/phantom_nemesis/files/gfx/charm_blue.xml"
 		delay="0"
 		lifetime="1.0"
 		color.r="1" color.g="1" color.b="1" color.a="1"

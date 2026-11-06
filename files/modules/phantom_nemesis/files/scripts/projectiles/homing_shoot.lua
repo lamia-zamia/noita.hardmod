@@ -1,6 +1,7 @@
 
 
 function shot( entity_id )
+    if EntityHasTag(entity_id,"projectile_cloned") then return end
 
     --Adds homing to a projectile using designated values
     EntityAddComponent2(
@@ -8,8 +9,9 @@ function shot( entity_id )
         "HomingComponent",
         {
             target_tag="prey",
-            homing_targeting_coeff=40,
-            homing_velocity_multiplier=0.86,
+            homing_targeting_coeff=5,
+            homing_velocity_multiplier=0.95,
+            just_rotate_towards_target=true
         }
     )
 

@@ -73,7 +73,7 @@ function Speak(entity, text, pool)
         hitbox_height_y = ComponentGetValue2(hitbox_comp, "aabb_min_y")
     end
 
-    local offset_y = 40 + (hitbox_height_y)
+    local offset_y = 50 + (hitbox_height_y)
 
     ---- All dialogue handling should go above this point ----
 

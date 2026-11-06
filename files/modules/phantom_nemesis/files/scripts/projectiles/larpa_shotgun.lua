@@ -3,7 +3,7 @@ dofile_once("data/scripts/lib/utilities.lua")
 local entity_id    = GetUpdatedEntityID()
 local pos_x, pos_y, rot = EntityGetTransform( entity_id )
 local vel_x, vel_y = 0,0
-local amount = 4
+local amount = 3
 
 if EntityHasTag(entity_id,"projectile_cloned") then return end
 

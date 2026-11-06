@@ -327,10 +327,11 @@ end
 
 function CreateMiniboss(entity_id, x, y, tier, budget, health_mult)
     math.randomseed(x + y)
+    print("Tier: " .. tier .. " Budget: " .. budget .. " Health Mult: " .. math.floor(health_mult) .. " x: " .. math.floor(x) .. " y: " .. math.floor(y) .. " Filename: " .. EntityGetFilename(entity_id) .. "\n========================================================")
     local phantom_name = GameTextGetTranslatedOrNot("$hardmod_phantom_phantom_name") --Ira, Latin for angeeeee
     local victim_name = GameTextGetTranslatedOrNot(EntityGetName(entity_id))
 
-    if victim_name == "" then victim_name = GameTextGetTranslatedOrNot(table.concat({"$animal_",EntityGetFilename(entity_id):gsub("^.*/(.-)%.xml$", "%1")})) end
+    if victim_name == "" then victim_name = GameTextGetTranslatedOrNot(table.concat({"$animal_",(EntityGetFilename(entity_id):gsub("^.*/(.-)%.xml$", "%1"))})) end
     local selected_abilities_list = {}
     GamePrint(GameTextGet("$hardmod_phantom_possession",phantom_name,victim_name))
 
@@ -528,13 +529,18 @@ function FindPossessionTarget(biomes_visited)
         local damagemodel_comp = EntityGetFirstComponentIncludingDisabled(target,"DamageModelComponent") or 0
         local camerabound_comp = EntityGetFirstComponentIncludingDisabled(target,"CameraBoundComponent") or 0
         local physics_body_comp = EntityGetFirstComponentIncludingDisabled(target,"PhysicsImageShapeComponent") or 0
-        if proj_comp > 0 or lifetime_comp > 0 or camerabound_comp == 0 or damagemodel_comp == 0 then
+        if proj_comp > 0 or lifetime_comp > 0 or camerabound_comp == 0 or damagemodel_comp == 0 or ComponentGetIsEnabled(damagemodel_comp) == false then
             goto skipthistarget
         end
 
         --Filter by already charmed enemies
         local charm_count = GameGetGameEffectCount(target,"CHARM" )
         if charm_count > 0 then
+            goto skipthistarget
+        end
+        
+        --Filter by healer & support-type enemies
+        if animal_ai_comp > 0 and ComponentGetValue2(animal_ai_comp,"tries_to_ranged_attack_friends") == true then
             goto skipthistarget
         end
 

@@ -22,6 +22,9 @@ if target ~= 0 then
         if brain_id > 0 then
             local brain_vsc_comp = EntityGetFirstComponentIncludingDisabled(brain_id,"VariableStorageComponent") or 0
             ComponentSetValue2(brain_vsc_comp,"value_string",taunt_voicelines[math.random(1,#taunt_voicelines)])
+            local phantom_tier = ComponentGetValue2(brain_vsc_comp,"value_float")
+            local wand_vsc_comp = EntityGetFirstComponentIncludingDisabled(proj_id,"VariableStorageComponent")
+            ComponentSetValue2(wand_vsc_comp,"value_float",phantom_tier)
         end
 		GamePlaySound( "data/audio/Desktop/animals.bank", "animals/statue/appear", r_x, r_y );
     end
