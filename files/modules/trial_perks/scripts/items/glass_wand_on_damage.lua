@@ -17,10 +17,11 @@ function damage_received( damage, message, entity_thats_responsible, is_fatal, p
         GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/frozen/damage", x, y )
 
         -- drop all spells
+        local owner = EntityGetRootEntity( wand.entity_id )
         local mx, my = DEBUG_GetMouseWorld()
         local spells, attached_spells = wand:GetSpells()
         for i,spell in ipairs( spells ) do
-            local px, py = EntityGetFirstHitboxCenter( get_player() )
+            local px, py = EntityGetFirstHitboxCenter( owner )
             local spell_card_id = CreateItemActionEntity( spell.action_id, px, py )
             local vel_comp = EntityGetFirstComponentIncludingDisabled( spell_card_id, "VelocityComponent" )
             if vel_comp then
@@ -38,7 +39,7 @@ function damage_received( damage, message, entity_thats_responsible, is_fatal, p
             end
         end
         for i,spell in ipairs( attached_spells ) do
-            local px, py = EntityGetFirstHitboxCenter( get_player() )
+            local px, py = EntityGetFirstHitboxCenter( owner )
             local spell_card_id = CreateItemActionEntity( spell.action_id, px, py )
             local vel_comp = EntityGetFirstComponentIncludingDisabled( spell_card_id, "VelocityComponent" )
             if vel_comp then

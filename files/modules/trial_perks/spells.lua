@@ -35,10 +35,19 @@ return {
 			max_uses			= 30,
 			never_unlimited		= true,
 			action = function()
-				c.fire_rate_wait = c.fire_rate_wait + 30
+				c.fire_rate_wait = c.fire_rate_wait + 48
 				if reflecting then return end
 
-				add_projectile( "mods/noita.hardmod/files/modules/trial_perks/entities/spells/parry.xml" )
+				local utils = dofile_once( "mods/noita.hardmod/lib/utilities.lua" )
+				local x, y = EntityGetTransform( GetUpdatedEntityID() )
+				local prev_cast_frame = utils.GetInternalInt( GetUpdatedEntityID(), "hardmod_parry_prev_cast_frame" ) or 0
+				local current_frame = GameGetFrameNum()
+				if current_frame - prev_cast_frame > 48 then
+					add_projectile( "mods/noita.hardmod/files/modules/trial_perks/entities/spells/parry.xml" )
+					utils.SetInternalInt( GetUpdatedEntityID(), "hardmod_parry_prev_cast_frame", current_frame )
+				else
+                    add_projectile( "data/entities/projectiles/deck/fizzle.xml" )
+				end
 			end,
 		},
 	}

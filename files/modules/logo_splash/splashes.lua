@@ -103,6 +103,9 @@ local splashes = {
 	"Flummoxium stocks on the rise!",
 	"\\^-^/",
 	"\\m/ d(-_-)b",
+	"ok who broke multicast",
+	"harmod",
+	"pollen is stored in the hamis",
 	"Featuring mechanics Apotheosis would shamelessly steal 3 years prior",
 }
 

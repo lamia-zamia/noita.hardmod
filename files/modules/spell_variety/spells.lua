@@ -80,5 +80,43 @@ return {
 				                    draw_actions( 1, true )
 		                        end,
 	    },
+		{
+			id					= "HARDMOD_BIG_SHOT",
+			name				= "$hardmod_spell_big_shot_name",
+			description			= "$hardmod_spell_big_shot_desc",
+			sprite				= "mods/noita.hardmod/files/modules/spell_variety/gfx/ui_gfx/spells/big_shot.png",
+			type				= ACTION_TYPE_MODIFIER,
+			spawn_level         = "1,2,3,4,5,6",
+			spawn_probability   = "0.2,0.2,0.4,0.4,0.6,0.6",
+			price				= 200,
+			mana				= 50,
+			custom_xml_file		= "mods/noita.hardmod/files/modules/spell_variety/entities/cards/card_big_shot.xml",
+			action				= function()
+				                    current_reload_time = current_reload_time + 25
+									shot_effects.recoil_knockback = shot_effects.recoil_knockback + 200.0
+
+									if reflecting then return end
+
+									c.extra_entities = c.extra_entities .. "mods/noita.hardmod/files/modules/spell_variety/entities/spells/big_shot.xml,"
+									c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
+
+				                    draw_actions( 1, true )
+								end,
+		},
+		{
+			id                  = "HARDMOD_RECHARGE_SHIELD",
+			name 		        = "$hardmod_spell_recharge_shield_name",
+			description         = "$hardmod_spell_recharge_shield_desc",
+			sprite              = "mods/noita.hardmod/files/modules/spell_variety/gfx/ui_gfx/spells/recharge_shield.png",
+			type 		        = ACTION_TYPE_PASSIVE,
+			spawn_level         = "1,2,3,4,5,6", -- ENERGY_SHIELD
+			spawn_probability   = "0.2,0.4,0.8,0.4,0.4,0.6", -- ~ENERGY_SHIELD
+			price               = 220,
+			mana                = 10,
+			custom_xml_file 	= "mods/noita.hardmod/files/modules/spell_variety/entities/cards/card_recharge_shield.xml",
+			action 		        = function()
+									draw_actions( 1, true )
+			                    end,
+		},
 	}
 }

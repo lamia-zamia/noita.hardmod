@@ -38,14 +38,12 @@ local function drop_wand( x, y )
 	wand.capacity = 5 + ( wand_lvl * 2 ) + Random( -1, 1 )
 	wand.spread = Random( -3, 3 )
 	wand:DetachSpells()
-	if wand:GetFreeSlotsCount() < 3 then
-		wand:RemoveSpellAtIndex( 1 )
-		wand:RemoveSpellAtIndex( 2 )
-		wand:RemoveSpellAtIndex( 3 )
-    	wand:AddSpells( "TELEPORT_PROJECTILE_SHORT", "HARDMOD_BLINK", "HARDMOD_ALT_FIRE_ANYTHING" )
-    else
-    	wand:AddSpells( "HARDMOD_ALT_FIRE_ANYTHING", "TELEPORT_PROJECTILE_SHORT", "HARDMOD_BLINK" )
+
+	local preset_spell_count = 3
+	for i=1, preset_spell_count do
+		wand:RemoveSpellAtIndex( wand.capacity - ( preset_spell_count + i ) )
 	end
+    wand:AddSpells( "HARDMOD_ALT_FIRE_ANYTHING", "HARDMOD_BLINK", "TELEPORT_PROJECTILE_SHORT" )
 	wand:SetSprite( "mods/noita.hardmod/files/modules/trial_perks/gfx/items/wand_aika.png", 10, 5, 18, 0 )
 	wand:PlaceAt( x, y - 12 )
 end
