@@ -60,6 +60,31 @@ local function patch_enemy_changes()
 		{ from = [[damage="0.3"]], to=[[damage="0"]] },
 		{ from = [[damage = "0.1"]], to=[[damage="0"]] },
 	})
+
+	local hiisi = {
+		"shotgunner",
+		"shotgunner_hell",
+		"scavenger_clusterbomb",
+		"scavenger_grenade",
+		"scavenger_glue",
+		"scavenger_mine",
+		"scavenger_poison",
+		"scavenger_smg",
+		"scavenger_leader",
+		"goblin_bomb",
+	}
+
+	for _,name in pairs(hiisi) do
+		for file in nxml.edit_file("data/entities/animals/"..name..".xml") do
+			local base = file:first_of("Base")
+			if not base then break end
+
+			local aicomp = base:first_of("AnimalAIComponent")
+			if not aicomp then break end
+
+			aicomp:set("creature_detection_angular_range_deg", 90)
+		end
+	end
 end
 
 local function patch_enemy_resistances()
