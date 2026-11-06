@@ -1,6 +1,7 @@
 local hooks = {}
 local _g = HARDMOD_GLOBAL_DATA
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
+local biome_index = dofile_once("mods/noita.hardmod/lib/biome_index.lua") ---@type biome_path_to_simple_id
 local eperk_utils ---@type eperk_utils
 
 local curr_path = "mods/noita.hardmod/files/modules/enemy_perks/"
@@ -9,64 +10,6 @@ ModLuaFileAppend("data/scripts/perks/perk_reflect.lua", curr_path.."add_perks_to
 
 
 local base_perk_chance = .15
-
-
-local biome_levels = {
-	default_biome_data = {
-		level = 3,
-		do_recursive_roll = true,
-		--range = {0, 0},
-		--custom_func = function(self, entity_id) end --return perk num
-	},
-	["$biome_coalmine"] = 1, --mines
-	["$hardmod_biomename_infested_mines"] = 1, --infested mines
-	["$biome_coalmine_alt"] = 2,
-	["$biome_excavationsite"] = 2, --coal pits
-	["$biome_fungicave"] = 3, --fungal caverns
-	["$biome_snowcave"] = 3, --snowy depths
-	["$biome_wandcave"] = 4, --snowy depths
-	["$biome_snowcastle"] = 4, --hiisi base
-	["$biome_rainforest"] = 5, --jungle
-	["$biome_rainforest_dark"] = 6, --lukki lair
-	["$biome_vault"] = 6,
-	["$biome_crypt"] = 7,
-
-	["$biome_liquidcave"] = 4,
-	["$biome_desert"] = 7,
-	["$biome_wizardcave"] = 8,
-	["$biome_sandcave"] = 8,
-	["$biome_fun"] = 9,
-	["$biome_robobase"] = {
-		level = 6,
-		range = {1, 2} --guaranteed 1-2 perks base
-	},
-	["$biome_meat"] = 10,
-
-	["$biome_holymountain"] = {
-		level = 3,
-		do_recursive_roll = false,
-		custom_func = function(self, entity_id, x, y)
-			local levels = {
-				2,
-				5,
-				9,
-				12,
-				16,
-				20,
-				25,
-			}
-
-			local y_chunk_level = math.floor(y/512)
-			local num = 0
-			for i,stage_boundary in ipairs(levels) do
-				if stage_boundary > y_chunk_level then break end
-				num = i
-			end
-
-			return num
-		end
-	}
-}
 
 
 local enemy_perks = {}
@@ -83,14 +26,6 @@ local top_padding = 2 --padding between the top of the window and the name, and 
 local icon_padding = 1 --padding between perks in the perk view
 local max_perks_per_row = 5 --max perks before breaking into a new row
 local icon_size = 16 --the xy size of the perk icons
-
-for biome,data in pairs(biome_levels) do
-	if type(data) == "number" then
-		biome_levels[biome] = {
-			level = data
-		}
-	end
-end
 
 hooks.player_spawned = function()
 	for _,perk in ipairs(enemy_perks) do
@@ -119,11 +54,11 @@ hooks.new_eid = function(entity_id)
 	if EntityHasTag(entity_id, "enemy") and not EntityHasTag(entity_id, "hardmod_blessed") then
 		local is_boss = EntityHasTag(entity_id, "boss")
 		local x,y = EntityGetTransform(entity_id)
-		local biome = BiomeMapGetName(x, y)
+		local biome = biome_index[DebugBiomeMapGetFilename(x, y)]
 		local num = 0
 
 
-		local biome_data = biome_levels[biome] or biome_levels.default_biome_data
+		local biome_data = eperk_utils.biome_levels[biome] or eperk_utils.biome_levels.default_biome_data
 		if biome_data.custom_func then
 			num = biome_data:custom_func(entity_id, x, y) or num
 		end

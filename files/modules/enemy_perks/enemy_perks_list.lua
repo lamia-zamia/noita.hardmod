@@ -17,6 +17,7 @@ local biomes = dofile_once("mods/noita.hardmod/lib/biome_index.lua")
 ---@field func function? function that actually does the stuff, is passed the `data` table
 ---@field func_handler function? function that runs on the perk handler every 80f, is passed sprite components of in-world perk icons
 ---@field func_inspector function? function that runs every frame in the eperk inspector, is passed a table of all the perks held by the enemy
+---@field post_func function? function that runs after all perks have been applied
 
 local dir = "mods/noita.hardmod/files/modules/enemy_perks/"
 local sprites_path = "mods/noita.hardmod/files/modules/enemy_perks/perk_sprites/"
@@ -360,7 +361,7 @@ enemy_perks = {
 		id = "BLACKHOLE_DEATH",
 		name = "$hardmod_eperk_blackhole_death_name",
 		description = "$hardmod_eperk_blackhole_death_desc",
-		weight = 2,
+		weight = 1,
 		priority = 15,
 		max = 1,
 		condition = function(self, data) return data.level > 6 and not data.is_boss end,
@@ -619,6 +620,20 @@ enemy_perks = {
 		func = function(self, entity_id, data)
 			EntityAddComponent2(entity_id, "LuaComponent", {
 				script_death = dir.."scripts/rats_on_death.lua"
+			})
+		end
+	},
+	{
+		id = "SHADOW_REVIVAL",
+		name = "$hardmod_eperk_shadow_revival_name",
+		description = "$hardmod_eperk_shadow_revival_desc",
+		weight = 4, --set to 4 if working
+		priority = 4,
+		max = 1,
+		condition = function(self, data) return data.level > 6 and not data.is_boss end,
+		func = function(self, entity_id, data)
+			EntityAddComponent2(entity_id, "LuaComponent", {
+				script_death = "mods/noita.hardmod/files/modules/enemy_perks/scripts/spawn_shadow_revive_orb.lua",
 			})
 		end
 	},

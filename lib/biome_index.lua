@@ -1,4 +1,4 @@
-local simple_ids = {
+local simple_ids = { ---@class biome_path_to_simple_id
 	["data/biome/coalmine.xml"] = "mines",
 	["data/biome/coalmine_alt.xml"] = "collapsed_mines",
 	["data/biome/excavationsite.xml"] = "coal_pits",
@@ -12,7 +12,7 @@ local simple_ids = {
 	["data/biome/dragoncave.xml"] = "dragon_cave",
 	["data/biome/rainforest_dark.xml"] = "lukki_lair",
 	["data/biome/vault.xml"] = "vault",
-	["data/biome/crypt.xml"] = "tota",
+	["data/biome/crypt.xml"] = "temple_of_the_art",
 
 	["data/biome/temple_wall.xml"] = "holy_mountain",
 	["data/biome/temple_altar_left.xml"] = "holy_mountain",
@@ -27,7 +27,7 @@ local simple_ids = {
 	["data/biome/winter_caves.xml"] = "winter_caves",
 	["data/biome/gold.xml"] = "gold",
 	["data/biome/fungiforest.xml"] = "wandmart",
-	["data/biome/meat.xml"] = "meat",
+	["data/biome/meat.xml"] = "meat_realm",
 	["data/biome/meatroom.xml"] = "meat_boss",
 	["data/biome/tower/solid_wall_tower.xml"] = "cursed_rock",
 
@@ -63,7 +63,7 @@ local simple_ids = {
 	["data/biome/sandcave.xml"] = "sandcave",
 }
 
-local exact_paths = {
+local exact_paths = { ---@class exact_id_to_biome_path
 	mines = "data/biome/coalmine.xml",
 	collapsed_mines = "data/biome/coalmine_alt.xml",
 	coal_pits = "data/biome/excavationsite.xml",
@@ -77,7 +77,7 @@ local exact_paths = {
 	dragon_cave = "data/biome/dragoncave.xml",
 	lukki_lair = "data/biome/rainforest_dark.xml",
 	vault = "data/biome/vault.xml",
-	tota = "data/biome/crypt.xml",
+	temple_of_the_art = "data/biome/crypt.xml",
 
 	holy_mountain_portal = "data/biome/temple_wall.xml",
 	holy_mountain_left = "data/biome/temple_altar_left.xml",
@@ -92,7 +92,7 @@ local exact_paths = {
 	winter_caves = "data/biome/winter_caves.xml",
 	gold = "data/biome/gold.xml",
 	wandmart = "data/biome/fungiforest.xml",
-	meat = "data/biome/meat.xml",
+	meat_realm = "data/biome/meat.xml",
 	meat_boss = "data/biome/meatroom.xml",
 	cursed_rock = "data/biome/tower/solid_wall_tower.xml",
 
@@ -103,7 +103,7 @@ local exact_paths = {
 	tower_fungal_caverns = "data/biome/tower/solid_wall_tower_5.xml",
 	tower_jungle = "data/biome/tower/solid_wall_tower_6.xml",
 	tower_vault = "data/biome/tower/solid_wall_tower_7.xml",
-	tower_tota = "data/biome/tower/solid_wall_tower_8.xml",
+	tower_temple_of_the_art = "data/biome/tower/solid_wall_tower_8.xml",
 	tower_hell = "data/biome/tower/solid_wall_tower_9.xml",
 	tower_wands = "data/biome/tower/solid_wall_tower_10.xml",
 
