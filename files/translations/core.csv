@@ -280,6 +280,8 @@ hardmod_eperk_rats_on_death_desc,"Some rats scurry forth when this enemy is kill
 hardmod_eperk_shadow_revival_name,Forbidden Arts,RU_MISSING,,,,,,,,,,,,
 hardmod_eperk_shadow_revival_desc,"Allows an enemy to abuse forbidden arts to revive after death.",RU_MISSING,,,,,,,,,,,,
 hardmod_nxml_missing,"Warning, NXML could not be found, it has been substituted with a backup","Предупреждение: NXML не найден, он был заменен на резервную копию",,,,,,,,,,,
+hardmod_spell_damage_double_name,Double Damage,,,,,,,,,,,,,
+hardmod_spell_damage_double_desc,Doubles a projectile's total damage dealt,,,,,,,,,,,,,
 ,,,,,,,,,,,,,vanilla_bugfixes,
 ,,,,,,,,,,,,,,
 hardmod_damage_projectile_area,damage field,Поле Урона,,,,,,,,,,,Death message for dying to Projectile Area Damage,Use this for damage field deaths instead of 'cursed rock'.
