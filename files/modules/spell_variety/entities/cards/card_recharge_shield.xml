@@ -1,0 +1,29 @@
+<Entity tags="card_action">
+
+    <Base file="data/entities/misc/custom_cards/energy_shield.xml" >
+        <SpriteComponent
+            image_file="mods/noita.hardmod/files/modules/spell_variety/gfx/ui_gfx/spells/recharge_shield.png" >
+        </SpriteComponent>
+
+        <ItemActionComponent
+            _tags="enabled_in_world"
+            action_id="HARDMOD_RECHARGE_SHIELD" >
+        </ItemActionComponent>
+
+        <EnergyShieldComponent
+            max_energy="0.5"
+            recharge_speed="0.25"
+        ></EnergyShieldComponent>
+
+        <ParticleEmitterComponent
+            _tags="character,enabled_in_hand,item_identified__LEGACY,hardmod_recharge_shield_active">
+        </ParticleEmitterComponent>
+    </Base>
+
+    <LuaComponent
+        _tags="enabled_in_hand,enabled_in_inventory,enabled_in_world"
+        script_source_file="mods/noita.hardmod/files/modules/spell_variety/scripts/cards/card_recharge_shield_update.lua"
+        execute_every_n_frame="1"
+    ></LuaComponent>
+
+</Entity>
