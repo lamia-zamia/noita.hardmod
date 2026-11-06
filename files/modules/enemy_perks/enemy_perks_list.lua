@@ -21,9 +21,11 @@ local mpath = "mods/noita.hardmod/files/modules/enemy_perks/"
 local sprites_path = "mods/noita.hardmod/files/modules/enemy_perks/perk_sprites/"
 local icons_path = "mods/noita.hardmod/files/modules/enemy_perks/perk_icons/"
 
-local enemy_is_ranged = function(self, data)
+local enemy_is_ranged_attack = function(self, data)
 	local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy,"AnimalAIComponent")
-	if animal_ai_comp and ComponentGetValue2(animal_ai_comp,"attack_ranged_enabled") then
+	if animal_ai_comp
+	and ComponentGetValue2(animal_ai_comp,"attack_ranged_enabled")
+	and not ComponentGetValue2(animal_ai_comp, "tries_to_ranged_attack_friends") then
 		return true
 	end
 end
@@ -33,6 +35,10 @@ local enemy_is_melee = function(self, data)
 	if animal_ai_comp and ComponentGetValue2(animal_ai_comp,"attack_melee_enabled") then
 		return true
 	end
+end
+
+local blood_perk_check = function(self, data)
+	return not (data.blood_perk or data.is_boss)
 end
 
 -- The `data` table provides `target_enemy` (eid), `already_held_perks` (perk_id[]), `player` (eid) and `player_poly_identity` (table)
@@ -57,9 +63,7 @@ local perks = {
 		weight = 3,
 		priority = 5,
 		max = 1,
-		condition = function(self, data)
-			return not data.blood_perk
-		end,
+		condition = blood_perk_check,
 		func = function(self, entity_id, data)
 			local dmc = EntityGetFirstComponent(entity_id, "DamageModelComponent")
 			if not dmc then return end
@@ -89,7 +93,7 @@ local perks = {
 		priority = 20,
 		max = 1,
 		condition = function(self, data)
-			return enemy_is_melee(self, data) and not enemy_is_ranged(self, data) and not data.vigour
+			return enemy_is_melee(self, data) and not enemy_is_ranged_attack(self, data) and not (data.vigour or data.is_boss)
 		end,
 		func = function(self, entity_id, data)
 			-- show nuke particles on the enemy
@@ -167,7 +171,7 @@ local perks = {
 		weight = 4,
 		priority = 7,
 		max = 1,
-		condition = enemy_is_ranged,
+		condition = enemy_is_ranged_attack,
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_ELECTRICITY", true)
 			EntityAddComponent2(entity_id, "LuaComponent", {
@@ -182,7 +186,7 @@ local perks = {
 		description = "$hardmod_eperk_pyrelord_desc",
 		weight = 8,
 		max = 1,
-		condition = enemy_is_ranged,
+		condition = enemy_is_ranged_attack,
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_FIRE", true)
 			EntityAddComponent2(entity_id, "LuaComponent", {
@@ -230,7 +234,7 @@ local perks = {
 		description = "$hardmod_eperk_aerolord_desc",
 		weight = 0.5,
 		max = 1,
-		condition = enemy_is_ranged,
+		condition = enemy_is_ranged_attack,
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "KNOCKBACK_IMMUNITY", true)
 			EntityAddComponent2(entity_id, "LuaComponent", {
@@ -259,7 +263,7 @@ local perks = {
 		weight = 3,
 		priority = 5,
 		max = 1,
-		condition = function(self, data) return not data.blood_perk end,
+		condition = blood_perk_check,
 		func = function(self, entity_id, data)
 			local dmc = EntityGetFirstComponent(entity_id, "DamageModelComponent")
 			if not dmc then return end
@@ -279,7 +283,7 @@ local perks = {
 		weight = 3,
 		priority = 4,
 		max = 1,
-		condition = function(self, data) return not data.blood_perk end,
+		condition = blood_perk_check,
 		func = function(self, entity_id, data)
 			local dmc = EntityGetFirstComponent(entity_id, "DamageModelComponent")
 			if not dmc then return end
@@ -300,7 +304,7 @@ local perks = {
 		priority = 7,
 		max = 1,
 		condition = function(self, data)
-			return enemy_is_ranged(self, data)
+			return enemy_is_ranged_attack(self, data)
 		end,
 		func = function(self, entity_id, data)
 			EntityAddComponent2(entity_id, "LuaComponent", {
@@ -317,7 +321,7 @@ local perks = {
 		weight = 0,
 		priority = 0,
 		max = 0,
-		condition = enemy_is_ranged,
+		condition = enemy_is_ranged_attack,
 		func = function(self, entity_id, data)
 			EntityAddComponent2(entity_id, "LuaComponent", {
 				script_shot = "mods/noita.hardmod/files/modules/enemy_perks/scripts/venomous_curser_shot.lua",
@@ -356,7 +360,7 @@ local perks = {
 		weight = 2,
 		priority = 15,
 		max = 1,
-		condition = function(self, data) return data.level > 6 end,
+		condition = function(self, data) return data.level > 6 and not data.is_boss end,
 		func = function(self, entity_id, data)
 			EntityAddComponent2(entity_id, "LuaComponent", {
 				script_death = "mods/noita.hardmod/files/modules/enemy_perks/scripts/spawn_giga_blackhole.lua"
@@ -382,9 +386,9 @@ local perks = {
 		name = "$hardmod_eperk_damage_buffer_name",
 		description = "$hardmod_eperk_damage_buffer_desc",
 		weight = 6,
-		priority = 0,
+		priority = 3,
 		max = 1,
-		condition = function(self, data) return data.level > 3 end,
+		condition = function(self, data) return data.level > 2 end,
 		func = function(self, entity_id, data)
 			EntityAddChild(entity_id, EntityLoad("mods/noita.hardmod/files/modules/enemy_perks/entities/damage_buffer.xml", data.x, data.y))
 		end
@@ -409,7 +413,7 @@ local perks = {
 		priority = 3,
 		max = 1,
 		condition = function(self, data)
-			return GameGetGameEffectCount(data.target_enemy, "PROTECTION_POLYMORPH") == 0 and not EntityHasTag(data.target_enemy, "polymorphable_NOT")
+			return GameGetGameEffectCount(data.target_enemy, "PROTECTION_POLYMORPH") == 0 and not (EntityHasTag(data.target_enemy, "polymorphable_NOT") or data.boss)
 		end,
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_POLYMORPH", false)
@@ -422,7 +426,7 @@ local perks = {
 		weight = .1,
 		priority = 15,
 		max = 1,
-		condition = function(self, data) return data.level > 5 and not data.blood end,
+		condition = function(self, data) return data.level > 5 and blood_perk_check(self, data) end,
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_POLYMORPH", false)
 

@@ -54,17 +54,25 @@ local edit = {
 			drill = 0.6,
 			slice = 0.6,
 		}
-	}
+	},
+	["boss_fish/fish_giga"] = {}, --missing boss tag
+	["boss_gate/gate_monster_b"] = {}, --missing boss tag
+	["boss_gate/gate_monster_c"] = {}, --missing boss tag
+	["boss_gate/gate_monster_d"] = {}, --missing boss tag
 }
 
 for enemy,data in pairs(edit) do
+	print(enemy)
 	for f in nxml.edit_file("data/entities/animals/"..enemy..".xml") do
 		local file = data.from_base and f:first_of("Base") or f
 
+		local tags = file.attr.tags or ""
+		if not (','..tags..','):find(",boss,") then
+			if #tags == 0 then tags = "boss" else tags = table.concat({tags,"boss"}, ',') end
+			file.attr.tags = tags
+		end
 		if data.tags then
-			local tags = file:get("tags")
-			tags = tags and (tags..",") or ""
-			file:set("tags", tags..table.concat(data.tags, ","))
+			file:set("tags", tags..','..table.concat(data.tags, ",")) --should always have boss tag at least thanks to above code
 		end
 
 		if data.damagecomp then
