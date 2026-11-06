@@ -78,27 +78,29 @@ if nearby_players then
 	end
 end
 
-if spawn_return_portal then
-	local portal = EntityLoad( "mods/noita.hardmod/files/modules/ring_of_returning/entities/return_portal.xml", x - 70, y - 20 )
-	if portal ~= nil then
-		local tele_comp = EntityGetFirstComponentIncludingDisabled( portal, "TeleportComponent" )
-		if tele_comp ~= nil then
-			local tx, ty = 766, -808
 
-			local players = EntityGetWithTag( "player_unit" )
-			if players ~= nil then
-				for i,player in ipairs( players ) do
-					local stored_x = utils.GetInternalInt( player, "hardmod_return_portal_dest_x" )
-					local stored_y = utils.GetInternalInt( player, "hardmod_return_portal_dest_y" )
-					if stored_x ~= nil and stored_y ~= nil then
-						tx = stored_x
-						ty = stored_y
-						break
-					end
-				end
+-- D2D: disable this for now until I can be bothered to fix the target pos
+-- if spawn_return_portal then
+-- 	local portal = EntityLoad( "mods/noita.hardmod/files/modules/ring_of_returning/entities/return_portal.xml", x - 70, y - 20 )
+-- 	if portal ~= nil then
+-- 		local tele_comp = EntityGetFirstComponentIncludingDisabled( portal, "TeleportComponent" )
+-- 		if tele_comp ~= nil then
+-- 			local tx, ty = 766, -808
+
+-- 			local players = EntityGetWithTag( "player_unit" )
+-- 			if players ~= nil then
+-- 				for i,player in ipairs( players ) do
+-- 					local stored_x = utils.GetInternalInt( player, "hardmod_return_portal_dest_x" )
+-- 					local stored_y = utils.GetInternalInt( player, "hardmod_return_portal_dest_y" )
+-- 					if stored_x ~= nil and stored_y ~= nil then
+-- 						tx = stored_x
+-- 						ty = stored_y
+-- 						break
+-- 					end
+-- 				end
 				
-				ComponentSetValue2( tele_comp, "target", tx, ty )
-			end
-		end
-	end
-end
+-- 				ComponentSetValue2( tele_comp, "target", tx, ty )
+-- 			end
+-- 		end
+-- 	end
+-- end
