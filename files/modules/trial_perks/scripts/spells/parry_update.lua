@@ -1,5 +1,6 @@
 dofile_once( "mods/noita.hardmod/files/modules/trial_perks/scripts/trial_perk_utils.lua" )
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
+dofile_once( "data/scripts/lib/utilities.lua" )
 
 local x, y = EntityGetTransform( GetUpdatedEntityID() )
 

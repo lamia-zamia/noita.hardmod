@@ -104,6 +104,7 @@ local splashes = {
 	"\\^-^/",
 	"\\m/ d(-_-)b",
 	"ok who broke multicast",
+	"harmod",
 }
 
 local cool_mods = {
