@@ -10,7 +10,7 @@
     background_edge_priority="10"
     limit_background_image="0"
     noise_biome_edges="1"
-    wang_template_file="mods/noita.hardmod/files/modules/alternate_biomes/wang_tiles/fungal_mines.png"
+    wang_template_file="data/wang_tiles/coalmine.png"
     lua_script="mods/noita.hardmod/files/modules/alternate_biomes/biomes/fungal_mines.lua"
     wang_map_width="256"
     wang_map_height="256"
