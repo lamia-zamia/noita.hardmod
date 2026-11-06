@@ -49,13 +49,13 @@ hooks.spell_patches = {
 	},
 	["SCATTER_3"] = {
 		action = function()
-			draw_actions(2, true)
+			draw_actions(3, true)
 			c.spread_degrees = c.spread_degrees + 6.0
 		end,
 	},
 	["SCATTER_4"] = {
 		action = function()
-			draw_actions(2, true)
+			draw_actions(4, true)
 			c.spread_degrees = c.spread_degrees + 10.0
 		end,
 	},
