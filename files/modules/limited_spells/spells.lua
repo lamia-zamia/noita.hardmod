@@ -98,7 +98,7 @@ hooks.new_spells = {
 		id = "HARDMOD_SPELL_INDULGENCE",
 		name = "$hardmod_spell_indulgence_name",
 		description = "$hardmod_spell_indulgence_desc",
-		sprite = "mods/noita.hardmod/files/modules/limited_spells/gfx/indulgence.png",
+		sprite = "mods/noita.hardmod/files/modules/limited_spells/gfx/ui_gfx/spells/indulgence.png",
 		type = ACTION_TYPE_OTHER,
 		recursive = true,
 		spawn_probability = "0",
@@ -115,7 +115,7 @@ hooks.new_spells = {
 
 			local rec = check_recursion(data, recursion_level)
 			if not data or rec < 0 or data.uses_remaining > 0 then
-				mana = mana + 40
+				mana = mana + 20
 				draw_actions(1, true)
 				return
 			end
@@ -125,15 +125,18 @@ hooks.new_spells = {
 			if wcomp == nil then return end
 			local money = ComponentGetValue2(wcomp, "money")
 
-			local max_uses = get_spell_data(data.id).max_uses or -1
+			local spell_data = get_spell_data(data.id)
+			local max_uses = spell_data.max_uses or -1
 			local cast_price = 10
 
-			if data.id == "DIVIDE_10" then cast_price = 500
-			elseif max_uses <= 2 or data.recursive then cast_price = 250
+			if max_uses <= 2 or data.recursive then cast_price = 250
 			elseif max_uses <= 5 then cast_price = 125
 			elseif max_uses <= 10 then cast_price = 50
 			elseif max_uses <= 20 then cast_price = 25
 			end
+			if spell_data.never_unlimited then
+                cast_price = cast_price * 2
+            end
 
 			local x, y = EntityGetTransform(GetUpdatedEntityID())
 			if money < cast_price then
@@ -149,13 +152,13 @@ hooks.new_spells = {
 			end
 
 			ComponentSetValue2(wcomp, "money", money - cast_price)
-
+			
 			data.action(rec)
 			mana = mana - data.mana
 
 			GamePlaySound("data/audio/Desktop/event_cues.bank", "event_cues/goldnugget/create", x, y)
 
-			local cost_label = entity_load_at_wand_tip(player, "mods/noita.hardmod/files/modules/limited_spells/entity/indulgence_cost_label.xml")
+			local cost_label = entity_load_at_wand_tip(player, "mods/noita.hardmod/files/modules/limited_spells/entities/misc/indulgence_cost_label.xml")
 			if cost_label then
 				EntityAddComponent2(cost_label, "VariableStorageComponent", {
 					name = "hardmod_indulgence_cast_price",
@@ -164,6 +167,33 @@ hooks.new_spells = {
 			end
 		end,
 	},
+    -- following spells are defined here since they are too powerful to be used without this module's nerfs
+    {
+        id = "HARDMOD_SPELL_DAMAGE_DOUBLE",
+        name = "$hardmod_spell_damage_double_name",
+        description = "$hardmod_spell_damage_double_desc",
+        sprite = "mods/noita.hardmod/files/modules/limited_spells/gfx/ui_gfx/spells/damage_double.png",
+        type = ACTION_TYPE_MODIFIER,
+        spawn_level = "1,2,3,4,5,6,10", -- 2/3 of DAMAGE
+        spawn_probability = "0.4,0.4,0.6,0.4,0.4,0.6,0.6", -- 2/3 of DAMAGE
+        price = 160,
+        mana = 20,
+        max_uses = 10,
+        never_unlimited = true,
+        custom_xml_file = "mods/noita.hardmod/files/modules/limited_spells/entities/cards/card_damage_double.xml",
+        action = function()
+            c.fire_rate_wait = c.fire_rate_wait + 25
+            shot_effects.recoil_knockback = shot_effects.recoil_knockback + 200.0
+
+            c.extra_entities = c.extra_entities .. "mods/noita.hardmod/files/modules/limited_spells/entities/spells/damage_double.xml,"
+            c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
+            draw_actions( 1, true )
+
+            if reflecting then return end
+            local x, y = EntityGetTransform( GetUpdatedEntityID() )
+            GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/black_hole/create", x, y )
+        end,
+    },
 }
 
 hooks.spell_patches = {
