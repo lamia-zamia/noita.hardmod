@@ -38,8 +38,9 @@ local enemy_is_melee = function(self, data)
 	end
 end
 
+-- dont give a blood perk if already has blood perk, is a boss, or is swapper mage
 local blood_perk_check = function(self, data)
-	return not (data.blood_perk or data.is_boss)
+	return not (data.blood_perk or data.is_boss or EntityGetName(data.target_enemy) == "$animal_wizard_swapper")
 end
 
 -- The `data` table provides `target_enemy` (eid), `already_held_perks` (perk_id[]), `player` (eid) and `player_poly_identity` (table)
