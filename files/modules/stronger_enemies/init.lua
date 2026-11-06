@@ -78,7 +78,7 @@ local function patch_enemy_changes()
 		for file in nxml.edit_file("data/entities/animals/"..name..".xml") do
 			local base = file:first_of("Base")
 			if not base then break end
-			
+
 			local aicomp = base:first_of("AnimalAIComponent")
 			if not aicomp then break end
 
