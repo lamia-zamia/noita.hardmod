@@ -385,6 +385,22 @@ function utils.TriggerScriptDelayed(entity_id, script_path, delay)
 	})
 end
 
+--- Shorthand for removing all children and components that match a given tag
+---@param entity_id entity_id The entity id of the entity whose children and components are to be removed
+---@param tag string The tag to filter by
+function utils.EntityRemoveAllByTag(entity_id, tag)
+	for i,child_id in ipairs(EntityGetAllChildren(entity_id, tag) or {}) do
+		if EntityHasTag(child_id, tag) then
+			EntityKill(child_id)
+		end
+	end
+	for i,comp_id in ipairs(EntityGetAllComponents(entity_id)) do
+		if ComponentHasTag(comp_id, tag) then
+			EntityRemoveComponent(entity_id, comp_id)
+		end
+	end
+end
+
 ---Formats an integer as an ordinal (1st, 2nd, 3rd, 4th, etc).
 ---English-only, currently used only for splashes which aren't translated
 ---@param int integer

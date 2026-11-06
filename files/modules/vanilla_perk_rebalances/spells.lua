@@ -93,6 +93,21 @@ hooks.new_spells = {
 	    custom_uses_logic	= true,
 	    action              = function() end,
     },
+    {
+	    id                  = "HARDMOD_UPGRADE_SPREAD",
+	    name 		        = "$hardmod_spell_upgrade_spread_name",
+	    description         = "$hardmod_spell_upgrade_spread_desc",
+	    sprite 		        = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/spells/upgrade_spread.png",
+	    type 		        = ACTION_TYPE_OTHER,
+		spawn_probability   = "0",
+		spawn_requires_flag = "hardmod_impossible_spawn",
+		custom_xml_file 	= "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/custom_cards/card_upgrade_spread.xml",
+	    price               = 100,
+	    mana                = 0,
+	    max_uses			= 1,
+	    custom_uses_logic	= true,
+	    action              = function() end,
+    },
 }
 
 hooks.spell_patches = {

@@ -47,6 +47,13 @@ for file in nxml.edit_file("data/entities/misc/homing.xml") do
 	end
 end
 
+for file in nxml.edit_file("data/entities/projectiles/deck/buckshot_player.xml") do
+	local comp = file:first_of("ProjectileComponent")
+	if comp then
+		comp:set("direction_random_rad", 0.18)
+	end
+end
+
 local notes = {
 	"kantele/kantele_a", "kantele/kantele_d",
 	"kantele/kantele_dis", "kantele/kantele_e",

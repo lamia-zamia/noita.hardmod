@@ -18,6 +18,9 @@ function GenerateToolboxSpells( toolbox, amount, do_print )
 		"HARDMOD_UPGRADE_MANA_CHARGE_SPEED",
 		"HARDMOD_UPGRADE_MANA_CHARGE_SPEED",
 		"HARDMOD_UPGRADE_MANA_CHARGE_SPEED",
+		"HARDMOD_UPGRADE_SPREAD",
+		"HARDMOD_UPGRADE_SPREAD",
+		"HARDMOD_UPGRADE_SPREAD",
 		"HARDMOD_UPGRADE_REMOVE_ALWAYS_CAST",
 	}
 
@@ -142,6 +145,19 @@ function UpgradeWandManaChargeSpeed( wand, percent, min_increase, limit )
 	end
 
 	GamePrint( "Your wand's mana charge speed cannot be increased further!" )
+	return false
+end
+
+function UpgradeWandSpread( wand, percent, min_decrease, limit )
+	local old_value = wand.spread
+
+	if wand.spread > limit then
+		wand.spread = math.max( old_value - math.max( old_value * percent, -min_decrease ), limit )
+		GamePrint("Your wand's spread was decreased! (" .. string.format( "%.0f", old_value ) .. " > " .. string.format( "%.0f",wand.spread ) .. ")" )
+		return true
+	end
+
+	GamePrint( "Your wand's spread cannot be reduced further!" )
 	return false
 end
 

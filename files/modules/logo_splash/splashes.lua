@@ -101,6 +101,8 @@ local splashes = {
 	"What do you mean the deadline is nearly up?!?",
 	"Now +50% more vegan friendly",
 	"Flummoxium stocks on the rise!",
+	"\\^-^/",
+	"\\m/ d(-_-)b",
 }
 
 local cool_mods = {

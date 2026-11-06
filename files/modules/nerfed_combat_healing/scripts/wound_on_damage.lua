@@ -3,7 +3,7 @@ function damage_received( damage, desc, entity_who_caused, is_fatal )
     local comp_id = GetUpdatedComponentID()
     local wound_duration_per_percentage_lost = 2 --Time in seconds
     local maximum_duration_per_instance = 10 --Maximum duration of wounded in seconds that can be gained from a single instance of damage. (ie if the player takes 50% of their health as damage they should gain 100 seconds of wounded, but this would cap it at 10 seconds)
-    local wound_duration_cap = 60 --Upper limit in seconds that the wounded status gained from taking damage can be
+    local wound_duration_cap = 20 --Upper limit in seconds that the wounded status gained from taking damage can be
 
     if ComponentGetIsEnabled( comp_id ) == false then
         return

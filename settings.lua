@@ -103,6 +103,15 @@ local module_data = {
 		}
 	},
 	{
+		id = "spell_variety",
+		name = {
+			en = "Spell Variety",
+		},
+		desc = {
+			en = "Adds various new spells to increase variety and raise the skill ceiling.",
+		}
+	},
+	{
 		id = "limited_spells",
 		name = {
 			en = "Limited Spells",
