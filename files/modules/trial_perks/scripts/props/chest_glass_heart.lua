@@ -38,13 +38,12 @@ local function drop_wand( x, y )
     wand.capacity = Random( 3, 5 ) + ( wand_lvl * 3 )
     wand.spread = -wand_lvl + Random( -3, 3 )
 	wand:DetachSpells()
-	if wand:GetFreeSlotsCount() < 2 then
-		wand:RemoveSpellAtIndex( 1 )
-		wand:RemoveSpellAtIndex( 2 )
-    	wand:AddSpells( "HARDMOD_PARRY", "HARDMOD_ALT_FIRE_ANYTHING" )
-    else
-    	wand:AddSpells( "HARDMOD_ALT_FIRE_ANYTHING", "HARDMOD_PARRY" )
+
+	local preset_spell_count = 2
+	for i=1, preset_spell_count do
+		wand:RemoveSpellAtIndex( wand.capacity - ( preset_spell_count + i ) )
 	end
+    wand:AddSpells( "HARDMOD_ALT_FIRE_ANYTHING", "HARDMOD_PARRY" )
 	wand:SetSprite( "mods/noita.hardmod/files/modules/trial_perks/gfx/items/wand_lasi.png", 6, 4, 18, 0 )
 	wand:PlaceAt( x, y - 12 )
 	EntityAddTag( wand.entity_id, "hardmod_glass_wand" )

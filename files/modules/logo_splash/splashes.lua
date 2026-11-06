@@ -103,6 +103,7 @@ local splashes = {
 	"Flummoxium stocks on the rise!",
 	"\\^-^/",
 	"\\m/ d(-_-)b",
+	"ok who broke multicast",
 }
 
 local cool_mods = {
