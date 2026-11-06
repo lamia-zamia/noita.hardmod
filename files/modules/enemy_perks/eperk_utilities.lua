@@ -3,6 +3,73 @@ local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 local enemy_perks
 local enemy_perks_indexed = {}
 
+utilities.biome_levels = {
+	default_biome_data = {
+		level = 3,
+		do_recursive_roll = true,
+		--range = {0, 0},
+		--custom_func = function(self, entity_id) end --return perk num
+	},
+	mines = 1, --mines
+	collapsed_mines = 2,
+	coal_pits = 2, --coal pits
+	fungal_caverns = 3, --fungal caverns
+	snowy_depths = 3, --snowy depths
+	magical_temple = 4, --snowy depths
+	hiisi_base = 4, --hiisi base
+	jungle = 5, --jungle
+	lukki_lair = 6, --lukki lair
+	vault = 6,
+	temple_of_the_art = 10,
+
+	ancient_lab = 4,
+	surface_desert = 7,
+	surface_snowy = 7,
+	wizards_den = 8,
+	sandcave = 8,
+	wandmart = 8,
+	powerplant = {
+		level = 6,
+		range = {1, 2} --guaranteed 1-2 perks base
+	},
+	meat_realm = 9,
+	sky = 12,
+	hell = 12,
+
+	holy_mountain = {
+		level = 3,
+		do_recursive_roll = false,
+		custom_func = function(self, entity_id, x, y)
+			local levels = {
+				2,
+				5,
+				9,
+				12,
+				16,
+				20,
+				25,
+			}
+
+			local y_chunk_level = math.floor(y/512)
+			local num = 0
+			for i,stage_boundary in ipairs(levels) do
+				if stage_boundary > y_chunk_level then break end
+				num = i
+			end
+
+			return num
+		end
+	}
+}
+
+for biome,data in pairs(utilities.biome_levels) do
+	if type(data) == "number" then
+		utilities.biome_levels[biome] = {
+			level = data
+		}
+	end
+end
+
 ---function to give enemy perks
 ---@param entity_id entity_id
 ---@param perks_to_give int|table|nil pass number to pass X random perks, pass table to give specific selection of perks
@@ -93,6 +160,7 @@ function utilities.give_enemy_perks(entity_id, perks_to_give, data)
 		if perk.post_func then perk:post_func(entity_id, data) end
 	end
 end
+
 
 return function(eperks)
     enemy_perks = eperks

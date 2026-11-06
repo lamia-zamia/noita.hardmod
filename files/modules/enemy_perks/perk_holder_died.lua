@@ -1,4 +1,4 @@
-function death(damage_type_bit_field, damage_message, entity_thats_responsible, drop_items)
+function death(damage_type_bit_field, message, attacker, drop_items)
 	if EntityHasTag(entity_thats_responsible, "player_unit") or EntityHasTag(entity_thats_responsible, "polymorphed_player") then
 		for _,child in ipairs(EntityGetAllChildren(GetUpdatedEntityID()) or {}) do
 			if EntityGetName(child) == "hardmod.enemy_perks" then

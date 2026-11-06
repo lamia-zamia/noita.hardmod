@@ -9,12 +9,12 @@ if nearby_mortals then
 		local is_wounded = false
 		local children = EntityGetAllChildren(target)
 		if children then
-		    for k=1,#children
-		    do v = children[k]
-		        if EntityGetName(v) == "apotheosis_wounded" then
-		            is_wounded = true
-		        end
-		    end
+			for k=1,#children
+			do v = children[k]
+				if EntityGetName(v) == "apotheosis_wounded" then
+					is_wounded = true
+				end
+			end
 		end
 
 		if not is_wounded then
