@@ -314,3 +314,5 @@ hardmod_controlled_reach_desc,Makes a projectile expire when it reaches the curs
 hardmod_item_trophy_chest_bronze,Bronze Trophy Chest,,,,,,,,,,,,,
 hardmod_item_trophy_chest_silver,Silver Trophy Chest,,,,,,,,,,,,,
 hardmod_item_trophy_chest_gold,Gold Trophy Chest,,,,,,,,,,,,,
+hardmod_spell_big_shot_name,Big Shot,,,,,,,,,,,,,
+hardmod_spell_big_shot_desc,"Adds +10% damage for each second since this spell's last use (max. +300%)",,,,,,,,,,,,,
