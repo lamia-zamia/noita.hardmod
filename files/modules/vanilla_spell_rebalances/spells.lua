@@ -137,6 +137,15 @@ hooks.spell_patches = {
 		end
 	},
 	["FLAMETHROWER"] = { max_uses = -1 }, -- damage is also changed in damage.lua
+	["BUCKSHOT"] = {
+		action 		= function()
+			add_projectile("data/entities/projectiles/deck/buckshot_player.xml")
+			add_projectile("data/entities/projectiles/deck/buckshot_player.xml")
+			add_projectile("data/entities/projectiles/deck/buckshot_player.xml")
+			c.fire_rate_wait = c.fire_rate_wait + 8
+			c.spread_degrees = c.spread_degrees + 6.0
+		end,
+	},
 }
 
 local mats = { "MATERIAL_WATER", "MATERIAL_OIL", "MATERIAL_BLOOD", "MATERIAL_CEMENT", "WATER_TRAIL" }

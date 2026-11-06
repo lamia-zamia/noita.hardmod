@@ -54,6 +54,7 @@ local modules = {
 	"alternate_biomes",
 	"polymorph_gui",
 	"vanilla_bugfixes",
+	"spell_variety",
 }
 
 local force_enable_state = {
