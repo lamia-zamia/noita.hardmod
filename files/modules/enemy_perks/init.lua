@@ -1,6 +1,7 @@
 local hooks = {}
 local _g = HARDMOD_GLOBAL_DATA
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
+local eperk_utils ---@type eperk_utils
 
 local curr_path = "mods/noita.hardmod/files/modules/enemy_perks/"
 
@@ -106,75 +107,12 @@ end
 
 hooks.mod_post_init = function() --run later in case of appends
 	enemy_perks = dofile_once(curr_path.."enemy_perks_list.lua")
+	eperk_utils = dofile_once(curr_path.."eperk_utilities.lua")(enemy_perks)
 	for _,perk in ipairs(enemy_perks) do
 		enemy_perks_indexed[perk.id] = perk
 	end
 
 	update_perk_unlock_states()
-end
-
-local function give_enemy_perks(entity_id, num, data)
-	num = num or 1
-	if not (num > 0) then return end
-
-	-- do not give perks to entities who drop no gold
-	for _,vsc_comp in ipairs(EntityGetComponent(entity_id, "VariableStorageComponent") or {}) do
-		if ComponentHasTag(vsc_comp, "no_gold_drop") then return end
-	end
-
-	local x,y = EntityGetTransform(entity_id)
-	local enemy_perks_handler
-	for _,child in ipairs(EntityGetAllChildren(entity_id) or {}) do
-		if EntityGetName(child) == "hardmod.enemy_perks" then enemy_perks_handler = child break end
-	end
-	if not enemy_perks_handler then
-		enemy_perks_handler = EntityLoad("mods/noita.hardmod/files/modules/enemy_perks/handler.xml", x, y)
-		EntityAddChild(entity_id, enemy_perks_handler)
-	end
-
-	local has_death_handler
-	for _,luacomp in ipairs(EntityGetComponent(entity_id, "LuaComponent") or {}) do
-		if ComponentGetValue2(luacomp, "script_death") == "mods/noita.hardmod/files/modules/enemy_perks/perk_holder_died.lua" then has_death_handler = true break end
-	end
-	if not has_death_handler then
-		EntityAddComponent2(entity_id, "LuaComponent", {
-			script_death = "mods/noita.hardmod/files/modules/enemy_perks/perk_holder_died.lua"
-		})
-	end
-
-	local already_held_perks = {}
-	local how_many_of_each_perk = {}
-	local enemy_perk_data
-	for _,varcomp in ipairs(EntityGetComponent(enemy_perks_handler, "VariableStorageComponent") or {}) do
-		if ComponentGetValue2(varcomp, "name") == "enemy_perk_data" then enemy_perk_data = varcomp break end
-	end
-	if not enemy_perk_data then
-		enemy_perk_data = EntityAddComponent2(enemy_perks_handler, "VariableStorageComponent", {name = "enemy_perk_data"})
-	else
-		for perk_id in ComponentGetValue2(enemy_perk_data, "value_string"):gmatch("([^,]+)") do
-			already_held_perks[#already_held_perks+1] = perk_id
-			how_many_of_each_perk[perk_id] = (how_many_of_each_perk[perk_id] or 0) + 1
-		end
-
-	end
-
-	data.already_held_perks = already_held_perks
-	data.how_many_of_each_perk = how_many_of_each_perk
-
-	for i=1, num do
-		local perk = utils.ConditionalRandomFromTable(enemy_perks, data)
-		if not perk then return end
-		data = perk:func(entity_id, data) or data
-		already_held_perks[#already_held_perks+1] = perk.id
-		how_many_of_each_perk[perk.id] = (how_many_of_each_perk[perk.id] or 0) + 1
-	end
-
-
-	ComponentSetValue2(enemy_perk_data, "value_string", table.concat(already_held_perks, ","))
-
-	if not EntityHasTag(entity_id, "hardmod_blessed") then
-		EntityAddTag(entity_id, "hardmod_blessed")
-	end
 end
 
 hooks.new_eid = function(entity_id)
@@ -221,7 +159,7 @@ hooks.new_eid = function(entity_id)
 			player_poly_identity = _g.player_poly_identity,
 			is_boss = is_boss,
 		}
-		give_enemy_perks(entity_id, num, data)
+		eperk_utils.give_enemy_perks(entity_id, num, data)
 	end
 end
 

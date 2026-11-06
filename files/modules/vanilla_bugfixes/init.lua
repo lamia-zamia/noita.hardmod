@@ -72,20 +72,18 @@ for xml in nxml.edit_file("data/entities/player.xml") do
 		execute_every_n_frame = "6000", --fix stun visuals every 100 seconds.
 		script_source_file = "mods/noita.hardmod/files/modules/vanilla_bugfixes/fix_permanent_stun_visual_items.lua", --Fix stun visuals script.
 		script_death = "mods/noita.hardmod/files/modules/vanilla_bugfixes/fix_death_message/add_message.lua", --fix empty death message script.
-		script_polymorphing_to = "mods/noita.hardmod/files/modules/vanilla_bugfixes/fix_death_message/add_message.lua", --Detect when the player polymorphs to apply the fix to their new form.
 	}))
 end
 
 -- Script that activates when the player has been polymorphed to ensure the entity they polymorph into also has the death message fix applied.
 local function fix_NB5(p, poly_identity)
-	for _,luacomp in ipairs(EntityGetComponent(player, "LuaComponent") or {}) do
+	for _,luacomp in ipairs(EntityGetComponent(p, "LuaComponent") or {}) do
 		if ComponentGetValue2(luacomp, "script_death") == "mods/noita.hardmod/files/modules/vanilla_bugfixes/fix_death_message/add_message.lua" then return end
 	end --Check if the polymorphed player already has the script. If yes, then early return to halt the function.
 
 	-- If the script is not detected on the player, apply the fix.
-	EntityAddComponent2(player, "LuaComponent", {
+	EntityAddComponent2(p, "LuaComponent", {
 		script_death = "mods/noita.hardmod/files/modules/vanilla_bugfixes/fix_death_message/add_message.lua",
-		script_polymorphing_to = "mods/noita.hardmod/files/modules/vanilla_bugfixes/fix_death_message/add_message.lua",
 	})
 end
 
@@ -501,9 +499,9 @@ end
 -- If such a case were to occur, I may end up taking out this fix and relegating it to my Extended Fixes mod, we shall see.
 
 
-function hooks.player_changed(p, poly_identity)
-	fix_NB5(p, poly_identity)
-	fix_NB295(p, poly_identity)
+function hooks.player_changed(...)
+	fix_NB5(...)
+	fix_NB295(...)
 end
 
 return hooks
