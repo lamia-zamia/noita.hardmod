@@ -43,7 +43,7 @@ local function drop_wand( x, y )
 	for i=1, preset_spell_count do
 		wand:RemoveSpellAtIndex( wand.capacity - ( preset_spell_count + i ) )
 	end
-    wand:AddSpells( "HARDMOD_ALT_FIRE_ANYTHING", "TELEPORT_PROJECTILE_SHORT", "HARDMOD_BLINK" )
+    wand:AddSpells( "HARDMOD_ALT_FIRE_ANYTHING", "HARDMOD_BLINK", "TELEPORT_PROJECTILE_SHORT" )
 	wand:SetSprite( "mods/noita.hardmod/files/modules/trial_perks/gfx/items/wand_aika.png", 10, 5, 18, 0 )
 	wand:PlaceAt( x, y - 12 )
 end
