@@ -627,15 +627,12 @@ enemy_perks = {
 		id = "SHADOW_REVIVAL",
 		name = "$hardmod_eperk_shadow_revival_name",
 		description = "$hardmod_eperk_shadow_revival_desc",
-		weight = 400, --set to 4 if working
+		weight = 4, --set to 4 if working
 		priority = 4,
 		max = 1,
-		condition = function(self, data) do return true end return data.level > 6 and not data.is_boss end, --remove `do return true end` if working
-		post_func = function(self, entity_id, data)
-			print("adding shadow orb revive script: "..entity_id)
-			EntityAddComponent2(GetUpdatedEntityID(), "LuaComponent", {
-				script_source_file = "mods/noita.hardmod/files/modules/enemy_perks/scripts/update_self_perk_list.lua",
-				execute_every_n_frame = 150,
+		condition = function(self, data) return data.level > 6 and not data.is_boss end,
+		func = function(self, entity_id, data)
+			EntityAddComponent2(entity_id, "LuaComponent", {
 				script_death = "mods/noita.hardmod/files/modules/enemy_perks/scripts/spawn_shadow_revive_orb.lua",
 			})
 		end

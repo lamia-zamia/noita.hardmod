@@ -9,7 +9,7 @@ for _,varcomp in ipairs(EntityGetComponent(entity_id, "VariableStorageComponent"
 	end
 end
 
-if not perks then EntityKill(entity_id) print("found no perk data:(") return end
+if not perks then EntityKill(entity_id) return end
 
 
 local biome_index = dofile_once("mods/noita.hardmod/lib/biome_index.lua") ---@type biome_path_to_simple_id
