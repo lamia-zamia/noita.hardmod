@@ -28,8 +28,8 @@ local forge_item_convert = "data/scripts/buildings/forge_item_convert.lua"
 local function patch_forge_convert()
 	utils.modifile(
 		forge_item_convert,
-		[[data/entities/items/wand_level_05_better.xml]],
-		[[data/entities/items/wand_unshuffle_05.xml]]
+		[[EntityLoad("data/entities/items/wand_level_05_better.xml", x, y - 5)]],
+		[[dofile("mods/noita.hardmod/files/modules/better_anvil/forge/repaired_wand.lua")(x, y)]]
 	)
 end
 
