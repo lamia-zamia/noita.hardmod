@@ -534,40 +534,38 @@ enemy_perks = {
 		end
 	},
 	{
-		id = "QUANTUM_NAME",
-		name = "$hardmod_eperk_quantum_clone_name",
-		description = "$hardmod_eperk_quantum_clone_desc",
-		weight = 300,
+		id = "QUANTUM_CLONES",
+		name = "$hardmod_eperk_quantum_clones_name",
+		description = "$hardmod_eperk_quantum_clones_desc",
+		weight = 3,
 		max = 5,
 		condition = function(self, data)
-			return true
-			--if DebugBiomeMapGetFilename(data.x, data.y):find("tree") then
-			--	return true
-			--end
-			--return data.level > 3 and not data.is_boss
+			return data.level > 3 and not data.is_boss
 		end,
 		clone_colours = {
-			{255,0,0}, --Red
-			{0,0,255}, --Blue
-			{255,255,0}, --Yellow
-			{255,0,255}, --Magenta
+			{255,0,0, "spark_red"}, --Red
+			{0,0,255, "spark_blue"}, --Blue
+			{255,255,0, "spark_yellow"}, --Yellow
+			{255,0,255, "spark_purple"}, --Magenta
+			{0,255,255, "spark_teal"}, --Cyan
+			{0,255,0, "spark_green"}, --Green
 		},
 		post_func = function(self, entity_id, data)
 			if data.has_cloned then return end
 			data.has_cloned = true
 
-			print("original is: "..entity_id)
 			local gang = {entity_id}
 			local clones_to_make = data.how_many_of_each_perk[self.id]
 			for i = 1, clones_to_make do
 				local clone = EntityLoad(EntityGetFilename(entity_id), data.x, data.y)
-				print("clone "..i.." is:"..clone)
 				EntityAddTag(clone, "hardmod_blessed")
 				eperk_utils.give_enemy_perks(clone, utils.deepcopy(data.selected_perks), data)
 				gang[#gang+1] = clone
 			end
 
 			for i,member in ipairs(gang) do
+				local child = EntityCreateNew("hardmod.eperk_enemy_clone_data")
+				EntityAddChild(member, child)
 				local colour_table = self.clone_colours[i]
 				if not colour_table then colour_table = {
 					(1-Random()^2)*255,
@@ -575,23 +573,32 @@ enemy_perks = {
 					(1-Random()^2)*255,
 				} end --if outside of colour table, pick random colours
 
-				EntityAddComponent2(member, "LightComponent", {
+				EntityAddComponent2(child, "InheritTransformComponent")
+
+				EntityAddComponent2(child, "LightComponent", {
 					r = colour_table[1],
 					g = colour_table[2],
 					b = colour_table[3],
 					radius = 24,
 				})
+				EntityAddComponent2(child, "SpriteComponent", {
+					image_file = "mods/noita.hardmod/files/modules/enemy_perks/gfx/quantum_fx.xml",
+					z_index = 0.9
+				})
+				EntityAddComponent2(child, "PotionComponent", {
+					custom_color_material = CellFactory_GetType(colour_table[4])
+				})
 
-				EntityAddComponent2(member, "LuaComponent", {
-					script_source_file = dir.."scripts/check_quantum_clone_dead.lua",
-					script_death = dir.."scripts/check_quantum_clone_dead.lua",
+				EntityAddComponent2(child, "LuaComponent", {
+					script_source_file = dir.."scripts/check_quantum_clones_dead.lua",
+					script_death = dir.."scripts/check_quantum_clones_dead.lua",
 					execute_every_n_frame = 120,
 					limit_how_many_times_per_frame = entity_id,
 					limit_to_every_n_frame = #gang
 				})
 
-				EntityAddComponent2(entity_id, "VariableStorageComponent", {
-					name = "hardmod_quantum_clone_data",
+				EntityAddComponent2(child, "VariableStorageComponent", {
+					name = "hardmod_quantum_clones_data",
 					value_int = entity_id
 				})
 			end
