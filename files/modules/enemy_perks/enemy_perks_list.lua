@@ -101,17 +101,17 @@ enemy_perks = {
 		func = function(self, entity_id, data)
 			-- show nuke particles on the enemy
 			local x, y = EntityGetTransform(entity_id)
-			EntityAddChild(entity_id, EntityLoad( "mods/noita.hardmod/files/modules/enemy_perks/entities/kamikaze_particles.xml", x, y))
+			EntityAddChild(entity_id, EntityLoad(dir.."entities/kamikaze_particles.xml", x, y))
 
 			-- make the enemy explode on death
 			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_death = "mods/noita.hardmod/files/modules/enemy_perks/scripts/kamikaze_on_death.lua",
+				script_death = dir.."scripts/kamikaze_on_death.lua",
 				execute_every_n_frame = -1,
 			})
 
 			-- make the enemy explode when near the player
 			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_source_file = "mods/noita.hardmod/files/modules/enemy_perks/scripts/kamikaze_update.lua",
+				script_source_file = dir.."scripts/kamikaze_update.lua",
 				execute_every_n_frame = 1,
 			})
 
@@ -136,7 +136,7 @@ enemy_perks = {
 		end,
 		func = function(self, entity_id, data)
 			local x, y = EntityGetTransform(entity_id)
-			EntityAddChild(entity_id, EntityLoad( "mods/noita.hardmod/files/modules/enemy_perks/entities/protector_shield.xml", x, y))
+			EntityAddChild(entity_id, EntityLoad( dir.."entities/protector_shield.xml", x, y))
 		end
 	},
 	-- {
@@ -147,7 +147,7 @@ enemy_perks = {
 	-- 	max = 1,
 	-- 	func = function(self, entity_id, data)
 	-- 		local x, y = EntityGetTransform(entity_id)
-	-- 		EntityAddChild(entity_id, EntityLoad("mods/noita.hardmod/files/modules/enemy_perks/entities/impervious_shield.xml", x, y))
+	-- 		EntityAddChild(entity_id, EntityLoad(dir.."entities/impervious_shield.xml", x, y))
 
 	-- 		local dmg_comp = EntityGetFirstComponentIncludingDisabled(entity_id, "DamageModelComponent")
 	-- 		if dmg_comp ~= nil then
@@ -164,7 +164,7 @@ enemy_perks = {
 		max = 1,
 		func = function(self, entity_id, data)
 			local x, y = EntityGetTransform(entity_id)
-			EntityAddChild(entity_id, EntityLoad("mods/noita.hardmod/files/modules/enemy_perks/entities/dry_spell.xml", x, y))
+			EntityAddChild(entity_id, EntityLoad(dir.."entities/dry_spell.xml", x, y))
 		end
 	},
 	{
@@ -178,7 +178,7 @@ enemy_perks = {
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_ELECTRICITY", true)
 			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_shot = "mods/noita.hardmod/files/modules/enemy_perks/scripts/thunderlord_on_shot.lua",
+				script_shot = dir.."scripts/thunderlord_on_shot.lua",
 				execute_every_n_frame = -1,
 			})
 		end
@@ -193,7 +193,7 @@ enemy_perks = {
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_FIRE", true)
 			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_shot = "mods/noita.hardmod/files/modules/enemy_perks/scripts/pyrelord_on_shot.lua",
+				script_shot = dir.."scripts/pyrelord_on_shot.lua",
 				execute_every_n_frame = -1,
 			})
 		end
@@ -209,7 +209,7 @@ enemy_perks = {
 		func = function(self, entity_id, data)
 			-- make the enemy explode on death
 			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_death = "mods/noita.hardmod/files/modules/enemy_perks/scripts/vigour_on_death.lua",
+				script_death = dir.."scripts/vigour_on_death.lua",
 				execute_every_n_frame = -1,
 			})
 
@@ -241,7 +241,7 @@ enemy_perks = {
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "KNOCKBACK_IMMUNITY", true)
 			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_shot = "mods/noita.hardmod/files/modules/enemy_perks/scripts/aerolord_on_shot.lua",
+				script_shot = dir.."scripts/aerolord_on_shot.lua",
 				execute_every_n_frame = -1,
 			})
 		end
@@ -311,7 +311,7 @@ enemy_perks = {
 		end,
 		func = function(self, entity_id, data)
 			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_shot = "mods/noita.hardmod/files/modules/enemy_perks/scripts/curser_shot.lua",
+				script_shot = dir.."scripts/curser_shot.lua",
 				execute_every_n_frame = -1,
 			})
 		end
@@ -327,7 +327,7 @@ enemy_perks = {
 		condition = enemy_is_ranged_attack,
 		func = function(self, entity_id, data)
 			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_shot = "mods/noita.hardmod/files/modules/enemy_perks/scripts/venomous_curser_shot.lua",
+				script_shot = dir.."scripts/venomous_curser_shot.lua",
 				execute_every_n_frame = -1,
 			})
 		end
@@ -341,7 +341,7 @@ enemy_perks = {
 		max = 1,
 		func = function(self, entity_id, data)
 			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_damage_received = "mods/noita.hardmod/files/modules/enemy_perks/scripts/recycle_health.lua",
+				script_damage_received = dir.."scripts/recycle_health.lua",
 			})
 		end
 	},
@@ -353,7 +353,7 @@ enemy_perks = {
 		priority = 0,
 		max = 1,
 		func = function(self, entity_id, data)
-			EntityAddChild(entity_id, EntityLoad("mods/noita.hardmod/files/modules/enemy_perks/entities/wet_aura.xml", data.x, data.y))
+			EntityAddChild(entity_id, EntityLoad(dir.."entities/wet_aura.xml", data.x, data.y))
 		end
 	},
 	{
@@ -366,7 +366,7 @@ enemy_perks = {
 		condition = function(self, data) return data.level > 6 and not data.is_boss end,
 		func = function(self, entity_id, data)
 			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_death = "mods/noita.hardmod/files/modules/enemy_perks/scripts/spawn_giga_blackhole.lua"
+				script_death = dir.."scripts/spawn_giga_blackhole.lua"
 			})
 		end
 	},
@@ -380,7 +380,7 @@ enemy_perks = {
 		condition = function(self, data) return data.level > 7 or data.biome == "$biome_crypt" end,
 		func = function(self, entity_id, data)
 			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_death = "mods/noita.hardmod/files/modules/enemy_perks/scripts/add_skullflys.lua"
+				script_death = dir.."scripts/add_skullflys.lua"
 			})
 		end
 	},
@@ -393,7 +393,7 @@ enemy_perks = {
 		max = 1,
 		condition = function(self, data) return data.level > 2 end,
 		func = function(self, entity_id, data)
-			EntityAddChild(entity_id, EntityLoad("mods/noita.hardmod/files/modules/enemy_perks/entities/damage_buffer.xml", data.x, data.y))
+			EntityAddChild(entity_id, EntityLoad(dir.."entities/damage_buffer.xml", data.x, data.y))
 		end
 	},
 	{
@@ -479,18 +479,18 @@ enemy_perks = {
 		func_handler = function(self, entity_id, root, spr_comps)
 			for _,spr_comp in ipairs(spr_comps) do
 				local exceptions = {
-					["mods/noita.hardmod/files/modules/enemy_perks/perk_icons/expand.png"] = true,
-					["mods/noita.hardmod/files/modules/enemy_perks/perk_icons/obfuscation.png"] = true,
+					[dir.."perk_icons/expand.png"] = true,
+					[dir.."perk_icons/obfuscation.png"] = true,
 				}
 				if not exceptions[ComponentGetValue2(spr_comp, "image_file")] then
-					ComponentSetValue2(spr_comp, "image_file", "mods/noita.hardmod/files/modules/enemy_perks/perk_icons/missing.png")
+					ComponentSetValue2(spr_comp, "image_file", dir.."perk_icons/missing.png")
 					EntityRefreshSprite(entity_id, spr_comp)
 				end
 			end
 		end,
 		func_inspector = function(self, perks)
 			for _,perk in ipairs(perks) do
-				if perk ~= self then perk.sprite = "mods/noita.hardmod/files/modules/enemy_perks/perk_sprites/missing.png" end
+				if perk ~= self then perk.sprite = dir.."perk_sprites/missing.png" end
 			end
 		end
 	},
@@ -583,7 +583,7 @@ enemy_perks = {
 					radius = 24,
 				})
 				EntityAddComponent2(child, "SpriteComponent", {
-					image_file = "mods/noita.hardmod/files/modules/enemy_perks/gfx/quantum_fx.xml",
+					image_file = dir.."gfx/quantum_fx.xml",
 					z_index = 0.9
 				})
 				EntityAddComponent2(child, "PotionComponent", {
@@ -604,6 +604,23 @@ enemy_perks = {
 				})
 			end
 		end,
+	},
+	{
+		id = "RATS_ON_DEATH",
+		name = "$hardmod_eperk_rats_on_death_name",
+		description = "$hardmod_eperk_rats_on_death_desc",
+		weight = 3,
+		priority = 9,
+		max = 3,
+		condition = function(self, data)
+			if data.biome == "$biome_snowcave" or data.biome == "$biome_snowcastle" then self.weight = 5 end
+			return data.level > 2
+		end,
+		func = function(self, entity_id, data)
+			EntityAddComponent2(entity_id, "LuaComponent", {
+				script_death = dir.."scripts/rats_on_death.lua"
+			})
+		end
 	},
 }
 

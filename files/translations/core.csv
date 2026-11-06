@@ -275,6 +275,8 @@ hardmod_perk_blessed_blood_money_desc,Enemies with perks drop Blood Money when k
 hardmod_eperk_electricity_desc,"This enemy electrifies the environment around themselves, and is immune to electricity","Эта сущность электризует все вокруг и иммунна к электричеству",,,,,,,,,,,
 hardmod_eperk_quantum_clones_name,Quantum Cloning,RU_MISSING,,,,,,,,,,,,
 hardmod_eperk_quantum_clones_desc,"Causes an enemy to be split across multiple superpositions! Killing one will collapse their state.",RU_MISSING,,,,,,,,,,,,
+hardmod_eperk_rats_on_death_name,Plagued,RU_MISSING,,,,,,,,,,,,
+hardmod_eperk_rats_on_death_desc,"Some rats scurry forth when this enemy is killed.",RU_MISSING,,,,,,,,,,,,
 hardmod_nxml_missing,"Warning, NXML could not be found, it has been substituted with a backup","Предупреждение: NXML не найден, он был заменен на резервную копию",,,,,,,,,,,
 ,,,,,,,,,,,,,vanilla_bugfixes,
 ,,,,,,,,,,,,,,
