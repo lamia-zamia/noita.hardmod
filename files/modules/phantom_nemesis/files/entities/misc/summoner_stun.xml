@@ -1,0 +1,16 @@
+<Entity>
+
+	<InheritTransformComponent 
+		_enabled="1" >
+    </InheritTransformComponent>	
+    
+    <GameEffectComponent 
+    	effect="ELECTROCUTION"
+    	frames="120"
+    	disable_movement="1"
+		ragdoll_effect="CUSTOM_RAGDOLL_ENTITY"
+		ragdoll_effect_custom_entity_file="data/entities/props/physics_ragdoll_part_electrified.xml"
+    >
+	</GameEffectComponent >
+
+</Entity>

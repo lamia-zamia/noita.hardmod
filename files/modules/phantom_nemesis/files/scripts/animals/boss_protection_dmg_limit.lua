@@ -6,7 +6,7 @@ function damage_about_to_be_received( damage, x, y, entity_thats_responsible, cr
     local comp = EntityGetFirstComponentIncludingDisabled(host_entity,"DamageModelComponent")
     local comp2 = EntityGetFirstComponentIncludingDisabled(entity_id,"VariableStorageComponent")
     local max_hp = ComponentGetValue2(comp,"max_hp")
-    local dmg_cap = max_hp * 0.10
+    local dmg_cap = max_hp * 0.20
     local iframes = ComponentGetValue2(comp2,"value_int")
     local last_hit_frame = ComponentGetValue2(comp2,"value_float")
     local iframes_duration = 30

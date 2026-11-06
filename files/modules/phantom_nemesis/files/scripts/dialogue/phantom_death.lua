@@ -7,8 +7,8 @@ function death( damage_type_bit_field, damage_message, entity_thats_responsible,
     local possession_limit_default = possession_limit_data.default_biome_limit
     local entity_id = GetUpdatedEntityID()
     local pos_x,pos_y = EntityGetTransform(entity_id)
-    local currbiome_path = DebugBiomeMapGetFilename( pos_x, pos_y )
-    local currbiome = simple_ids[currbiome_path] or currbiome_path
+    local currbiome = BiomeMapGetName( pos_x, pos_y )
+    if currbiome == "$biome_holymountain" then currbiome = BiomeMapGetName( pos_x, pos_y-196 ) end --If Ira died inside a holy mountain basin, check what the biome directly above of them is.
     local total_banishments_in_current_biome = tonumber(GlobalsGetValue(table.concat({"felcesis_",currbiome,"_count"}),"0"))
     local total_deaths = tonumber(GlobalsGetValue("felcesis_total_deaths","0"))
     total_banishments_in_current_biome = total_banishments_in_current_biome + 1
@@ -21,9 +21,11 @@ function death( damage_type_bit_field, damage_message, entity_thats_responsible,
 
     -- Print the permanent banishment hint if Felcesis has been banished enough times to no longer be able to spawn in the current biome
     for _,biome in ipairs(possession_limit_per_biome) do
-        if biome.id == currbiome then
-            if biome.limit >= 0 and total_banishments_in_current_biome >= biome.limit then
-                GamePrint(GameTextGet("$hardmod_phantom_banished_permanent",GameTextGetTranslatedOrNot("$hardmod_phantom_phantom_name")))
+        for _,biome_id in ipairs(biome.ids) do
+            if biome_id == currbiome then
+                if biome.limit >= 0 and total_banishments_in_current_biome >= biome.limit then
+                    GamePrint(GameTextGet("$hardmod_phantom_banished_permanent",GameTextGetTranslatedOrNot("$hardmod_phantom_phantom_name")))
+                end
                 return
             end
         end

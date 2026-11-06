@@ -148,6 +148,7 @@
 	<VariableStorageComponent
 		name="projectile_file"
 		value_string="mods/noita.hardmod/files/modules/phantom_nemesis/files/entities/projectiles/fire_wand_ghastly.xml"
+		value_float="1"
 		>
 	</VariableStorageComponent>
 </Entity>
