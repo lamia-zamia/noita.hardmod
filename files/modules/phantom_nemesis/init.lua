@@ -1,11 +1,12 @@
 local hooks = {}
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
-local simple_ids = dofile_once("mods/noita.hardmod/lib/biome_index.lua")
 
 MinibossCreator = dofile_once("mods/noita.hardmod/files/modules/phantom_nemesis/files/scripts/miniboss_creator.lua")
 local possession_limit_data = dofile_once("mods/noita.hardmod/files/modules/phantom_nemesis/files/scripts/possession_limits.lua")
 local possession_limit_per_biome = possession_limit_data.possession_limit_per_biome
 local possession_limit_default = possession_limit_data.default_biome_limit
+local last_seen_biome = ""
+local biome_entered_frame = 0
 
 hooks.mod_pre_init = function()
 	ModRegisterAudioEventMappings("mods/noita.hardmod/files/modules/phantom_nemesis/files/audio/GUIDs.txt")
@@ -22,22 +23,31 @@ hooks.post_update = function ()
     local felcesis_summon_lastdeath_time = tostring(GlobalsGetValue("felcesis_last_death","0"))
 
     local cam_x,cam_y = GameGetCameraBounds()
-    local currbiome_path = DebugBiomeMapGetFilename( cam_x, cam_y )
-    local currbiome = simple_ids[currbiome_path] or currbiome_path
+    local currbiome = BiomeMapGetName( cam_x, cam_y )
+
+    local minimum_time_inside_biome = 1800 --Safeguard against entering a biome for second then leaving still incrementing Ira's power level, this means the player must be inside a biome for at least 30 seconds for Ira to increment their power level because the player entered it.
+    if currbiome ~= last_seen_biome then
+        last_seen_biome = currbiome
+        biome_entered_frame = current_frame
+    end
 
     local last_frame_entered_new_biome = tonumber(GlobalsGetValue("felceis_last_biome_frame","0"))
     local entered_new_biome_graceperiod = 60 * 45 --45 second safeguard against Ira when entering a new biome
     GlobalsSetValue("felcesis_last_biome",currbiome)
     local flag = table.concat({"felcesis_",currbiome,"_visited"})
     local total_banishments_in_current_biome = tonumber(GlobalsGetValue(table.concat({"felcesis_",currbiome,"_count"}),"0"))
+    local biome_weight = 1
 
     if biomes_visited >= biomes_needed_to_remove_limit then goto finishlimitcheck end
     for _,biome in ipairs(possession_limit_per_biome) do
-        if biome.id == currbiome then
-            if total_banishments_in_current_biome >= biome.limit and biome.limit >= 0 then
-                return
-            else
-                goto finishlimitcheck
+        for _,biome_id in ipairs(biome.ids) do
+            if biome_id == currbiome then
+                biome_weight = biome.weight or 1
+                if total_banishments_in_current_biome >= biome.limit and biome.limit >= 0 then
+                    return
+                else
+                    goto finishlimitcheck
+                end
             end
         end
     end
@@ -47,11 +57,11 @@ hooks.post_update = function ()
     end
     ::finishlimitcheck::
 
-    if ( GameHasFlagRun( flag ) == false ) then
+    if (current_frame - biome_entered_frame) >= minimum_time_inside_biome and GameHasFlagRun(flag) == false then
         GameAddFlagRun( flag )
         GlobalsSetValue("felceis_last_biome_frame",tostring(current_frame))
         last_frame_entered_new_biome = current_frame
-        GlobalsSetValue("felcesis_biomes_visited",tostring(biomes_visited+1))
+        GlobalsSetValue("felcesis_biomes_visited",tostring(biomes_visited + biome_weight)) --Increment the phantom's biome power
     end
 
     --GamePrint(table.concat({current_frame,", ",last_felcesis_possession_attempt,", ",felcesis_summon_cooldown}))

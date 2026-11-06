@@ -26,6 +26,7 @@ if #targets < 4 then
 
 		EntityAddTag(minion_id,"miniboss_minion")
 		EntityAddTag(minion_id,"necrobot_NOT")
+		LoadGameEffectEntityTo( minion_id, "mods/noita.hardmod/files/modules/phantom_nemesis/files/entities/misc/summoner_stun.xml" ) --Stun nearly spawned summons for 2 seconds
 
 		EntityAddComponent2(
 			minion_id,

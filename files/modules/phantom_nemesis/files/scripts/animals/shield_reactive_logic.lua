@@ -20,7 +20,7 @@ function damage_received( damage, desc, entity_who_caused, is_fatal )
 	local pos_x, pos_y = EntityGetTransform( entity_id )
 	local frame = GameGetFrameNum()
 	local vcomp = 0
-	local shield_cooldown = 900 --15 second cooldown between shields
+	local shield_cooldown = 720 --12 second cooldown between shields
 
 	local colour
 	local comps = EntityGetComponent(entity_id,"VariableStorageComponent")
