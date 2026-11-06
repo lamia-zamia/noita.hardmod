@@ -2,6 +2,9 @@ local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua")---@type utils
 local list = dofile_once("mods/noita.hardmod/files/modules/alternate_biomes/biome_list.lua")
 
 ModMaterialsFileAdd("mods/noita.hardmod/files/modules/alternate_biomes/materials/materials.xml")
+ModLuaFileAppend("mods/noita.hardmod/lib/biome_index.lua",
+	"mods/noita.hardmod/files/modules/alternate_biomes/scripts/append_biomes_to_index.lua"
+)
 
 utils.AddEnemyToProgress("hardmod_fungal_longleg", "longleg")
 
