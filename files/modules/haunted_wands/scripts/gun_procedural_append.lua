@@ -86,21 +86,23 @@ local function generate_spells( wand_entity, level )
 	local wand = EZWand( wand_entity )
 	wand:RemoveSpells()
 
-	-- add a random desirable spell
-	local candidates = {}
-	for _,action_id in ipairs( desirable_spells ) do
-		if not does_player_have_spell( action_id )
-		and is_spell_appropriate_tier( action_id, level ) then
-			table.insert( candidates, action_id )
+	if false then
+		-- add a random desirable spell
+		local candidates = {}
+		for _,action_id in ipairs( desirable_spells ) do
+			if not does_player_have_spell( action_id )
+			and is_spell_appropriate_tier( action_id, level ) then
+				table.insert( candidates, action_id )
+			end
+		end
+		if #candidates > 0 then
+			wand:AddSpells( random_from_array( candidates ) )
 		end
 	end
-	if #candidates > 0 then
-		wand:AddSpells( random_from_array( candidates ) )
-	end
 
-	-- finally, fill up the rest of the wand with random spells
+	-- fill up the rest of the wand with random spells
 	local x, y = EntityGetTransform( wand_entity )
-	for i=2, wand.capacity do
+	for i=1, wand.capacity do
 		wand:AddSpells( GetRandomAction( x+i, y-i, level ) )
 	end
 end
@@ -141,8 +143,8 @@ local function host_evil_ghost( wand_entity, level )
 	EntityAddChild( wand_entity,
 		EntityLoad( "mods/noita.hardmod/files/modules/haunted_wands/entities/evil_wand_particles.xml", x, y ) )
 
-	-- generate_spells( wand_entity, level )
-	-- enable this function for custom spell generation
+	generate_spells( wand_entity, level )
+	-- custom spell generation toggle was moved to line 89
 end
 
 local _generate_gun = generate_gun
