@@ -1,0 +1,33 @@
+name: Build Script
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.repository == 'EvaisaDev/noita.hardmod'
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+      - name: Install dependencies
+        run: cd scripts && npm ci
+      - name: Run build script
+        run: node scripts/build.js --release
+      - name: Commit n push changes
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "chore: run automatic build script [skip ci]"
+          branch: main

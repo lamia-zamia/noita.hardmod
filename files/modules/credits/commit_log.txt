@@ -31,7 +31,6 @@ And somehow, the code got even worse
 Add VSC shorthands to utilities.lua
 Disable ASE on Master of Blinding hover
 Add missing documentation
-Merge remote-tracking branch 'fork/vanilla-perk-rebalances' into vanilla-perk-rebalances
 rework Heartbreak status
 change Matosade's related_projectiles
 Update Oil Blood + Exploding Corpses desc
@@ -77,17 +76,13 @@ fix readme
 add module metadata
 fix parallel merge conflict stuff
 remove redundant dofile
-Merge remote-tracking branch 'fork/vanilla-perk-rebalances' into truly-limited-spells
-Merge remote-tracking branch 'fork/truly-limited-spells' into truly-limited-spells
 cleanup
-Merge remote-tracking branch 'upstream/main'
 Update commit_log.txt
 reworking some logic stuff, fixed flat HMs
 fix new game starting in HM
 added readme support
 remove indulgence GamePrint
 fixed & updated credits, tweaked readmes
-Merge remote-tracking branch 'origin/main'
 fix MoM file appends
 fix TWWE spawn variable
 fixed collapse crystal not triggering death script when fully destroyed
@@ -150,7 +145,6 @@ make Time Trial reward also scale with HM tier
 update chest loot
 start working on better_anvil
 Ira Changes
-Merge remote-tracking branch 'fork/d2d-content' into d2d-content
 Realism update real
 port alternate biomes module
 fungal mines
@@ -253,8 +247,6 @@ add 5 more enemy perks
 forgot icon
 :>
 slightly buff Impervious shield (for the player)
-Merge remote-tracking branch 'origin/main' into d2d-content
-Merge remote-tracking branch 'fork/d2d-content'
 change force-casts to copies
 nerf Vigour enemy perk
 disable the Impervious perk... for now.....
@@ -380,7 +372,6 @@ added Incognito eperk, "Perk Rain" event, and a few other tweaks/fixes
 re-removed 5wand, added perk and spell hooks
 converted spell and perk stuff to new system
 added stuff to example module
-Merge remote-tracking branch 'upstream/main' into pr/96
 STOP DELET MY STUFF
 make Kamikaze not spawn on ranged enemies
 fix missing utils prefixes
@@ -407,7 +398,6 @@ MORE JANK
 less jank but still jank and honestly maybe this is some even more cursed jank
 remove debug wizard spawn
 reworked settings.lua a bit, added new icons
-Merge remote-tracking branch 'upstream/main' into pr/107
 Update list.lua
 update confusion mage
 undo my locale build script shit :p
@@ -484,9 +474,7 @@ fixed bosses getting undesirable perks
 made orbrooms remove their particle emitters after orb is taken
 fixed damage buffer, made enemy perks is_boss override biome level
 testing crystal fix, made MOM drop Aleph
-Merge remote-tracking branch 'upstream/main' into pr/121
 removed deprecated translation file
-Merge remote-tracking branch 'origin/main' into new-spells
 track death/win for splash
 update fungal mine wang
 add Controlled Reach spell
@@ -577,7 +565,6 @@ disable short temper eperk for now
 Move setting locale in core.csv
 im evil
 further nerfed rat singularities, just in case
-Merge remote-tracking branch 'upstream/main' into pr/143
 hello everybody this is your Daily Dose of Spell Nerfs
 small optimization
 change piercing
@@ -599,7 +586,6 @@ reworked healblock, added worse_digging module icon
 More Ira Bugfixes
 fungal hell
 make instant recharge nerf only apply to scroll trick
-Merge remote-tracking branch 'origin/fungal_mines_improvements'
 k
 12... enemies...
 FUCK WRONG BRANCH
@@ -608,7 +594,6 @@ rebalance some spells
 temporarily disable custom enemyaicomp until proper balancing, so the enemies should just be resprites for now i think unless i missed something
 Use cheat "copisthings" for a free win!
 Revert "Update init.lua"
-Merge remote-tracking branch 'upstream/main' into pr/158
 yeah
 Update splashes.lua
 added logos
@@ -655,10 +640,8 @@ add Area Protector perk
 make Kamikaze eperk slightly more common in Coal Pits
 buff Zeta
 updated splashes
-Merge remote-tracking branch 'upstream/main' into pr/176
 OOPS promote spell should not have a base chance of 125% lmao
 nerf da buff
-Merge remote-tracking branch 'fork/main'
 limit heartbreak max hp loss
 fixed probability oversight in Promote Random Spell
 guaranteed summon egg in HM6, guaranteed small tele in HM7
@@ -719,7 +702,23 @@ reworking item immunities to be more extendible...
 merge that shit
 finished rewriting amplified items perk
 adding new on-death func support for eperks
+make spearbot unable to wallhack
+improve Stinky Aura particles
 adding on_death hook for eperks
 restructured modules.lua
+tweaking
 fixed incompat with apotheosis
-ran build scripts
+nerf Explosive Detonator
+add Wand Variety module
+I HATE WINDOWS!!! THE BUILD SCRIPT WAS COUNTING TWICE THE LINES ON WINDOWS BECAUSE OF \r\n OHMYGOD
+guh
+refactor to Haunted Wands
+give haunted wands 1/20 spawn chance
+change Shield Sapper aura colour
+add workflow for the build script (idk how this shi works)
+chore: run automatic build script [skip ci]
+make the script only run on the main repo
+fixed(?) Copi message newlines
+add special thanks to credits
+make wallhack eperk not show up too early
+make wallhack detection radius a bit smaller

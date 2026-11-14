@@ -33,11 +33,11 @@ local evil_level = (year * 31469 + month * 929 + day * 541) % 100 + 1
 
 local months = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
 
-local lines_of_code = "60,294"---Updated by `scripts/build.js`, do not edit or format
+local lines_of_code = "26,320"---Updated by `scripts/build.js`, do not edit or format
 
 ---@type (splash_entry | string)[]
 local splashes = {
-	lines_of_code.." Lines Of Code\n(if this is >50k, that means the number is double what it should be, someone please fix that)",
+	lines_of_code.." Lines Of Code",
 	"Evil Level Today: " .. evil_level .. "%",
 	"Today is "..months[month].." "..utils.EnglishOrd(day)..", "..year,
 	"2K"..(year % 100),
