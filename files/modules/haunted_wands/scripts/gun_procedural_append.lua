@@ -102,7 +102,7 @@ local function generate_spells( wand_entity, level )
 
 	-- fill up the rest of the wand with random spells
 	local x, y = EntityGetTransform( wand_entity )
-	for i=1, wand.capacity do
+	for i=1, math.min( wand.capacity, level * 3 ) do
 		wand:AddSpells( GetRandomAction( x+i, y-i, level ) )
 	end
 end
