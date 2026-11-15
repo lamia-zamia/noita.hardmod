@@ -725,3 +725,6 @@ make wallhack detection radius a bit smaller
 Update homing_shoot.lua
 merpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerp
 fixed incompatibility with fixnoita mod
+finished greed curse rework, needs feedback and testing
+polished master of blinding + ASE interaction
+working on on-hit callback generator  script
