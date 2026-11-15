@@ -8,7 +8,7 @@
 	/>
 
 	<UIIconComponent
-		icon_sprite_file="mods/noita.hardmod/files/modules/nerfed_combat_healing/module_icon_016.png"
+		icon_sprite_file="mods/noita.hardmod/files/modules/nerfed_combat_healing/icon.png"
 		name="$hardmod_status_nohealing_name"
 		description="$hardmod_status_nohealing_desc"
 		is_perk="0"

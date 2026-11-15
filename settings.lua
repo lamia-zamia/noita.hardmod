@@ -60,6 +60,7 @@ local module_ids = {
 	"better_anvil",
 	"chest_tweaks",
 	"alt_fire_anything",
+	"greed_curse_rework",
 
 	"vanilla_bugfixes",
 	"polymorph_gui",
