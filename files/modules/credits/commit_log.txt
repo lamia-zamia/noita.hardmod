@@ -728,3 +728,4 @@ fixed incompatibility with fixnoita mod
 finished greed curse rework, needs feedback and testing
 polished master of blinding + ASE interaction
 working on on-hit callback generator  script
+changed CoG icon, added module to settings
