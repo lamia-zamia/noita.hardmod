@@ -7,9 +7,6 @@ local function inject_into_shop(spell_id, x, y, radius)
 	local shop_items = {}
 	local nearby_spells = EntityGetInRadiusWithTag(x, y, radius, "card_action")
 	local nearby_wands = EntityGetInRadiusWithTag(x, y, radius, "wand")
-	print(('for _,v in ipairs(EntityGetInRadiusWithTag(%s, %s, %s, "wand")) do print(v) end'):format(x, y, radius))
-	for _,v in ipairs(nearby_wands) do print(v) end
-	print("end")
 	for _,item in ipairs(nearby_spells) do
 		local cost_component = EntityGetFirstComponent(item, "ItemCostComponent")
 		if cost_component then
@@ -70,6 +67,7 @@ local function inject_into_shop(spell_id, x, y, radius)
 				end
 			end
 		end
+		if spells[spell_id] then return end --if wand already has spell then dont bother
 
 		local _spells = {}
 		for _,t in pairs(spells) do

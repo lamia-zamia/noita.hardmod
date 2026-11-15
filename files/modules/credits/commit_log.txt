@@ -722,3 +722,11 @@ fixed(?) Copi message newlines
 add special thanks to credits
 make wallhack eperk not show up too early
 make wallhack detection radius a bit smaller
+Update homing_shoot.lua
+merpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerp
+fixed incompatibility with fixnoita mod
+finished greed curse rework, needs feedback and testing
+polished master of blinding + ASE interaction
+working on on-hit callback generator  script
+changed CoG icon, added module to settings
+oops wrong name

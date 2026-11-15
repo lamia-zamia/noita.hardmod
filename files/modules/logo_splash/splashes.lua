@@ -33,7 +33,7 @@ local evil_level = (year * 31469 + month * 929 + day * 541) % 100 + 1
 
 local months = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
 
-local lines_of_code = "26,320"---Updated by `scripts/build.js`, do not edit or format
+local lines_of_code = "26,446"---Updated by `scripts/build.js`, do not edit or format
 
 ---@type (splash_entry | string)[]
 local splashes = {
@@ -114,7 +114,7 @@ local splashes = {
 	"More updates to come!!",
 	"We even threw in a few vanilla bugfixes",
 	"",
-	"They said we could never make a good mod after Fairmod!\nThey might be right...",
+	"They said we could never make a good mod after Fairmod!\n...inb4 we fairmodify hardmod",
 	"N\no\nw\n \nw\ni\nt\nh\n \nv\ne\nr\nt\ni\nc\na\nl\ni\nt\ny\n!",
 	"We killed your faves!",
 	"Need me some of those \"chest_tweaks\"",
@@ -126,6 +126,7 @@ local splashes = {
 	"ITS A BRIMSTONE, ITS NOT A PENIS",
 	'"tablet is kil."\nno...',
 	"no yui, don't go to the fairside!",
+	"claude, make me a good noita difficulty mod",
 }
 
 --local seed = second*minute*hour/day*year
@@ -140,6 +141,12 @@ local cool_mods = {
 }
 for _,coolmod in ipairs(cool_mods) do
 	splashes[#splashes+1] = "Also try "..coolmod.."!"
+end
+
+if month == 11 and day == 15 then
+	for _=1,5 do
+		splashes[#splashes+1] = "Happy Birthday Yui!!"
+	end
 end
 
 -- Splashes with custom settings; a text only needs to be here if it has any. For example:

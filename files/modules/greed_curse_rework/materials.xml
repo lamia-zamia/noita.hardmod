@@ -1,0 +1,11 @@
+<Materials>
+	<CellDataChild
+		_parent="gold_box2d"
+		_inherit_reactions="1"
+		name="hardmod_cursed_gold_box2d"
+		gfx_glow_color="0xff8fa82a"
+		wang_color="ff0fc569"
+	>
+  		<Graphics color="ff8fa82a"/>
+	</CellDataChild>
+</Materials>
