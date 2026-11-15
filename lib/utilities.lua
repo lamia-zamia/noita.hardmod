@@ -2,6 +2,8 @@
 ---@class utils
 local utils = {}
 
+utils.module_dir = "mods/noita.hardmod/files/modules/"
+
 -- de-patterning function for dealing with string.gsub() and other pattern-utilising Lua functions.
 ---@param str string
 ---@return string

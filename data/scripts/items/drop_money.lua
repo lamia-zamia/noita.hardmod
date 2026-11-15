@@ -11,31 +11,6 @@ dofile_once("data/scripts/game_helpers.lua")
 ---@field func function? optional function to run after spawning this nugget
 ---@field group string? groupname assigned to it
 
----Clones a table
----@param orig table
----@param copies nil
----@return table
-local function clone_table(orig, copies)
-	copies = copies or {}
-	local orig_type = type(orig)
-	local copy
-	if orig_type == 'table' then
-		if copies[orig] then
-			copy = copies[orig]
-		else
-			copy = {}
-			copies[orig] = copy
-			for orig_key, orig_value in next, orig, nil do
-				copy[clone_table(orig_key, copies)] = clone_table(orig_value, copies)
-			end
-			setmetatable(copy, clone_table(getmetatable(orig), copies))
-		end
-	else -- number, string, boolean, etc
-		copy = orig
-	end
-	return copy
-end
-
 local hooks = {} ---@type drop_money_hooks
 
 hooks = { ---@class drop_money_hooks
@@ -72,7 +47,7 @@ hooks = { ---@class drop_money_hooks
 
 				local blood_money_chance = data.multiplier * data.blood_money_chance
 				if Random(1, 100) <= blood_money_chance then
-					data.nuggets[#data.nuggets+1] = clone_table(hooks.nuggets_indexed.blood[50])
+					data.nuggets[#data.nuggets+1] = hooks.clone_table(hooks.nuggets_indexed.blood[50])
 					data.amount = data.amount - 50
 				end
 			end
@@ -125,7 +100,7 @@ hooks = { ---@class drop_money_hooks
 					for _=1, 5 do
 						if data.amount < 10 then break end
 						data.amount = data.amount-10
-						data.nuggets[#data.nuggets+1] = clone_table(hooks.nuggets_indexed[target_type][10])
+						data.nuggets[#data.nuggets+1] = hooks.clone_table(hooks.nuggets_indexed[target_type][10])
 					end
 				end
 			end
@@ -141,7 +116,6 @@ hooks = { ---@class drop_money_hooks
 					for _,nugget in ipairs(data.nuggets) do
 						local chance = data.blood_money_chance * .01
 						local rnd = Random()
-						print(("rnd is %s, chance is %s"):format(rnd, chance))
 						if nugget.group == "gold" and rnd <= chance then
 							nugget.path = hooks.nuggets_indexed.blood[nugget.value].path or nugget.path
 						end
@@ -258,6 +232,31 @@ hooks = { ---@class drop_money_hooks
 		},
 	},
 	nuggets_indexed = {},
+
+	---Clones a table
+	---@param orig table
+	---@param copies nil
+	---@return table
+	clone_table = function(orig, copies)
+		copies = copies or {}
+		local orig_type = type(orig)
+		local copy
+		if orig_type == 'table' then
+			if copies[orig] then
+				copy = copies[orig]
+			else
+				copy = {}
+				copies[orig] = copy
+				for orig_key, orig_value in next, orig, nil do
+					copy[hooks.clone_table(orig_key, copies)] = hooks.clone_table(orig_value, copies)
+				end
+				setmetatable(copy, hooks.clone_table(getmetatable(orig), copies))
+			end
+		else -- number, string, boolean, etc
+			copy = orig
+		end
+		return copy
+	end,
 }
 
 for _,path in ipairs(ModLuaFileGetAppends("data/scripts/items/__drop_money.lua")) do
@@ -351,7 +350,7 @@ function do_money_drop(amount_multiplier, trick_kill, damage_type_bit_field, mes
 		local nugget_value = nugget_data.value
 		local number = math.floor(data.amount/nugget_value)
 		for _=1, number do
-			data.nuggets[#data.nuggets+1] = clone_table(nugget_data)
+			data.nuggets[#data.nuggets+1] = hooks.clone_table(nugget_data)
 		end
 		data.amount = data.amount % nugget_value
 	end
