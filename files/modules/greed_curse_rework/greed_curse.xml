@@ -108,6 +108,6 @@
 	<UIIconComponent
 		name="$log_curse"
 		description="$itemdesc_essence_greed"
-		icon_sprite_file="data/ui_gfx/status_indicators/greed_curse.png"
+		icon_sprite_file="mods/noita.hardmod/files/modules/greed_curse_rework/icon.png"
 	/>
 </Entity>
