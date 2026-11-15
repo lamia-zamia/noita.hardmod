@@ -18,14 +18,6 @@ end
 imutil.ImageOverlay("data/biome_impl/orbroom_visual.png", dir.."gfx/orbroom_visual.png")
 
 -- xml modifications as separate functions for better readability
-local function modify_master_of_blinding()
-	for xml in nxml.edit_file("data/entities/animals/wizard_dark.xml") do
-		xml:add_child(nxml.new_element("LuaComponent", {
-			script_source_file=dir.."scripts/wizard_dark_ase_scan.lua",
-			execute_every_n_frame="2",
-		}))
-	end
-end
 
 local function modify_wandstone()
 	for xml in nxml.edit_file("data/entities/items/pickup/wandstone.xml") do
@@ -150,7 +142,6 @@ ModLuaFileAppend("data/scripts/items/__drop_money.lua", dir.."scripts/append_gol
 
 
 hooks.mod_init = function()
-	modify_master_of_blinding()
 	modify_wandstone()
 	modify_mountain_altar()
 	modify_xray()
