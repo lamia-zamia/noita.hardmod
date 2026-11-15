@@ -25,4 +25,10 @@ function shot(projectile)
 	})
 	--We can't set these values inherently when creating a new component via lua, so set them here instead
 	ComponentSetValue2(comp, "offset", -1, 0)
+
+	EntityAddComponent2(projectile, "LuaComponent", {
+		script_source_file = "mods/noita.hardmod/files/modules/enemy_perks/scripts/curser_projectile_explode.lua",
+		execute_every_n_frame = -1,
+		execute_on_removed = true,
+	})
 end

@@ -416,6 +416,21 @@ enemy_perks = {
 			})
 		end
 	},
+	--{
+	--	id = "BLINDING_CURSER",
+	--	name = "$hardmod_eperk_blinding_curser_name",
+	--	description = "$hardmod_eperk_blinding_curser_desc",
+	--	weight = 4,
+	--	priority = 9,
+	--	max = 1,
+	--	condition = function(self, data) return data.level > 5 and enemy_is_ranged_attack(self, data) end,
+	--	func = function(self, entity_id, data)
+	--		EntityAddComponent2(entity_id, "LuaComponent", {
+	--			script_shot = dir.."scripts/blinding_curser_shot.lua",
+	--			execute_every_n_frame = -1,
+	--		})
+	--	end
+	--},
 	{
 		id = "DAMAGE_BUFFER",
 		name = "$hardmod_eperk_damage_buffer_name",
@@ -868,7 +883,7 @@ enemy_perks = {
 		description = "$hardmod_eperk_unstable_teleportitis_desc",
 		weight = 2,
 		max = 1,
-		condition = function(self, data) return data.level > 4 end,
+		condition = function(self, data) return data.level > 2 end,
 		func = function(self, entity_id, data)
 			local eid = EntityCreateNew("random_teleports")
 			EntityAddComponent2(eid, "GameEffectComponent", {
