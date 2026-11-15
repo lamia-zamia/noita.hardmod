@@ -102,8 +102,15 @@ local function generate_spells( wand_entity, level )
 
 	-- fill up the rest of the wand with random spells
 	local x, y = EntityGetTransform( wand_entity )
-	for i=1, math.min( wand.capacity, level * 3 ) do
-		wand:AddSpells( GetRandomAction( x+i, y-i, level ) )
+	local max_spell_count = ( level * 3 ) + Random( -1, 1 )
+	for i=1, math.min( wand.capacity, max_spell_count ) do
+		local spell_to_add = GetRandomAction( x+i, y-i, level )
+		local j = 1
+		while spell_to_add == "HARDMOD_ALT_FIRE_ANYTHING" or spell_to_add == "RESET" do
+			spell_to_add = GetRandomAction( x+i+j, y-i-j, level )
+			j = j + 1
+		end
+		wand:AddSpells( spell_to_add )
 	end
 end
 
