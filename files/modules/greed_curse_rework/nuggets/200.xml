@@ -1,0 +1,8 @@
+<Entity name="hardmod.greed_cursed_nugget" tags="item_physics,gold_nugget">
+	<Base file="mods/noita.hardmod/files/modules/greed_curse_rework/nuggets/base_cursed_nugget.xml"/>
+
+	<Base file="data/entities/items/pickup/goldnugget_200.xml">
+		<UIInfoComponent name="$hardmod_greed_cursed_nugget"/>
+		<PhysicsImageShapeComponent material="hardmod_cursed_gold_box2d"/>
+	</Base>
+</Entity>

@@ -85,9 +85,7 @@ local modules = {
 		for_the_worthy = {},
 		-- "no_more_instant_recharge", -- needs to be fixed
 		snail = {},
-		greed_curse_rework = {
-			disabled = true,
-		},
+		greed_curse_rework = {},
 	},
 	-- `true` to force enable, `false` to force disable
 	force_disable_modules = {
