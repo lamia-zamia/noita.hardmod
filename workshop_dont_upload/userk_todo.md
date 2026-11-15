@@ -1,22 +1,16 @@
 # todo
 - add individual perk window to eperk inspector
 - switch Spells Materialised to directly read mouse inputs rather than rely on throw script_shot nonsense
-- add visual for player holding a spell
-- curse of greed rework
-  - no material converter curse following you
-  - enemies still drop 3x gold, but the gold is Cursed Gold Nuggets
-  - blood gold and cursed gold cancel each other out, becoming regular gold
-  - when it decays it turns into greed cursed liquid
-  - note: add Gold Is Dust compat, should decay into toxic gold dust, make custom mats for that and behaviour
 - rework physics damage again
-  - should be viable, but not easy one-shotting everything in second floor consistently
+  - should be viable, but not easy one-shotting everything in second floor consistently?
+  - specifics can be hammered out later, would just like it to be viable damage without being too powerful
 - Add Parallel Parity module
 - Look into improving early-game mobility
 	- This has been done via guaranteed Hastium basin in stage 2, though more options isnt a terrible idea, wait and observe on this topic for now
-- Look into making gold more valuable?
 - rewrite perk selection logic to be more integrated
 - remove item immunities perk if apotheosis is enabled?
-- fix zerk strat (i have a plan :>)
+- fix zerk strat (i have a plan :> (concrete))
+- move food poisoning immunity to EYV and make sure it works with vomit eperk
 
 ## Enemy Perk Ideas
 - Chaotic Polymorph Aura

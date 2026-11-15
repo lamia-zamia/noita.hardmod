@@ -82,6 +82,7 @@ hooks.mod_post_init = function() --run later for appends
 	update_perk_unlock_states()
 end
 
+local targets = {}
 hooks.new_eid = function(entity_id)
 	if ModIsEnabled("Apotheosis") then
 		if string.find( EntityGetFilename(entity_id), "mods/Apotheosis/data/entities/animals/psychotic/") then
@@ -90,6 +91,12 @@ hooks.new_eid = function(entity_id)
 	end
 
 	if EntityHasTag(entity_id, "enemy") and not (EntityHasTag(entity_id, "hardmod_blessed") or EntityHasTag(entity_id, "no_enemy_perks")) then
+		targets[#targets+1] = entity_id
+	end
+end
+
+local function apply_enemy_perks()
+	for _,entity_id in ipairs(targets) do
 		local is_boss = EntityHasTag(entity_id, "boss")
 		local x,y = EntityGetTransform(entity_id)
 		local biome = biome_index[DebugBiomeMapGetFilename(x, y)]
@@ -134,6 +141,7 @@ hooks.new_eid = function(entity_id)
 		}
 		eperk_utils.give_enemy_perks(entity_id, num, data)
 	end
+	targets = {}
 end
 
 
@@ -155,6 +163,7 @@ local cached_perk_hover_info = {}
 
 local selected_creature = nil
 function hooks.post_update(frame)
+	apply_enemy_perks()
 	if GameHasFlagRun("hardmod_new_enemy_perk_discovered") then
 		update_perk_unlock_states()
 		GameRemoveFlagRun("hardmod_new_enemy_perk_discovered")
