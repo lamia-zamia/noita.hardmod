@@ -33,7 +33,7 @@ local evil_level = (year * 31469 + month * 929 + day * 541) % 100 + 1
 
 local months = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
 
-local lines_of_code = "26,446"---Updated by `scripts/build.js`, do not edit or format
+local lines_of_code = "26,455"---Updated by `scripts/build.js`, do not edit or format
 
 ---@type (splash_entry | string)[]
 local splashes = {
