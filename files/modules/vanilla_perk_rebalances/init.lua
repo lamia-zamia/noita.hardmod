@@ -153,7 +153,7 @@ local amplified_item_targets = {
 	"mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/items/cheese.xml",
 	"data/entities/items/pickup/sun/sunseed.xml",
 	"data/entities/items/pickup/sun/sunstone.xml",
-	--"",
+	"data/entities/items/pickup/evil_eye.xml",
 }
 for _,path in ipairs(amplified_item_targets) do
 	for xml in nxml.edit_file(path) do
