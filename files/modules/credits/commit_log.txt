@@ -743,5 +743,13 @@ fixed polymorph quantum cloning ending your run outright
 some Tether tweaks
 fix haunted wand spirit damaging itself
 make Stinky Aura smaller
+Soul Linked (WIP)
 prevent infinite fow hole spawning
 make blood eperks leak more "blood"
+make player's podf distinguishable from enemy's podf
+make Protector shield stronger
+electric torch -2 mana
+make Apoth illusions not have eperks
+give Torch spells cursor-ASE
+make original ASE a mt altar unlock
+make Magic Torch cost something
