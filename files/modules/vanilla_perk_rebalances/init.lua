@@ -121,11 +121,12 @@ end
 
 local update_amp_item_scr = dir.."scripts/perks/update_amplified_item.lua"
 local amplified_items_lua_comp = nxml.new_element("LuaComponent", {
-	_tags = "enabled_in_hand,enabled_in_inventory",
-	script_source_file = update_amp_item_scr,
-	execute_every_n_frame = "300",
+	_tags = "enabled_in_hand",
+	--script_source_file = update_amp_item_scr,
+	--execute_every_n_frame = "300",
+	execute_every_n_frame = "-1",
 	script_enabled_changed = update_amp_item_scr,
-	script_item_picked_up = update_amp_item_scr,
+	--script_item_picked_up = update_amp_item_scr,
 })
 local ase_items = {
 	"data/entities/items/pickup/sun/sunseed.xml",
