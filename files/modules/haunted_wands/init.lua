@@ -33,6 +33,4 @@ utils.modifile("data/scripts/particles/wand_pickup.lua",
 -- 	end]]
 -- )
 
-print( "wand variety applied" )
-
 return hooks --Don't forget to do this if you want your changes to apply!!!!

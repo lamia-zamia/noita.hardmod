@@ -82,40 +82,26 @@ local function is_spell_appropriate_tier( action_id, level )
 	return false
 end
 
-local function generate_spells( wand_entity, level )
-	local wand = EZWand( wand_entity )
+local function generate_spells( wand, level )
 	wand:RemoveSpells()
-
-	if false then
-		-- add a random desirable spell
-		local candidates = {}
-		for _,action_id in ipairs( desirable_spells ) do
-			if not does_player_have_spell( action_id )
-			and is_spell_appropriate_tier( action_id, level ) then
-				table.insert( candidates, action_id )
-			end
-		end
-		if #candidates > 0 then
-			wand:AddSpells( random_from_array( candidates ) )
-		end
-	end
+	if level > 6 and level < 10 then level = 6 end
 
 	-- fill up the rest of the wand with random spells
-	local x, y = EntityGetTransform( wand_entity )
+	local x, y = EntityGetTransform( wand.entity_id )
 	local max_spell_count = ( level * 3 ) + Random( -1, 1 )
 	for i=1, math.min( wand.capacity, max_spell_count ) do
 		local spell_to_add = GetRandomAction( x+i, y-i, level )
 		local j = 1
 		while spell_to_add == "HARDMOD_ALT_FIRE_ANYTHING" or spell_to_add == "RESET" do
-			spell_to_add = GetRandomAction( x+i+j, y-i-j, level )
+			spell_to_add = GetRandomAction( x+i+j, y+i+j, level )
 			j = j + 1
 		end
 		wand:AddSpells( spell_to_add )
 	end
 end
 
-local function host_evil_ghost( wand_entity, level )
-	local wand_entity = GetUpdatedEntityID()
+local function host_evil_ghost( wand, level )
+	local wand_entity = wand.entity_id
 	local x, y = EntityGetTransform( wand_entity )
 
 	-- turn the new wand particles red
@@ -150,7 +136,7 @@ local function host_evil_ghost( wand_entity, level )
 	EntityAddChild( wand_entity,
 		EntityLoad( "mods/noita.hardmod/files/modules/haunted_wands/entities/evil_wand_particles.xml", x, y ) )
 
-	generate_spells( wand_entity, level )
+	generate_spells( wand, level )
 	-- custom spell generation toggle was moved to line 89
 end
 
@@ -164,13 +150,13 @@ function generate_gun( cost, level, force_unshuffle )
 	local biome = biome_index[DebugBiomeMapGetFilename( x, y )]
 	SetRandomSeed( GameGetFrameNum()-level, -GameGetFrameNum()+level )
 	if biome ~= "holy_mountain" and Random( 1, 20 ) == 10 then
-		level = level + 1
+		-- level = level + 1
 		possess_wand = true
 	end
 
 	_generate_gun( cost, level, force_unshuffle )
 	wand = EZWand( wand_entity )
 	if wand.capacity >= 5 and possess_wand then
-		host_evil_ghost( GetUpdatedEntityID(), level )
+		host_evil_ghost( wand, level )
 	end
 end
