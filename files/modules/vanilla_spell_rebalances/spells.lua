@@ -19,7 +19,23 @@ end
 
 local hooks = {}
 
-hooks.new_spells = {}
+hooks.new_spells = {
+	{
+		id = "HARDMOD_TORCH_MAGIC",
+		name = "$hardmod_spell_torch_magic_name",
+		description = "$hardmod_spell_torch_magic_desc",
+		sprite = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/gfx/ui_gfx/spells/magic_torch.png",
+		type = ACTION_TYPE_PASSIVE,
+		spawn_level = "5,6,10",
+		spawn_probability = "0.8,0.6,0.4",
+		price = 200,
+		mana = 0,
+		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/cards/card_torch_magic.xml",
+		action = function()
+			draw_actions( 1, true )
+		end,
+	},
+}
 
 hooks.spell_patches = {
 	["BOMB"] = { max_uses = 5 },
@@ -213,7 +229,13 @@ hooks.spell_patches = {
 		-- 	end
 		-- end,
 	},
-	["TORCH_ELECTRIC"] = { mana = -2 },
+	["TORCH"] = {
+		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/cards/card_torch.xml",
+	},
+	["TORCH_ELECTRIC"] = {
+		mana = -2,
+		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/cards/card_torch_electric.xml",
+	},
 }
 
 local mats = { "MATERIAL_WATER", "MATERIAL_OIL", "MATERIAL_BLOOD", "MATERIAL_CEMENT", "WATER_TRAIL" }
