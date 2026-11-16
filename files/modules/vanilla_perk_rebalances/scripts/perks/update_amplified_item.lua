@@ -8,9 +8,9 @@ local function update_state()
 	local root = EntityGetRootEntity(entity_id)
 	print("updating")
 	print(entity_id)
-	print(tostring(state))
 
 	print("a")
+	if root == entity_id then return end
 	print("b")
 
 	local has_amplified_items_perk
@@ -35,20 +35,11 @@ local function update_state()
 end
 
 ---@diagnostic disable-next-line: lowercase-global
-function enabled_changed(_, state)
-	local root = EntityGetRootEntity(entity_id)
-	if state or entity_id == root then return end
+function enabled_changed(item, state)
+	print(("enabled changed on frame %s, state: [%s]"):format(GameGetFrameNum(), tostring(state)))
+	component = GetUpdatedComponentID()
 
 	print("enabled changed")
 	update_state()
+	EntitySetComponentIsEnabled(item, component, true)
 end
-
-function item_pickup(_, taker, name)
-	component = GetUpdatedComponentID()
-	ComponentSetValue2(component, "mNextExecutionTime", GameGetFrameNum()+1)
-	EntitySetComponentIsEnabled(_, component, true)
-end
-
-print("COMPONENT ID IS "..component)
-if component == 0 then return end
-update_state()
