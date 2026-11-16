@@ -1,0 +1,33 @@
+<Entity>
+	
+	<Base file="data/entities/projectiles/darkflame.xml">
+
+		<ProjectileComponent>
+			<config_explosion
+		      explosion_sprite="mods/noita.hardmod/files/modules/vanilla_spell_rebalances/gfx/spells/darkflame_player.xml"
+			  light_r="255"
+			  light_g="91"
+			  light_b="63"
+			  light_radius_coeff="64">
+		    </config_explosion>
+		  </ProjectileComponent>
+	  
+		<SpriteComponent 
+			_enabled="1" 
+			alpha="1" 
+			image_file="mods/noita.hardmod/files/modules/vanilla_spell_rebalances/gfx/spells/darkflame_player.xml" 
+			next_rect_animation="" 
+			offset_x="6" 
+			offset_y="6" 
+			rect_animation="spawn"
+			update_transform_rotation="0"
+		></SpriteComponent>
+
+		<LuaComponent 
+			script_source_file="mods/noita.hardmod/files/modules/vanilla_spell_rebalances/scripts/darkflame_player.lua" 
+			execute_every_n_frame="1">
+		</LuaComponent>
+
+	</Base>
+	
+</Entity>
