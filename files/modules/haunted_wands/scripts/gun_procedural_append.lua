@@ -129,7 +129,7 @@ local function host_evil_ghost( wand, level )
 		_tags = "hardmod_evil_wand_temp",
 		file = "data/audio/Desktop/projectiles.bank",
 		event_name = "player_projectiles/epilogue/wall/movement_loop",
-		m_volume = 0.5,
+		m_volume = 0.3,
 		auto_play_if_enabled = true,
 	})
 
