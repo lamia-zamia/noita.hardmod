@@ -465,7 +465,7 @@ enemy_perks = {
 		priority = 0,
 		max = 1,
 		conditions = function(self, data)
-			return HerdIdToString(utils.GetHerdID(data.target_enemy)) == "slimes"
+			return data.dmc and string.find("blood,slime,sludge", ComponentGetValue2(data.dmc, "blood_material"))
 		end,
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_RADIOACTIVITY", false)
@@ -988,7 +988,7 @@ enemy_perks = {
 		name = "$hardmod_eperk_all_seeing_name",
 		description = "$hardmod_eperk_all_seeing_desc",
 		weight = 2,
-		priority = 25,
+		priority = 24,
 		max = 2,
 		biome_conditions = {
 			mines = 0,
@@ -1038,6 +1038,32 @@ enemy_perks = {
 					value_int = 150,
 				})
 			end
+		end
+	},
+	{
+		id = "TETHER",
+		name = "$hardmod_eperk_tether_name",
+		description = "$hardmod_eperk_tether_desc",
+		weight = 1,
+		priority = 25,
+		max = 1,
+		biome_conditions = {
+			sky = 4,
+			hell = 4,
+			tower = 4,
+		},
+		condition = function(self, data)
+			if data.level < 8 then return end
+			if not data.dmc then return end
+
+			local max_hp = ComponentGetValue2(data.dmc, "max_hp")
+			if max_hp >= 4 then
+				return true
+			end
+		end,
+		func = function(self, entity_id, data)
+			local x, y = EntityGetTransform(entity_id)
+			EntityAddChild(entity_id, EntityLoad( dir.."entities/tether_aura_dormant.xml", x, y))
 		end
 	},
 }
