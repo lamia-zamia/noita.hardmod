@@ -33,6 +33,25 @@ if wandstone ~= nil and in_world(wandstone) and not is_hellmode then
 	end
 end
 
+-- sun stone becomes ASE
+local sunstone = EntityGetInRadiusWithTag( x, y, 128, "seed_b" )[1]
+if sunstone ~= nil and in_world(sunstone) and not is_hellmode then
+	local sx, sy = EntityGetTransform( sunstone )
+
+	if get_distance(x, y, sx, sy) < 64 then
+		-- standard mountain altar feedback
+		EntityLoad("data/entities/particles/image_emitters/chest_effect.xml", sx, sy)
+		GamePrintImportant("$log_altar_magic")
+
+		-- spawn the perk
+	    dofile_once("data/scripts/perks/perk.lua")
+		perk_spawn(sx, sy - 10, "REMOVE_FOG_OF_WAR", true)
+
+		-- destroy the stone
+		EntityKill(sunstone)
+	end
+end
+
 -- TODO: This fucking sucks
 
 local sac_thunderstone = GameHasFlagRun("HARDMOD_SACRIFICE_THUNDERSTONE")

@@ -369,8 +369,7 @@ hooks.spell_patches = {
 	["SWARM_FIREBUG"] = { max_uses = 16 },
 	["SWARM_WASP"] = { max_uses = 16 },
 	["FRIEND_FLY"] = { max_uses = 16 },
-
-	["DARKFLAME"] = { max_uses = -1 },
+	
 	["THUNDERBALL"] = { max_uses = 10 },
 	["ICEBALL"] = { never_unlimited = true },
 	["DAMAGE_FOREVER"] = { max_uses = -1 },

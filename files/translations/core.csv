@@ -468,3 +468,5 @@ hardmod_setting_module_greed_curse_rework_desc,Redesigns the Curse of Greed to h
 hardmod_greed_cursed_nugget,Greed Cursed Nugget,,,,,,,,,,,,,
 hardmod_eperk_tether_name,Tether,,,,,,,,,,,,,
 hardmod_eperk_tether_desc,You take a chunk of damage if you move too far away from this enemy.,,,,,,,,,,,,,
+hardmod_spell_torch_magic_name,Magic Torch,,,,,,,,,,,,,
+hardmod_spell_torch_magic_desc,Emits a very bright light,,,,,,,,,,,,,

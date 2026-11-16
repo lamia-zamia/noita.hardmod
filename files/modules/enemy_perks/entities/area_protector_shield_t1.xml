@@ -4,9 +4,10 @@
 
 		<EnergyShieldComponent 
 			_tags="enabled_in_hand,item_identified__LEGACY"
-			max_energy="10"
-			recharge_speed="10"
-			radius="64.0" >
+			max_energy="100"
+			recharge_speed="100"
+			radius="64.0"
+			damage_multiplier="0.1" >
 		</EnergyShieldComponent>
 		
 		<ParticleEmitterComponent
