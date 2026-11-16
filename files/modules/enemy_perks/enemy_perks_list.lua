@@ -231,12 +231,7 @@ enemy_perks = {
 			wizards_den = 4,
 		},
 		condition = function(self, data)
-			local entity_id = data.target_enemy
-			if --if quantum cloning enemy gets this perk, they immediately fucking die
-				GameGetGameEffectCount(entity_id, "POLYMORPH")
-				+ GameGetGameEffectCount(entity_id, "POLYMORPH_RANDOM")
-				+ GameGetGameEffectCount(entity_id, "POLYMORPH_UNSTABLE") > 0 then return end
-			return data.level > 3 and not data.is_boss
+			return data.level > 3 and not (data.is_boss or data.is_polymorphed)
 		end,
 		clone_colours = {
 			{255,0,0, "spark_red"}, --Red
@@ -682,6 +677,21 @@ enemy_perks = {
 		end,
 	},
 	{
+		id = "HOLY_REFLECTION",
+		name = "$hardmod_eperk_holy_reflection_name",
+		description = "$hardmod_eperk_holy_reflection_desc",
+		weight = 3,
+		max = 1,
+		condition = function(self, data) return data.level > 7 end,
+		func = function(self, entity_id, data)
+			EntityAddComponent2(entity_id, "LuaComponent", {
+				execute_every_n_frame = -1,
+				script_damage_received = "data/scripts/animals/wraith_glowing_damage.lua",
+				limit_to_every_n_frame = 10,
+			})
+		end
+	},
+	{
 		id = "VIGOUR",
 		name = "$hardmod_eperk_vigour_name",
 		description = "$hardmod_eperk_vigour_desc",
@@ -747,10 +757,14 @@ enemy_perks = {
 		priority = 9,
 		max = 3,
 		condition = function(self, data) return spawn_on_death_blacklist(self, data) and data.level > 2 end,
-		func = function(self, entity_id, data)
-			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_death = dir.."scripts/rats_on_death.lua"
-			})
+		on_death = function(self, entity_id, ddata)
+			for _=1, Random(3,5) do
+				local eid = EntityLoad("data/entities/animals/rat.xml", ddata.x, ddata.y)
+				EntityAddTag(eid,"felcesis_ignore")
+				EntityAddComponent2(eid, "VariableStorageComponent", {_tags="no_gold_drop"})
+				local dmc = EntityGetFirstComponent(eid, "DamageModelComponent")
+				if dmc then ComponentSetValue2(dmc, "ragdoll_fx_forced", "DISINTEGRATED") end
+			end
 		end
 	},
 	{
@@ -762,25 +776,42 @@ enemy_perks = {
 		priority = 9,
 		max = 2,
 		condition = function(self, data) return spawn_on_death_blacklist(self, data) and data.level > 4 end,
-		func = function(self, entity_id, data)
-			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_death = dir.."scripts/skullrats_on_death.lua"
-			})
+		on_death = function(self, entity_id, ddata)
+			for _=1, Random(2,4) do
+				local eid = EntityLoad("data/entities/animals/skullrat.xml", ddata.x, ddata.y)
+				EntityAddTag(eid,"felcesis_ignore")
+			end
 		end
 	},
 	{
 		id = "SKULLFLYS",
 		name = "$hardmod_eperk_skullflys_name",
 		description = "$hardmod_eperk_skullflys_desc",
-		weight = 0.5,
+		weight = .5,
 		biome_conditions = { temple_of_the_art = 1 },
 		priority = 9,
 		max = 3,
 		condition = function(self, data) return spawn_on_death_blacklist(self, data) and (data.level > 7 or data.biome == "temple_of_the_art") end,
-		func = function(self, entity_id, data)
-			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_death = dir.."scripts/add_skullflys.lua"
-			})
+		on_death = function(self, entity_id, ddata)
+			for _=1, Random(1,3) do
+				local eid = EntityLoad("data/entities/animals/skullfly.xml", ddata.x, ddata.y)
+				EntityAddTag(eid,"felcesis_ignore")
+			end
+		end,
+	},
+	{
+		id = "WHITEHOLE_DEATH",
+		name = "$hardmod_eperk_whitehole_death_name",
+		description = "$hardmod_eperk_whitehole_death_desc",
+		weight = .5,
+		priority = 15,
+		max = 1,
+		biome_conditions = {
+			sky = 2,
+		},
+		condition = function(self, data) return spawn_on_death_blacklist(self, data) and data.level > 6 and not data.is_boss end,
+		on_death = function(self, entity_id, ddata)
+			EntityLoad("data/entities/projectiles/deck/black_hole_big.xml", ddata.x, ddata.y)
 		end
 	},
 	{
@@ -794,10 +825,8 @@ enemy_perks = {
 			hell = 2,
 		},
 		condition = function(self, data) return spawn_on_death_blacklist(self, data) and data.level > 6 and not data.is_boss end,
-		func = function(self, entity_id, data)
-			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_death = dir.."scripts/spawn_giga_blackhole.lua"
-			})
+		on_death = function(self, entity_id, ddata)
+			EntityLoad("data/entities/projectiles/deck/black_hole_big.xml", ddata.x, ddata.y)
 		end
 	},
 	{
@@ -902,18 +931,35 @@ enemy_perks = {
 		end
 	},
 	{
-		id = "HOLY_REFLECTION",
-		name = "$hardmod_eperk_holy_reflection_name",
-		description = "$hardmod_eperk_holy_reflection_desc",
-		weight = 3,
-		max = 1,
-		condition = function(self, data) return data.level > 7 end,
+		id = "IDEAL_FORM",
+		name = "$hardmod_eperk_ideal_form_name",
+		description = "$hardmod_eperk_ideal_form_name",
+		weight = 1,
+		priority = -20,
+		condition = function(self, data)
+			return data.is_polymorphed and not EntityHasTag(data.target_enemy, "polymorphed_player")
+		end,
 		func = function(self, entity_id, data)
-			EntityAddComponent2(entity_id, "LuaComponent", {
-				execute_every_n_frame = -1,
-				script_damage_received = "data/scripts/animals/wraith_glowing_damage.lua",
-				limit_to_every_n_frame = 10,
-			})
+			local polymorph_statuses = {
+				["POLYMORPH"] = true,
+				["POLYMORPH_RANDOM"] = true,
+				["POLYMORPH_UNSTABLE"] = true,
+				["POLYMORPH_CESSATION"] = true,
+			}
+			for _,child in ipairs(EntityGetAllChildren(entity_id) or {}) do
+				local child_has_poly_comp
+				for _,game_effect_comp in ipairs(EntityGetComponentIncludingDisabled(child, "GameEffectComponent") or {}) do
+					if polymorph_statuses[ComponentGetValue2(game_effect_comp, "effect")] then
+						ComponentSetValue2(game_effect_comp, "frames", 0)
+						child_has_poly_comp = true
+					end
+				end
+				if child_has_poly_comp then
+					for _,lifetime_comp in ipairs(EntityGetComponent(child, "LifetimeComponent") or {}) do
+						EntityRemoveComponent(child, lifetime_comp)
+					end
+				end
+			end
 		end
 	},
 	--{ --I'll implement this later, or someone can do it for me 🙏
@@ -1051,11 +1097,11 @@ local perk_incompatibilities = { --ill implement at some point maybe
 	{"HARDMOD_KAMIKAZE", "HARDMOD_UNFINISHED_BUSINESS"},
 }
 
-for _,perk in ipairs(enemy_perks) do
+for i,perk in ipairs(enemy_perks) do
 	local id = perk.id
 	perk.id = "HARDMOD_"..perk.id
 	perk.name = perk.name or perk.id
-	perk.weight = perk.weight or 10
+	perk.weight = (perk.weight or 10) + i*0.001
 	perk.priority = perk.priority or 0
 	perk.sprite = ModDoesFileExist(perk.sprite or "") and perk.sprite
 		or ModDoesFileExist(sprites_path..id:lower()..".png") and sprites_path..id:lower()..".png"
