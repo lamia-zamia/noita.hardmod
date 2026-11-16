@@ -11,7 +11,7 @@ end
 GoldFunctions = {
 	default = function(d)
 		local wallet = d.pdata.wallet
-		if not wallet then print("fail") return end
+		if not wallet then print("GID fail, no wallet") return end
 		local income = d.amount * d.worth * 2^d.pdata.greed_stacks
 		ComponentSetValue2(wallet, "money", ComponentGetValue2(wallet, "money") + income)
 		GameEntityPlaySoundLoop(d.pdata.owner, "sound_pick_gold_sand", 1)

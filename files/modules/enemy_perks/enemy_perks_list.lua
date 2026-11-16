@@ -231,6 +231,11 @@ enemy_perks = {
 			wizards_den = 4,
 		},
 		condition = function(self, data)
+			local entity_id = data.target_enemy
+			if --if quantum cloning enemy gets this perk, they immediately fucking die
+				GameGetGameEffectCount(entity_id, "POLYMORPH")
+				+ GameGetGameEffectCount(entity_id, "POLYMORPH_RANDOM")
+				+ GameGetGameEffectCount(entity_id, "POLYMORPH_UNSTABLE") > 0 then return end
 			return data.level > 3 and not data.is_boss
 		end,
 		clone_colours = {
@@ -987,12 +992,12 @@ enemy_perks = {
 		id = "ALL_SEEING",
 		name = "$hardmod_eperk_all_seeing_name",
 		description = "$hardmod_eperk_all_seeing_desc",
-		weight = 2,
+		weight = 0,
 		priority = 25,
 		max = 2,
 		biome_conditions = {
-			mines = 0,
-			coal_pits = 0,
+			--mines = 0,
+			--coal_pits = 0,
 			magical_temple = 4,
 			temple_of_the_art = 4,
 			wizards_den = 4,

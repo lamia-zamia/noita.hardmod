@@ -249,7 +249,7 @@ end
 
 local prev_max_eid = -1
 local max_eid = -1
-local check_entities = function()
+local check_entities = function(is_post)
 	local old_player = gd.player
 	local borked_polymorph_entity
 	if not (gd.player_does_not_exist or EntityGetIsAlive(gd.player)) then
@@ -287,7 +287,8 @@ local check_entities = function()
 			end
 			::continue::
 		end
-		for _,func in ipairs(hooks.new_eid) do
+		local hooks_target = is_post and hooks.new_eid_post or hooks.new_eid
+		for _,func in ipairs(hooks_target) do
 			--Unused system for generating a table of all the entity's VariableStorageComponent data, shelved until it seems like it'd be actually useful
 			--local varcomp_tree = {}
 			--for _,varcomp in ipairs(EntityGetComponent(i, "VariableStorageComponent") or {}) do
@@ -321,7 +322,7 @@ end
 function OnWorldPreUpdate()
 	gd.frame = GameGetFrameNum()
 	SetRandomSeed(-2497, 492-gd.frame) --maybe fixes stale-randomness issues?
-	check_entities()
+	check_entities(false)
 
 	for _,func in ipairs(hooks.pre_update) do
 		func(gd.frame)
@@ -329,6 +330,7 @@ function OnWorldPreUpdate()
 end
 
 function OnWorldPostUpdate()
+	check_entities(true)
 	for _,func in ipairs(hooks.post_update) do
 		func(gd.frame)
 	end

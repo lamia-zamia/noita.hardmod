@@ -119,7 +119,15 @@ for xml in nxml.edit_file("data/entities/player_base.xml") do
 end
 --#endregion
 
-
+local update_amp_item_scr = dir.."scripts/perks/update_amplified_item.lua"
+local amplified_items_lua_comp = nxml.new_element("LuaComponent", {
+	_tags = "enabled_in_hand",
+	--script_source_file = update_amp_item_scr,
+	--execute_every_n_frame = "300",
+	execute_every_n_frame = "-1",
+	script_enabled_changed = update_amp_item_scr,
+	--script_item_picked_up = update_amp_item_scr,
+})
 local ase_items = {
 	"data/entities/items/pickup/sun/sunseed.xml",
 	"data/entities/items/pickup/sun/sunstone.xml",
@@ -133,6 +141,23 @@ for _,path in ipairs(ase_items) do
 				xml:add_child(ase_entity)
 			end
 		end
+
+		xml:add_child(amplified_items_lua_comp)
+	end
+end
+
+local amplified_item_targets = {
+	"data/entities/items/pickup/brimstone.xml",
+	"data/entities/items/pickup/waterstone.xml",
+	"data/entities/items/pickup/thunderstone.xml",
+	"mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/items/cheese.xml",
+	"data/entities/items/pickup/sun/sunseed.xml",
+	"data/entities/items/pickup/sun/sunstone.xml",
+	"data/entities/items/pickup/evil_eye.xml",
+}
+for _,path in ipairs(amplified_item_targets) do
+	for xml in nxml.edit_file(path) do
+		xml:add_child(amplified_items_lua_comp)
 	end
 end
 
