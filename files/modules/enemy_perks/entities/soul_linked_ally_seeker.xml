@@ -1,0 +1,8 @@
+<Entity tags="perk_entity">
+
+	<LuaComponent
+		script_source_file="mods/noita.hardmod/files/modules/enemy_perks/scripts/soul_linked_ally_seeker_scan.lua"
+		execute_every_n_frame="30"
+	></LuaComponent>
+	
+</Entity>

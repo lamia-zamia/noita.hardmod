@@ -465,7 +465,7 @@ enemy_perks = {
 		priority = 0,
 		max = 1,
 		conditions = function(self, data)
-			return HerdIdToString(utils.GetHerdID(data.target_enemy)) == "slimes"
+			return data.dmc and string.find("blood,slime,sludge", ComponentGetValue2(data.dmc, "blood_material"))
 		end,
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_RADIOACTIVITY", false)
@@ -601,6 +601,7 @@ enemy_perks = {
 			ComponentSetValue2(data.dmc, "blood_spray_material", "blood_cold")
 			EntitySetDamageFromMaterial(entity_id, "blood_cold", 0)
 			EntitySetDamageFromMaterial(entity_id, "blood_cold_vapour", 0)
+			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 1.5)
 
 			data.blood_perk = "blood_cold" --do this for condition func so multiple blood perks aren't rolled
 		end
@@ -616,6 +617,7 @@ enemy_perks = {
 		func = function(self, entity_id, data)
 			ComponentSetValue2(data.dmc, "blood_material", "lava")
 			ComponentSetValue2(data.dmc, "blood_spray_material", "lava")
+			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 1.5)
 			ComponentSetValue2(data.dmc, "wet_status_effect_damage", 0.1)
 			EntitySetDamageFromMaterial(entity_id, "water", 0.0002)
 			EntitySetDamageFromMaterial(entity_id, "mud", 0.0002)
@@ -644,6 +646,7 @@ enemy_perks = {
 			ComponentSetValue2(data.dmc, "blood_spray_material", "poison")
 			EntitySetDamageFromMaterial(entity_id, "poison", 0)
 			ComponentObjectSetValue2(data.dmc, "damage_multipliers", "poison", 0)
+			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 1.5)
 
 			data.blood_perk = "poison" --do this for condition func so multiple blood perks aren't rolled
 		end
@@ -671,6 +674,7 @@ enemy_perks = {
 
 			ComponentSetValue2(data.dmc, "blood_material", blood_material)
 			ComponentSetValue2(data.dmc, "blood_spray_material", blood_material)
+			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 1.5)
 			EntitySetDamageFromMaterial(entity_id, blood_material, 0)
 
 			data.blood_perk = blood_material --do this for condition func so multiple blood perks aren't rolled
@@ -1039,15 +1043,15 @@ enemy_perks = {
 		name = "$hardmod_eperk_all_seeing_name",
 		description = "$hardmod_eperk_all_seeing_desc",
 		weight = 0,
-		priority = 25,
+		priority = 24,
 		max = 2,
 		biome_conditions = {
-			--mines = 0,
-			--coal_pits = 0,
 			magical_temple = 4,
 			temple_of_the_art = 4,
 			wizards_den = 4,
 			tower = 4,
+			sky = 1,
+			hell = 1,
 		},
 		condition = function(self, data)
 			-- this perk can only appear on mages, ghosts (excl. wand ghosts) and some select enemies
@@ -1059,7 +1063,6 @@ enemy_perks = {
 			local filename_match = false
 			for _,creature_name in ipairs(creatures) do
 				if string.find(filename, creature_name) then
-					print("match found: " .. filename)
 					filename_match = true
 				end
 			end
@@ -1089,6 +1092,32 @@ enemy_perks = {
 					value_int = 150,
 				})
 			end
+		end
+	},
+	{
+		id = "TETHER",
+		name = "$hardmod_eperk_tether_name",
+		description = "$hardmod_eperk_tether_desc",
+		weight = 1,
+		priority = 25,
+		max = 1,
+		biome_conditions = {
+			sky = 4,
+			hell = 4,
+			tower = 4,
+		},
+		condition = function(self, data)
+			if data.level < 8 then return end
+			if not data.dmc then return end
+
+			local max_hp = ComponentGetValue2(data.dmc, "max_hp")
+			if max_hp >= 3 then
+				return true
+			end
+		end,
+		func = function(self, entity_id, data)
+			local x, y = EntityGetTransform(entity_id)
+			EntityAddChild(entity_id, EntityLoad( dir.."entities/tether_aura_dormant.xml", x, y))
 		end
 	},
 }

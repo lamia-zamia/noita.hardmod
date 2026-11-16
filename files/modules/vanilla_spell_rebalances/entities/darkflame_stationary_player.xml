@@ -1,0 +1,33 @@
+<Entity>
+
+	<Base file="data/entities/projectiles/darkflame_stationary.xml" >
+
+		<ProjectileComponent>
+			<config_explosion
+	      explosion_sprite="mods/noita.hardmod/files/modules/vanilla_spell_rebalances/gfx/spells/darkflame_player_particle.xml"
+			  light_r="255"
+			  light_g="91"
+			  light_b="63"
+			  light_radius_coeff="64">
+	    </config_explosion>
+	  </ProjectileComponent>
+
+	  <SpriteComponent
+	    image_file="mods/noita.hardmod/files/modules/vanilla_spell_rebalances/gfx/spells/darkflame_player.xml"
+	  ></SpriteComponent>
+	
+		<VariableStorageComponent
+			name="projectile_file"
+			value_string="mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/darkflame_stationary_player.xml" 
+		></VariableStorageComponent>
+  
+		<LightComponent
+			r="255"
+			g="91"
+			b="63"
+		></LightComponent>
+
+	</Base>
+
+</Entity>
+

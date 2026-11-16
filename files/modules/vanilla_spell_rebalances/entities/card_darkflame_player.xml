@@ -1,0 +1,22 @@
+<Entity>
+	
+	<Base file="data/entities/misc/custom_cards/darkflame.xml" > 
+
+		<SpriteComponent 
+			image_file="mods/noita.hardmod/files/modules/vanilla_spell_rebalances/gfx/ui_gfx/spells/darkflame_player.png" 
+		></SpriteComponent>
+
+		<SpriteParticleEmitterComponent
+			_tags="enabled_in_hand,item_identified"
+			sprite_file="mods/noita.hardmod/files/modules/vanilla_spell_rebalances/gfx/spells/darkflame_player_particle.xml"
+		></SpriteParticleEmitterComponent>
+
+		<LightComponent
+			r="255"
+			g="91"
+			b="63" >
+		</LightComponent>
+
+	</Base>
+	
+</Entity>
