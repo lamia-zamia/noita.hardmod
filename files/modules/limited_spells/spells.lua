@@ -113,7 +113,7 @@ hooks.new_spells = {
 			elseif #hand > 0 then data = hand[1]
 			end
 
-			if data.id == "HARDMOD_SPELL_INDULGENCE" then return end
+			if not data or data.id == "HARDMOD_SPELL_INDULGENCE" then return end
 
 			local rec = check_recursion(data, recursion_level)
 			if not data or rec < 0 or data.uses_remaining > 0 then

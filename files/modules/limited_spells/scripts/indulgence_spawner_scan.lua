@@ -57,4 +57,6 @@ EntityAddComponent2(indulgence, "SpriteComponent", {
 	z_index = -1,
 })
 
+AddFlagPersistent("hardmod_unlocked_indulgence")
+
 EntityKill(GetUpdatedEntityID())

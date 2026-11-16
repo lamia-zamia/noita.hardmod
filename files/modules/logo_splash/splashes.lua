@@ -115,7 +115,6 @@ local splashes = {
 	"We have so much left to sing!",
 	"More updates to come!!",
 	"We even threw in a few vanilla bugfixes",
-	"",
 	"They said we could never make a good mod after Fairmod!\n...inb4 we fairmodify hardmod",
 	"N\no\nw\n \nw\ni\nt\nh\n \nv\ne\nr\nt\ni\nc\na\nl\ni\nt\ny\n!",
 	"We killed your faves!",
@@ -125,14 +124,30 @@ local splashes = {
 	"*drops 12 enemies 10 hours before release*",
 	"You will die, for I am eba, and I will end you.",
 	"She is defrosting as we speak.",
-	"ITS A BRIMSTONE, ITS NOT A PENIS",
 	'"tablet is kil."\nno...',
 	"no yui, don't go to the fairside!",
 	"claude, make me a good noita difficulty mod",
 }
 
---local seed = second*minute*hour/day*year
---math.randomseed(seed)
+local locked_splashes = {
+	hardmod_game_completed = {
+		"I Won Hard Mod and All I Got Was This Lousy Splash Text",
+		"God Gamer?",
+		"If you won Hard Mod, surely you can win Fair Mod too!",
+		"Impressive!!!",
+		"Enjoy your golden starter wands",
+		"There's more to explore here",
+	},
+	hardmod_unlocked_indulgence = {
+		"ITS A BRIMSTONE, ITS NOT A PENIS",
+	},
+}
+
+for flag,list in pairs(locked_splashes) do
+	if HasFlagPersistent(flag) then
+		for _,splash in pairs(list) do table.insert(splashes, splash) end
+	end
+end
 
 local cool_mods = {
 	"Fairmod",
@@ -179,19 +194,6 @@ local custom_splashes = {
 
 for _,splash in pairs(custom_splashes) do
 	table.insert(splashes, splash)
-end
-
-local win_splashes = {
-	"I Won Hard Mod and All I Got Was This Lousy Splash Text",
-	"God Gamer?",
-	"If you won Hard Mod, surely you can win Fair Mod too!",
-	"Impressive!!!",
-	"Enjoy your golden starter wands",
-	"There's more to explore here",
-}
-
-if HasFlagPersistent("hardmod_game_completed") then
-	for _,splash in pairs(win_splashes) do table.insert(splashes, splash) end
 end
 
 return splashes
