@@ -1,6 +1,6 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
-local RADIUS = 115
+local RADIUS = 80
 
 local aura_dormant = GetUpdatedEntityID()
 local owner = EntityGetRootEntity( aura_dormant )

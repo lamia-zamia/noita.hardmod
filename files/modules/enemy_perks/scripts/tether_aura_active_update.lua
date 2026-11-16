@@ -28,6 +28,7 @@ local function follow_owner()
 	    	y + ( dir_y * MAX_OWNER_FOLLOW_SPEED ) )
 	elseif dist > RADIUS then
 		EntityKill( aura )
+		EntityAddChild( owner, EntityLoad( "mods/noita.hardmod/files/modules/enemy_perks/entities/tether_aura_dormant.xml", x, y ) )
 	else
 		EntitySetTransform( aura, ox, oy )
 	end
@@ -49,6 +50,7 @@ local function check_for_player()
 			end
 		end
 		EntityKill( aura )
+		EntityAddChild( owner, EntityLoad( "mods/noita.hardmod/files/modules/enemy_perks/entities/tether_aura_dormant.xml", x, y ) )
 	end
 end
 

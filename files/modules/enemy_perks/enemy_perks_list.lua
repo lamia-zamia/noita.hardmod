@@ -1057,7 +1057,7 @@ enemy_perks = {
 			if not data.dmc then return end
 
 			local max_hp = ComponentGetValue2(data.dmc, "max_hp")
-			if max_hp >= 4 then
+			if max_hp >= 3 then
 				return true
 			end
 		end,
