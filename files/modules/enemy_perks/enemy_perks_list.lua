@@ -1041,6 +1041,23 @@ enemy_perks = {
 		end
 	},
 	{
+		id = "SOUL_LINKED",
+		name = "$hardmod_eperk_soul_linked_name",
+		description = "$hardmod_eperk_soul_linked_desc",
+		weight = 1,
+		priority = 23,
+		max = 1,
+		-- condition = function(self, data) return data.level > 4 end,
+		func = function(self, entity_id, data)
+			-- if data.has_soul_linked or data.how_many_of_each_perk[self.id] then return end
+			-- data.has_soul_linked = true
+
+			local x, y = EntityGetTransform(data.target_enemy)
+			EntityAddChild(data.target_enemy,
+				EntityLoad("mods/noita.hardmod/files/modules/enemy_perks/entities/soul_linked_ally_seeker.xml", x, y))
+		end
+	},
+	{
 		id = "TETHER",
 		name = "$hardmod_eperk_tether_name",
 		description = "$hardmod_eperk_tether_desc",
