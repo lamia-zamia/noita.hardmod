@@ -733,7 +733,15 @@ working on on-hit callback generator  script
 changed CoG icon, added module to settings
 oops wrong name
 exclude AFA and WR from haunted wand spell gen
+enable No More Instant Recharge Trick module
+clarified some module descriptions
 dexter save me 🥺
 close to working but fails with multiple items existing..?
+add Tether eperk
 got the fucking shit working THANK YOU DEXTER
 fixed polymorph quantum cloning ending your run outright
+some Tether tweaks
+fix haunted wand spirit damaging itself
+make Stinky Aura smaller
+prevent infinite fow hole spawning
+make blood eperks leak more "blood"
