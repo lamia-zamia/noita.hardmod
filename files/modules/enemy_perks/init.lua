@@ -83,6 +83,12 @@ hooks.mod_post_init = function() --run later for appends
 end
 
 hooks.new_eid = function(entity_id)
+	if ModIsEnabled("Apotheosis") then
+		if string.find( EntityGetFilename(entity_id), "mods/Apotheosis/data/entities/animals/psychotic/") then
+			EntityAddTag(entity_id, "no_enemy_perks")
+		end
+	end
+
 	if EntityHasTag(entity_id, "enemy") and not (EntityHasTag(entity_id, "hardmod_blessed") or EntityHasTag(entity_id, "no_enemy_perks")) then
 		local is_boss = EntityHasTag(entity_id, "boss")
 		local x,y = EntityGetTransform(entity_id)
