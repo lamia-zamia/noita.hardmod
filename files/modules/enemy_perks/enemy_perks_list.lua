@@ -231,6 +231,11 @@ enemy_perks = {
 			wizards_den = 4,
 		},
 		condition = function(self, data)
+			local entity_id = data.target_enemy
+			if --if quantum cloning enemy gets this perk, they immediately fucking die
+				GameGetGameEffectCount(entity_id, "POLYMORPH")
+				+ GameGetGameEffectCount(entity_id, "POLYMORPH_RANDOM")
+				+ GameGetGameEffectCount(entity_id, "POLYMORPH_UNSTABLE") > 0 then return end
 			return data.level > 3 and not data.is_boss
 		end,
 		clone_colours = {
