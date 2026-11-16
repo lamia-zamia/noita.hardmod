@@ -12,7 +12,6 @@ local function func_toggle_item_gameeffects(game_effects)
 	end
 end
 
-
 local function func_toggle_item_children(children_names)
 	if type(children_names) == "string" then
 		children_names = { [children_names] = true }
@@ -37,6 +36,9 @@ local effect_items = {
 	["mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/items/cheese.xml"] = func_toggle_item_gameeffects("PROTECTION_MELEE"),
 	["data/entities/items/pickup/sun/sunseed.xml"] = func_toggle_item_children("hardmod.all_seeing_eye"),
 	["data/entities/items/pickup/sun/sunstone.xml"] = func_toggle_item_children("hardmod.all_seeing_eye"),
+	["data/entities/items/pickup/evil_eye.xml"] = function(item, state)
+		EntitySetComponentsWithTagEnabled(item, "magic_eye_check", true)
+	end
 }
 
 return effect_items --separate file for cachine

@@ -231,6 +231,11 @@ enemy_perks = {
 			wizards_den = 4,
 		},
 		condition = function(self, data)
+			local entity_id = data.target_enemy
+			if --if quantum cloning enemy gets this perk, they immediately fucking die
+				GameGetGameEffectCount(entity_id, "POLYMORPH")
+				+ GameGetGameEffectCount(entity_id, "POLYMORPH_RANDOM")
+				+ GameGetGameEffectCount(entity_id, "POLYMORPH_UNSTABLE") > 0 then return end
 			return data.level > 3 and not data.is_boss
 		end,
 		clone_colours = {
@@ -987,16 +992,16 @@ enemy_perks = {
 		id = "ALL_SEEING",
 		name = "$hardmod_eperk_all_seeing_name",
 		description = "$hardmod_eperk_all_seeing_desc",
-		weight = 2,
+		weight = 0,
 		priority = 24,
 		max = 2,
 		biome_conditions = {
-			mines = 0,
-			coal_pits = 0,
 			magical_temple = 4,
 			temple_of_the_art = 4,
 			wizards_den = 4,
 			tower = 4,
+			sky = 1,
+			hell = 1,
 		},
 		condition = function(self, data)
 			-- this perk can only appear on mages, ghosts (excl. wand ghosts) and some select enemies
@@ -1008,7 +1013,6 @@ enemy_perks = {
 			local filename_match = false
 			for _,creature_name in ipairs(creatures) do
 				if string.find(filename, creature_name) then
-					print("match found: " .. filename)
 					filename_match = true
 				end
 			end

@@ -1,6 +1,6 @@
 <Entity tags="perk_entity,hardmod_item_immunities">
 	<LuaComponent
 		script_source_file="mods/noita.hardmod/files/modules/vanilla_perk_rebalances/scripts/perks/item_immunities.lua"
-		execute_every_n_frame="20"
+		execute_every_n_frame="-1"
 	/>
 </Entity>

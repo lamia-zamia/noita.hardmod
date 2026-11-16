@@ -722,6 +722,8 @@ fixed(?) Copi message newlines
 add special thanks to credits
 make wallhack eperk not show up too early
 make wallhack detection radius a bit smaller
+make Haunted Wands a bit more worthwhile
+haunted wand tweak
 Update homing_shoot.lua
 merpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerpmerp
 fixed incompatibility with fixnoita mod
@@ -730,3 +732,8 @@ polished master of blinding + ASE interaction
 working on on-hit callback generator  script
 changed CoG icon, added module to settings
 oops wrong name
+exclude AFA and WR from haunted wand spell gen
+dexter save me 🥺
+close to working but fails with multiple items existing..?
+got the fucking shit working THANK YOU DEXTER
+fixed polymorph quantum cloning ending your run outright
