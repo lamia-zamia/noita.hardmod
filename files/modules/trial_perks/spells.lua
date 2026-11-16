@@ -12,7 +12,7 @@ return {
 			spawn_requires_flag = "hardmod_impossible_spawn",
 			price				= 400,
 			mana				= 200,
-			max_uses			= 3,
+			max_uses			= 10,
 			indulgence_price    = 1000,
 			never_unlimited		= true,
 			action = function()
