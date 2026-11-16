@@ -83,7 +83,7 @@ local modules = {
 		spell_variety = {},
 		haunted_wands = {},
 		for_the_worthy = {},
-		-- "no_more_instant_recharge", -- needs to be fixed
+		no_more_instant_recharge = {},
 		snail = {},
 		greed_curse_rework = {},
 	},

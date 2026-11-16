@@ -42,12 +42,12 @@ function enabled_changed( entity_id, state )
 		ComponentSetValue2( acomp, "mReloadNextFrameUsable", GameGetFrameNum() + reload_time )
 		ComponentSetValue2( acomp, "mReloadFramesLeft", reload_time )
 		ComponentSetValue2( acomp, "reload_time_frames", reload_time )
+		GamePrint( GameTextGetTranslatedOrNot( "$hardmod_gameprint_instant_recharge_fail" ) )
 	end
 
 	if reload_time > 60 then
 		local x, y = EntityGetTransform( owner )
 		GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/recharging", x, y )
-		GamePrint( "$hardmod_gameprint_instant_recharge_fail" )
 	end
 
 	ComponentSetValue2( vsc, "value_int", 0 )
