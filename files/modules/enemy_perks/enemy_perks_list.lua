@@ -1004,6 +1004,8 @@ enemy_perks = {
 			temple_of_the_art = 4,
 			wizards_den = 4,
 			tower = 4,
+			sky = 1,
+			hell = 1,
 		},
 		condition = function(self, data)
 			-- this perk can only appear on mages, ghosts (excl. wand ghosts) and some select enemies
@@ -1015,7 +1017,6 @@ enemy_perks = {
 			local filename_match = false
 			for _,creature_name in ipairs(creatures) do
 				if string.find(filename, creature_name) then
-					print("match found: " .. filename)
 					filename_match = true
 				end
 			end
