@@ -606,6 +606,7 @@ enemy_perks = {
 			ComponentSetValue2(data.dmc, "blood_spray_material", "blood_cold")
 			EntitySetDamageFromMaterial(entity_id, "blood_cold", 0)
 			EntitySetDamageFromMaterial(entity_id, "blood_cold_vapour", 0)
+			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 1.5)
 
 			data.blood_perk = "blood_cold" --do this for condition func so multiple blood perks aren't rolled
 		end
@@ -621,6 +622,7 @@ enemy_perks = {
 		func = function(self, entity_id, data)
 			ComponentSetValue2(data.dmc, "blood_material", "lava")
 			ComponentSetValue2(data.dmc, "blood_spray_material", "lava")
+			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 1.5)
 			ComponentSetValue2(data.dmc, "wet_status_effect_damage", 0.1)
 			EntitySetDamageFromMaterial(entity_id, "water", 0.0002)
 			EntitySetDamageFromMaterial(entity_id, "mud", 0.0002)
@@ -649,6 +651,7 @@ enemy_perks = {
 			ComponentSetValue2(data.dmc, "blood_spray_material", "poison")
 			EntitySetDamageFromMaterial(entity_id, "poison", 0)
 			ComponentObjectSetValue2(data.dmc, "damage_multipliers", "poison", 0)
+			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 1.5)
 
 			data.blood_perk = "poison" --do this for condition func so multiple blood perks aren't rolled
 		end
@@ -676,6 +679,7 @@ enemy_perks = {
 
 			ComponentSetValue2(data.dmc, "blood_material", blood_material)
 			ComponentSetValue2(data.dmc, "blood_spray_material", blood_material)
+			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 1.5)
 			EntitySetDamageFromMaterial(entity_id, blood_material, 0)
 
 			data.blood_perk = blood_material --do this for condition func so multiple blood perks aren't rolled
