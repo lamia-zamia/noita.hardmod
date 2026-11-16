@@ -136,7 +136,7 @@ local function host_evil_ghost( wand, level )
 	EntityAddChild( wand_entity,
 		EntityLoad( "mods/noita.hardmod/files/modules/haunted_wands/entities/evil_wand_particles.xml", x, y ) )
 
-	generate_spells( wand, level )
+	generate_spells( wand, level - 1 )
 	-- custom spell generation toggle was moved to line 89
 end
 
@@ -150,7 +150,7 @@ function generate_gun( cost, level, force_unshuffle )
 	local biome = biome_index[DebugBiomeMapGetFilename( x, y )]
 	SetRandomSeed( GameGetFrameNum()-level, -GameGetFrameNum()+level )
 	if biome ~= "holy_mountain" and Random( 1, 20 ) == 10 then
-		-- level = level + 1
+		level = level + 1
 		possess_wand = true
 	end
 
