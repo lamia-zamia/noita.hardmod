@@ -1061,7 +1061,7 @@ enemy_perks = {
 			tower = 4,
 		},
 		condition = function(self, data)
-			if data.level < 8 then return end
+			if data.level < 6 then return end
 			if not data.dmc then return end
 
 			local max_hp = ComponentGetValue2(data.dmc, "max_hp")
