@@ -29,7 +29,7 @@ hooks.new_spells = {
 		spawn_level = "5,6,10",
 		spawn_probability = "0.8,0.6,0.4",
 		price = 200,
-		mana = 0,
+		mana = 8,
 		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/cards/card_torch_magic.xml",
 		action = function()
 			draw_actions( 1, true )
