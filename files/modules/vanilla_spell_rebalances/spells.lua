@@ -212,7 +212,8 @@ hooks.spell_patches = {
         --         add_projectile( "data/entities/projectiles/deck/fizzle.xml" )
 		-- 	end
 		-- end,
-	}
+	},
+	["TORCH_ELECTRIC"] = { mana = -2 },
 }
 
 local mats = { "MATERIAL_WATER", "MATERIAL_OIL", "MATERIAL_BLOOD", "MATERIAL_CEMENT", "WATER_TRAIL" }
