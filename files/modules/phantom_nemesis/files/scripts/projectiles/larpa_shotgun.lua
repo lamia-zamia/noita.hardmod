@@ -13,13 +13,14 @@ local projectile_file = ""
 
 if ( variablestorages ~= nil ) then
 	for j,storage_id in ipairs(variablestorages) do
-		local var_name = ComponentGetValue( storage_id, "name" )
-		if ( var_name == "projectile_file" ) then
-			projectile_file = ComponentGetValue2( storage_id, "value_string" )
+		local var_name = ComponentGetValue2(storage_id, "name")
+		if var_name == "projectile_file" then
+			projectile_file = ComponentGetValue2(storage_id, "value_string")
 		end
 	end
 end
 
+-- TODO: deprecated
 edit_component( entity_id, "VelocityComponent", function(comp,vars)
 	vel_x,vel_y = ComponentGetValueVector2( comp, "mVelocity")
 end)

@@ -49,8 +49,8 @@ local context_checks = {
 	{
 		id = "has_ranged_attack",
 		check = function(entity_id)
-			local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(entity_id,"AnimalAIComponent") or 0
-			if animal_ai_comp > 0 then
+			local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(entity_id,"AnimalAIComponent")
+			if animal_ai_comp then
 				if ComponentGetValue2(animal_ai_comp,"attack_ranged_enabled") then return true end
 				return false
 			end
@@ -61,8 +61,8 @@ local context_checks = {
 		id = "can_fly",
 		check = function(entity_id)
 			if EntityHasTag(entity_id,"flying") == true then return true end
-			local worm_comp = EntityGetFirstComponentIncludingDisabled(entity_id,"WormComponent") or 0
-			if worm_comp > 0 then
+			local worm_comp = EntityGetFirstComponentIncludingDisabled(entity_id,"WormComponent")
+			if worm_comp then
 				if ComponentGetValue2(worm_comp,"gravity") == 0 or ComponentGetValue2(worm_comp,"tail_gravity") == 0 then
 					return true
 				end
@@ -161,6 +161,11 @@ local function GetAbilityWeight(ability_id, context, tier)
 	local most_taken_damage_type = context.most_taken_damage_type
 	local banishment_ratio = context.banishment_ratio
 
+	---@class WeightConsideration
+	---@field affected_abilities string[]
+	---@field weight_change fun(ability_id: string)
+	
+	---@type WeightConsideration[]
 	local weight_considerations = {
 		{
 			affected_abilities = {"vulnerability_shoot"},
@@ -380,23 +385,27 @@ function CreateMiniboss(entity_id, x, y, tier, budget, health_mult)
 
 	--Add Felcesis's particles & necessary tags to the possessed entity
 	local brain_id = EntityLoad("mods/noita.hardmod/files/modules/phantom_nemesis/files/entities/felcesis_brain.xml", x, y)
-	local brain_vsc_comp = EntityGetFirstComponentIncludingDisabled(brain_id,"VariableStorageComponent") or 0
-	ComponentSetValue2(brain_vsc_comp,"value_string",table.concat(selected_abilities_list,","))
+	local brain_vsc_comp = EntityGetFirstComponentIncludingDisabled(brain_id,"VariableStorageComponent")
+	if brain_vsc_comp then
+		ComponentSetValue2(brain_vsc_comp,"value_string",table.concat(selected_abilities_list,","))
+	end
 	EntityAddChild(entity_id,brain_id)
 	EntityAddTag(entity_id, "polymorphable_NOT")
 	EntityAddTag(entity_id,"music_energy_100")
 	EntityAddTag(entity_id,"felcesis_possessed")
 	EntitySetName(entity_id,phantom_name)
 
-	local hitbox_comp = EntityGetFirstComponentIncludingDisabled(entity_id, "HitboxComponent") or 0
+	local hitbox_comp = EntityGetFirstComponentIncludingDisabled(entity_id, "HitboxComponent")
 	local offset_y = -16
 	local hitbox_height_y = 0
-	if hitbox_comp > 0 then 
+	if hitbox_comp then
 		hitbox_height_y = ComponentGetValue2(hitbox_comp, "aabb_min_y")
 	end
 
-	ComponentSetValue2(brain_vsc_comp,"value_int",GameGetFrameNum())
-	ComponentSetValue2(brain_vsc_comp,"value_float",tier)
+	if brain_vsc_comp then
+		ComponentSetValue2(brain_vsc_comp,"value_int",GameGetFrameNum())
+		ComponentSetValue2(brain_vsc_comp,"value_float",tier)
+	end
 	local brain_vsc_comp_location = EntityGetComponentIncludingDisabled(brain_id,"VariableStorageComponent")[2]
 	ComponentSetValue2(brain_vsc_comp_location,"value_string",BiomeMapGetName(x,y))
 
@@ -470,20 +479,22 @@ function CreateMiniboss(entity_id, x, y, tier, budget, health_mult)
 	end
 
 	local dmgcomp = EntityGetFirstComponentIncludingDisabled(entity_id, "DamageModelComponent")
-	local hp = ComponentGetValue2(dmgcomp, "max_hp")
-	ComponentSetValue2(dmgcomp, "max_hp", hp * health_mult)
-	ComponentSetValue2(dmgcomp, "hp", hp * health_mult)
-	local blood_type = ComponentGetValue2(dmgcomp,"blood_material")
-	local blood_tags = CellFactory_GetTags(CellFactory_GetType(blood_type)) or {}
-	for _,tag in ipairs(blood_tags) do
-		if tag == "[solid]" or tag == "[sand_ground]" then
-			--Make Ira not bleed their own blood if they're going to be imprisoned by it
-			ComponentSetValue2(dmgcomp,"blood_multiplier",0)
-			break
+	if dmgcomp then
+		local hp = ComponentGetValue2(dmgcomp, "max_hp")
+		ComponentSetValue2(dmgcomp, "max_hp", hp * health_mult)
+		ComponentSetValue2(dmgcomp, "hp", hp * health_mult)
+		local blood_type = ComponentGetValue2(dmgcomp,"blood_material")
+		local blood_tags = CellFactory_GetTags(CellFactory_GetType(blood_type)) or {}
+		for _,tag in ipairs(blood_tags) do
+			if tag == "[solid]" or tag == "[sand_ground]" then
+				--Make Ira not bleed their own blood if they're going to be imprisoned by it
+				ComponentSetValue2(dmgcomp,"blood_multiplier",0)
+				break
+			end
 		end
+		ComponentObjectSetValue2(dmgcomp,"damage_multipliers","physics_hit", math.max(0,1-((tier-1) * 0.4))) --Gain 40% physics damage reduction per tier, maxing out at physics damage immunity at tier 3
+		if tier >= 3 then ComponentSetValue2(dmgcomp,"fire_probability_of_ignition",0) end
 	end
-	ComponentObjectSetValue2(dmgcomp,"damage_multipliers","physics_hit", math.max(0,1-((tier-1) * 0.4))) --Gain 40% physics damage reduction per tier, maxing out at physics damage immunity at tier 3
-	if tier >= 3 then ComponentSetValue2(dmgcomp,"fire_probability_of_ignition",0) end
 
 	local total_possessions = GlobalsGetValue("felcesis_total_possessions","0")
 	GlobalsSetValue("felcesis_total_possessions",tostring(total_possessions+1))
@@ -537,13 +548,13 @@ function FindPossessionTarget(biomes_visited)
 		end
 
 		--Filter by suspicious components
-		local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(target,"AnimalAIComponent") or 0
-		local proj_comp = EntityGetFirstComponentIncludingDisabled(target,"ProjectileComponent") or 0
-		local lifetime_comp = EntityGetFirstComponentIncludingDisabled(target,"LifetimeComponent") or 0
-		local damagemodel_comp = EntityGetFirstComponentIncludingDisabled(target,"DamageModelComponent") or 0
-		local camerabound_comp = EntityGetFirstComponentIncludingDisabled(target,"CameraBoundComponent") or 0
-		local physics_body_comp = EntityGetFirstComponentIncludingDisabled(target,"PhysicsImageShapeComponent") or 0
-		if proj_comp > 0 or lifetime_comp > 0 or camerabound_comp == 0 or damagemodel_comp == 0 or ComponentGetIsEnabled(damagemodel_comp) == false then
+		local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(target,"AnimalAIComponent")
+		local proj_comp = EntityGetFirstComponentIncludingDisabled(target,"ProjectileComponent")
+		local lifetime_comp = EntityGetFirstComponentIncludingDisabled(target,"LifetimeComponent")
+		local damagemodel_comp = EntityGetFirstComponentIncludingDisabled(target,"DamageModelComponent")
+		local camerabound_comp = EntityGetFirstComponentIncludingDisabled(target,"CameraBoundComponent")
+		local physics_body_comp = EntityGetFirstComponentIncludingDisabled(target,"PhysicsImageShapeComponent")
+		if proj_comp or lifetime_comp or not camerabound_comp or not damagemodel_comp or ComponentGetIsEnabled(damagemodel_comp) == false then
 			goto skipthistarget
 		end
 
@@ -554,13 +565,13 @@ function FindPossessionTarget(biomes_visited)
 		end
 		
 		--Filter by healer & support-type enemies
-		if animal_ai_comp > 0 and ComponentGetValue2(animal_ai_comp,"tries_to_ranged_attack_friends") == true then
+		if animal_ai_comp and ComponentGetValue2(animal_ai_comp,"tries_to_ranged_attack_friends") == true then
 			goto skipthistarget
 		end
 
 		--Filter by genome
-		local genome_comp = EntityGetFirstComponentIncludingDisabled(target,"GenomeDataComponent") or 0
-		if HerdIdToString(ComponentGetValue2(genome_comp,"herd_id")) == "player" then
+		local genome_comp = EntityGetFirstComponentIncludingDisabled(target,"GenomeDataComponent")
+		if genome_comp and HerdIdToString(ComponentGetValue2(genome_comp,"herd_id")) == "player" then
 			goto skipthistarget
 		end
 
@@ -574,9 +585,9 @@ function FindPossessionTarget(biomes_visited)
 
 		--At this point we've found a viable target
 		--Try to find the highest health target (presumably the strongest) to possess
-		if physics_body_comp > 0 then
+		if physics_body_comp then
 			hp_max = hp_max * 0.25 --Deprioritise physics body entities for possession since they're a bit tricky to work with
-		elseif animal_ai_comp > 0 then
+		elseif animal_ai_comp then
 			local has_ranged_attack = ComponentGetValue2(animal_ai_comp,"attack_ranged_enabled") or false
 			local has_melee_attack = ComponentGetValue2(animal_ai_comp,"attack_melee_enabled") or false
 			if has_melee_attack == false and has_melee_attack == false then

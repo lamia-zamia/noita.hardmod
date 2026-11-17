@@ -45,15 +45,17 @@ local function split_string( inputstr, sep )
 	return t
 end
 
-local function get_actions_lua_data( action_id )
-    if not actions then dofile_once("data/scripts/gun/gun_actions.lua") end
-	-- local actions = dofile_once("mods/noita.hardmod/lib/gun_actions_indexed.lua")
-    for i,action in ipairs( actions ) do
-        if action.id == action_id then
-            return action
-        end
-    end
-    return nil
+local action_id_table = nil
+local function get_actions_lua_data(action_id)
+	if not actions then dofile_once("data/scripts/gun/gun_actions.lua") end
+	if not action_id_table then
+		action_id_table = {}
+		for _,action in pairs(actions) do
+			action_id_table[action.id] = action
+		end
+	end
+
+	return action_id_table[action_id]
 end
 
 local function does_player_have_spell( action_id )
@@ -96,7 +98,7 @@ local function generate_spells( wand_entity, level )
 			end
 		end
 		if #candidates > 0 then
-			wand:AddSpells( random_from_array( candidates ) )
+			wand:AddSpells(candidates[Random(1, #candidates)])
 		end
 	end
 

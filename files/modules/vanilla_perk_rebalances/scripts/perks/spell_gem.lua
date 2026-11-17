@@ -44,8 +44,10 @@ local function trigger_wand_refresh( wand, mtp, min_reload_time )
 		local acomp = EntityGetFirstComponentIncludingDisabled( wand.entity_id, "AbilityComponent" )
 		local reload_time = math.max( wand.rechargeTime, min_reload_time or 0 ) * mtp
 
+		if not acomp then return end
+
 		-- only reload if the wand isn't already reloading
-		local next_frame_usable = ComponentGetValue2( acomp, "mReloadNextFrameUsable" )
+		local next_frame_usable = ComponentGetValue2(acomp, "mReloadNextFrameUsable")
 		if GameGetFrameNum() >= next_frame_usable then
 			ComponentSetValue2( acomp, "mReloadNextFrameUsable", GameGetFrameNum() + reload_time )
 			ComponentSetValue2( acomp, "mReloadFramesLeft", reload_time )
@@ -56,9 +58,7 @@ end
 
 function item_pickup( entity_item, entity_who_picked, item_name )
 	local children = EntityGetAllChildren( entity_who_picked )
-	for k=1,#children do
-		child = children[k]
-
+	for _,child in pairs(children or {}) do
 		local all_card_actions = {}
 
 		-- insert all spells slotted in wands
