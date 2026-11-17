@@ -1,5 +1,6 @@
 local utils = dofile_once( "mods/noita.hardmod/lib/utilities.lua" ) ---@type utils
 
+---@class sv_utils
 local sv_utils = {}
 
 local function split_string(inputstr, sep)
@@ -16,6 +17,7 @@ function sv_utils.MultiplyMoveSpeed( entity_id, effect_name, mtp_x, mtp_y )
 
 	if utils.GetInternalString( entity_id, effect_name .. "_move_speed_mtp" ) == nil then
 	    local plat_comp = EntityGetFirstComponentIncludingDisabled( entity_id, "CharacterPlatformingComponent" )
+		if not plat_comp then return end
 
 	    ComponentSetValue2( plat_comp, "velocity_min_x", ComponentGetValue2( plat_comp, "velocity_min_x" ) * mtp_x )
 	    ComponentSetValue2( plat_comp, "velocity_max_x", ComponentGetValue2( plat_comp, "velocity_max_x" ) * mtp_x )
@@ -41,14 +43,17 @@ function sv_utils.ResetMoveSpeed( entity_id, effect_name )
     local mtp_y = 1.0 / parsed[2]
 
     local plat_comp = EntityGetFirstComponentIncludingDisabled( entity_id, "CharacterPlatformingComponent" )
-    ComponentSetValue2( plat_comp, "velocity_min_x", ComponentGetValue2( plat_comp, "velocity_min_x" ) * mtp_x )
-    ComponentSetValue2( plat_comp, "velocity_max_x", ComponentGetValue2( plat_comp, "velocity_max_x" ) * mtp_x )
-    ComponentSetValue2( plat_comp, "jump_velocity_y", ComponentGetValue2( plat_comp, "jump_velocity_y" ) * mtp_y )
-    ComponentSetValue2( plat_comp, "jump_velocity_x", ComponentGetValue2( plat_comp, "jump_velocity_x" ) * mtp_x )
-    ComponentSetValue2( plat_comp, "fly_speed_max_up", ComponentGetValue2( plat_comp, "fly_speed_max_up" ) * mtp_y )
-    ComponentSetValue2( plat_comp, "fly_speed_max_down", ComponentGetValue2( plat_comp, "fly_speed_max_down" ) * mtp_y )
-    ComponentSetValue2( plat_comp, "fly_velocity_x", ComponentGetValue2( plat_comp, "fly_velocity_x" ) * mtp_x )
+	if plat_comp then
+		ComponentSetValue2( plat_comp, "velocity_min_x", ComponentGetValue2( plat_comp, "velocity_min_x" ) * mtp_x )
+		ComponentSetValue2( plat_comp, "velocity_max_x", ComponentGetValue2( plat_comp, "velocity_max_x" ) * mtp_x )
+		ComponentSetValue2( plat_comp, "jump_velocity_y", ComponentGetValue2( plat_comp, "jump_velocity_y" ) * mtp_y )
+		ComponentSetValue2( plat_comp, "jump_velocity_x", ComponentGetValue2( plat_comp, "jump_velocity_x" ) * mtp_x )
+		ComponentSetValue2( plat_comp, "fly_speed_max_up", ComponentGetValue2( plat_comp, "fly_speed_max_up" ) * mtp_y )
+		ComponentSetValue2( plat_comp, "fly_speed_max_down", ComponentGetValue2( plat_comp, "fly_speed_max_down" ) * mtp_y )
+		ComponentSetValue2( plat_comp, "fly_velocity_x", ComponentGetValue2( plat_comp, "fly_velocity_x" ) * mtp_x )
+	end
 
+	---@diagnostic disable-next-line: undefined-global
     local vsc = get_variable_storage_component( entity_id, effect_name .. "_move_speed_mtp" )
     EntityRemoveComponent( entity_id, vsc )
 end

@@ -113,7 +113,7 @@ hooks.new_spells = {
 			elseif #hand > 0 then data = hand[1]
 			end
 
-			if data.id == "HARDMOD_SPELL_INDULGENCE" then return end
+			if not data or data.id == "HARDMOD_SPELL_INDULGENCE" then return end
 
 			local rec = check_recursion(data, recursion_level)
 			if not data or rec < 0 or data.uses_remaining > 0 then
@@ -158,7 +158,7 @@ hooks.new_spells = {
 			end
 
 			ComponentSetValue2(wcomp, "money", money - cast_price)
-			
+
 			data.action(rec)
 			mana = mana - data.mana
 
@@ -313,35 +313,32 @@ hooks.spell_patches = {
 		spawn_level = "5,6,10",
 		spawn_probability = "0.1,0.1,1",
 		mana = 80,
-		action = function()
+		action = function(rec)
 			c.fire_rate_wait = c.fire_rate_wait + 15
 			if reflecting then return end
 
-			local owner = GetUpdatedEntityID()
-			if EntityHasTag( owner ) then return end
+			local player = GetUpdatedEntityID()
+			if not EntityHasTag(player, "player_unit") then return end
 
-			local children = EntityGetAllChildren( owner )
-			for k=1,#children do
-				child = children[k]
-			    if EntityGetName( child ) == "inventory_full" then
-			        local inventory_items = EntityGetAllChildren(child)
-			        if( inventory_items ~= nil ) then
-			            for z=1, #inventory_items do
-			            	local item = inventory_items[z]
+			local inventory
+			for _,child in pairs(EntityGetAllChildren(player) or {}) do
+				if EntityGetName(child) == "inventory_full" then
+					inventory = EntityGetAllChildren(child)
+					break
+				end
+			end
+			if not inventory then return end
 
-			            	local ia_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemActionComponent" )
-			            	if ia_comp then
-			            		local action_id = ComponentGetValue2( ia_comp, "action_id" )
-			            		local data = get_spell_data( action_id )
-								local rec = check_recursion( data, recursion_level )
-			            		if data then
-			            			run_greek( data, rec )
-			            			break
-								end
-			            	end
-			            end
-			        end
-			    end
+			for _,item in pairs(inventory) do
+				local ia_comp = EntityGetFirstComponentIncludingDisabled(item, "ItemActionComponent")
+				if ia_comp then
+					local action_id = ComponentGetValue2(ia_comp, "action_id")
+					local data = get_spell_data(action_id)
+					if data then
+						run_greek(data, rec, true, true)
+						break
+					end
+				end
 			end
         end,
     },
@@ -352,12 +349,12 @@ hooks.spell_patches = {
 	["GRENADE_TRIGGER"] = { max_uses = 30 },
 	["GRENADE_ANTI"] = { max_uses = 30 },
 	["ROCKET_TIER_2"] = { max_uses = 10 },
-	["ROCKET_TIER_3"] = { max_uses = 10 },
+	["ROCKET_TIER_3"] = { max_uses = -1 },
 
-	["FISH"] = { never_unlimited = true, max_uses = 10 },
-	["EXPLODING_DEER"] = { never_unlimited = true, max_uses = 5 },
-	["EXPLODING_DUCKS"] = { never_unlimited = true, max_uses = 10, mana = 120 },
-	["FREEZING_GAZE"] = { max_uses = 10, never_unlimited = true },
+	["FISH"] = { max_uses = 10 },
+	["EXPLODING_DEER"] = { max_uses = 5 },
+	["EXPLODING_DUCKS"] = { max_uses = 10, mana = 120 },
+	["FREEZING_GAZE"] = { max_uses = 10 },
 
 	["FIREBALL_RAY_ENEMY"] = { max_uses = 10 },
 	["LIGHTNING_RAY_ENEMY"] = { max_uses = 10 },
@@ -371,7 +368,6 @@ hooks.spell_patches = {
 	["FRIEND_FLY"] = { max_uses = 16 },
 	
 	["THUNDERBALL"] = { max_uses = 10 },
-	["ICEBALL"] = { never_unlimited = true },
 	["DAMAGE_FOREVER"] = { max_uses = -1 },
 	["ALL_DISCS"] = { max_uses = 10, never_unlimited = true },
 	["ALL_ACID"] = { max_uses = 10, never_unlimited = true },
@@ -384,12 +380,8 @@ hooks.spell_patches = {
 }
 
 local never_unlimited = {
-	"BLACK_HOLE_BIG", "WHITE_HOLE_BIG", "FREEZING_GAZE", "BOMB_HOLY",
-	"PROPANE_TANK", "CRUMBLING_EARTH", "SUMMON_ROCK", "NUKE", "NUKE_GIGA",
-	"DESTRUCTION", "MASS_POLYMORPH", "STATIC_TO_SAND", "SHIELD_FIELD", "BERSERK_FIELD",
-	"PROJECTILE_TRANSMUTATION_FIELD", "PROJECTILE_THUNDER_FIELD", "VACUUM_LIQUID",
-	"TENTACLE_RAY_ENEMY", "LIGHTNING_RAY_ENEMY", "FIREBALL_RAY_ENEMY",
-	"ORBIT_NUKES", "CRUMBLING_EARTH_PROJECTILE", "X_RAY",
+	"BLACK_HOLE_BIG", "WHITE_HOLE_BIG", "BOMB_HOLY", "CRUMBLING_EARTH", "NUKE", "NUKE_GIGA",
+	"DESTRUCTION", "MASS_POLYMORPH", "STATIC_TO_SAND", "ORBIT_NUKES", "CRUMBLING_EARTH_PROJECTILE",
 	"ALL_NUKES", "ALL_ROCKETS", "ALL_DEATHCROSSES", "ALL_BLACKHOLES", "ALL_SPELLS",
 	"METEOR_RAIN", "WORM_RAIN",
 }

@@ -506,6 +506,7 @@ function hooks.world_init()
 
 	--Spells: Need to do these slightly more manually since the base system is kinda convoluted, I don't feel like deciphering it, I'll just make my own.
 	dofile_once("data/scripts/gun/gun.lua")
+	---@diagnostic disable-next-line: undefined-global
 	for _,action in ipairs(actions or {}) do
 		local id = action.id:lower()
 		if GameHasFlagRun("new_action_" .. id) then

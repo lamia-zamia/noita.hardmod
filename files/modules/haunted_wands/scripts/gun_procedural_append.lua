@@ -45,15 +45,17 @@ local function split_string( inputstr, sep )
 	return t
 end
 
-local function get_actions_lua_data( action_id )
-    if not actions then dofile_once("data/scripts/gun/gun_actions.lua") end
-	-- local actions = dofile_once("mods/noita.hardmod/lib/gun_actions_indexed.lua")
-    for i,action in ipairs( actions ) do
-        if action.id == action_id then
-            return action
-        end
-    end
-    return nil
+local action_id_table = nil
+local function get_actions_lua_data(action_id)
+	if not actions then dofile_once("data/scripts/gun/gun_actions.lua") end
+	if not action_id_table then
+		action_id_table = {}
+		for _,action in pairs(actions) do
+			action_id_table[action.id] = action
+		end
+	end
+
+	return action_id_table[action_id]
 end
 
 local function does_player_have_spell( action_id )
@@ -84,6 +86,20 @@ end
 
 local function generate_spells( wand, level )
 	wand:RemoveSpells()
+
+	if false then
+		-- add a random desirable spell
+		local candidates = {}
+		for _,action_id in ipairs( desirable_spells ) do
+			if not does_player_have_spell( action_id )
+			and is_spell_appropriate_tier( action_id, level ) then
+				table.insert( candidates, action_id )
+			end
+		end
+		if #candidates > 0 then
+			wand:AddSpells(candidates[Random(1, #candidates)])
+		end
+	end
 	if level > 6 and level < 10 then level = 6 end
 
 	-- fill up the rest of the wand with random spells

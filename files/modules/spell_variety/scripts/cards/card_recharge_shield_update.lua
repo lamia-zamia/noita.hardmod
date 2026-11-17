@@ -44,7 +44,7 @@ if ability_comp then
 
 		-- ...and refill the shield
 		local shield_comps = EntityGetComponent( GetUpdatedEntityID(), "EnergyShieldComponent" )
-		for i,shield_comp in ipairs( shield_comps ) do
+		for i,shield_comp in ipairs(shield_comps or {}) do
 			ComponentSetValue2( shield_comp, "energy", ComponentGetValue2( shield_comp, "max_energy" ) )
 		end
 
