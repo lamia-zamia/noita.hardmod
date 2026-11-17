@@ -1069,6 +1069,20 @@ enemy_perks = {
 	-- 	end
 	-- },
 	{
+		id = "UNDETECTABLE",
+		name = "$hardmod_eperk_undetectable_name",
+		description = "$hardmod_eperk_undetectable_desc",
+		weight = 5,
+		priority = 10,
+		max = 1,
+		condition = function(self, data)
+			if data.level < 3 then return end
+		end,
+		func = function(self, entity_id, data)
+			EntityRemoveTag(entity_id, "homing_target")
+		end
+	},
+	{
 		id = "ALL_SEEING",
 		name = "$hardmod_eperk_all_seeing_name",
 		description = "$hardmod_eperk_all_seeing_desc",
