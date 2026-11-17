@@ -781,3 +781,6 @@ remove old files
 improved perk selection process (weights will be whack for a little while)
 finished setting up the unique slots
 imported itemlib
+add Untraceable perk
+add Anti-Teleportation Field eperk
+adapt new eperk attributes
