@@ -13,3 +13,8 @@ EntityAddComponent2( entity_id, "LuaComponent", {
 	script_damage_received = "mods/noita.hardmod/files/modules/vanilla_bosses/scripts/perks/gold_shield_on_damage.lua",
 	execute_every_n_frame = -1,
 })
+
+utils.SetInternalInt( entity_id, "boss_cage_aura_frames_before_max", 3600 )
+utils.SetInternalInt( entity_id, "boss_cage_aura_inner_radius_init", 375 )
+utils.SetInternalInt( entity_id, "boss_cage_aura_inner_radius_shrink", 250 )
+EntityAddChild( entity_id, EntityLoad( "mods/noita.hardmod/files/modules/vanilla_bosses/entity/boss_cage_aura_dormant.xml", x, y ) )

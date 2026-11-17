@@ -40,7 +40,7 @@ function damage_received( damage, desc, entity_who_caused, is_fatal )
 	GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/shield/activate", x, y )
 
 	-- briefly give the owner Protection From All
-	local duration = utils.GetInternalInt( shield, "hardmod_gold_shield_duration" ) or 75
+	local duration = utils.GetInternalInt( shield, "hardmod_gold_shield_duration" ) or 60
 	LoadGameEffectEntityTo( owner,
 		"mods/noita.hardmod/files/modules/vanilla_bosses/entity/status_effects/effect_protection_all_"..duration.."f.xml"
 	)
