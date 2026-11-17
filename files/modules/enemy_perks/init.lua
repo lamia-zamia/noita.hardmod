@@ -35,6 +35,7 @@ local icon_size = 16 --the xy size of the perk icons
 --utils.modifile("data/biome_impl/spliced/boss_arena.xml", [[data/biome_impl/spliced/boss_arena/8.plz]], [[]])
 
 hooks.player_spawned = function()
+	SetRandomSeed(GameGetRealWorldTimeSinceStarted(), 5)
 	for _,perk in ipairs(enemy_perks) do
 		AddFlagPersistent("perk_picked_enemyperk_"..perk.id:lower())
 		if Random() <= .2 then GameAddFlagRun("new_perk_picked_enemyperk_"..perk.id:lower()) end
@@ -44,7 +45,7 @@ hooks.player_spawned = function()
 	for _,perk in ipairs(perk_list) do
 		AddFlagPersistent("perk_picked_"..perk.id:lower())
 	end
-end --and nil --comment `and nil` to run above func
+end and nil --comment `and nil` to run above func
 
 local function update_perk_unlock_states()
 	for _,perk in ipairs(enemy_perks) do

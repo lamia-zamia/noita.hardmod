@@ -917,23 +917,6 @@ enemy_perks = {
 		end
 	},
 	{
-		id = "OMEGA_BLACKHOLE_DEATH",
-		name = "$hardmod_eperk_omega_blackhole_death_name",
-		description = "$hardmod_eperk_omega_blackhole_death_desc",
-		weight = .5,
-		priority = 15,
-		max = 1,
-		min_level = 11,
-		unique_slot = "on_death",
-		biome_conditions = {
-			sky = 2,
-		},
-		condition = function(self, data) return spawn_on_death_blacklist(self, data) and not data.is_boss end,
-		on_death = function(self, entity_id, ddata)
-			EntityLoad("data/entities/projectiles/deck/black_hole_giga.xml", ddata.x, ddata.y)
-		end
-	},
-	{
 		id = "WHITEHOLE_DEATH",
 		name = "$hardmod_eperk_whitehole_death_name",
 		description = "$hardmod_eperk_whitehole_death_desc",
@@ -949,6 +932,23 @@ enemy_perks = {
 		condition = function(self, data) return spawn_on_death_blacklist(self, data) and not data.is_boss end,
 		on_death = function(self, entity_id, ddata)
 			EntityLoad("data/entities/projectiles/deck/white_hole_big.xml", ddata.x, ddata.y)
+		end
+	},
+	{
+		id = "OMEGA_BLACKHOLE_DEATH",
+		name = "$hardmod_eperk_omega_blackhole_death_name",
+		description = "$hardmod_eperk_omega_blackhole_death_desc",
+		weight = .5,
+		priority = 15,
+		max = 1,
+		min_level = 11,
+		unique_slot = "on_death",
+		biome_conditions = {
+			sky = 2,
+		},
+		condition = function(self, data) return spawn_on_death_blacklist(self, data) and not data.is_boss end,
+		on_death = function(self, entity_id, ddata)
+			EntityLoad("data/entities/projectiles/deck/black_hole_giga.xml", ddata.x, ddata.y)
 		end
 	},
 	{
