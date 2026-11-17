@@ -373,9 +373,6 @@ hooks.spell_patches = {
 	["ALL_ACID"] = { max_uses = 10, never_unlimited = true },
 
 	["DIVIDE_10"] = { max_uses = -1 },
-	["ADD_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
-	["ADD_TIMER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
-	["ADD_DEATH_TRIGGER"] = { mana = 88, spawn_level = "10", spawn_probability = "0" },
 	["RESET"] = { mana = 30, spawn_level = "10", spawn_probability = "0" },
 }
 
