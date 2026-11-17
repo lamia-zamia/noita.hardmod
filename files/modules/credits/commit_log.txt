@@ -775,3 +775,5 @@ more warnings fixed
 TODO
 reduce mana cost of arcs
 fix wand experimenter circumvention on the toolbox
+further buff Squiddy
+remove old files
