@@ -157,7 +157,7 @@ hooks.spell_patches = {
 		end,
 	},
 	["BUCKSHOT"] = {
-		action 		= function()
+		action = function()
 			add_projectile("data/entities/projectiles/deck/buckshot_player.xml")
 			add_projectile("data/entities/projectiles/deck/buckshot_player.xml")
 			add_projectile("data/entities/projectiles/deck/buckshot_player.xml")
