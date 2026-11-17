@@ -24,5 +24,5 @@ if 0 == (#EntityGetInRadiusWithTag(x, y, 60, "player_unit") + #EntityGetInRadius
 		lifetime = 3
 	})
 
-	GamePlaySound("data/audio/Desktop/event_cues.bank", "event_cues/midas/create", x, y)
+	GamePlaySound("data/audio/Desktop/event_cues.bank", "event_cues/rune/destroy", x, y)
 end

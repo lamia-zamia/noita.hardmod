@@ -18,11 +18,13 @@
 - Armed
   - Enemy spawns with a random wand that shatters on death
   - Wands are from a premade list
+  - 50% of spells are dropped on death?
 - Drain Field
   - Drains mana from your wands in an area
 - Blinding Curser
 - Teleportitis Curser
   - only applies once?
+- Aura that destroys projectiles if its been inside of it for 1 second
 
 
 ## bugs

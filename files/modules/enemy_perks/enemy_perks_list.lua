@@ -86,6 +86,44 @@ end
 
 -- The `data` table provides `target_enemy` (eid), `already_held_perks` (perk_id[]), `player` (eid) and `player_poly_identity` (table)
 
+local ideal_form_perk = {
+	id = "IDEAL_FORM",
+	name = "$hardmod_eperk_ideal_form_name",
+	description = "$hardmod_eperk_ideal_form_desc",
+	weight = 1,
+	priority = -20,
+	condition = function(self, data)
+		return data.is_polymorphed and not EntityHasTag(data.target_enemy, "polymorphed_player")
+	end,
+	func = function(self, entity_id, data)
+		local polymorph_statuses = {
+			["POLYMORPH"] = true,
+			["POLYMORPH_RANDOM"] = true,
+			["POLYMORPH_UNSTABLE"] = true,
+			["POLYMORPH_CESSATION"] = true,
+		}
+		for _,child in ipairs(EntityGetAllChildren(entity_id) or {}) do
+			local child_has_poly_comp
+			for _,game_effect_comp in ipairs(EntityGetComponentIncludingDisabled(child, "GameEffectComponent") or {}) do
+				if polymorph_statuses[ComponentGetValue2(game_effect_comp, "effect")] then
+					ComponentSetValue2(game_effect_comp, "frames", 0)
+					child_has_poly_comp = true
+				end
+			end
+			if child_has_poly_comp then
+				for _,lifetime_comp in ipairs(EntityGetComponent(child, "LifetimeComponent") or {}) do
+					EntityRemoveComponent(child, lifetime_comp)
+				end
+			end
+		end
+	end
+}
+if utils.MatchDateLocal({month = 3, day = 31}) then
+	ideal_form_perk.weight = 2
+	ideal_form_perk.sprite = dir.."perk_sprites/ideal_form_t.png"
+	ideal_form_perk.icon = dir.."perk_icons/ideal_form_t.png"
+end
+
 ---@type enemy_perk[]
 local enemy_perks = {}
 enemy_perks = {
@@ -405,13 +443,13 @@ enemy_perks = {
 		id = "CURSER",
 		name = "$hardmod_eperk_curser_name",
 		description = "$hardmod_eperk_curser_desc",
-		weight = 3,
+		weight = 3000,
 		priority = 7,
 		max = 1,
 		condition = enemy_is_ranged_attack,
 		func = function(self, entity_id, data)
 			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_shot = dir.."scripts/curser_shot.lua",
+				script_shot = dir.."generated/curser_shot.lua",
 				execute_every_n_frame = -1,
 			})
 		end
@@ -559,7 +597,8 @@ enemy_perks = {
 		},
 		condition = function(self, data)
 			increment_weight_with_level(self, data)
-			return GameGetGameEffectCount(data.target_enemy, "PROTECTION_POLYMORPH") == 0 and not (EntityHasTag(data.target_enemy, "polymorphable_NOT") or data.boss)
+			return GameGetGameEffectCount(data.target_enemy, "PROTECTION_POLYMORPH") == 0
+				and not (EntityHasTag(data.target_enemy, "polymorphable_NOT") or data.is_polymorphed or data.boss)
 		end,
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_POLYMORPH", false)
@@ -569,7 +608,7 @@ enemy_perks = {
 		id = "MORE_BLOOD",
 		name = "$perk_global_gore",
 		description = "$hardmod_eperk_more_blood_desc",
-		weight = 4,
+		weight = 3,
 		priority = 4,
 		max = 3,
 		biome_conditions = {
@@ -581,7 +620,7 @@ enemy_perks = {
 		end,
 		func = function(self, entity_id, data)
 			if ComponentGetValue2(data.dmc, "blood_material") == "blood_fading" then ComponentSetValue2(data.dmc, "blood_material", "blood") end
-			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 1.5)
+			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 2)
 		end
 	},
 	{
@@ -649,6 +688,28 @@ enemy_perks = {
 			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 1.5)
 
 			data.blood_perk = "poison" --do this for condition func so multiple blood perks aren't rolled
+		end
+	},
+	{
+		id = "TELEPORT_BLOOD",
+		name = "$hardmod_eperk_teleport_blood_name",
+		description = "$hardmod_eperk_teleport_blood_desc",
+		weight = 3,
+		max = 1,
+		condition = function(self, data) return data.level > 2 end,
+		func = function(self, entity_id, data)
+			ComponentSetValue2(data.dmc, "blood_material", "magic_liquid_teleportation")
+			ComponentSetValue2(data.dmc, "blood_spray_material", "magic_liquid_teleportation")
+
+			local eid = EntityCreateNew("random_teleports")
+			EntityAddComponent2(eid, "GameEffectComponent", {
+				effect = "TELEPORTATION",
+				frames = -1,
+				teleportation_probability = 50,
+				teleportation_delay_min_frames = 600,
+				teleportation_radius_max = 324,
+			})
+			EntityAddChild(entity_id, eid)
 		end
 	},
 	{
@@ -815,7 +876,7 @@ enemy_perks = {
 		},
 		condition = function(self, data) return spawn_on_death_blacklist(self, data) and data.level > 6 and not data.is_boss end,
 		on_death = function(self, entity_id, ddata)
-			EntityLoad("data/entities/projectiles/deck/black_hole_big.xml", ddata.x, ddata.y)
+			EntityLoad("data/entities/projectiles/deck/white_hole_big.xml", ddata.x, ddata.y)
 		end
 	},
 	{
@@ -919,7 +980,7 @@ enemy_perks = {
 		id = "UNSTABLE_TELEPORTITIS",
 		name = "$hardmod_eperk_unstable_teleportitis_name",
 		description = "$hardmod_eperk_unstable_teleportitis_desc",
-		weight = 2,
+		weight = 200,
 		max = 1,
 		condition = function(self, data) return data.level > 2 end,
 		func = function(self, entity_id, data)
@@ -928,44 +989,13 @@ enemy_perks = {
 				effect = "TELEPORTATION",
 				frames = -1,
 				teleportation_probability = 50,
-				teleportation_delay_min_frames = 600,
-				teleportation_radius_max = 324,
+				teleportation_delay_min_frames = 120,
+				teleportation_radius_max = 100,
 			})
 			EntityAddChild(entity_id, eid)
 		end
 	},
-	{
-		id = "IDEAL_FORM",
-		name = "$hardmod_eperk_ideal_form_name",
-		description = "$hardmod_eperk_ideal_form_name",
-		weight = 1,
-		priority = -20,
-		condition = function(self, data)
-			return data.is_polymorphed and not EntityHasTag(data.target_enemy, "polymorphed_player")
-		end,
-		func = function(self, entity_id, data)
-			local polymorph_statuses = {
-				["POLYMORPH"] = true,
-				["POLYMORPH_RANDOM"] = true,
-				["POLYMORPH_UNSTABLE"] = true,
-				["POLYMORPH_CESSATION"] = true,
-			}
-			for _,child in ipairs(EntityGetAllChildren(entity_id) or {}) do
-				local child_has_poly_comp
-				for _,game_effect_comp in ipairs(EntityGetComponentIncludingDisabled(child, "GameEffectComponent") or {}) do
-					if polymorph_statuses[ComponentGetValue2(game_effect_comp, "effect")] then
-						ComponentSetValue2(game_effect_comp, "frames", 0)
-						child_has_poly_comp = true
-					end
-				end
-				if child_has_poly_comp then
-					for _,lifetime_comp in ipairs(EntityGetComponent(child, "LifetimeComponent") or {}) do
-						EntityRemoveComponent(child, lifetime_comp)
-					end
-				end
-			end
-		end
-	},
+	ideal_form_perk,
 	--{ --I'll implement this later, or someone can do it for me 🙏
 	--	not_progress = true,
 	--	id = "VENOMOUS_CURSER",

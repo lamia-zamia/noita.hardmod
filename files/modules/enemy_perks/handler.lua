@@ -18,6 +18,7 @@ end
 if entity_id == root then
 	if not ComponentGetValue2(self, "limit_all_callbacks") then return end
 	local x,y = EntityGetTransform(entity_id)
+	if x == y == 0 then print(("0 0 eperk: [%s]: %s"):format(root, entity_id)) end
 	for _,potential_orphan in ipairs(EntityGetInRadiusWithTag(x, y, 50, "perk_entity")) do
 		if potential_orphan == EntityGetRootEntity(potential_orphan) then
 			EntityKill(potential_orphan) --No orphan shall be spared.

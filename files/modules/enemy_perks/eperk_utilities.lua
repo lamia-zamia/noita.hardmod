@@ -122,6 +122,18 @@ function utilities.give_enemy_perks(entity_id, perks_to_give, data)
 		end
 	end
 
+	local a,b,c,d,e,f,g,h = GameGetDateAndTimeLocal()
+	data.time_local = {
+		year = a,
+		month = b,
+		day = c,
+		hour = d,
+		minute = e,
+		second = f,
+		jussi = g,
+		mammi = h,
+	}
+
 	data.already_held_perks = already_held_perks
 	data.how_many_of_each_perk = how_many_of_each_perk
 
