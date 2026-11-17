@@ -14,7 +14,7 @@ for _,nearby_enemy in ipairs( nearby_enemies ) do
 	end
 end
 if not candidates or #candidates == 0 then return end
-local linked_enemy = random_from_array( candidates )
+local linked_enemy = candidates[Random(1, #candidates)]
 
 -- give the enemy's new soul linked ally the perk, too - but only visually
 -- eperk_utils.give_enemy_perks(linked_enemy, "SOUL_LINKED", data)
@@ -24,8 +24,8 @@ local linked_enemy = random_from_array( candidates )
 
 -- give both enemies the entity id of its ally, so the script can check for their hp
 
-utils.SetInternalInt( linked_enemy, "hardmod_soul_linked_ally", owner )
-utils.SetInternalInt( owner, "hardmod_soul_linked_ally", linked_enemy)
+utils.SetInternalInt(linked_enemy, "hardmod_soul_linked_ally", tonumber(owner) or 0)
+utils.SetInternalInt(owner, "hardmod_soul_linked_ally", linked_enemy)
 
 -- give both enemies a script that tries to prevent their death
 EntityAddComponent2( owner, "LuaComponent", {

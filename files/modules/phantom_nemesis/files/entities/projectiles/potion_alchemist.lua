@@ -1,7 +1,4 @@
- dofile_once("data/scripts/lib/utilities.lua")
-
-potions = 
-{
+potions = {
 	{
 		material="lava",
 		cost=300,
@@ -44,12 +41,11 @@ potions =
 	},
 }
 
-
-function init( entity_id )
-	local x,y = EntityGetTransform( entity_id )
-	SetRandomSeed( x + GameGetFrameNum(), y )
+function init(entity_id)
+	local x,y = EntityGetTransform(entity_id)
+	SetRandomSeed(x + GameGetFrameNum(), y)
 	-- so that all the potions will be the same in every position with the same seed
-	local potion = random_from_array( potions )
+	local potion = potions[Random(1, #potions)]
 
-	AddMaterialInventoryMaterial( entity_id, potion.material, 1000 )
+	AddMaterialInventoryMaterial(entity_id, potion.material, 1000)
 end

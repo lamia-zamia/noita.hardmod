@@ -94,10 +94,10 @@ function physics_body_modified( is_destroyed )
 	
 	on_open( entity_item )
 
-	-- TODO: deprecated
-	edit_component( entity_item, "ItemComponent", function(comp,vars)
+	local comp = EntityGetFirstComponent(entity_item, "ItemComponent")
+	if comp then
 		EntitySetComponentIsEnabled( entity_item, comp, false )
-	end)
-	
+	end
+
 	EntityKill( entity_item )
 end

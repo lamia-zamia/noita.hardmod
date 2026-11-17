@@ -20,10 +20,11 @@ if ( variablestorages ~= nil ) then
 	end
 end
 
--- TODO: deprecated
-edit_component( entity_id, "VelocityComponent", function(comp,vars)
-	vel_x,vel_y = ComponentGetValueVector2( comp, "mVelocity")
-end)
+local vcomp = EntityGetFirstComponent(entity_id, "VelocityComponent")
+if vcomp then
+	-- TODO: deprecated
+	vel_x,vel_y = ComponentGetValueVector2(vcomp, "mVelocity")
+end
 
 for k=1,amount do
 
