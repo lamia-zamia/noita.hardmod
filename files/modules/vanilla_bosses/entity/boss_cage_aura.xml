@@ -65,7 +65,7 @@
 		y_vel_min="-1"
 		y_vel_max="1"
 		is_emitting="1" 
-		velocity_always_away_from_center="220">
+		velocity_always_away_from_center="110">
 	</ParticleEmitterComponent>
 	
 	<ParticleEmitterComponent 
