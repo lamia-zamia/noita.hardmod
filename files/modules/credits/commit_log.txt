@@ -764,3 +764,4 @@ buff Blink (who'd skip biomes anyways)
 buff Squiddy
 added on_hit callback generator and loads of other bs too
 fixed weights
+fixed some broken stuff
