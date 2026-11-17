@@ -772,3 +772,6 @@ fixed some broken stuff
 some spell rebalances
 fix warnings
 more warnings fixed
+TODO
+reduce mana cost of arcs
+fix wand experimenter circumvention on the toolbox
