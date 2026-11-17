@@ -129,6 +129,7 @@ local splashes = {
 	"claude, make me a good noita difficulty mod",
 	"This comment is awaiting analysis by our automated content check system. It will be temporarily hidden until we verify that it does not contain harmful content (e.g. links to websites that attempt to steal information).",
 	"filler splash to bloat the list",
+	"Working hard at hardly working!",
 }
 
 --local seed = second*minute*hour/day*year

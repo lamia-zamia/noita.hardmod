@@ -44,7 +44,7 @@ hooks.player_spawned = function()
 	for _,perk in ipairs(perk_list) do
 		AddFlagPersistent("perk_picked_"..perk.id:lower())
 	end
-end and nil --comment `and nil` to run above func
+end --and nil --comment `and nil` to run above func
 
 local function update_perk_unlock_states()
 	for _,perk in ipairs(enemy_perks) do
@@ -110,7 +110,7 @@ local function apply_enemy_perks()
 
 		local level = (is_boss and 5 or biome_data.level) --if is_boss, override biome level
 			+ (tonumber(SessionNumbersGetValue("NEW_GAME_PLUS_COUNT")) or 0)*2 -- + NG+ iteration
-			+ (GetParallelWorldPosition(x, y) * 3) -- +3 per PW
+			+ (math.abs(GetParallelWorldPosition(x, y)) * 3) -- +3 per PW
 		if biome_data.do_recursive_roll ~= false then
 			for _=1, level do
 				local function plus_one_perk()
