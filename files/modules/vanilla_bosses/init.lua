@@ -37,6 +37,24 @@ local edit = {
 			projectile = 0.5,
 		}
 	},
+	["boss_pit/boss_pit"] = {
+		from_base = true,
+		tags = "no_enemy_perks",
+		damagecomp = {
+			max_hp = 120,
+			hp = 120,
+		},
+		damagemult = {
+			projectile = 1,
+			explosion = 1,
+			fire = 1,
+			electric = 1,
+			ice = 1,
+			holy = 1.2,
+			slice = 2.4,
+			toxic = 2.4,
+		}
+	},
 	["boss_gate/gate_monster_a"] = {
 		from_base = true,
 		damagecomp = { hp = 130 },
@@ -62,7 +80,6 @@ local edit = {
 }
 
 for enemy,data in pairs(edit) do
-	print(enemy)
 	for f in nxml.edit_file("data/entities/animals/"..enemy..".xml") do
 		local file = data.from_base and f:first_of("Base") or f
 

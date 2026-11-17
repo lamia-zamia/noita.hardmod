@@ -128,23 +128,6 @@ local amplified_items_lua_comp = nxml.new_element("LuaComponent", {
 	script_enabled_changed = update_amp_item_scr,
 	--script_item_picked_up = update_amp_item_scr,
 })
-local ase_items = {
-	"data/entities/items/pickup/sun/sunseed.xml",
-	"data/entities/items/pickup/sun/sunstone.xml",
-}
-local ase_entity = nxml.parse_file("mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/perks/all_seeing_eye.xml")
-for _,path in ipairs(ase_items) do
-	for xml in nxml.edit_file(path) do
-		for game_effect in xml:each_of("GameEffectComponent") do
-			if game_effect.attr.effect == "REMOVE_FOG_OF_WAR" then
-				xml:remove_child(game_effect)
-				xml:add_child(ase_entity)
-			end
-		end
-
-		xml:add_child(amplified_items_lua_comp)
-	end
-end
 
 local amplified_item_targets = {
 	"data/entities/items/pickup/brimstone.xml",

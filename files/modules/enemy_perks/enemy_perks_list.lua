@@ -86,6 +86,44 @@ end
 
 -- The `data` table provides `target_enemy` (eid), `already_held_perks` (perk_id[]), `player` (eid) and `player_poly_identity` (table)
 
+local ideal_form_perk = {
+	id = "IDEAL_FORM",
+	name = "$hardmod_eperk_ideal_form_name",
+	description = "$hardmod_eperk_ideal_form_desc",
+	weight = 1,
+	priority = -20,
+	condition = function(self, data)
+		return data.is_polymorphed and not EntityHasTag(data.target_enemy, "polymorphed_player")
+	end,
+	func = function(self, entity_id, data)
+		local polymorph_statuses = {
+			["POLYMORPH"] = true,
+			["POLYMORPH_RANDOM"] = true,
+			["POLYMORPH_UNSTABLE"] = true,
+			["POLYMORPH_CESSATION"] = true,
+		}
+		for _,child in ipairs(EntityGetAllChildren(entity_id) or {}) do
+			local child_has_poly_comp
+			for _,game_effect_comp in ipairs(EntityGetComponentIncludingDisabled(child, "GameEffectComponent") or {}) do
+				if polymorph_statuses[ComponentGetValue2(game_effect_comp, "effect")] then
+					ComponentSetValue2(game_effect_comp, "frames", 0)
+					child_has_poly_comp = true
+				end
+			end
+			if child_has_poly_comp then
+				for _,lifetime_comp in ipairs(EntityGetComponent(child, "LifetimeComponent") or {}) do
+					EntityRemoveComponent(child, lifetime_comp)
+				end
+			end
+		end
+	end
+}
+if utils.MatchDateLocal({month = 3, day = 31}) then
+	ideal_form_perk.weight = 2
+	ideal_form_perk.sprite = dir.."perk_sprites/ideal_form_t.png"
+	ideal_form_perk.icon = dir.."perk_icons/ideal_form_t.png"
+end
+
 ---@type enemy_perk[]
 local enemy_perks = {}
 enemy_perks = {
@@ -231,12 +269,7 @@ enemy_perks = {
 			wizards_den = 4,
 		},
 		condition = function(self, data)
-			local entity_id = data.target_enemy
-			if --if quantum cloning enemy gets this perk, they immediately fucking die
-				GameGetGameEffectCount(entity_id, "POLYMORPH")
-				+ GameGetGameEffectCount(entity_id, "POLYMORPH_RANDOM")
-				+ GameGetGameEffectCount(entity_id, "POLYMORPH_UNSTABLE") > 0 then return end
-			return data.level > 3 and not data.is_boss
+			return data.level > 3 and not (data.is_boss or data.is_polymorphed)
 		end,
 		clone_colours = {
 			{255,0,0, "spark_red"}, --Red
@@ -416,7 +449,7 @@ enemy_perks = {
 		condition = enemy_is_ranged_attack,
 		func = function(self, entity_id, data)
 			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_shot = dir.."scripts/curser_shot.lua",
+				script_shot = dir.."generated/curser_shot.lua",
 				execute_every_n_frame = -1,
 			})
 		end
@@ -564,7 +597,8 @@ enemy_perks = {
 		},
 		condition = function(self, data)
 			increment_weight_with_level(self, data)
-			return GameGetGameEffectCount(data.target_enemy, "PROTECTION_POLYMORPH") == 0 and not (EntityHasTag(data.target_enemy, "polymorphable_NOT") or data.boss)
+			return GameGetGameEffectCount(data.target_enemy, "PROTECTION_POLYMORPH") == 0
+				and not (EntityHasTag(data.target_enemy, "polymorphable_NOT") or data.is_polymorphed or data.boss)
 		end,
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_POLYMORPH", false)
@@ -574,7 +608,7 @@ enemy_perks = {
 		id = "MORE_BLOOD",
 		name = "$perk_global_gore",
 		description = "$hardmod_eperk_more_blood_desc",
-		weight = 4,
+		weight = 3,
 		priority = 4,
 		max = 3,
 		biome_conditions = {
@@ -586,7 +620,7 @@ enemy_perks = {
 		end,
 		func = function(self, entity_id, data)
 			if ComponentGetValue2(data.dmc, "blood_material") == "blood_fading" then ComponentSetValue2(data.dmc, "blood_material", "blood") end
-			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 1.5)
+			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 2)
 		end
 	},
 	{
@@ -657,6 +691,28 @@ enemy_perks = {
 		end
 	},
 	{
+		id = "TELEPORT_BLOOD",
+		name = "$hardmod_eperk_teleport_blood_name",
+		description = "$hardmod_eperk_teleport_blood_desc",
+		weight = 3,
+		max = 1,
+		condition = function(self, data) return data.level > 2 end,
+		func = function(self, entity_id, data)
+			ComponentSetValue2(data.dmc, "blood_material", "magic_liquid_teleportation")
+			ComponentSetValue2(data.dmc, "blood_spray_material", "magic_liquid_teleportation")
+
+			local eid = EntityCreateNew("random_teleports")
+			EntityAddComponent2(eid, "GameEffectComponent", {
+				effect = "TELEPORTATION",
+				frames = -1,
+				teleportation_probability = 50,
+				teleportation_delay_min_frames = 600,
+				teleportation_radius_max = 324,
+			})
+			EntityAddChild(entity_id, eid)
+		end
+	},
+	{
 		id = "POLYMORPH_BLOOD",
 		name = "$hardmod_eperk_polymorph_blood_name",
 		description = "$hardmod_eperk_polymorph_blood_desc",
@@ -684,6 +740,21 @@ enemy_perks = {
 
 			data.blood_perk = blood_material --do this for condition func so multiple blood perks aren't rolled
 		end,
+	},
+	{
+		id = "HOLY_REFLECTION",
+		name = "$hardmod_eperk_holy_reflection_name",
+		description = "$hardmod_eperk_holy_reflection_desc",
+		weight = 3,
+		max = 1,
+		condition = function(self, data) return data.level > 7 end,
+		func = function(self, entity_id, data)
+			EntityAddComponent2(entity_id, "LuaComponent", {
+				execute_every_n_frame = -1,
+				script_damage_received = "data/scripts/animals/wraith_glowing_damage.lua",
+				limit_to_every_n_frame = 10,
+			})
+		end
 	},
 	{
 		id = "VIGOUR",
@@ -751,10 +822,14 @@ enemy_perks = {
 		priority = 9,
 		max = 3,
 		condition = function(self, data) return spawn_on_death_blacklist(self, data) and data.level > 2 end,
-		func = function(self, entity_id, data)
-			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_death = dir.."scripts/rats_on_death.lua"
-			})
+		on_death = function(self, entity_id, ddata)
+			for _=1, Random(3,5) do
+				local eid = EntityLoad("data/entities/animals/rat.xml", ddata.x, ddata.y)
+				EntityAddTag(eid,"felcesis_ignore")
+				EntityAddComponent2(eid, "VariableStorageComponent", {_tags="no_gold_drop"})
+				local dmc = EntityGetFirstComponent(eid, "DamageModelComponent")
+				if dmc then ComponentSetValue2(dmc, "ragdoll_fx_forced", "DISINTEGRATED") end
+			end
 		end
 	},
 	{
@@ -766,25 +841,42 @@ enemy_perks = {
 		priority = 9,
 		max = 2,
 		condition = function(self, data) return spawn_on_death_blacklist(self, data) and data.level > 4 end,
-		func = function(self, entity_id, data)
-			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_death = dir.."scripts/skullrats_on_death.lua"
-			})
+		on_death = function(self, entity_id, ddata)
+			for _=1, Random(2,4) do
+				local eid = EntityLoad("data/entities/animals/skullrat.xml", ddata.x, ddata.y)
+				EntityAddTag(eid,"felcesis_ignore")
+			end
 		end
 	},
 	{
 		id = "SKULLFLYS",
 		name = "$hardmod_eperk_skullflys_name",
 		description = "$hardmod_eperk_skullflys_desc",
-		weight = 0.5,
+		weight = .5,
 		biome_conditions = { temple_of_the_art = 1 },
 		priority = 9,
 		max = 3,
 		condition = function(self, data) return spawn_on_death_blacklist(self, data) and (data.level > 7 or data.biome == "temple_of_the_art") end,
-		func = function(self, entity_id, data)
-			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_death = dir.."scripts/add_skullflys.lua"
-			})
+		on_death = function(self, entity_id, ddata)
+			for _=1, Random(1,3) do
+				local eid = EntityLoad("data/entities/animals/skullfly.xml", ddata.x, ddata.y)
+				EntityAddTag(eid,"felcesis_ignore")
+			end
+		end,
+	},
+	{
+		id = "WHITEHOLE_DEATH",
+		name = "$hardmod_eperk_whitehole_death_name",
+		description = "$hardmod_eperk_whitehole_death_desc",
+		weight = .5,
+		priority = 15,
+		max = 1,
+		biome_conditions = {
+			sky = 2,
+		},
+		condition = function(self, data) return spawn_on_death_blacklist(self, data) and data.level > 6 and not data.is_boss end,
+		on_death = function(self, entity_id, ddata)
+			EntityLoad("data/entities/projectiles/deck/white_hole_big.xml", ddata.x, ddata.y)
 		end
 	},
 	{
@@ -798,10 +890,8 @@ enemy_perks = {
 			hell = 2,
 		},
 		condition = function(self, data) return spawn_on_death_blacklist(self, data) and data.level > 6 and not data.is_boss end,
-		func = function(self, entity_id, data)
-			EntityAddComponent2(entity_id, "LuaComponent", {
-				script_death = dir.."scripts/spawn_giga_blackhole.lua"
-			})
+		on_death = function(self, entity_id, ddata)
+			EntityLoad("data/entities/projectiles/deck/black_hole_big.xml", ddata.x, ddata.y)
 		end
 	},
 	{
@@ -899,27 +989,13 @@ enemy_perks = {
 				effect = "TELEPORTATION",
 				frames = -1,
 				teleportation_probability = 50,
-				teleportation_delay_min_frames = 600,
-				teleportation_radius_max = 324,
+				teleportation_delay_min_frames = 120,
+				teleportation_radius_max = 100,
 			})
 			EntityAddChild(entity_id, eid)
 		end
 	},
-	{
-		id = "HOLY_REFLECTION",
-		name = "$hardmod_eperk_holy_reflection_name",
-		description = "$hardmod_eperk_holy_reflection_desc",
-		weight = 3,
-		max = 1,
-		condition = function(self, data) return data.level > 7 end,
-		func = function(self, entity_id, data)
-			EntityAddComponent2(entity_id, "LuaComponent", {
-				execute_every_n_frame = -1,
-				script_damage_received = "data/scripts/animals/wraith_glowing_damage.lua",
-				limit_to_every_n_frame = 10,
-			})
-		end
-	},
+	ideal_form_perk,
 	--{ --I'll implement this later, or someone can do it for me 🙏
 	--	not_progress = true,
 	--	id = "VENOMOUS_CURSER",
@@ -1004,8 +1080,8 @@ enemy_perks = {
 			temple_of_the_art = 4,
 			wizards_den = 4,
 			tower = 4,
-			sky = 1,
-			hell = 1,
+			sky = 4,
+			hell = 4,
 		},
 		condition = function(self, data)
 			-- this perk can only appear on mages, ghosts (excl. wand ghosts) and some select enemies
@@ -1061,7 +1137,7 @@ enemy_perks = {
 			tower = 4,
 		},
 		condition = function(self, data)
-			if data.level < 8 then return end
+			if data.level < 6 then return end
 			if not data.dmc then return end
 
 			local max_hp = ComponentGetValue2(data.dmc, "max_hp")
@@ -1080,11 +1156,11 @@ local perk_incompatibilities = { --ill implement at some point maybe
 	{"HARDMOD_KAMIKAZE", "HARDMOD_UNFINISHED_BUSINESS"},
 }
 
-for _,perk in ipairs(enemy_perks) do
+for i,perk in ipairs(enemy_perks) do
 	local id = perk.id
 	perk.id = "HARDMOD_"..perk.id
 	perk.name = perk.name or perk.id
-	perk.weight = perk.weight or 10
+	perk.weight = (perk.weight or 10) + i*0.001
 	perk.priority = perk.priority or 0
 	perk.sprite = ModDoesFileExist(perk.sprite or "") and perk.sprite
 		or ModDoesFileExist(sprites_path..id:lower()..".png") and sprites_path..id:lower()..".png"

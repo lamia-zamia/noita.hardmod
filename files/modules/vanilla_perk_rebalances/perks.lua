@@ -164,25 +164,7 @@ hooks.new_perks = {
 }
 
 hooks.perk_patches = {
-	["REMOVE_FOG_OF_WAR"] = {
-		ui_name = "$hardmod_perk_all_seeing_eye_name",
-		ui_description = "$hardmod_perk_all_seeing_eye_desc",
-		ui_icon = dir.."ui_gfx/perks/all_seeing_eye_016.png",
-		perk_icon = dir.."ui_gfx/perks/all_seeing_eye.png",
-		clear_original_game_effect = true,
-		stackable = false,
-		one_off_effect = false,
-		usable_by_enemies = false,
-		func = function(entity_perk_item, entity_who_picked, item_name)
-			EntityAddChild(entity_who_picked, EntityLoad(dir.."entities/perks/all_seeing_eye.xml"))
-		end,
-		func_remove = function(entity_who_picked)
-			local perk_entity = EntityGetAllChildren(entity_who_picked, "hardmod_all_seeing_eye_entity")[1]
-			if perk_entity ~= nil then
-				EntityKill(perk_entity)
-			end
-		end,
-	},
+	["REMOVE_FOG_OF_WAR"] = { not_in_default_perk_pool = true },
 	["SHIELD"] = { stackable_maximum = 3 },
 	["GOLD_IS_FOREVER"] = { --makes gold decay into special gold dust
 		id = "HARDMOD_GOLD_IS_DUST",

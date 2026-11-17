@@ -84,6 +84,12 @@ end
 
 local targets = {}
 hooks.new_eid = function(entity_id)
+	if ModIsEnabled("Apotheosis") then
+		if string.find( EntityGetFilename(entity_id), "mods/Apotheosis/data/entities/animals/psychotic/") then
+			EntityAddTag(entity_id, "no_enemy_perks")
+		end
+	end
+
 	if EntityHasTag(entity_id, "enemy") and not (EntityHasTag(entity_id, "hardmod_blessed") or EntityHasTag(entity_id, "no_enemy_perks")) then
 		targets[#targets+1] = entity_id
 	end
@@ -289,5 +295,7 @@ end
 function hooks.world_init()
 	EntityLoad(dir.."nothing_to_see_here.xml", 0, 0)
 end
+
+dofile(dir.."procedural/generate.lua")
 
 return hooks

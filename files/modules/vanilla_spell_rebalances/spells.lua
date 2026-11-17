@@ -19,7 +19,23 @@ end
 
 local hooks = {}
 
-hooks.new_spells = {}
+hooks.new_spells = {
+	{
+		id = "HARDMOD_TORCH_MAGIC",
+		name = "$hardmod_spell_torch_magic_name",
+		description = "$hardmod_spell_torch_magic_desc",
+		sprite = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/gfx/ui_gfx/spells/magic_torch.png",
+		type = ACTION_TYPE_PASSIVE,
+		spawn_level = "5,6,10",
+		spawn_probability = "0.8,0.6,0.4",
+		price = 200,
+		mana = 8,
+		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/cards/card_torch_magic.xml",
+		action = function()
+			draw_actions( 1, true )
+		end,
+	},
+}
 
 hooks.spell_patches = {
 	["BOMB"] = { max_uses = 5 },
@@ -147,6 +163,15 @@ hooks.spell_patches = {
 			current_reload_time = current_reload_time - 8
 		end
 	},
+	["DARKFLAME"] = {
+		sprite = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/gfx/ui_gfx/spells/darkflame_player.png",
+		max_uses = -1,
+		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/card_darkflame_player.xml",
+		action = function()
+			add_projectile("mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/darkflame_player.xml")
+			c.fire_rate_wait = c.fire_rate_wait + 20
+		end,
+	},
 	["FLAMETHROWER"] = { -- damage is also changed in damage.lua
 		mana = 15,
 		max_uses = -1,
@@ -203,7 +228,14 @@ hooks.spell_patches = {
         --         add_projectile( "data/entities/projectiles/deck/fizzle.xml" )
 		-- 	end
 		-- end,
-	}
+	},
+	["TORCH"] = {
+		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/cards/card_torch.xml",
+	},
+	["TORCH_ELECTRIC"] = {
+		mana = -2,
+		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/cards/card_torch_electric.xml",
+	},
 }
 
 local mats = { "MATERIAL_WATER", "MATERIAL_OIL", "MATERIAL_BLOOD", "MATERIAL_CEMENT", "WATER_TRAIL" }

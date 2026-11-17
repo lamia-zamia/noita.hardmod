@@ -34,7 +34,7 @@ local evil_level = (year * 31469 + month * 929 + day * 541) % 100 + 1
 local months = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
 
 -- stylua: ignore start
-local lines_of_code = "26,618"---Updated by `scripts/build.js`, do not edit or format
+local lines_of_code = "26,991"---Updated by `scripts/build.js`, do not edit or format
 -- stylua: ignore end
 
 ---@type (splash_entry | string)[]
@@ -127,6 +127,8 @@ local splashes = {
 	'"tablet is kil."\nno...',
 	"no yui, don't go to the fairside!",
 	"claude, make me a good noita difficulty mod",
+	"This comment is awaiting analysis by our automated content check system. It will be temporarily hidden until we verify that it does not contain harmful content (e.g. links to websites that attempt to steal information).",
+	"filler splash to bloat the list",
 }
 
 local locked_splashes = {
@@ -195,5 +197,7 @@ local custom_splashes = {
 for _,splash in pairs(custom_splashes) do
 	table.insert(splashes, splash)
 end
+
+table.insert(splashes, ("With %s unique splash texts!"):format(#splashes+1))
 
 return splashes
