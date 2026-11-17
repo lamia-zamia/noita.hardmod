@@ -519,7 +519,6 @@ end
 --This approach might theoretically be undesirable for a mod that intentionally has things discovered "this run" while not permanently marking them as discovered.
 -- If such a case were to occur, I may end up taking out this fix and relegating it to my Extended Fixes mod, we shall see.
 
-
 function hooks.player_changed(...)
 	fix_NB5(...)
 	fix_NB295(...)
