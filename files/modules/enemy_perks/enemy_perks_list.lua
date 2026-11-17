@@ -42,7 +42,10 @@ end
 
 -- dont give a blood perk if already has blood perk, is a boss, or is swapper mage
 local blood_perk_check = function(self, data)
-	return data.dmc and not (data.blood_perk or data.is_boss or EntityGetName(data.target_enemy) == "$animal_wizard_swapper")
+	if data.dmc then
+		if ComponentGetValue2(data.dmc, "blood_material") == self.blood_material then return end
+		return not (data.is_boss or EntityGetName(data.target_enemy) == "$animal_wizard_swapper")
+	end
 end
 
 local function increment_weight_with_level(self, data, multiplier)
@@ -116,7 +119,13 @@ local ideal_form_perk = {
 				end
 			end
 		end
-	end
+	end,
+	on_death = function(self, entity_id, ddata)
+		ModSettingSet("hardmod.ideal_form_kills", (ModSettingGet("hardmod.ideal_form_kills") or 0) + 1)
+		if utils.MatchDateLocal({month = 3, day = 31}) then
+			ModSettingSet("hardmod.ideal_form_kills_bonus", (ModSettingGet("hardmod.ideal_form_kills_bonus") or 0) + 1)
+		end
+	end --track sins
 }
 if utils.MatchDateLocal({month = 3, day = 31}) then
 	ideal_form_perk.weight = 2
@@ -168,8 +177,10 @@ enemy_perks = {
 		description = "$hardmod_eperk_leech_desc",
 		weight = 3,
 		priority = 6,
+		min_level = 1,
 		max = 1,
-		condition = function(self, data) return data.level > 1 and data.dmc and ComponentGetValue2(data.dmc, "hp") >= 8 end, --only grant perk if >200 hp
+		unique_slot = "large_aura",
+		condition = function(self, data) return data.dmc and ComponentGetValue2(data.dmc, "hp") >= 8 end, --only grant perk if >200 hp
 		func = function(self, entity_id, data)
 			EntityAddChild(data.handler, EntityLoad(dir.."entities/leech.xml", data.x, data.y))
 		end
@@ -180,6 +191,7 @@ enemy_perks = {
 		description = "$hardmod_eperk_protector_desc",
 		weight = 8,
 		max = 2,
+		unique_slot = "small_aura",
 		biome_conditions = {
 			mines = 4,
 			coal_pits = 4,
@@ -189,9 +201,7 @@ enemy_perks = {
 			if not data.dmc then return end
 			if data.how_many_of_each_perk["HARDMOD_AREA_PROTECTOR"] then return end
 			local max_hp = ComponentGetValue2(data.dmc, "max_hp")
-			if max_hp >= 2 then
-				return true
-			end
+			return max_hp >= 2
 		end,
 		func = function(self, entity_id, data)
 			local x, y = EntityGetTransform(entity_id)
@@ -206,6 +216,8 @@ enemy_perks = {
 		description = "$hardmod_eperk_area_protector_desc",
 		weight = 1,
 		max = 2,
+		min_level = 3,
+		unique_slot = "large_aura",
 		biome_conditions = {
 			magical_temple = 2,
 			temple_of_the_art = 3,
@@ -213,7 +225,7 @@ enemy_perks = {
 		},
 		condition = function(self, data)
 			if data.how_many_of_each_perk["HARDMOD_PROTECTOR"] then return end
-			return data.dmc ~= nil and data.level > 2
+			return data.dmc ~= nil
 		end,
 		func = function(self, entity_id, data)
 			local x, y = EntityGetTransform(entity_id)
@@ -232,6 +244,7 @@ enemy_perks = {
 		description = "$hardmod_eperk_dry_spell_desc",
 		weight = 5,
 		max = 1,
+		unique_slot = "small_aura",
 		biome_conditions = {
 			sandcave = 10,
 			hell = 10,
@@ -248,7 +261,9 @@ enemy_perks = {
 		weight = 4,
 		priority = 4,
 		max = 1,
-		condition = function(self, data) return data.dmc and data.level > 6 and not data.is_boss end,
+		min_level = 5,
+		unique_slot = "on_death",
+		condition = function(self, data) return data.dmc and not data.is_boss end,
 		func = function(self, entity_id, data)
 			EntityAddComponent2(entity_id, "LuaComponent", {
 				script_death = "mods/noita.hardmod/files/modules/enemy_perks/scripts/spawn_shadow_revive_orb.lua",
@@ -262,14 +277,15 @@ enemy_perks = {
 		id = "QUANTUM_CLONES",
 		name = "$hardmod_eperk_quantum_clones_name",
 		description = "$hardmod_eperk_quantum_clones_desc",
-		weight = 2,
+		weight = 1,
 		max = 5,
+		min_level = 4,
 		biome_conditions = {
-			magical_temple = 4,
-			wizards_den = 4,
+			magical_temple = 3,
+			wizards_den = 3,
 		},
 		condition = function(self, data)
-			return data.level > 3 and not (data.is_boss or data.is_polymorphed)
+			return not (data.is_boss or data.is_polymorphed)
 		end,
 		clone_colours = {
 			{255,0,0, "spark_red"}, --Red
@@ -476,7 +492,8 @@ enemy_perks = {
 		weight = 6,
 		priority = 3,
 		max = 1,
-		condition = function(self, data) return data.level > 2 end,
+		min_level = 3,
+		unique_slot = "large_aura",
 		func = function(self, entity_id, data)
 			EntityAddChild(entity_id, EntityLoad(dir.."entities/damage_buffer.xml", data.x, data.y))
 		end
@@ -488,6 +505,7 @@ enemy_perks = {
 		weight = 6,
 		priority = 0,
 		max = 1,
+		unique_slot = "large_aura",
 		condition = function(self, data)
 			return not (data.dmc and ComponentGetValue2(data.dmc, "wet_status_effect_damage") > 0)
 		end,
@@ -502,6 +520,7 @@ enemy_perks = {
 		weight = 2,
 		priority = 0,
 		max = 1,
+		unique_slot = "large_aura",
 		conditions = function(self, data)
 			return data.dmc and string.find("blood,slime,sludge", ComponentGetValue2(data.dmc, "blood_material"))
 		end,
@@ -572,6 +591,7 @@ enemy_perks = {
 		weight = 3,
 		priority = 3,
 		max = 1,
+		min_level = 3,
 		biome_conditions = {
 			frozen_vault = 6,
 			sandcave = 6,
@@ -579,7 +599,7 @@ enemy_perks = {
 		},
 		condition = function(self, data)
 			increment_weight_with_level(self, data)
-			return data.level > 2 and GameGetGameEffectCount(data.target_enemy, "PROTECTION_FREEZE") == 0 and not is_projectile_immune(self, data)
+			return GameGetGameEffectCount(data.target_enemy, "PROTECTION_FREEZE") == 0 and not is_projectile_immune(self, data)
 		end,
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_FREEZE", false)
@@ -615,7 +635,7 @@ enemy_perks = {
 			meat_realm = 8,
 		},
 		condition = function(self, data)
-			if data.blood_perk then self.weight = 8 end
+			if data.unique_slots.blood then self.weight = 8 end
 			return data.dmc
 		end,
 		func = function(self, entity_id, data)
@@ -630,6 +650,8 @@ enemy_perks = {
 		weight = 3,
 		priority = 4,
 		max = 1,
+		unique_slot = "blood",
+		blood_material = "blood_cold",
 		biome_conditions = {
 			snowy_depths = 6,
 			frozen_vault = 6,
@@ -641,8 +663,6 @@ enemy_perks = {
 			EntitySetDamageFromMaterial(entity_id, "blood_cold", 0)
 			EntitySetDamageFromMaterial(entity_id, "blood_cold_vapour", 0)
 			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 1.5)
-
-			data.blood_perk = "blood_cold" --do this for condition func so multiple blood perks aren't rolled
 		end
 	},
 	{
@@ -652,6 +672,8 @@ enemy_perks = {
 		weight = 3,
 		priority = 5,
 		max = 1,
+		unique_slot = "blood",
+		blood_material = "lava",
 		condition = blood_perk_check,
 		func = function(self, entity_id, data)
 			ComponentSetValue2(data.dmc, "blood_material", "lava")
@@ -668,8 +690,6 @@ enemy_perks = {
 
 			EntitySetDamageFromMaterial(entity_id, "lava", 0)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_FIRE", false)
-
-			data.blood_perk = "lava" --do this for condition func so multiple blood perks aren't rolled
 		end
 	},
 	{
@@ -679,6 +699,8 @@ enemy_perks = {
 		weight = 3,
 		priority = 5,
 		max = 1,
+		unique_slot = "blood",
+		blood_material = "poison",
 		condition = blood_perk_check,
 		func = function(self, entity_id, data)
 			ComponentSetValue2(data.dmc, "blood_material", "poison")
@@ -686,8 +708,6 @@ enemy_perks = {
 			EntitySetDamageFromMaterial(entity_id, "poison", 0)
 			ComponentObjectSetValue2(data.dmc, "damage_multipliers", "poison", 0)
 			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 1.5)
-
-			data.blood_perk = "poison" --do this for condition func so multiple blood perks aren't rolled
 		end
 	},
 	{
@@ -696,7 +716,10 @@ enemy_perks = {
 		description = "$hardmod_eperk_teleport_blood_desc",
 		weight = 3,
 		max = 1,
-		condition = function(self, data) return data.level > 2 end,
+		min_level = 3,
+		unique_slot = "blood",
+		blood_material = "magic_liquid_teleportation",
+		condition = blood_perk_check,
 		func = function(self, entity_id, data)
 			ComponentSetValue2(data.dmc, "blood_material", "magic_liquid_teleportation")
 			ComponentSetValue2(data.dmc, "blood_spray_material", "magic_liquid_teleportation")
@@ -719,10 +742,13 @@ enemy_perks = {
 		weight = .1,
 		priority = 15,
 		max = 1,
+		min_level = 6,
+		unique_slot = "blood",
+		blood_material = "magic_liquid_polymorph",
 		biome_conditions = {
 			ancient_lab = 1,
 		},
-		condition = function(self, data) return data.level > 5 and blood_perk_check(self, data) end,
+		condition = blood_perk_check,
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_POLYMORPH", false)
 
@@ -737,8 +763,6 @@ enemy_perks = {
 			ComponentSetValue2(data.dmc, "blood_spray_material", blood_material)
 			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 1.5)
 			EntitySetDamageFromMaterial(entity_id, blood_material, 0)
-
-			data.blood_perk = blood_material --do this for condition func so multiple blood perks aren't rolled
 		end,
 	},
 	{
@@ -747,7 +771,7 @@ enemy_perks = {
 		description = "$hardmod_eperk_holy_reflection_desc",
 		weight = 3,
 		max = 1,
-		condition = function(self, data) return data.level > 7 end,
+		min_level = 8,
 		func = function(self, entity_id, data)
 			EntityAddComponent2(entity_id, "LuaComponent", {
 				execute_every_n_frame = -1,
@@ -763,6 +787,7 @@ enemy_perks = {
 		weight = 2,
 		priority = 15,
 		max = 1,
+		max_level = 8,
 		biome_conditions = {
 			meat_realm = 0,
 		},
@@ -782,6 +807,8 @@ enemy_perks = {
 		weight = 2,
 		priority = 20,
 		max = 1,
+		max_level = 8,
+		unique_slot = "on_death",
 		biome_conditions = {
 			coal_pits = 5,
 		},
@@ -821,7 +848,9 @@ enemy_perks = {
 		},
 		priority = 9,
 		max = 3,
-		condition = function(self, data) return spawn_on_death_blacklist(self, data) and data.level > 2 end,
+		max_level = 5,
+		unique_slot = "on_death",
+		condition = function(self, data) return spawn_on_death_blacklist(self, data) end,
 		on_death = function(self, entity_id, ddata)
 			for _=1, Random(3,5) do
 				local eid = EntityLoad("data/entities/animals/rat.xml", ddata.x, ddata.y)
@@ -840,7 +869,10 @@ enemy_perks = {
 		biome_conditions = { temple_of_the_art = 3 },
 		priority = 9,
 		max = 2,
-		condition = function(self, data) return spawn_on_death_blacklist(self, data) and data.level > 4 end,
+		min_level = 3,
+		max_level = 8,
+		unique_slot = "on_death",
+		condition = function(self, data) return spawn_on_death_blacklist(self, data) end,
 		on_death = function(self, entity_id, ddata)
 			for _=1, Random(2,4) do
 				local eid = EntityLoad("data/entities/animals/skullrat.xml", ddata.x, ddata.y)
@@ -856,7 +888,9 @@ enemy_perks = {
 		biome_conditions = { temple_of_the_art = 1 },
 		priority = 9,
 		max = 3,
-		condition = function(self, data) return spawn_on_death_blacklist(self, data) and (data.level > 7 or data.biome == "temple_of_the_art") end,
+		min_level = 5,
+		unique_slot = "on_death",
+		condition = function(self, data) return spawn_on_death_blacklist(self, data) end,
 		on_death = function(self, entity_id, ddata)
 			for _=1, Random(1,3) do
 				local eid = EntityLoad("data/entities/animals/skullfly.xml", ddata.x, ddata.y)
@@ -865,33 +899,73 @@ enemy_perks = {
 		end,
 	},
 	{
-		id = "WHITEHOLE_DEATH",
-		name = "$hardmod_eperk_whitehole_death_name",
-		description = "$hardmod_eperk_whitehole_death_desc",
-		weight = .5,
-		priority = 15,
-		max = 1,
-		biome_conditions = {
-			sky = 2,
-		},
-		condition = function(self, data) return spawn_on_death_blacklist(self, data) and data.level > 6 and not data.is_boss end,
-		on_death = function(self, entity_id, ddata)
-			EntityLoad("data/entities/projectiles/deck/white_hole_big.xml", ddata.x, ddata.y)
-		end
-	},
-	{
 		id = "BLACKHOLE_DEATH",
 		name = "$hardmod_eperk_blackhole_death_name",
 		description = "$hardmod_eperk_blackhole_death_desc",
 		weight = .5,
 		priority = 15,
 		max = 1,
+		min_level = 4,
+		max_level = 10,
+		unique_slot = "on_death",
 		biome_conditions = {
 			hell = 2,
 		},
-		condition = function(self, data) return spawn_on_death_blacklist(self, data) and data.level > 6 and not data.is_boss end,
+		condition = function(self, data) return spawn_on_death_blacklist(self, data) and not data.is_boss end,
 		on_death = function(self, entity_id, ddata)
 			EntityLoad("data/entities/projectiles/deck/black_hole_big.xml", ddata.x, ddata.y)
+		end
+	},
+	{
+		id = "WHITEHOLE_DEATH",
+		name = "$hardmod_eperk_whitehole_death_name",
+		description = "$hardmod_eperk_whitehole_death_desc",
+		weight = .5,
+		priority = 15,
+		max = 1,
+		min_level = 4,
+		max_level = 10,
+		unique_slot = "on_death",
+		biome_conditions = {
+			sky = 2,
+		},
+		condition = function(self, data) return spawn_on_death_blacklist(self, data) and not data.is_boss end,
+		on_death = function(self, entity_id, ddata)
+			EntityLoad("data/entities/projectiles/deck/white_hole_big.xml", ddata.x, ddata.y)
+		end
+	},
+	{
+		id = "OMEGA_BLACKHOLE_DEATH",
+		name = "$hardmod_eperk_omega_blackhole_death_name",
+		description = "$hardmod_eperk_omega_blackhole_death_desc",
+		weight = .5,
+		priority = 15,
+		max = 1,
+		min_level = 11,
+		unique_slot = "on_death",
+		biome_conditions = {
+			sky = 2,
+		},
+		condition = function(self, data) return spawn_on_death_blacklist(self, data) and not data.is_boss end,
+		on_death = function(self, entity_id, ddata)
+			EntityLoad("data/entities/projectiles/deck/black_hole_giga.xml", ddata.x, ddata.y)
+		end
+	},
+	{
+		id = "OMEGA_WHITEHOLE_DEATH",
+		name = "$hardmod_eperk_omega_whitehole_death_name",
+		description = "$hardmod_eperk_omega_whitehole_death_desc",
+		weight = .5,
+		priority = 15,
+		max = 1,
+		min_level = 11,
+		unique_slot = "on_death",
+		biome_conditions = {
+			sky = 2,
+		},
+		condition = function(self, data) return spawn_on_death_blacklist(self, data) and not data.is_boss end,
+		on_death = function(self, entity_id, ddata)
+			EntityLoad("data/entities/projectiles/deck/white_hole_giga.xml", ddata.x, ddata.y)
 		end
 	},
 	{
@@ -918,8 +992,9 @@ enemy_perks = {
 		weight = 2,
 		priority = 100,
 		max = 1,
+		min_level = 3,
 		condition = function(self, data)
-			return #data.already_held_perks > 0 and data.level > 4
+			return (#data.already_held_perks + data.perks_to_give) > 1
 		end,
 		func_handler = function(self, entity_id, root, spr_comps)
 			for _,spr_comp in ipairs(spr_comps) do
@@ -946,9 +1021,11 @@ enemy_perks = {
 		weight = 1,
 		priority = 30,
 		max = 1,
-		condition = function(self, data) return data.perks_to_give and (data.level > 4 or data.is_boss) end,
+		min_level = 5,
+		unique_slot = "on_death",
+		condition = function(self, data) return data.perks_to_give end,
 		func = function(self, entity_id, data)
-			data.perks_to_give = data.perks_to_give + (data.is_boss and 10 or 5)
+			data.perks_to_give = data.perks_to_give + 10
 			EntityAddComponent2(entity_id, "LuaComponent", {
 				script_death = dir.."scripts/drop_chest_on_death.lua"
 			})
@@ -960,6 +1037,8 @@ enemy_perks = {
 		description = "$hardmod_eperk_shield_sapper_desc",
 		weight = 2,
 		max = 1,
+		min_level = 4,
+		unique_slot = "large_aura",
 		biome_conditions = {
 			magical_temple = 4,
 			temple_of_the_art = 6,
@@ -967,10 +1046,7 @@ enemy_perks = {
 			sky = 6,
 			hell = 6,
 		},
-		condition = function(self, data)
-			increment_weight_with_level(self, data)
-			return data.level > 3
-		end,
+		condition = increment_weight_with_level,
 		func = function(self, entity_id, data)
 			local x, y = EntityGetTransform(entity_id)
 			EntityAddChild(entity_id, EntityLoad( dir.."entities/shield_sapper_aura.xml", x, y))
@@ -982,7 +1058,7 @@ enemy_perks = {
 		description = "$hardmod_eperk_unstable_teleportitis_desc",
 		weight = 2,
 		max = 1,
-		condition = function(self, data) return data.level > 2 end,
+		min_level = 3,
 		func = function(self, entity_id, data)
 			local eid = EntityCreateNew("random_teleports")
 			EntityAddComponent2(eid, "GameEffectComponent", {
@@ -1145,19 +1221,15 @@ enemy_perks = {
 		weight = 1,
 		priority = 25,
 		max = 1,
+		min_level = 6,
 		biome_conditions = {
 			sky = 4,
 			hell = 4,
 			tower = 4,
 		},
 		condition = function(self, data)
-			if data.level < 6 then return end
 			if not data.dmc then return end
-
-			local max_hp = ComponentGetValue2(data.dmc, "max_hp")
-			if max_hp >= 3 then
-				return true
-			end
+			return ComponentGetValue2(data.dmc, "max_hp") >= 3
 		end,
 		func = function(self, entity_id, data)
 			local x, y = EntityGetTransform(entity_id)
@@ -1179,10 +1251,6 @@ enemy_perks = {
 			EntityAddChild(entity_id, EntityLoad( dir.."entities/anti_tele_aura.xml", x, y))
 		end
 	},
-}
-
-local perk_incompatibilities = { --ill implement at some point maybe
-	{"HARDMOD_KAMIKAZE", "HARDMOD_UNFINISHED_BUSINESS"},
 }
 
 for i,perk in ipairs(enemy_perks) do

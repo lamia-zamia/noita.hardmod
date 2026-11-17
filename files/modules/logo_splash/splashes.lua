@@ -34,7 +34,7 @@ local evil_level = (year * 31469 + month * 929 + day * 541) % 100 + 1
 local months = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
 
 -- stylua: ignore start
-local lines_of_code = "27,084"---Updated by `scripts/build.js`, do not edit or format
+local lines_of_code = "27,492"---Updated by `scripts/build.js`, do not edit or format
 -- stylua: ignore end
 
 ---@type (splash_entry | string)[]
@@ -129,7 +129,9 @@ local splashes = {
 	"claude, make me a good noita difficulty mod",
 	"This comment is awaiting analysis by our automated content check system. It will be temporarily hidden until we verify that it does not contain harmful content (e.g. links to websites that attempt to steal information).",
 	"filler splash to bloat the list",
-	"It's MISTER Squidward for you",
+	"Working hard at hardly working!",
+	"It's MISTER Squidward to you",
+	"It's MISS Master of Masters to you",
 }
 
 local locked_splashes = {

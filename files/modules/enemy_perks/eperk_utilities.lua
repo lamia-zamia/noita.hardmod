@@ -20,7 +20,7 @@ utilities.biome_levels = {
 	jungle = 5, --jungle
 	lukki_lair = 6, --lukki lair
 	vault = 6,
-	temple_of_the_art = 10,
+	temple_of_the_art = 7,
 
 	ancient_lab = 4,
 	surface_desert = 7,
@@ -67,6 +67,32 @@ for biome,data in pairs(utilities.biome_levels) do
 			level = data
 		}
 	end
+end
+
+function utilities.select_random_perk(t, data)
+	t = utils.deepcopy(t)
+	local level = data.level
+
+	local temp = {}
+	for _, entry in ipairs(t) do
+		local id = entry.id
+		local max,min_level,max_level = entry.max,entry.min_level,entry.max_level
+
+		local unique_slot = entry.unique_slot
+		if unique_slot then
+			local taken_by = data.unique_slots[unique_slot]
+			if taken_by ~= nil and taken_by ~= entry.id then goto continue end
+		end
+		if max and max <= (data.how_many_of_each_perk[entry.id] or 0) then goto continue end
+		if (min_level and min_level > level) or (max_level and level > max_level) then goto continue end
+		if entry.condition and not entry:condition(data) then goto continue end
+		temp[#temp+1] = entry
+		::continue::
+	end
+
+	if #temp == 0 then return end
+
+	return utils.RandomFromTable(temp)
 end
 
 ---function to give enemy perks
@@ -134,6 +160,7 @@ function utilities.give_enemy_perks(entity_id, perks_to_give, data)
 		mammi = h,
 	}
 
+	data.unique_slots = {}
 	data.already_held_perks = already_held_perks
 	data.how_many_of_each_perk = how_many_of_each_perk
 
@@ -148,12 +175,13 @@ function utilities.give_enemy_perks(entity_id, perks_to_give, data)
 	if perks_to_give_type == "number" then
 		data.perks_to_give = perks_to_give
 		while data.perks_to_give > 0 do
-			local perk = utils.ConditionalRandomFromTable(utils.deepcopy(enemy_perks), data)
+			local perk = utilities.select_random_perk(enemy_perks, data)
 			if not perk then return end
 			perk:func(entity_id, data)
 			selected_perks[#selected_perks+1] = perk
 			already_held_perks[#already_held_perks+1] = perk.id
 			how_many_of_each_perk[perk.id] = (how_many_of_each_perk[perk.id] or 0) + 1
+			if perk.unique_slot then data.unique_slots[perk.unique_slot] = perk.id end
 
 			data.perks_to_give = data.perks_to_give - 1
 		end

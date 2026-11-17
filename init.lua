@@ -9,7 +9,7 @@
 --testing zone
 
 
-ModSettingSet("noita.hardmod.snail.disabled", true) --testing if this resolves crashes, remove this soon
+ModSettingSet("noita.hardmod.snail.disabled", true) --This module causes crashes, need to fix
 
 
 -------------------------
@@ -170,24 +170,6 @@ translations = translations .. "\n" .. ModTextFileGetContent("mods/noita.hardmod
 translations = translations:gsub("\r", ""):gsub("\n\n+", "\n")
 ModTextFileSetContent("data/translations/common.csv", translations)
 
-
--- remove perks with not_progress from progress menu
-utils.modifile("data/scripts/perks/perk_reflect.lua",
-[[	RegisterPerk( 
-		perk.id,
-		perk.ui_name,
-		perk.ui_description,
-		perk.ui_icon,
-		perk.perk_icon
-		)]],
-[[	if not perk.not_progress then RegisterPerk( 
-		perk.id,
-		perk.ui_name,
-		perk.ui_description,
-		perk.ui_icon,
-		perk.perk_icon
-		) end]]
-)
 
 
 function OnModPreInit() try_run_hooks("mod_pre_init") end
