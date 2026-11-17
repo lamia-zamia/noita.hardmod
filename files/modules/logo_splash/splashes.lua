@@ -127,6 +127,7 @@ local splashes = {
 	'"tablet is kil."\nno...',
 	"no yui, don't go to the fairside!",
 	"claude, make me a good noita difficulty mod",
+	"It's MISTER Squidward for you"
 }
 
 --local seed = second*minute*hour/day*year

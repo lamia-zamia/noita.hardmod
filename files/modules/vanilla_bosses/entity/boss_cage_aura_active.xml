@@ -1,4 +1,4 @@
-<Entity>
+<Entity tags="hardmod_boss_cage">
 
 	<InheritTransformComponent
 		only_position="1"
@@ -14,29 +14,6 @@
 		script_source_file="mods/noita.hardmod/files/modules/vanilla_bosses/scripts/boss_cage_aura_active_update.lua"
 		execute_every_n_frame="1"
 	></LuaComponent>
-
-	<!-- <ParticleEmitterComponent
-		emitted_material_name="spark_red_bright"
-		gravity.y="0.0"
-		lifetime_min="0.02"
-		lifetime_max="0.05"
-		count_min="150"
-		count_max="200"
-		render_on_grid="1"
-		fade_based_on_lifetime="1"
-		area_circle_radius.min="220"
-		area_circle_radius.max="220"
-		cosmetic_force_create="0"
-		airflow_force="0.3"
-		airflow_time="0.01"
-		airflow_scale="0.05"
-		emission_interval_min_frames="0"
-		emission_interval_max_frames="0"
-		emit_cosmetic_particles="1"
-		render_back="1"
-		render_ultrabright="1"
-		is_emitting="1" >
-	</ParticleEmitterComponent> -->
   
 	<ParticleEmitterComponent
 		_tags="inner_ring"

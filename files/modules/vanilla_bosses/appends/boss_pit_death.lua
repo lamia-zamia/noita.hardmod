@@ -38,9 +38,15 @@ function death( damage_type_bit_field, damage_message, entity_thats_responsible,
 	local EZWand = dofile_once( "mods/noita.hardmod/lib/ezwand.lua" )
 	local wand = EZWand( t10_wand )
 	wand:SetName( "Wand of Connoisseurs", true )
-    wand:AddSpells( "WORM_RAIN", "METEOR_RAIN" )
 	wand:SetSprite( "mods/noita.hardmod/files/modules/vanilla_bosses/gfx/items/wand_squidward.png", 10, 5, 18, 0 )
-	-- wand:PlaceAt( x, y )
+
+	local preset_spell_count = 2
+	if wand:GetFreeSlotsCount() < preset_spell_count then
+		for i=1, preset_spell_count do
+			wand:RemoveSpellAtIndex( wand.capacity - ( preset_spell_count + i ) )
+		end
+	end
+    wand:AddSpells( "WORM_RAIN", "METEOR_RAIN" )
 
 	-- spawn the perk
     dofile_once( "data/scripts/perks/perk.lua" )
