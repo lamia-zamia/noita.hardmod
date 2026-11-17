@@ -56,6 +56,7 @@ for _,crystal in ipairs(EntityGetInRadiusWithTag(x, y, 50, "hm_crystal")) do
 		end
 
 		GameAddFlagRun("hardmod.collapse_crystal_sacrificed")
+		AddFlagPersistent("hardmod_collapse_crystal_sacrificed")
 		EntityKill(entity_id)
 	end
 end

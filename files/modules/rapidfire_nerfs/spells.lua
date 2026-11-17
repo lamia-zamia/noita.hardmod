@@ -40,14 +40,14 @@ hooks.spell_patches = {
 		-- 	draw_actions(1, true)
 		-- end
 	},
-	["I_SHAPE"] = { mana = 4 }, --5deg
-	["W_SHAPE"] = { mana = 4 }, --5deg
-	["Y_SHAPE"] = { mana = 5 }, --8deg
-	["T_SHAPE"] = { mana = 5 }, --8deg
-	["PENTAGRAM_SHAPE"] = { mana = 8 }, --12deg
-	["CIRCLE_SHAPE"] = { mana = 9 }, --15deg
+	["I_SHAPE"] = { mana = 2 }, --5deg, 2c
+	["Y_SHAPE"] = { mana = 3 }, --8deg, 2c
+	["W_SHAPE"] = { mana = 3 }, --5deg, 3c
+	["T_SHAPE"] = { mana = 4 }, --8deg, 3c
+	["PENTAGRAM_SHAPE"] = { mana = 5 }, --12deg, 5c
+	["CIRCLE_SHAPE"] = { mana = 6 }, --15deg, 6c
 	["SPREAD_REDUCE"] = {
-		mana = 8,
+		mana = 6,
 		action = function ()
 			c.spread_degrees = c.spread_degrees - 15.0
 			draw_actions(1, true)
@@ -84,7 +84,7 @@ hooks.spell_patches = {
 		end,
 	},
 	["POWERDIGGER"] = {
-		mana = 4,
+		mana = 3,
 	},
 	["APOTHEOSIS_WATER_POWER"] = {
 		description = "$hardmod_spell_apotheosis_water_power_desc",
@@ -158,7 +158,7 @@ hooks.new_spells = {
 		spawn_level = "1,2,3,4",
 		spawn_probability = "0.7,0.8,0.9,0.9",
 		price = 80,
-		mana = 6,
+		mana = 5,
 		sound_loop_tag = "sound_chainsaw",
 		action = function()
 			add_projectile("mods/noita.hardmod/files/modules/rapidfire_nerfs/entities/chainsaw_mini.xml")
@@ -189,7 +189,7 @@ hooks.edit_spell = function(spell)
 		-- they're still very good, but you have to do a quest to get them
 		spell.spawn_level = ""
 		spell.spawn_probability = "0"
-		spell.mana = 3
+		spell.mana = 2
 
 		--local orig_action = action.action
 		--action.action = function()

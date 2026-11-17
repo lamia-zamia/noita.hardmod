@@ -7,7 +7,7 @@ local x, y = EntityGetTransform( aura )
 
 local FRAMES_BEFORE_MAX = utils.GetInternalInt( owner, "boss_cage_aura_frames_before_max" ) or 3600
 local INNER_RADIUS_INIT = utils.GetInternalInt( owner, "boss_cage_aura_inner_radius_init" ) or 375
-local INNER_RADIUS_SHRINK = utils.GetInternalInt( owner, "boss_cage_aura_inner_radius_shrink" ) or 250
+local INNER_RADIUS_SHRINK = utils.GetInternalInt( owner, "boss_cage_aura_inner_radius_shrink" ) or 225
 local OUTER_RADIUS = utils.GetInternalInt( owner, "boss_cage_aura_outer_radius" ) or 500
 
 local inner_ring = EntityGetFirstComponent( aura, "ParticleEmitterComponent", "inner_ring" )
@@ -42,18 +42,16 @@ if nearby_players then
 
 				if dist > OUTER_RADIUS then
 					EntityInflictDamage( player, p_hp * 0.5, "DAMAGE_SLICE", "divine tether", "NONE", 0, 0 )
-
-					-- revert aura to dormant state
-					EntityKill( aura )
-					EntityAddChild( owner,
-						EntityLoad( "mods/noita.hardmod/files/modules/vanilla_bosses/entity/boss_cage_aura_dormant.xml", x, y ) )
-
 					GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/megalaser/launch", px, py )
 
-					local owner_dmg_comp = EntityGetFirstComponentIncludingDisabled( owner, "DamageModelComponent" )
-					if owner_dmg_comp then
-						local o_max_hp = ComponentGetValue2( owner_dmg_comp, "max_hp" )
-						ComponentSetValue2( owner_dmg_comp, "hp", o_max_hp )
+					-- if there is no more aura, a new one will be spawned
+					EntityKill( aura )
+
+					local boss_dmg_comp = EntityGetFirstComponentIncludingDisabled( owner, "DamageModelComponent" )
+					if boss_dmg_comp then
+						local boss_hp = ComponentGetValue2( owner_dmg_comp, "hp" )
+						local boss_max_hp = ComponentGetValue2( owner_dmg_comp, "max_hp" )
+						ComponentSetValue2( owner_dmg_comp, "hp", math.min( boss_hp + ( boss_max_hp * 0.2 ), boss_max_hp ) )
 					end
 				else
 					EntityInflictDamage( player, 0.00667, "DAMAGE_CURSE", "divine tether", "NONE", 0, 0 )

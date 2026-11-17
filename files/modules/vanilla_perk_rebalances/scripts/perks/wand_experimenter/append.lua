@@ -14,7 +14,7 @@ function wand_fired(wand)
   local new_state = GetNewWandState(wand)
 
   -- Nuh uh!
-  if IsWandStateInvalid(state, new_state) then
+  if not state or IsWandStateInvalid(state, new_state) then
     return
   end
 

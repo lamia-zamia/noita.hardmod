@@ -16,12 +16,12 @@ local function drop_wand( x, y )
 		"data/entities/items/wand_level_06.xml",
 	}
 	-- 0-6 points based on hm depth, 0-4 based on completion speed
-	local hm_visits = tonumber( GlobalsGetValue( "HOLY_MOUNTAIN_VISITS", "0" ) )
+	local hm_visits = tonumber(GlobalsGetValue("HOLY_MOUNTAIN_VISITS", "0")) or 0
 	if string.find( GameTextGetTranslatedOrNot( BiomeMapGetName( x, y ) ), "Lab" ) then
 		hm_visits = hm_visits + 1
 	end
 	local chest_tier = utils.GetInternalInt( chest_id, "hardmod_trophy_chest_tier" ) or 1
-	local wand_tier_index = math.min( hm_visits, #wand_tiers )
+	local wand_tier_index = math.min(hm_visits, #wand_tiers)
 	local wand_lvl = math.min( hm_visits - 1, 6 ) + math.min( chest_tier - 1, 4 ) -- pre-release emergency safeguard
 
 	local wand_entity = EntityLoad( wand_tiers[wand_tier_index],  x, y - 12 )
@@ -57,8 +57,8 @@ function on_open( entity_item )
 	-- PositionSeedComponent
 	local position_comp = EntityGetFirstComponent( entity_item, "PositionSeedComponent" )
 	if( position_comp ) then
-		rand_x = tonumber(ComponentGetValue( position_comp, "pos_x") )
-		rand_y = tonumber(ComponentGetValue( position_comp, "pos_y") )
+		rand_x = ComponentGetValue2(position_comp, "pos_x")
+		rand_y = ComponentGetValue2(position_comp, "pos_y")
 	end
 
 	SetRandomSeed( rand_x, rand_y )
@@ -76,12 +76,13 @@ end
 
 function physics_body_modified( is_destroyed )
 	local entity_item = GetUpdatedEntityID()
-	
+
 	on_open( entity_item )
 
-	edit_component( entity_item, "ItemComponent", function(comp,vars)
+	local comp = EntityGetFirstComponent(entity_item, "ItemComponent")
+	if comp then
 		EntitySetComponentIsEnabled( entity_item, comp, false )
-	end)
-	
+	end
+
 	EntityKill( entity_item )
 end

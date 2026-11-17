@@ -42,7 +42,7 @@ function GenerateToolboxSpells( toolbox, amount, do_print )
 				end
 
 				-- add a random spell from that table to the toolbox
-				local spell_id = random_from_array( spells )
+				local spell_id = spells[Random(1, #spells)]
 				toolbox:AddSpells( spell_id )
 				success = true
 
@@ -159,7 +159,7 @@ end
 function RemoveRandomAlwaysCast( wand )
 	local spells, always_casts = wand:GetSpells()
 	if #always_casts >= 1 then
-		local spell_to_demote = random_from_array( always_casts )
+		local spell_to_demote = always_casts[Random(1, #always_casts)]
 		local spell_name = GameTextGetTranslatedOrNot( get_actions_lua_data( spell_to_demote.action_id ).name )
 		GamePrint( "Your wand's always-cast '" .. spell_name .. "' was ejected!" )
 
