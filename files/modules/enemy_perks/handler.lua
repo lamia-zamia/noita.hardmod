@@ -8,24 +8,8 @@ local half_icon_buffer = icon_buffer*.5
 
 local entity_id = GetUpdatedEntityID()
 local root = EntityGetRootEntity(entity_id)
-local self = GetUpdatedComponentID()
 
-function init(eid)
-	ComponentSetValue2(self, "mNextExecutionTime", GameGetFrameNum() + 1)
-	ComponentSetValue2(self, "limit_all_callbacks", true)
-end
-
-if entity_id == root then
-	if not ComponentGetValue2(self, "limit_all_callbacks") then return end
-	local x,y = EntityGetTransform(entity_id)
-	if x == y == 0 then print(("0 0 eperk: [%s]: %s"):format(root, entity_id)) end
-	for _,potential_orphan in ipairs(EntityGetInRadiusWithTag(x, y, 50, "perk_entity")) do
-		if potential_orphan == EntityGetRootEntity(potential_orphan) then
-			EntityKill(potential_orphan) --No orphan shall be spared.
-		end
-	end
-	EntityKill(entity_id)
-end
+if entity_id == root then EntityKill(entity_id) return end
 
 local enemy_perks_indexed = dofile_once("mods/noita.hardmod/files/modules/enemy_perks/enemy_perks_index.lua")
 

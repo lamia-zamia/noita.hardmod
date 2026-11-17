@@ -2,6 +2,7 @@
 local modules = {
 	-- List of all module IDs to load, in order
 	index = {
+		core = {},
 		test_module_dont_run = {
 			disabled = true,
 		},
