@@ -1164,6 +1164,21 @@ enemy_perks = {
 			EntityAddChild(entity_id, EntityLoad( dir.."entities/tether_aura_dormant.xml", x, y))
 		end
 	},
+	{
+		id = "ANTI_TELE_AURA",
+		name = "$hardmod_eperk_anti_tele_aura_name",
+		description = "$hardmod_eperk_anti_tele_aura_desc",
+		weight = 2,
+		priority = 23,
+		max = 1,
+		condition = function(self, data)
+			if data.level < 6 then return end
+		end,
+		func = function(self, entity_id, data)
+			local x, y = EntityGetTransform(entity_id)
+			EntityAddChild(entity_id, EntityLoad( dir.."entities/anti_tele_aura.xml", x, y))
+		end
+	},
 }
 
 local perk_incompatibilities = { --ill implement at some point maybe
