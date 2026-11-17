@@ -49,12 +49,12 @@ local hooks = {
 		["LIFETIME"] = { mana = 20 },
 		["LIFETIME_DOWN"] = { mana = 15 },
 		["NOLLA"] = { mana = 5 },
-		["EXPLOSION_REMOVE"] = { mana = 15 },
-		["PINGPONG_PATH"] = { mana = 15 },
-		["HORIZONTAL_ARC"] = { mana = 15 },
-		["LINE_ARC"] = { mana = 11 },
-		["ORBIT_SHOT"] = { mana = 12 },
-		["SPIRALING_SHOT"] = { mana = 13 },
+		["EXPLOSION_REMOVE"] = { mana = 10 },
+		["PINGPONG_PATH"] = { mana = 6 },
+		["HORIZONTAL_ARC"] = { mana = 8 }, -- 0.3
+		["LINE_ARC"] = { mana = 7 }, -- 0.2
+		["ORBIT_SHOT"] = { mana = 6 }, -- 0.1 and lifetime
+		["SPIRALING_SHOT"] = { mana = 6 }, -- 0.1 and lifetime
 		["PHASING_ARC"] = { mana = 10 },
 		["TRUE_ORBIT"] = { mana = 10 },
 		["HOMING"] = { spawn_level = "3,4,5,6", spawn_probability = "0.2,0.3,0.3,0.3" },
