@@ -5,13 +5,13 @@
 	></InheritTransformComponent>
 
 	<LuaComponent
-		script_source_file="mods/noita.hardmod/files/modules/vanilla_bosses/scripts/boss_cage_aura_active_init.lua"
+		script_source_file="mods/noita.hardmod/files/modules/vanilla_bosses/scripts/boss_cage_aura_init.lua"
 		execute_on_added="1"
 		remove_after_executed="1"
 	></LuaComponent>
 
 	<LuaComponent
-		script_source_file="mods/noita.hardmod/files/modules/vanilla_bosses/scripts/boss_cage_aura_active_update.lua"
+		script_source_file="mods/noita.hardmod/files/modules/vanilla_bosses/scripts/boss_cage_aura_update.lua"
 		execute_every_n_frame="1"
 	></LuaComponent>
   
