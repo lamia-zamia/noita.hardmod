@@ -753,3 +753,11 @@ make Apoth illusions not have eperks
 give Torch spells cursor-ASE
 make original ASE a mt altar unlock
 make Magic Torch cost something
+make Tether also (very rarely) spawn in Vault and Lukki Lair
+make haunted wand spell gen slightly more consistent?
+make haunted wands not deafening lmao
+make mana regen suck less hard
+make All-Seeing spawn more in sky/hell
+squeaky tweaky
+buff Blink (who'd skip biomes anyways)
+buff Squiddy

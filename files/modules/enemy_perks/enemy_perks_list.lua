@@ -1080,8 +1080,8 @@ enemy_perks = {
 			temple_of_the_art = 4,
 			wizards_den = 4,
 			tower = 4,
-			sky = 1,
-			hell = 1,
+			sky = 4,
+			hell = 4,
 		},
 		condition = function(self, data)
 			-- this perk can only appear on mages, ghosts (excl. wand ghosts) and some select enemies
@@ -1137,7 +1137,7 @@ enemy_perks = {
 			tower = 4,
 		},
 		condition = function(self, data)
-			if data.level < 8 then return end
+			if data.level < 6 then return end
 			if not data.dmc then return end
 
 			local max_hp = ComponentGetValue2(data.dmc, "max_hp")
