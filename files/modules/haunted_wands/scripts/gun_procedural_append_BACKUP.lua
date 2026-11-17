@@ -250,7 +250,7 @@ local function try_generate_spell_sequence( wand_entity, level )
 			table.insert( candidates, option )
 		end
 	end
-	payload = random_from_array( candidates )
+	payload = candidates[Random(1, #candidates)]
 	slots_remaining = slots_remaining - #payload
 	mana_remaining = mana_remaining - calculate_sequence_mana_cost( payload )
 
@@ -262,7 +262,7 @@ local function try_generate_spell_sequence( wand_entity, level )
 				table.insert( candidates, option )
 			end
 		end
-		trigger_mods = random_from_array( candidates )
+		trigger_mods = candidates[Random(1, #candidates)]
 		slots_remaining = slots_remaining - #trigger_mods
 		mana_remaining = mana_remaining - calculate_sequence_mana_cost( trigger_mods )
 	end
@@ -275,7 +275,7 @@ local function try_generate_spell_sequence( wand_entity, level )
 				table.insert( candidates, option )
 			end
 		end
-		trigger = random_from_array( candidates )
+		trigger = candidates[Random(1, #candidates)]
 		slots_remaining = slots_remaining - #trigger
 		mana_remaining = mana_remaining - calculate_sequence_mana_cost( trigger )
 
@@ -287,7 +287,7 @@ local function try_generate_spell_sequence( wand_entity, level )
 					table.insert( candidates, option )
 				end
 			end
-			payload_mods = random_from_array( candidates )
+			payload_mods = candidates[Random(1, #candidates)]
 			slots_remaining = slots_remaining - #payload_mods
 			mana_remaining = mana_remaining - calculate_sequence_mana_cost( payload_mods )
 		end

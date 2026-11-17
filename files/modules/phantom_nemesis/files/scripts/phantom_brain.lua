@@ -56,16 +56,16 @@ local function GetPlayer()
 end
 
 local function PriortisePlayerAsTarget()
-    local player_id = GetPlayer() or 0
+    local player_id = GetPlayer()
+    if not player_id then return end
     local player_x, player_y = EntityGetTransform(player_id)
-    if player_id == 0 then return end
-    
-    local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(root_id,"AnimalAIComponent") or 0
-    local pathfinding_comp = EntityGetFirstComponentIncludingDisabled(root_id,"PathFindingComponent") or 0
-    local physics_ai_comp = EntityGetFirstComponentIncludingDisabled(root_id,"PhysicsAIComponent") or 0
-    local worm_ai_comp = EntityGetFirstComponentIncludingDisabled(root_id,"WormAIComponent") or 0
 
-    if animal_ai_comp > 0 then
+    local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(root_id,"AnimalAIComponent")
+    local pathfinding_comp = EntityGetFirstComponentIncludingDisabled(root_id,"PathFindingComponent")
+    local physics_ai_comp = EntityGetFirstComponentIncludingDisabled(root_id,"PhysicsAIComponent")
+    local worm_ai_comp = EntityGetFirstComponentIncludingDisabled(root_id,"WormAIComponent")
+
+    if animal_ai_comp then
         --ComponentSetValue2(pathfinding_comp,"path_next_node_vector_to",player_x,player_y)
         ComponentSetValue2(animal_ai_comp,"creature_detection_range_x",300)
         ComponentSetValue2(animal_ai_comp,"creature_detection_range_y",300)
@@ -74,19 +74,19 @@ local function PriortisePlayerAsTarget()
         ComponentSetValue2(animal_ai_comp,"sense_creatures_through_walls",true)
     end
 
-    if animal_ai_comp > 0 and physics_ai_comp > 0 then
-        local boss_ai_comp = EntityGetFirstComponentIncludingDisabled(root_id,"LimbBossComponent") or 0
-        if boss_ai_comp > 0 then
+    if animal_ai_comp and physics_ai_comp then
+        local boss_ai_comp = EntityGetFirstComponentIncludingDisabled(root_id,"LimbBossComponent")
+        if boss_ai_comp then
             ComponentSetValue2(boss_ai_comp, "mMoveToPositionX", player_x)
             ComponentSetValue2(boss_ai_comp, "mMoveToPositionY", player_y)
         else
-            EntityAddComponent(root_id,"LimbBossComponent",{
+            EntityAddComponent2(root_id, "LimbBossComponent", {
                 state=1
             })
         end
     end
 
-    if worm_ai_comp > 0 then
+    if worm_ai_comp then
         ComponentSetValue2(worm_ai_comp,"mTargetEntityId",player_id)
     end
 end

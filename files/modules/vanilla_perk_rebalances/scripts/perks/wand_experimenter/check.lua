@@ -10,3 +10,7 @@ if IsWandStateInvalid(state, new_state) then
   EntityRemoveComponent(wand, comp)
   MarkWandAsTinkered(wand)
 end
+
+if not state then
+	StoreWandState(wand, new_state)
+end

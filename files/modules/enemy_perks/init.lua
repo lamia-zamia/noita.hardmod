@@ -34,6 +34,7 @@ local icon_size = 16 --the xy size of the perk icons
 
 --utils.modifile("data/biome_impl/spliced/boss_arena.xml", [[data/biome_impl/spliced/boss_arena/8.plz]], [[]])
 
+---@diagnostic disable-next-line: assign-type-mismatch
 hooks.player_spawned = function()
 	for _,perk in ipairs(enemy_perks) do
 		AddFlagPersistent("perk_picked_enemyperk_"..perk.id:lower())
@@ -41,6 +42,7 @@ hooks.player_spawned = function()
 	end
 
 	dofile_once("data/scripts/perks/perk_list.lua")
+	---@diagnostic disable-next-line: undefined-global
 	for _,perk in ipairs(perk_list) do
 		AddFlagPersistent("perk_picked_"..perk.id:lower())
 	end
@@ -295,5 +297,7 @@ end
 function hooks.world_init()
 	EntityLoad(dir.."nothing_to_see_here.xml", 0, 0)
 end
+
+dofile(dir.."procedural/generate.lua")
 
 return hooks

@@ -4,9 +4,13 @@ local speed = 400
 
 local entity_id = GetUpdatedEntityID()
 local pos_x, pos_y, rot = EntityGetTransform( entity_id )
-local wand_vsc_comp = EntityGetFirstComponentIncludingDisabled(entity_id,"VariableStorageComponent") or 0
-local phantom_tier = ComponentGetValue2(wand_vsc_comp,"value_float")
-local proj_filepath = phantom_tier >= 5 and "mods/noita.hardmod/files/modules/phantom_nemesis/files/entities/projectiles/fire_wand_ghastly_projectile.xml" or "mods/noita.hardmod/files/modules/phantom_nemesis/files/entities/projectiles/fire_wand_ghastly_projectile_nomodifiers.xml"
+local wand_vsc_comp = EntityGetFirstComponentIncludingDisabled(entity_id,"VariableStorageComponent")
+local phantom_tier = wand_vsc_comp and ComponentGetValue2(wand_vsc_comp,"value_float") or 0
+local proj_filepath = (
+	phantom_tier >= 5
+		and "mods/noita.hardmod/files/modules/phantom_nemesis/files/entities/projectiles/fire_wand_ghastly_projectile.xml"
+		or "mods/noita.hardmod/files/modules/phantom_nemesis/files/entities/projectiles/fire_wand_ghastly_projectile_nomodifiers.xml"
+)
 
 -- velocity
 local vel_x,vel_y = GameGetVelocityCompVelocity(entity_id)
@@ -22,11 +26,13 @@ SetRandomSeed( pos_x * vel_x, pos_y * vel_y )
 for i=1,count do
 	local px = pos_x + vel_x * 0.1
 	local py = pos_y + vel_y * 0.1
-	local proj_id = shoot_projectile_from_projectile( entity_id, proj_filepath, px + Random( -5, 5 ), py + Random( -5, 5 ), vel_x, vel_y )
+	local proj_id = shoot_projectile_from_projectile(entity_id, proj_filepath, px + Random( -5, 5 ), py + Random( -5, 5 ), vel_x, vel_y)
 	local damage = (2 * phantom_tier)
 	local proj_comp = EntityGetFirstComponentIncludingDisabled(proj_id,"ProjectileComponent")
-	ComponentObjectSetValue(proj_comp,"config_explosion","damage",damage)
-	ComponentObjectSetValue(proj_comp,"damage_by_type","fire",damage-1)
+	if proj_comp then
+		ComponentObjectSetValue2(proj_comp, "config_explosion", "damage", damage)
+		ComponentObjectSetValue2(proj_comp, "damage_by_type", "fire", damage-1)
+	end
 end
 
 -- sound is played here instead of the projectiles to avoid duplicates

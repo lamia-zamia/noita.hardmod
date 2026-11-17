@@ -1,6 +1,6 @@
 <Entity>
 	<LuaComponent
-		script_source_file="mods/noita.hardmod/files/modules/enemy_perks/scripts/curser_apply.lua"
+		script_source_file="%SCRIPT_ON_HIT%"
 		execute_every_n_frame="2"
 		remove_after_executed="1"
 	/>

@@ -2,11 +2,11 @@ dofile_once("mods/noita.hardmod/files/modules/phantom_nemesis/files/scripts/mini
 
 function is_valid_enemy( file )
 	local test = "data/entities/animals/"
-	
+
 	if ( string.sub( file, 1, #test ) == test ) then
 		return true
 	end
-	
+
 	return false
 end
 

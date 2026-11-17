@@ -34,6 +34,7 @@ function death(damage_type_bit_field, message, attacker, drop_items)
 						held_perks = held_perks,
 						how_many_of_each_perk = how_many_of_each_perk,
 					}
+					SetRandomSeed(5932+y, x-135)
 					for _,perk in ipairs(dofile_once("mods/noita.hardmod/files/modules/enemy_perks/enemy_perks_list.lua")) do
 						if perk.on_death and how_many_of_each_perk[perk.id] then
 							for _=1,how_many_of_each_perk[perk.id] do

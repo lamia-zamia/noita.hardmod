@@ -9,6 +9,6 @@ end
 for _,entity in ipairs(EntityGetInRadiusWithTag(x, y, largest_radius, "mortal")) do
 	local ex,ey = EntityGetTransform(entity)
 	if not RaytraceSurfaces(x, y, ex,ey) then
-		EntityAddChild(entity, EntityLoad("mods/noita.hardmod/files/modules/enemy_perks/entities/curser_apply.xml", ex, ey))
+		EntityAddChild(entity, EntityLoad("mods/noita.hardmod/files/modules/enemy_perks/generated/%ID%_hit.xml", ex, ey))
 	end
 end

@@ -122,10 +122,26 @@ function utilities.give_enemy_perks(entity_id, perks_to_give, data)
 		end
 	end
 
+	local a,b,c,d,e,f,g,h = GameGetDateAndTimeLocal()
+	data.time_local = {
+		year = a,
+		month = b,
+		day = c,
+		hour = d,
+		minute = e,
+		second = f,
+		jussi = g,
+		mammi = h,
+	}
+
 	data.already_held_perks = already_held_perks
 	data.how_many_of_each_perk = how_many_of_each_perk
 
 	data.dmc = EntityGetFirstComponent(entity_id, "DamageModelComponent")
+	data.animal_ai_comp = EntityGetFirstComponent(entity_id, "AnimalAIComponent")
+	data.is_polymorphed = GameGetGameEffectCount(entity_id, "POLYMORPH")
+		+ GameGetGameEffectCount(entity_id, "POLYMORPH_RANDOM")
+		+ GameGetGameEffectCount(entity_id, "POLYMORPH_UNSTABLE") ~= 0
 
 	local selected_perks = {}
 	data.selected_perks = selected_perks --idk maybe someone can do some bullshit with this lmao

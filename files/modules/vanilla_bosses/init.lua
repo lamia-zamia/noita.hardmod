@@ -80,7 +80,6 @@ local edit = {
 }
 
 for enemy,data in pairs(edit) do
-	print(enemy)
 	for f in nxml.edit_file("data/entities/animals/"..enemy..".xml") do
 		local file = data.from_base and f:first_of("Base") or f
 

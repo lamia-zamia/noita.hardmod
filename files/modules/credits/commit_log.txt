@@ -743,5 +743,35 @@ fixed polymorph quantum cloning ending your run outright
 some Tether tweaks
 fix haunted wand spirit damaging itself
 make Stinky Aura smaller
+Soul Linked (WIP)
 prevent infinite fow hole spawning
 make blood eperks leak more "blood"
+make player's podf distinguishable from enemy's podf
+make Protector shield stronger
+electric torch -2 mana
+make Apoth illusions not have eperks
+add stylua ignore to splashes.lua
+asdasd
+guh?
+ok i wont delet
+give Torch spells cursor-ASE
+make original ASE a mt altar unlock
+make Magic Torch cost something
+converted some eperks to use on_death callback
+make Tether also (very rarely) spawn in Vault and Lukki Lair
+make haunted wand spell gen slightly more consistent?
+make haunted wands not deafening lmao
+make mana regen suck less hard
+make All-Seeing spawn more in sky/hell
+squeaky tweaky
+buff Blink (who'd skip biomes anyways)
+buff Squiddy
+added on_hit callback generator and loads of other bs too
+fixed weights
+fixed some broken stuff
+some spell rebalances
+fix warnings
+more warnings fixed
+TODO
+reduce mana cost of arcs
+fix wand experimenter circumvention on the toolbox
