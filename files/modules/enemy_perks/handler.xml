@@ -12,8 +12,11 @@
 	<LuaComponent
 		script_source_file="mods/noita.hardmod/files/modules/enemy_perks/handler.lua"
 		execute_every_n_frame="80"
-		execute_on_added="1"
-		call_init_function="1"
+	/>
+
+	<LuaComponent
+		script_source_file="mods/noita.hardmod/files/modules/enemy_perks/handler.lua"
+		remove_after_executed="1"
 	/>
 
 	<VariableStorageComponent
