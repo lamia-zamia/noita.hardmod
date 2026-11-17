@@ -119,7 +119,7 @@
 
 	<VariableStorageComponent
 		name="hardmod_gold_shield_duration"
-		value_int="75"
+		value_int="60"
 	></VariableStorageComponent>
 
 	<!-- for when the shield is down -->

@@ -129,6 +129,7 @@ local splashes = {
 	"claude, make me a good noita difficulty mod",
 	"This comment is awaiting analysis by our automated content check system. It will be temporarily hidden until we verify that it does not contain harmful content (e.g. links to websites that attempt to steal information).",
 	"filler splash to bloat the list",
+	"It's MISTER Squidward for you",
 }
 
 local locked_splashes = {
