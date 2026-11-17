@@ -25,7 +25,7 @@
 		execute_on_removed="1"
 	></LuaComponent>
 	
-	<LifetimeComponent lifetime="240"></LifetimeComponent>
+	<LifetimeComponent lifetime="300"></LifetimeComponent>
 
 	<UIIconComponent
 		name="$status_weaken_combined"
