@@ -11,12 +11,15 @@ function shot( entity_id )
 	local ax, ay = EntityGetTransform( aura )
 
 	if get_distance( x, y, ax, ay ) < RADIUS then
+		local delete_proj = false
+
 	    --Grabs a list of all TeleportProjectileComponents and disables them
 	    local comps = EntityGetComponentIncludingDisabled(entity_id,"TeleportProjectileComponent")
 	    if comps then
 	        for k=1,#comps
 	        do local v = comps[k]
 	            EntityRemoveComponent(entity_id,v)
+	            local delete_proj = true
 	        end
 	    end
 
@@ -27,6 +30,7 @@ function shot( entity_id )
 	        do local v = comps[k]
 	            if ComponentGetValue2(v,"effect_hit") == "SWAPPER" then
 	                EntityRemoveComponent(entity_id,v)
+	            	local delete_proj = true
 	            end
 	        end
 	    end
@@ -34,6 +38,8 @@ function shot( entity_id )
 	    --Disables RGB Portals from teleporting you
 	    EntitySetComponentsWithTagEnabled(entity_id,"apotheosis_blob_boss",false)
 
-	    EntityKill( entity_id )
+	    if delete_proj then
+	    	EntityKill( entity_id )
+	    end
 	end
 end
