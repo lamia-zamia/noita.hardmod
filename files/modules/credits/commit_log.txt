@@ -750,6 +750,10 @@ make player's podf distinguishable from enemy's podf
 make Protector shield stronger
 electric torch -2 mana
 make Apoth illusions not have eperks
+add stylua ignore to splashes.lua
+asdasd
+guh?
+ok i wont delet
 give Torch spells cursor-ASE
 make original ASE a mt altar unlock
 make Magic Torch cost something
@@ -765,3 +769,6 @@ buff Squiddy
 added on_hit callback generator and loads of other bs too
 fixed weights
 fixed some broken stuff
+some spell rebalances
+fix warnings
+more warnings fixed
