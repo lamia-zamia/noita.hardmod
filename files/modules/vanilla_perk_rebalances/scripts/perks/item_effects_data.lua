@@ -34,10 +34,10 @@ local effect_items = {
 	["data/entities/items/pickup/thunderstone.xml"] = func_toggle_item_gameeffects("PROTECTION_ELECTRICITY"),
 	--["data/entities/items/pickup/stonestone.xml"] = {}, --no effect associated at present
 	["mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/items/cheese.xml"] = func_toggle_item_gameeffects("PROTECTION_MELEE"),
-	["data/entities/items/pickup/sun/sunseed.xml"] = func_toggle_item_children("hardmod.all_seeing_eye"),
-	["data/entities/items/pickup/sun/sunstone.xml"] = func_toggle_item_children("hardmod.all_seeing_eye"),
+	["data/entities/items/pickup/sun/sunseed.xml"] = func_toggle_item_gameeffects("REMOVE_FOG_OF_WAR"),
+	["data/entities/items/pickup/sun/sunstone.xml"] = func_toggle_item_gameeffects("REMOVE_FOG_OF_WAR"),
 	["data/entities/items/pickup/evil_eye.xml"] = function(item, state)
-		EntitySetComponentsWithTagEnabled(item, "magic_eye_check", true)
+		EntitySetComponentsWithTagEnabled(item, "magic_eye_check", state)
 	end
 }
 

@@ -127,6 +127,8 @@ local splashes = {
 	'"tablet is kil."\nno...',
 	"no yui, don't go to the fairside!",
 	"claude, make me a good noita difficulty mod",
+	"This comment is awaiting analysis by our automated content check system. It will be temporarily hidden until we verify that it does not contain harmful content (e.g. links to websites that attempt to steal information).",
+	"filler splash to bloat the list",
 }
 
 --local seed = second*minute*hour/day*year
@@ -191,5 +193,7 @@ local win_splashes = {
 if HasFlagPersistent("hardmod_game_completed") then
 	for _,splash in pairs(win_splashes) do table.insert(splashes, splash) end
 end
+
+splashes[#splashes+1] = ("With %s unique splash texts!"):format(#splashes+1)
 
 return splashes

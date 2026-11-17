@@ -296,4 +296,6 @@ function hooks.world_init()
 	EntityLoad(dir.."nothing_to_see_here.xml", 0, 0)
 end
 
+dofile(dir.."procedural/generate.lua")
+
 return hooks
