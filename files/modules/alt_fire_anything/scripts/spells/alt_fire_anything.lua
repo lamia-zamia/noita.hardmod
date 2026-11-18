@@ -32,6 +32,8 @@ end
 
 if is_alt_fire_pressed() then
     if not ModSettingGet("noita.hardmod.alt_fire_enable_in_inventory") and GameIsInventoryOpen() then return end
+    local controls_comp = EntityGetFirstComponent(caster, "ControlsComponent")
+    if not (controls_comp and ComponentGetValue2(controls_comp, "enabled")) then return end --dont allow alt-fire if player cannot do anything
 
     local platform_shooter = EntityGetFirstComponent(caster, "PlatformShooterPlayerComponent")
     if not platform_shooter then return end

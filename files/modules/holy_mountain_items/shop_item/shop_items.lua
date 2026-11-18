@@ -26,7 +26,7 @@ shop_items.items = {
 	{
 		id = "ring_of_returning",
 		name = "$hardmod_item_ring_of_returning_name",
-		weight = 100,
+		weight = 80,
 		base_cost = 120,
 		entity = dir.."entities/ring_of_returning.xml",
 		sprite = dir.."gfx/ui_gfx/ring_of_returning.png",
