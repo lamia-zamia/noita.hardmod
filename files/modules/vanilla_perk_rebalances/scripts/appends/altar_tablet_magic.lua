@@ -22,36 +22,36 @@ local is_hellmode = GameHasFlagRun("hardmod_hell")
 
 local sacrifice_items = {
 	{
-		flag = "hardmod_wandstone_sacrificed",
+		id = "wandstone",
 		identity_filename = "data/entities/items/pickup/wandstone.xml",
 		spawn_perk = "EDIT_WANDS_EVERYWHERE",
 	},
 	{
-		flag = "hardmod_sacrifice_sunseed",
+		id = "sunseed",
 		identity_tag = "seed_b",
 		spawn_perk = "REMOVE_FOG_OF_WAR",
 		not_in_hellmode = true,
 	},
 	{
-		flag = "hardmod_sacrifice_thunderstone",
+		id = "thunderstone",
 		identity_tag = "thunderstone",
 		spawn_perk = "HARDMOD_PROTECTION_ELECTRIC_STUN",
 		not_in_hellmode = true,
 	},
 	{
-		flag = "hardmod_sacrifice_brimstone",
+		id = "brimstone",
 		identity_tag = "brimstone",
 		spawn_perk = "PROTECTION_FIRE",
 		not_in_hellmode = true,
 	},
 	{
-		flag = "hardmod_sacrifice_cheese",
+		id = "cheese",
 		identity_tag = "hardmod_cheese",
 		spawn_perk = "HARDMOD_PROTECTION_FREEZE",
 		not_in_hellmode = true,
 	},
 	{
-		flag = "hardmod_sacrifice_cheese",
+		id = "poopstone",
 		identity_tag = "poopstone",
 		func = function(eid)
 			--flair
@@ -120,6 +120,7 @@ for i,item in ipairs(sacrifice_items) do
 			EntityKill(eid)
 		end
 	end
+	item.flag = item.flag or ("hardmod_mountain_sacrificed_"..item.id)
 	if item.identity_tag then
 		tag_items[#tag_items+1] = item
 	elseif item.identity_filename then
@@ -131,17 +132,23 @@ for i,item in ipairs(sacrifice_items) do
 end
 
 local function handle_sacrifice(sacrifice_data, eid)
-	sacrifice_data.func(eid)
-	if sacrifice_data.flag then GameAddFlagRun(sacrifice_data.flag) end
+	local flag = sacrifice_data.flag
+	if GameHasFlagRun(flag) and sacrifice_data.only_once then return end
+	GameAddFlagRun(flag)
 
-	if not is_hellmode then
+	sacrifice_data.func(eid)
+
+	local thunderstone_sac = GameHasFlagRun("hardmod_mountain_sacrificed_thunderstone")
+	local brimstone_sac = GameHasFlagRun("hardmod_mountain_sacrificed_brimstone")
+	local cheese_sac = GameHasFlagRun("hardmod_mountain_sacrificed_cheese")
+	local all_sac = GameHasFlagRun("hardmod_mountain_amplified_items")
+	if not is_hellmode and thunderstone_sac and brimstone_sac and cheese_sac and not all_sac then
 		dofile_once("data/scripts/perks/perk.lua")
 		perk_spawn(x, y - 30, "HARDMOD_ITEM_IMMUNITIES", true)
 
 		EntityLoad("data/entities/particles/image_emitters/magical_symbol.xml", x, y - 30)
 		GamePlaySound("data/audio/Desktop/projectiles.snd", "player_projectiles/crumbling_earth/create", x, y)
 	end
-
 end
 
 for _,eid in ipairs(EntityGetInRadius(x, y, 64)) do
@@ -158,115 +165,4 @@ for _,eid in ipairs(EntityGetInRadius(x, y, 64)) do
 		end
 	end
 	::continue::
-end
-
--- tinker stone becomes TWWE
-local wandstone = EntityGetInRadiusWithTag( x, y, 128, "hardmod_wandstone" )[1]
-if wandstone ~= nil and in_world(wandstone) and not is_hellmode then
-	local sx, sy = EntityGetTransform( wandstone )
-
-	if get_distance(x, y, sx, sy) < 64 then
-		-- standard mountain altar feedback
-		EntityLoad("data/entities/particles/image_emitters/chest_effect.xml", sx, sy)
-		GamePrintImportant("$log_altar_magic")
-
-		-- spawn the perk
-		dofile_once("data/scripts/perks/perk.lua")
-		perk_spawn(sx, sy - 10, "EDIT_WANDS_EVERYWHERE", true)
-
-		-- destroy the stone
-		EntityKill(wandstone)
-	end
-end
-
-do return end
-
--- sun stone becomes ASE
-local sunstone = EntityGetInRadiusWithTag( x, y, 128, "seed_b" )[1]
-if sunstone ~= nil and in_world(sunstone) and not is_hellmode then
-	local sx, sy = EntityGetTransform( sunstone )
-
-	if get_distance(x, y, sx, sy) < 64 then
-		-- standard mountain altar feedback
-		EntityLoad("data/entities/particles/image_emitters/chest_effect.xml", sx, sy)
-		GamePrintImportant("$log_altar_magic")
-
-		-- spawn the perk
-		dofile_once("data/scripts/perks/perk.lua")
-		perk_spawn(sx, sy - 10, "REMOVE_FOG_OF_WAR", true)
-
-		-- destroy the stone
-		EntityKill(sunstone)
-	end
-end
-
--- TODO: This fucking sucks
-
-local sac_thunderstone = GameHasFlagRun("HARDMOD_SACRIFICE_THUNDERSTONE")
-local sac_brimstone = GameHasFlagRun("HARDMOD_SACRIFICE_BRIMSTONE")
-local sac_cheese = GameHasFlagRun("HARDMOD_SACRIFICE_CHEESE")
-local sac_all = GameHasFlagRun("HARDMOD_SACRIFICE_ALL")
-
-local thunderstone = EntityGetInRadiusWithTag(x, y, 128, "thunderstone")[1]
-if thunderstone and not sac_thunderstone and in_world(thunderstone) then
-	local sx, sy = EntityGetTransform(thunderstone)
-
-	if get_distance(x, y, sx, sy) < 64 then
-		EntityLoad("data/entities/particles/image_emitters/chest_effect.xml", sx, sy)
-		GamePrintImportant("$log_altar_magic")
-
-		dofile_once("data/scripts/perks/perk.lua")
-		perk_spawn(sx, sy - 10, "HARDMOD_PROTECTION_ELECTRIC_STUN", true)
-
-		EntityKill(thunderstone)
-		GameAddFlagRun("HARDMOD_SACRIFICE_THUNDERSTONE")
-		sac_thunderstone = true
-	end
-end
-
-local brimstone = EntityGetInRadiusWithTag(x, y, 128, "brimstone")[1]
-if brimstone and not sac_brimstone and in_world(brimstone) then
-	local sx, sy = EntityGetTransform(brimstone)
-
-	if get_distance(x, y, sx, sy) < 64 then
-		EntityLoad("data/entities/particles/image_emitters/chest_effect.xml", sx, sy)
-		GamePrintImportant("$log_altar_magic")
-
-		dofile_once("data/scripts/perks/perk.lua")
-		perk_spawn(sx, sy - 10, "PROTECTION_FIRE", true)
-
-		EntityKill(brimstone)
-		GameAddFlagRun("HARDMOD_SACRIFICE_BRIMSTONE")
-		sac_brimstone = true
-	end
-end
-
-local cheese = EntityGetInRadiusWithTag(x, y, 128, "hardmod_cheese")[1]
-if cheese and not sac_cheese and in_world(cheese) then
-	local sx, sy = EntityGetTransform(cheese)
-
-	if get_distance(x, y, sx, sy) < 64 then
-		EntityLoad("data/entities/particles/image_emitters/chest_effect.xml", sx, sy)
-		GamePrintImportant("$log_altar_magic")
-
-		dofile_once("data/scripts/perks/perk.lua")
-		perk_spawn(sx, sy - 10, "HARDMOD_PROTECTION_FREEZE", true)
-
-		EntityKill(cheese)
-		GameAddFlagRun("HARDMOD_SACRIFICE_CHEESE")
-		sac_cheese = true
-	end
-end
-
-if sac_brimstone and sac_cheese and sac_thunderstone and not sac_all then
-	GameAddFlagRun("HARDMOD_SACRIFICE_ALL")
-	AddFlagPersistent("HARDMOD_ACHIEVEMENT_SACRIFICE_ITEMS")
-
-	if not is_hellmode then
-		dofile_once("data/scripts/perks/perk.lua")
-		perk_spawn(x, y - 30, "HARDMOD_ITEM_IMMUNITIES", true)
-
-		EntityLoad("data/entities/particles/image_emitters/magical_symbol.xml", x, y - 30)
-		GamePlaySound("data/audio/Desktop/projectiles.snd", "player_projectiles/crumbling_earth/create", x, y)
-	end
 end
