@@ -2,16 +2,6 @@ local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua")---@type utils
 
 local shop_items = dofile_once("mods/noita.hardmod/files/modules/holy_mountain_items/shop_item/shop_items.lua")
 
--- ?? what is this?
-local biomes = {
-	[1] = 0, [2] = 0, [3] = 0,
-	[4] = 1, [5] = 1, [6] = 1,
-	[7] = 2, [8] = 2, [9] = 2, [10] = 2, [11] = 2, [12] = 2,
-	[13] = 3, [14] = 3, [15] = 3, [16] = 3,
-	[17] = 4, [18] = 4, [19] = 4, [20] = 4,
-	[21] = 5, [22] = 5, [23] = 5, [24] = 5,
-	[25] = 6, [26] = 6, [27] = 6, [28] = 6, [29] = 6, [30] = 6, [31] = 6, [32] = 6, [33] = 6
-}
 
 ---@diagnostic disable-next-line: lowercase-global
 function hardmod_spawn_purchasable_item(x, y)

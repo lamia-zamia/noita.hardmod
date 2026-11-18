@@ -134,9 +134,6 @@ local function handle_sacrifice(sacrifice_data, eid)
 	sacrifice_data.func(eid)
 	if sacrifice_data.flag then GameAddFlagRun(sacrifice_data.flag) end
 
-	GameAddFlagRun("HARDMOD_SACRIFICE_ALL")
-	AddFlagPersistent("HARDMOD_ACHIEVEMENT_SACRIFICE_ITEMS")
-
 	if not is_hellmode then
 		dofile_once("data/scripts/perks/perk.lua")
 		perk_spawn(x, y - 30, "HARDMOD_ITEM_IMMUNITIES", true)

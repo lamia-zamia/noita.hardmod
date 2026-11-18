@@ -26,7 +26,7 @@ shop_items.items = {
 	{
 		id = "ring_of_returning",
 		name = "$hardmod_item_ring_of_returning_name",
-		weight = 50,
+		weight = 100,
 		base_cost = 120,
 		entity = dir.."entities/ring_of_returning.xml",
 		sprite = dir.."gfx/ui_gfx/ring_of_returning.png",
@@ -67,6 +67,40 @@ shop_items.items = {
 		offset_x = 4, offset_y = 3.95,
 	},
 	{
+		id = "pouch",
+		name = "$item_powder_stash_3",
+		weight = 30,
+		base_cost = 30,
+		entity = "data/entities/items/pickup/potion_empty.xml",
+		sprite = "data/items_gfx/potion.png",
+		condition = function(self)
+			local mat_data = utils.RandomFromTable(shop_items.pouch_materials)
+			self.material = mat_data.material
+			self.name = GameTextGet("$item_powder_stash_with_material_3",
+				GameTextGetTranslatedOrNot(CellFactory_GetUIName(CellFactory_GetType(mat_data.material)))
+			)
+			self.base_cost = mat_data.price
+			return true
+		end,
+		generate_func = function(self, entity_id)
+			EntityAddComponent2(entity_id, "PotionComponent", {
+				custom_color_material = CellFactory_GetType(self.material)
+			})
+			EntityAddComponent2(entity_id, "VariableStorageComponent", {
+				name = "potion_material",
+				value_string = self.material
+			})
+		end,
+		bought_func = function(pickup_entity, item, data)
+			for _,varcomp in ipairs(EntityGetComponentIncludingDisabled(pickup_entity, "VariableStorageComponent") or {}) do
+				if ComponentGetValue2(varcomp, "name") == "potion_material" then
+					AddMaterialInventoryMaterial(item, ComponentGetValue2(varcomp, "value_string"), 1000)
+				end
+			end
+		end,
+		offset_x = 4, offset_y = 3.95,
+	},
+	{
 		id = "refreshing_gourd",
 		name = "$item_gourd",
 		weight = 30,
@@ -78,7 +112,7 @@ shop_items.items = {
 	{
 		id = "ring_of_elevation",
 		name = "$hardmod_item_ring_of_elevation_name",
-		weight = 20,
+		weight = 25,
 		base_cost = 250,
 		entity = dir.."entities/ring_of_elevation.xml",
 		sprite = dir.."gfx/ui_gfx/ring_of_elevation.png",
@@ -88,7 +122,7 @@ shop_items.items = {
 	{
 		id = "mega_beam_stone",
 		name = "$item_mega_beam_stone",
-		weight = 5,
+		weight = 10,
 		base_cost = 400,
 		entity = "data/entities/items/pickup/beamstone.xml",
 		sprite = dir.."gfx/items_gfx/beamstone.png",
