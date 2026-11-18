@@ -16,29 +16,29 @@ local function ShootOrb()
         local vel_x = 0
         local vel_y = 0
         local length = Random( 40, 70 )
-        
+
         if ( Random( 1, 4 ) > 1 ) then
             local targets = EntityGetWithTag( "player_unit" )
             local target_id = 0
-            
+
             if ( #targets > 0 ) then
                 local valid_targets = {}
-                
+
                 for i,target in ipairs(targets) do
                     local tx, ty = EntityGetTransform( target )
-                    
+
                     local distance = math.abs( ty - y ) + math.abs( tx - x )
-                    
+
                     if ( distance < 300 ) then
                         table.insert( valid_targets, target )
                     end
                 end
-                
+
                 if ( #valid_targets > 0 ) then
                     local rnd = Random( 1, #valid_targets )
-                    
+
                     target_id = valid_targets[rnd]
-                    
+
                     if ( target_id ~= 0) then
                         local tx, ty = EntityGetTransform( target_id )
                         angle = 0 - math.atan2( ty - y, tx - x )

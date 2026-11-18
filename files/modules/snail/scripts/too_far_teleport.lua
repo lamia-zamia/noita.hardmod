@@ -51,7 +51,7 @@ if distance_from_edge > 100 then
 
 			tries = tries + 1
 		end
-		
+
 		if valid then EntityApplyTransform(entity_id, new_x, new_y) end
 	else
 		teleport_timer = teleport_timer - 1

@@ -132,11 +132,11 @@ local context_checks = {
 
 function IsValidEnemy( file )
 	local test = "data/entities/animals/"
-	
+
 	if ( string.sub( file, 1, #test ) == test ) then
 		return true
 	end
-	
+
 	return false
 end
 
@@ -164,7 +164,7 @@ local function GetAbilityWeight(ability_id, context, tier)
 	---@class WeightConsideration
 	---@field affected_abilities string[]
 	---@field weight_change fun(ability_id: string)
-	
+
 	---@type WeightConsideration[]
 	local weight_considerations = {
 		{
@@ -563,7 +563,7 @@ function FindPossessionTarget(biomes_visited)
 		if charm_count > 0 then
 			goto skipthistarget
 		end
-		
+
 		--Filter by healer & support-type enemies
 		if animal_ai_comp and ComponentGetValue2(animal_ai_comp,"tries_to_ranged_attack_friends") == true then
 			goto skipthistarget

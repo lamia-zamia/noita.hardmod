@@ -228,7 +228,7 @@ end
 local function entity_is_wand(entity_id)
 	local ability_component = EntityGetFirstComponentIncludingDisabled(entity_id, "AbilityComponent")
   if not ability_component then return false end
-  
+
 	return ComponentGetValue2(ability_component, "use_gun_script") == true
 end
 

@@ -11,7 +11,7 @@ if last_wand_tried ~= nil and last_wand_tried == parent_id then return end
 if EntityHasTag( parent_id, "hardmod_toolbox" ) then return end
 
 -- do the upgrading
-local wand = EZWand( parent_id )	
+local wand = EZWand( parent_id )
 if UpgradeWandCapacity( wand, 1, 25 ) then
 	local x, y = EntityGetTransform( card_entity_id )
 	GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )

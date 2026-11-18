@@ -292,7 +292,7 @@ g_unique_enemy2 =
 		entity 	= "data/entities/animals/miner_santa.xml",
 		spawn_check = function()
 			local year, month, day = GameGetDateAndTimeLocal()
-			
+
 			if ( month == 12 ) and ( day >= 24 ) and ( day <= 26 ) then
 				return true
 			else
@@ -1154,7 +1154,7 @@ function generate_tower( x, y, height )
 	-- bottom
 	LoadBackgroundSprite(root.."gfx/sand_pits/tower_bottom_1.png", x, y, 40, true )
 	y = y - 60
-	
+
 	-- middle parts
 	for i=1, height do
 		if y > 1600 then -- build up when not near the top of the biome

@@ -70,7 +70,7 @@ end
 
 function item_pickup( entity_item, entity_who_picked, name )
 	on_open( entity_item )
-	
+
 	EntityKill( entity_item )
 end
 

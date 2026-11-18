@@ -36,38 +36,38 @@ g_small_enemies =
 	{
 		prob   		= 0.1,
 		min_count	= 0,
-		max_count	= 0,    
+		max_count	= 0,
 		entity 	= ""
 	},
 	-- add skullflys after this step
 	{
 		prob   		= 0.5,
 		min_count	= 1,
-		max_count	= 2,    
+		max_count	= 2,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/zombie/hardmod_fungal_zombie.xml"
 	},
 	{
 		prob   		= 0.1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/slimeshooter/hardmod_fungal_slimeshooter.xml"
 	},
 	{
 		prob   		= 0.2,
 		min_count	= 1,
-		max_count	= 3,    
+		max_count	= 3,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/longleg/hardmod_fungal_longleg.xml"
 	},
 	{
 		prob   		= 0.25,
 		min_count	= 1,
-		max_count	= 2,    
+		max_count	= 2,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/miner/hardmod_fungal_miner.xml"
 	},
 	{
 		prob   		= 0.1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/shotgunner/hardmod_fungal_shotgunner.xml"
 	},
 	-- {
@@ -85,32 +85,32 @@ g_big_enemies =
 	{
 		prob   		= 0.7,
 		min_count	= 0,
-		max_count	= 0,    
+		max_count	= 0,
 		entity 	= ""
 	},
 	-- add skullflys after this step
 	{
 		prob   		= 0.2,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/firemage/hardmod_fungal_firemage.xml"
 	},
 	{
 		prob   		= 0.01,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/worm/hardmod_fungal_worm.xml"
 	},
 	{
 		prob   		= 0.2,
 		min_count	= 5,
-		max_count	= 10,    
+		max_count	= 10,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/longleg/hardmod_fungal_longleg.xml"
 	},
 	{
 		prob   		= 0.1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entities 	= {
 			"mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/miner/hardmod_fungal_miner.xml",
 			"mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/miner/hardmod_fungal_miner.xml",
@@ -120,67 +120,67 @@ g_big_enemies =
 	{
 		prob   		= 0.3,
 		min_count	= 1,
-		max_count	= 2,    
+		max_count	= 2,
 		entity 	= "data/entities/animals/miner_santa.xml",
 		spawn_check = function()
 			local year, month, day = GameGetDateAndTimeLocal()
-			
+
 			if ( month == 12 ) and ( day >= 24 ) and ( day <= 26 ) then
 				return true
 			else
-				return false 
+				return false
 			end
 		end,
 	},
 	{
 		prob   		= 0.20,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/shotgunner/hardmod_fungal_shotgunner.xml"
 	},
 	{
 		prob   		= 0.1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/acidshooter/hardmod_fungal_acidshooter.xml"
 	},
 	{
 		prob   		= 0.08,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/giantshooter/hardmod_fungal_giantshooter.xml"
 	},
 	{
 		prob   		= 0.09,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/skull/hardmod_fungal_skull.xml"
-	},	
+	},
 	{
 		prob   		= 0.3,
 		min_count	= 1,
-		max_count	= 2,    
+		max_count	= 2,
 		entity 	= "data/entities/animals/miner_santa.xml",
-		spawn_check = function() 
+		spawn_check = function()
 			local year, month, day = GameGetDateAndTimeLocal()
-			
+
 			if ( month == 12 ) and ( day >= 24 ) and ( day <= 26 ) then
 				return true
 			else
-				return false 
+				return false
 			end
 		end,
 	},
 	{
 		prob   		= 0.02,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/shaman/hardmod_fungal_shaman.xml"
 	},
 	{
 		prob   		= 0.1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/animals/drone_shield.xml",
 		ngpluslevel = 2,
 	},
@@ -229,13 +229,13 @@ g_lamp =
 	{
 		prob   		= 0.4,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= ""
 	},
 	{
 		prob   		= 0.7,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/props/physics/lantern_small.xml"
 	},
 }
@@ -249,26 +249,26 @@ g_unique_enemy =
 	{
 		prob   		= 0.0,
 		min_count	= 0,
-		max_count	= 0,    
+		max_count	= 0,
 		entity 	= ""
 	},
 	-- add skullflys after this step
 	{
 		prob   		= 0.5,
 		min_count	= 1,
-		max_count	= 3,    
+		max_count	= 3,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/slimeshooter/hardmod_fungal_slimeshooter.xml"
 	},
 	{
 		prob   		= 0.3,
 		min_count	= 1,
-		max_count	= 2,    
+		max_count	= 2,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/acidshooter/hardmod_fungal_acidshooter.xml"
 	},
 	{
 		prob   		= 0.1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/giantshooter/hardmod_fungal_giantshooter.xml"
 	},
 }
@@ -280,41 +280,41 @@ g_unique_enemy2 =
 	{
 		prob   		= 1.5,
 		min_count	= 0,
-		max_count	= 0,    
+		max_count	= 0,
 		entity 	= ""
 	},
 	-- add skullflys after this step
 	{
 		prob   		= 0.5,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/animals/miner_santa.xml",
-		spawn_check = function() 
+		spawn_check = function()
 			local year, month, day = GameGetDateAndTimeLocal()
-			
+
 			if ( month == 12 ) and ( day >= 24 ) and ( day <= 26 ) then
 				return true
 			else
-				return false 
+				return false
 			end
 		end,
 	},
 	{
 		prob   		= 0.85,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/shotgunner/hardmod_fungal_shotgunner.xml"
 	},
 	{
 		prob   		= 0.5,
 		min_count	= 2,
-		max_count	= 2,    
+		max_count	= 2,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/miner/hardmod_fungal_miner.xml"
 	},
 	{
 		prob   		= 0.5,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/slimeshooter/hardmod_fungal_slimeshooter.xml"
 	},
 }
@@ -326,27 +326,27 @@ g_unique_enemy3 =
 	{
 		prob   		= 0.0,
 		min_count	= 0,
-		max_count	= 0,    
+		max_count	= 0,
 		entity 	= ""
 	},
 	-- add skullflys after this step
 	{
 		prob   		= 0.7,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/firemage/hardmod_fungal_firemage.xml"
 	},
 	{
 		prob   		= 0.3,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/alchemist/hardmod_fungal_alchemist.xml"
 	},
 	{
 		-- TODO: idk what this enemy does, was 0.1, chnaged to 0.01 because idk if its too hard
 		prob   		= 0.01,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/thundermage/hardmod_fungal_thundermage.xml"
 	},
 }
@@ -358,20 +358,20 @@ g_fungi =
 	{
 		prob   		= 0.5,
 		min_count	= 0,
-		max_count	= 0,    
+		max_count	= 0,
 		entity 	= ""
 	},
 	-- add skullflys after this step
 	-- {
 	-- 	prob   		= 0.5,
 	-- 	min_count	= 1,
-	-- 	max_count	= 1,    
+	-- 	max_count	= 1,
 	-- 	entity 	= "data/entities/animals/fungus.xml"
 	-- },
 	-- {
 	-- 	prob   		= 0.05,
 	-- 	min_count	= 1,
-	-- 	max_count	= 1,    
+	-- 	max_count	= 1,
 	-- 	entity 	= "data/entities/animals/fungus_big.xml"
 	-- },
 }
@@ -385,116 +385,116 @@ g_items =
 	{
 		prob   		= 0,
 		min_count	= 0,
-		max_count	= 0,    
+		max_count	= 0,
 		entity 	= ""
 	},
 	-- add skullflys after this step
 	{
 		prob   		= 1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/items/wands/level_01/wand_001.xml"
 	},
 	{
 		prob   		= 1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/items/wands/level_01/wand_002.xml"
 	},
 	{
 		prob   		= 1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/items/wands/level_01/wand_003.xml"
 	},
 	{
 		prob   		= 1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/items/wands/level_01/wand_004.xml"
 	},
 	{
 		prob   		= 1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/items/wands/level_01/wand_005.xml"
 	},
 	{
 		prob   		= 1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/items/wands/level_01/wand_006.xml"
 	},
 	{
 		prob   		= 1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/items/wands/level_01/wand_007.xml"
 	},
 	{
 		prob   		= 1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/items/wands/level_01/wand_008.xml"
 	},
 	{
 		prob   		= 1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/items/wands/level_01/wand_009.xml"
 	},
 	{
 		prob   		= 1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/items/wands/level_01/wand_010.xml"
 	},
 	{
 		prob   		= 1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/items/wands/level_01/wand_011.xml"
 	},
 	{
 		prob   		= 1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/items/wands/level_01/wand_012.xml"
 	},
 	{
 		prob   		= 1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/items/wands/level_01/wand_013.xml"
 	},
 	{
 		prob   		= 1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/items/wands/level_01/wand_014.xml"
 	},
 	{
 		prob   		= 1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/items/wands/level_01/wand_015.xml"
 	},
 	{
 		prob   		= 1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/items/wands/level_01/wand_016.xml"
 	},
 	{
 		prob   		= 1,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/items/wands/level_01/wand_017.xml"
 	},
 	{
 		prob   		= 1.9,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/items/wand_level_01.xml"
 	},
 }
@@ -508,13 +508,13 @@ g_props =
 		prob   		= 0.2,
 		min_count	= 0,
 		max_count	= 0,
-		offset_y 	= 0,    
+		offset_y 	= 0,
 		entity 	= ""
 	},
 	{
 		prob   		= 0.5,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		offset_y 	= 0,
 		entity 	= "data/entities/props/physics_box_explosive.xml"
 	},
@@ -529,21 +529,21 @@ g_props =
 		prob   		= 0.25,
 		min_count	= 1,
 		max_count	= 1,
-		offset_y 	= -5,    
+		offset_y 	= -5,
 		entity 	= "data/entities/props/physics_cart.xml"
 	},
 	{
 		prob   		= 0.1,
 		min_count	= 1,
 		max_count	= 1,
-		offset_y 	= 0,    
+		offset_y 	= 0,
 		entity 	= "data/entities/props/physics_barrel_radioactive.xml"
 	},
 	{
 		prob   		= 0.3,
 		min_count	= 1,
 		max_count	= 1,
-		offset_y 	= 0,    
+		offset_y 	= 0,
 		entity 	= "data/entities/props/physics_barrel_oil.xml"
 	},
 }
@@ -555,20 +555,20 @@ g_props2 =
 		prob   		= 0.5,
 		min_count	= 0,
 		max_count	= 0,
-		offset_y 	= 0,    
+		offset_y 	= 0,
 		entity 	= ""
 	},
 	{
 		prob   		= 0.2,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		offset_y 	= -3,
 		entity 	= "data/entities/props/physics/minecart.xml"
 	},
 	{
 		prob   		= 0.5,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		offset_y 	= -5,
 		entity 	= "data/entities/props/physics_brewing_stand.xml"
 	},
@@ -581,13 +581,13 @@ g_props3 =
 		prob   		= 0.1,
 		min_count	= 0,
 		max_count	= 0,
-		offset_y 	= 0,    
+		offset_y 	= 0,
 		entity 	= ""
 	},
 	{
 		prob   		= 0.3,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		offset_y 	= -5,
 		entity 	= "data/entities/items/pickup/potion.xml"
 	},
@@ -595,28 +595,28 @@ g_props3 =
 	{
 		prob   		= 0.3,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		offset_y 	= -5,
 		entity 	= "data/entities/props/physics_bottle_green.xml"
 	},
 	{
 		prob   		= 0.3,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		offset_y 	= -5,
 		entity 	= "data/entities/props/physics_bottle_red.xml"
 	},
 	{
 		prob   		= 0.3,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		offset_y 	= -5,
 		entity 	= "data/entities/props/physics_bottle_blue.xml"
 	},
 	{
 		prob   		= 0.2,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		offset_y 	= -5,
 		entity 	= "data/entities/props/physics_bottle_yellow.xml"
 	},
@@ -906,20 +906,20 @@ g_i_structures =
 		prob   		= 0.1,
 		min_count	= 0,
 		max_count	= 0,
-		offset_y 	= 0,    
+		offset_y 	= 0,
 		entity 	= ""
 	},
 	{
 		prob   		= 0.3,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		offset_y 	= -5,
 		entity 	= "data/entities/props/coalmine_i_structure_01.xml"
 	},
 	{
 		prob   		= 0.3,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		offset_y 	= -5,
 		entity 	= "data/entities/props/coalmine_i_structure_02.xml"
 	},
@@ -932,20 +932,20 @@ g_structures =
 		prob   		= 0.1,
 		min_count	= 0,
 		max_count	= 0,
-		offset_y 	= 0,    
+		offset_y 	= 0,
 		entity 	= ""
 	},
 	{
 		prob   		= 0.3,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		offset_y 	= -5,
 		entity 	= "data/entities/props/coalmine_structure_01.xml"
 	},
 	{
 		prob   		= 0.3,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		offset_y 	= -5,
 		entity 	= "data/entities/props/coalmine_structure_01.xml"
 	},
@@ -958,20 +958,20 @@ g_large_structures =
 		prob   		= 0.1,
 		min_count	= 0,
 		max_count	= 0,
-		offset_y 	= 0,    
+		offset_y 	= 0,
 		entity 	= ""
 	},
 	{
 		prob   		= 0.3,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		offset_y 	= -5,
 		entity 	= "data/entities/props/coalmine_large_structure_01.xml"
 	},
 	{
 		prob   		= 0.3,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		offset_y 	= -5,
 		entity 	= "data/entities/props/coalmine_large_structure_02.xml"
 	},
@@ -984,7 +984,7 @@ g_ghostlamp =
 	{
 		prob   		= 1.0,
 		min_count	= 1,
-		max_count	= 1,  
+		max_count	= 1,
 		entity 	= "data/entities/props/physics/chain_torch_ghostly.xml"
 	},
 }
@@ -995,19 +995,19 @@ g_candles =
 	{
 		prob   		= 0.33,
 		min_count	= 1,
-		max_count	= 1, 
+		max_count	= 1,
 		entity 	= "data/entities/props/physics_candle_1.xml"
 	},
 	{
 		prob   		= 0.33,
 		min_count	= 1,
-		max_count	= 1, 
+		max_count	= 1,
 		entity 	= "data/entities/props/physics_candle_2.xml"
 	},
 	{
 		prob   		= 0.33,
 		min_count	= 1,
-		max_count	= 1, 
+		max_count	= 1,
 		entity 	= "data/entities/props/physics_candle_3.xml"
 	},
 }
@@ -1019,13 +1019,13 @@ g_nest =
 	{
 		prob   		= 0.5,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/buildings/flynest.xml"
 	},
 	{
 		prob   		= 0.5,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= ""
 	},
 }
@@ -1036,31 +1036,31 @@ g_vines =
 	{
 		prob   		= 0.4,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/verlet_chains/vines/verlet_vine.xml"
 	},
 	{
 		prob   		= 0.3,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/verlet_chains/vines/verlet_vine_long.xml"
 	},
 	{
 		prob   		= 1.5,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= ""
 	},
 	{
 		prob   		= 0.5,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/verlet_chains/vines/verlet_vine_short.xml"
 	},
 	{
 		prob   		= 0.5,
 		min_count	= 1,
-		max_count	= 1,    
+		max_count	= 1,
 		entity 	= "data/entities/verlet_chains/vines/verlet_vine_shorter.xml"
 	},
 }
@@ -1076,7 +1076,7 @@ function spawn_items( pos_x, pos_y )
 	-- 20% is air, nothing happens
 	if( r < 0.47 ) then return end
 	r = ProceduralRandom( pos_x-11.431, pos_y+10.5257 )
-	
+
 	if( r < 0.755 ) then
 	else
 		LoadPixelScene( "data/biome_impl/wand_altar.png", "data/biome_impl/wand_altar_visual.png", pos_x-10+x_offset, pos_y-17+x_offset, "", true )
@@ -1220,7 +1220,7 @@ function spawn_chest(x, y)
 	end
 
 	local rnd = Random(1,super_chest_spawn_rate)
-	
+
 	if (rnd >= super_chest_spawn_rate-1) then
 		EntityLoad( "data/entities/items/pickup/chest_random_super.xml", x, y)
 	else
@@ -1237,10 +1237,10 @@ end
 function spawn_trapwand(x, y)
 	local options = { "wands/level_01/wand_001", "wands/level_01/wand_002", "wands/level_01/wand_003", "wands/level_01/wand_004", "wands/level_01/wand_005", "wands/level_01/wand_006", "wands/level_01/wand_007", "wands/level_01/wand_008", "wands/level_01/wand_009", "wand_level_01" }
 	SetRandomSeed( x, y )
-	
+
 	local rnd = Random( 1, #options )
 	local wand_to_spawn = "data/entities/items/" .. options[rnd] .. ".xml"
-	
+
 	local wand_id = EntityLoad( wand_to_spawn, x, y)
 	EntityAddTag( wand_id, "trap_wand" )
 end

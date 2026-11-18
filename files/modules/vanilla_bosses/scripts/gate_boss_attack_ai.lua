@@ -202,7 +202,7 @@ elseif attack_state == "normal" then
 		ComponentSetValue2(varcomp,"value_bool",false)
 	elseif current_frame >= last_frame + fire_speed then
 		local player_id = EntityGetInRadiusWithTag(pos_x,pos_y,attack_radius,"player_unit") or EntityGetInRadiusWithTag(pos_x,pos_y,attack_radius,"polymorphed_player")
-		if player_id == nil or not EntityGetIsAlive(player_id[1]) then return end 
+		if player_id == nil or not EntityGetIsAlive(player_id[1]) then return end
 		player_id = player_id[1]
 		local p_x, p_y = EntityGetTransform(player_id)
 
@@ -256,7 +256,7 @@ elseif attack_state == "rapid" then
 		ComponentSetValue2(varcomp,"value_bool",false)
 	elseif current_frame >= last_frame + fire_speed_rapid then
 		local player_id = EntityGetInRadiusWithTag(pos_x,pos_y,attack_radius,"player_unit") or EntityGetInRadiusWithTag(pos_x,pos_y,attack_radius,"polymorphed_player")
-		if player_id == nil or not EntityGetIsAlive(player_id[1]) then return end 
+		if player_id == nil or not EntityGetIsAlive(player_id[1]) then return end
 		player_id = player_id[1]
 		local p_x, p_y = EntityGetTransform(player_id)
 

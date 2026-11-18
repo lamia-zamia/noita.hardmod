@@ -41,7 +41,7 @@ function damage_received( damage, desc, entity_who_caused, is_fatal )
 			break
 		end
 	end
-	
+
 	local shield_radius_default = 18
 	local shield_radius = GetShieldRadius(entity_id)
 	local shield_id = EntityLoad( "mods/noita.hardmod/files/modules/phantom_nemesis/files/entities/misc/shield_reactive_shield.xml", pos_x, pos_y )

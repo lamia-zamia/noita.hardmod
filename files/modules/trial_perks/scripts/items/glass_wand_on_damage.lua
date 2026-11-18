@@ -4,7 +4,7 @@ function damage_received( damage, message, entity_thats_responsible, is_fatal, p
     local EZWand = dofile_once( "mods/noita.hardmod/lib/ezwand.lua" )
     local wand = EZWand.GetHeldWand()
     if wand == nil then return end
-    
+
     local is_glass_wand = EntityHasTag( wand.entity_id, "hardmod_glass_wand" )
 
     local responsible_entity_tags = EntityGetTags( entity_thats_responsible )

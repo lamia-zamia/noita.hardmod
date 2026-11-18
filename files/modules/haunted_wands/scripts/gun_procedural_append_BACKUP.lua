@@ -76,7 +76,7 @@ local modifiers = {
 
 local triggers = {
 	{
-		"LIGHT_BULLET_TRIGGER",	
+		"LIGHT_BULLET_TRIGGER",
 	},
 	{
 		"LIGHT_BULLET_TRIGGER",
@@ -86,20 +86,20 @@ local triggers = {
 		"BULLET_TRIGGER",
 	},
 	{
-		"HEAVY_BULLET_TRIGGER",	
+		"HEAVY_BULLET_TRIGGER",
 	},
 	{
 		"HEAVY_BULLET_TRIGGER",
 		"HEAVY_BULLET_TRIGGER",
 	},
 	{
-		"SLOW_BULLET_TRIGGER",	
+		"SLOW_BULLET_TRIGGER",
 	},
 	{
-		"BUBBLESHOT_TRIGGER",	
+		"BUBBLESHOT_TRIGGER",
 	},
 	{
-		"HARDMOD_ECHO_SHOT_TIMER",	
+		"HARDMOD_ECHO_SHOT_TIMER",
 	},
 }
 
@@ -324,7 +324,7 @@ end
 -- 			end
 -- 		end
 -- 	end
-	
+
 -- 	local candidates = {}
 -- 	for _,action_id in ipairs( desirable_spells ) do
 -- 		if not does_player_have_spell( action_id ) then

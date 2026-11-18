@@ -50,7 +50,7 @@ EntityAddComponent2(entity_id,"ParticleEmitterComponent",{
     x_pos_offset_max=hitbox_feet_width*-1,
     y_pos_offset_min=hitbox_feet_y,
     y_pos_offset_max=hitbox_feet_y+1,
-    
+
 })
 
 EntityAddTag(parent_id,"flying")

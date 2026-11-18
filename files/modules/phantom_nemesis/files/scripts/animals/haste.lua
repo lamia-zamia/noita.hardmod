@@ -33,7 +33,7 @@ local function SpeedUpEnemy(entity_id,speed_mult)
         end
 
         --We cap speed mults to 20 here since without the cap, physics & worm enemies instantly teleport into unloaded terrain upon spawning in
-        
+
         local wormaicomp = EntityGetFirstComponentIncludingDisabled(entity_id,"WormAIComponent")
         if wormaicomp ~= nil then
             ComponentSetValue2(wormaicomp,"speed", math.ceil(ComponentGetValue2(wormaicomp,"speed") * math.min(speed_mult,20)))
@@ -41,7 +41,7 @@ local function SpeedUpEnemy(entity_id,speed_mult)
             ComponentSetValue2(wormaicomp,"direction_adjust_speed", ComponentGetValue2(wormaicomp,"direction_adjust_speed") * math.min(speed_mult,20))
             ComponentSetValue2(wormaicomp,"direction_adjust_speed_hunt", ComponentGetValue2(wormaicomp,"direction_adjust_speed_hunt") * math.min(speed_mult,20))
         end
-        
+
         local ghostcomp = EntityGetFirstComponentIncludingDisabled(entity_id,"GhostComponent")
         if ghostcomp ~= nil then
             ComponentSetValue2(ghostcomp,"speed", math.ceil(ComponentGetValue2(ghostcomp,"speed") * math.min(speed_mult,20)))

@@ -13,7 +13,7 @@ if #projectiles > 0 then
 	for i,proj_id in ipairs(projectiles) do
 		local px, py = EntityGetTransform(proj_id)
 		local proj_comp = EntityGetFirstComponentIncludingDisabled(proj_id, "ProjectileComponent")
-		if proj_comp ~= nil then			
+		if proj_comp ~= nil then
 			local mWhoShot = ComponentGetValue2(proj_comp, "mWhoShot")
 			if mWhoShot ~= owner then
 				EntityLoad("mods/noita.hardmod/files/modules/vanilla_bosses/gfx/particles/gold_shield_particle.xml", px, py)

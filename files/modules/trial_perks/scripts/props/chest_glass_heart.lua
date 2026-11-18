@@ -85,13 +85,13 @@ end
 
 function item_pickup( entity_item, entity_who_picked, name )
 	on_open( entity_item )
-	
+
 	EntityKill( entity_item )
 end
 
 function physics_body_modified( is_destroyed )
 	local entity_item = GetUpdatedEntityID()
-	
+
 	on_open( entity_item )
 
 	local comp = EntityGetFirstComponent(entity_item, "ItemComponent")

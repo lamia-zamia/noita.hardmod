@@ -15,7 +15,7 @@ if #targets < 4 then
 		GameDropAllItems(targets2[z])
 		EntityKill(targets2[z])
 	end
-	
+
 	for k=1,7 do
 		SetRandomSeed(x + k,y)
 		local rnd = Random(-60,60)

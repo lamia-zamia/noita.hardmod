@@ -21,7 +21,7 @@ for _, file in ipairs(igniters)do
 		-- 		entity.children[i]:set("execute_every_n_frame", 1)
 		-- 	end
 		-- end
-		
+
 		-- stop kick cheesing traps
 		local physics_body_comp = entity:first_of("PhysicsBodyComponent")
 
@@ -47,7 +47,7 @@ end
 -- 				entity.children[i]:set("execute_every_n_frame", entity.children[i]:get("execute_every_n_frame") / 3)
 -- 			end
 -- 		end
-		
+
 -- 		local physics_body_comp = entity:first_of("PhysicsBodyComponent")
 
 -- 		if(physics_body_comp)then

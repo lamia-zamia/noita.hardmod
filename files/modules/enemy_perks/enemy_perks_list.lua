@@ -368,7 +368,7 @@ enemy_perks = {
 		condition = enemy_is_ranged_attack,
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_FIRE", false)
-			
+
 			local stacks = (data.how_many_of_each_perk[self.id] or 0) + 1
 			if stacks == 1 then
 				EntityAddComponent2(entity_id, "LuaComponent", {
