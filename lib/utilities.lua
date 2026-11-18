@@ -606,7 +606,7 @@ function utils.WandAddAlwaysCast(entity_id, action_id)
 	end
 
 	local item_component = EntityGetFirstComponentIncludingDisabled(action_entity_id, "ItemComponent")
-	if item_component then 
+	if item_component then
 		ComponentSetValue2(item_component, "permanently_attached", true)
 	end
 
