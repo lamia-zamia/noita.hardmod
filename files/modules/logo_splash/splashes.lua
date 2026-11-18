@@ -127,12 +127,18 @@ local splashes = {
 	'"tablet is kil."\nno...',
 	"no yui, don't go to the fairside!",
 	"claude, make me a good noita difficulty mod",
-	"This comment is awaiting analysis by our automated content check system. It will be temporarily hidden until we verify that it does not contain harmful content (e.g. links to websites that attempt to steal information).",
+	"This splash is awaiting analysis by our automated content check system.",
 	"filler splash to bloat the list",
 	"Working hard at hardly working!",
 	"It's MISTER Squidward to you",
 	"It's MISS Master of Masters to you",
 }
+
+local function add_splashes(tbl, fmt)
+	for _,splash in pairs(tbl) do
+		table.insert(splashes, fmt and fmt:format(splash) or splash)
+	end
+end
 
 local locked_splashes = {
 	hardmod_game_completed = {
@@ -149,21 +155,16 @@ local locked_splashes = {
 }
 
 for flag,list in pairs(locked_splashes) do
-	if HasFlagPersistent(flag) then
-		for _,splash in pairs(list) do table.insert(splashes, splash) end
-	end
+	if HasFlagPersistent(flag) then add_splashes(list) end
 end
 
-local cool_mods = {
+add_splashes({
 	"Fairmod",
 	"Perkageddon",
 	"Apotheosis",
 	"D2D Content Pack",
 	"Fungal Pain",
-}
-for _,coolmod in ipairs(cool_mods) do
-	splashes[#splashes+1] = "Also try "..coolmod.."!"
-end
+}, "Also try %s!")
 
 if month == 11 and day == 15 then
 	for _=1,5 do
@@ -171,7 +172,6 @@ if month == 11 and day == 15 then
 	end
 end
 
--- Splashes with custom settings; a text only needs to be here if it has any. For example:
 -- { "Dunk is bald", color = { r = 1, g = 0.2, b = 0.2 }, scale = 1.5, speed = 2, angle = math.rad(45) },
 -- { "Evil Level: ", { evil_level .. "%", color = { r = 1, g = 0, b = 0 }, font = "data/fonts/font_pixel_big.xml" } },
 -- { "Hämis ", { image = "data/ui_gfx/hud/health.png", scale = 0.5 }, " :+1:" },
@@ -193,13 +193,11 @@ local custom_splashes = {
 		{"r",color={r=1,g=0.2,b=0.65}},
 		{"!",color={r=1,g=0.2,b=0.2}},
 	},
-	{"", { image = "mods/noita.hardmod/files/modules/logo_splash/gfx/hardmod_logo.png"}},
+	{"", { image = "mods/noita.hardmod/files/modules/logo_splash/gfx/hardmod_logo.png", scale = 0.5 }},
 	--{"", { image = "mods/noita.hardmod/files/modules/logo_splash/gfx/fairmod_logo.png"}}, --maybe not lmao
 }
 
-for _,splash in pairs(custom_splashes) do
-	table.insert(splashes, splash)
-end
+add_splashes(custom_splashes)
 
 table.insert(splashes, ("With %s unique splash texts!"):format(#splashes+1))
 
