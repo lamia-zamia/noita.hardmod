@@ -7,7 +7,8 @@ local children = EntityGetAllChildren(host_id) or {}
 local stored_abilities = ""
 for _,child in ipairs(children) do
     if EntityGetName(child) == "felcesis_brain" then
-        stored_abilities = ComponentGetValue2(EntityGetFirstComponentIncludingDisabled(child,"VariableStorageComponent"),"value_string")
+		local comp = EntityGetFirstComponentIncludingDisabled(child,"VariableStorageComponent")
+        stored_abilities = comp and ComponentGetValue2(comp, "value_string")
         break
     end
 end
@@ -150,9 +151,9 @@ function CreateAbilityText()
     for _, text_key in ipairs(ability_names) do
         local display_text = GameTextGetTranslatedOrNot("$" .. text_key)
         local text_id = EntityLoad("mods/noita.hardmod/files/modules/phantom_nemesis/files/entities/misc/fx/ability_text.xml", x, y)
-        local sprite_comp = EntityGetFirstComponentIncludingDisabled(text_id, "SpriteComponent") or 0
+        local sprite_comp = EntityGetFirstComponentIncludingDisabled(text_id, "SpriteComponent")
 
-        if text_id ~= 0 and sprite_comp ~= 0 then
+        if text_id ~= 0 and sprite_comp then
             ComponentSetValue2(sprite_comp, "text", display_text)
             EntityRefreshSprite(text_id, sprite_comp)
 

@@ -32,7 +32,10 @@ function GenerateToolboxSpells( toolbox, amount, do_print )
 			if toolbox:GetFreeSlotsCount() > 0 then
 				-- prevent the 'Equipped Wand' message
 				local owner = EntityGetRootEntity( toolbox.entity_id )
+				local x, y = 0, 0
 				if owner ~= nil and EntityHasTag( owner, "player_unit" ) then
+					x, y = EntityGetTransform(owner)
+
 					local inv2 = EntityGetFirstComponent( owner, "Inventory2Component" )
 					if inv2 ~= nil then
 						if inv2 then

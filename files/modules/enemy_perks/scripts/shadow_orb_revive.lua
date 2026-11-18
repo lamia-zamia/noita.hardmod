@@ -49,6 +49,7 @@ local data = {
 	is_boss = is_boss,
 }
 
+---@diagnostic disable-next-line: param-type-mismatch
 eperk_utils.give_enemy_perks(eid, target_perks, data)
 
 EntityKill(entity_id)

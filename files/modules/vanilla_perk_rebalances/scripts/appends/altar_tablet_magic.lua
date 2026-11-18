@@ -62,6 +62,7 @@ local sacrifice_items = {
 			--generate perks
 			local shit_perks = {}
 			for _,perk in ipairs(perk_list) do
+				---@diagnostic disable-next-line: undefined-field
 				if perk.hardmod_shit_perk then
 					shit_perks[#shit_perks+1] = perk.id
 				end

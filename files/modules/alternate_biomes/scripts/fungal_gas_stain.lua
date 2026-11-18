@@ -7,7 +7,6 @@ local cells_per_stain = 10
 if fungal_trip_index == nil then
 	local seen = {}
 	local count = 0
-	---@diagnostic disable-next-line: undefined-global
 	for _,effect in ipairs(status_effects) do
 		if not seen[effect.id] then
 			seen[effect.id] = true

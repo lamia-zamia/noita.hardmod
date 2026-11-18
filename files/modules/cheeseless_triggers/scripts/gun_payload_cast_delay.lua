@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 payload_cast_delay_scale = 1.0 -- Fraction of the payload's cast delay
 payload_spread_degrees_scale = 1.0
 

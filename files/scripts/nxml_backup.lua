@@ -1,4 +1,4 @@
----@diagnostic disable: duplicate-doc-alias, duplicate-doc-field, duplicate-set-field
+---@diagnostic disable
 --[[
  * The following is a Lua port of the NXML parser:
  * https://github.com/xwitchproject/nxml

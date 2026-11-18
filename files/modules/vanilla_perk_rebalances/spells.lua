@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 local hooks = {}
 
 hooks.new_spells = {

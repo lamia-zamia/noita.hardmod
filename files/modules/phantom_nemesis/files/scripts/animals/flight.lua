@@ -2,28 +2,28 @@
 local entity_id = GetUpdatedEntityID()
 local parent_id = EntityGetParent(entity_id)
 
-local acomp = EntityGetFirstComponentIncludingDisabled(parent_id,"AnimalAIComponent") or 0
-if acomp ~= 0 then
+local acomp = EntityGetFirstComponentIncludingDisabled(parent_id,"AnimalAIComponent")
+if acomp then
     ComponentSetValue2(acomp,"can_fly",true)
 end
 
-local pcomp = EntityGetFirstComponentIncludingDisabled(parent_id,"PathFindingComponent") or 0
-if pcomp ~= 0 then
+local pcomp = EntityGetFirstComponentIncludingDisabled(parent_id,"PathFindingComponent")
+if pcomp then
     ComponentSetValue2(pcomp,"can_fly",true)
     ComponentSetValue2(pcomp,"can_walk",false)
 end
 
-local wcomp = EntityGetFirstComponentIncludingDisabled(parent_id,"WormComponent") or 0
-if wcomp ~= 0 then
+local wcomp = EntityGetFirstComponentIncludingDisabled(parent_id,"WormComponent")
+if wcomp then
     ComponentSetValue2(wcomp,"gravity",0)
     ComponentSetValue2(wcomp,"tail_gravity",0)
     ComponentSetValue2(wcomp,"is_water_worm",false)
 end
 
-local hitbox_comp = EntityGetFirstComponentIncludingDisabled(entity_id, "HitboxComponent") or 0
+local hitbox_comp = EntityGetFirstComponentIncludingDisabled(entity_id, "HitboxComponent")
 local hitbox_feet_y = 2
 local hitbox_feet_width = 4
-if hitbox_comp > 0 then 
+if hitbox_comp then
     hitbox_feet_y = ComponentGetValue2(hitbox_comp, "aabb_max_y")
     hitbox_feet_width = ComponentGetValue2(hitbox_comp,"aabb_max_x") + 2
 end

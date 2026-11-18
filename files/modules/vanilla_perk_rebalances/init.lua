@@ -167,7 +167,6 @@ hooks.mod_post_init = function()
 	-- ModLuaFileAppend("data/scripts/magic/altar_tablet_magic.lua", root.."scripts/appends/altar_tablet_magic.lua")
 
 	dofile_once("data/scripts/gun/gun_actions.lua")
-	---@diagnostic disable-next-line:undefined-global
 	for _,action in pairs(actions) do
 		if action.custom_xml_file then
 			spell_card_append_targets[action.custom_xml_file] = true

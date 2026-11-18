@@ -307,6 +307,7 @@ enemy_perks = {
 				for _,cbc in ipairs(EntityGetComponentIncludingDisabled(clone, "CameraBoundComponent") or {}) do
 					EntityRemoveComponent(clone, cbc)
 				end
+				---@diagnostic disable-next-line: param-type-mismatch
 				eperk_utils.give_enemy_perks(clone, utils.deepcopy(data.selected_perks), data)
 				gang[#gang+1] = clone
 			end

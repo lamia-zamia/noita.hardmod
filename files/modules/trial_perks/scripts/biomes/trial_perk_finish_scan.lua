@@ -5,8 +5,8 @@ local x, y = EntityGetTransform( GetUpdatedEntityID() )
 
 local function finish_time_trial( player )
 	AddFlagPersistent( "hardmod_time_trial_passed" )
-	GlobalsSetValue( "hardmod_time_trial_start_y", 0 )
-	
+	GlobalsSetValue("hardmod_time_trial_start_y", "0")
+
 	local px, py = EntityGetTransform( player )
 
 	GamePrintImportant( GameTextGetTranslatedOrNot( "$hardmod_perk_time_trial_msg_pass" ) )
@@ -32,7 +32,7 @@ end
 
 local function finish_glass_heart( player )
 	AddFlagPersistent( "hardmod_glass_heart_passed" )
-	GlobalsSetValue( "hardmod_glass_heart_start_y", 0 )
+	GlobalsSetValue("hardmod_glass_heart_start_y", "0")
 
 	local px, py = EntityGetTransform( player )
 
@@ -54,7 +54,7 @@ local function finish_glass_heart( player )
 	-- final stuff
 	utils.EntityRemoveAllByTag( player, "hardmod_glass_heart" )
 	SwapPerkIconForSpent( player, "$hardmod_perk_glass_heart_name", true )
-	GlobalsSetValue( "hardmod_glass_heart_start_y", 0 )
+	GlobalsSetValue("hardmod_glass_heart_start_y", "0")
 end
 
 local spawn_return_portal = false

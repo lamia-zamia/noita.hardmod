@@ -1,4 +1,5 @@
----@diagnostic disable: undefined-global
+---@type string[][]
+biomes = biomes or {}
 
 ---Maximum modifier count per biome (uses `default` for non specified biomes)
 MaxBiomeModifierCount = { default = 1 }
@@ -294,6 +295,7 @@ end
 
 patch_remove_mountain_hall()
 
+---@diagnostic disable-next-line: undefined-global
 AddModifiers({ biome_modifier_cosmetic_freeze, biome_modifier_fog_of_war_clear_at_player })
 PatchModifiers({
 	FUNGAL = { category = "alternative" },

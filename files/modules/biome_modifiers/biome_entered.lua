@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 dofile_once("data/scripts/biome_modifiers.lua")
 dofile_once("mods/noita.hardmod/files/modules/biome_modifiers/biome_table.lua")
 

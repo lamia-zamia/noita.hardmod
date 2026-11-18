@@ -22,8 +22,6 @@ if utils.MatchDateLocal({month = 3, day = 31}) then
 	polymorphs.POLYMORPH.ui_description = "$hardmod_status_polymorph_trans_day"
 end
 
-
----@diagnostic disable-next-line: undefined-global
 for _,status_effect in ipairs(status_effects) do
 	if polymorphs[status_effect.id] then
 		for key,value in pairs(polymorphs[status_effect.id]) do

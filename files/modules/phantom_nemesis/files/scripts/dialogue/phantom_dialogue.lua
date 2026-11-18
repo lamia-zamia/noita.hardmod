@@ -67,9 +67,9 @@ function Speak(entity, text, pool)
     local x, y = EntityGetTransform(entity_id)
     SetRandomSeed(entity_id + x + 2352, GameGetFrameNum() - y + 24806)
 
-    local hitbox_comp = EntityGetFirstComponentIncludingDisabled(entity_id, "HitboxComponent") or 0
+    local hitbox_comp = EntityGetFirstComponentIncludingDisabled(entity_id, "HitboxComponent")
     local hitbox_height_y = 0
-    if hitbox_comp > 0 then 
+    if hitbox_comp then
         hitbox_height_y = ComponentGetValue2(hitbox_comp, "aabb_min_y")
     end
 

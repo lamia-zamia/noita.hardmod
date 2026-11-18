@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 local utils = dofile_once( "mods/noita.hardmod/lib/utilities.lua" ) ---@type utils
 
 local aura = GetUpdatedEntityID()
@@ -49,9 +48,9 @@ if nearby_players then
 
 					local boss_dmg_comp = EntityGetFirstComponentIncludingDisabled( owner, "DamageModelComponent" )
 					if boss_dmg_comp then
-						local boss_hp = ComponentGetValue2( owner_dmg_comp, "hp" )
-						local boss_max_hp = ComponentGetValue2( owner_dmg_comp, "max_hp" )
-						ComponentSetValue2( owner_dmg_comp, "hp", math.min( boss_hp + ( boss_max_hp * 0.2 ), boss_max_hp ) )
+						local boss_hp = ComponentGetValue2(boss_dmg_comp, "hp")
+						local boss_max_hp = ComponentGetValue2(boss_dmg_comp, "max_hp")
+						ComponentSetValue2(boss_dmg_comp, "hp", math.min(boss_hp + (boss_max_hp * 0.2), boss_max_hp))
 					end
 				else
 					EntityInflictDamage( player, 0.00667, "DAMAGE_CURSE", "divine tether", "NONE", 0, 0 )

@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 local hell_perk_remap = {
 	PROTECTION_EXPLOSION = "HARDMOD_HELL_PROTECTION_EXPLOSION",
 	EXPLODING_CORPSES = "HARDMOD_HELL_EXPLODING_CORPSES",

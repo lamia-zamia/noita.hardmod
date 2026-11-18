@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 local action_id_table = nil
 local function get_spell_data(action_id)
 	if not action_id_table then
@@ -66,6 +64,9 @@ local function run_greek(data, recursion_level, dont_draw, no_recursion)
 	if spell and spell.never_unlimited then
 		local frame = GameGetFrameNum()
 		if not reflecting and frame - last_greek_error > 20 then
+			local player = GetUpdatedEntityID()
+			local x, y = EntityGetTransform(player)
+
 			GamePrint(GameTextGet("$hardmod_spell_greek_limited", GameTextGetTranslatedOrNot(spell.name)))
 			GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/out_of_mana", x, y)
 			last_greek_error = frame
@@ -105,7 +106,7 @@ hooks.new_spells = {
 		spawn_requires_flag = "hardmod_cannot_spawn",
 		price = 1000,
 		mana = 20,
-		action = function()
+		action = function(recursion_level)
 			if reflecting then return end
 
 			local data = nil

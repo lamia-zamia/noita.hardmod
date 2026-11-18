@@ -88,6 +88,8 @@ for i=1,#varcomps do local comp = varcomps[i]
 		extracomp = comp
 	end
 end
+if not varcomp then return end
+
 local last_frame = ComponentGetValue2(varcomp,"value_int") --Used to help with timers
 local spin_speed = ComponentGetValue2(varcomp,"value_float") --Current card ring spin speed in degrees
 local attack_state = ComponentGetValue2(varcomp,"value_string") --Current state ("normal"/"rapid")
@@ -103,7 +105,7 @@ if card_count > 0 then
 	ComponentSetValue2(extracomp,"value_float",current_spin_angle)
 	for i=1,card_count do local spell_card = spell_cards[i]
 		local spellcomp = EntityGetFirstComponentIncludingDisabled(spell_card,"VariableStorageComponent")
-		local offset = ComponentGetValue2(spellcomp,"value_float")
+		local offset = spellcomp and ComponentGetValue2(spellcomp,"value_float") or 0
 		local ring_angle = math.rad(current_spin_angle + offset)
 		local card_x = pos_x + math.cos(ring_angle) * card_ring_radius
 		local card_y = pos_y + math.sin(ring_angle) * card_ring_radius
@@ -146,17 +148,24 @@ if not recharged then
 		local card_x = pos_x + math.cos(ring_angle) * card_ring_radius
 		local card_y = pos_y + math.sin(ring_angle) * card_ring_radius
 		local spell_card = EntityLoad("mods/noita.hardmod/files/modules/vanilla_bosses/entity/gate_boss_spell_card_visual.xml",card_x,card_y)
+
 		local iconcomp = EntityGetFirstComponentIncludingDisabled(spell_card,"SpriteComponent")
 		local icon_path = "data/ui_gfx/gun_actions/" .. spells[spell_index][1] .. ".png"
-		ComponentSetValue2(iconcomp,"image_file",icon_path)
-		if spells[spell_index][4] == "static" then --If static projectile then change border
-			local bordercomp = EntityGetComponentIncludingDisabled(spell_card,"SpriteComponent")[2]
-			ComponentSetValue2(bordercomp,"image_file","data/ui_gfx/inventory/item_bg_static_projectile.png")
+		if iconcomp then
+			ComponentSetValue2(iconcomp,"image_file",icon_path)
+			if spells[spell_index][4] == "static" then --If static projectile then change border
+				local bordercomp = EntityGetComponentIncludingDisabled(spell_card,"SpriteComponent")[2]
+				ComponentSetValue2(bordercomp,"image_file","data/ui_gfx/inventory/item_bg_static_projectile.png")
+			end
+			EntityRefreshSprite(spell_card,iconcomp)
 		end
-		EntityRefreshSprite(spell_card,iconcomp)
+
 		local spellcomp = EntityGetFirstComponentIncludingDisabled(spell_card,"VariableStorageComponent")
-		ComponentSetValue2(spellcomp,"value_int",spell_index)
-		ComponentSetValue2(spellcomp,"value_float",offset)
+		if spellcomp then
+			ComponentSetValue2(spellcomp,"value_int",spell_index)
+			ComponentSetValue2(spellcomp,"value_float",offset)
+		end
+
 		if attack_state == "rapid" then --Visual trail to the card if in rapid mode
 			local bordercomp = EntityGetComponentIncludingDisabled(spell_card,"SpriteComponent")[2]
 			local border = ComponentGetValue2(bordercomp,"image_file")
@@ -210,7 +219,7 @@ elseif attack_state == "normal" then
 		if attack_card ~= nil then
 			local card_x, card_y = EntityGetTransform(attack_card)
 			local spellcomp = EntityGetFirstComponentIncludingDisabled(attack_card,"VariableStorageComponent")
-			local spell_index = ComponentGetValue2(spellcomp,"value_int")
+			local spell_index = spellcomp and ComponentGetValue2(spellcomp,"value_int") or 1
 			local spell_stats = spells[spell_index]
 			local spell_name = spell_stats[1]
 			local speed_min = spell_stats[2][1]
@@ -223,11 +232,19 @@ elseif attack_state == "normal" then
 			local pid = EntityLoad("mods/noita.hardmod/files/modules/vanilla_bosses/entity/gate_boss_projectiles/" .. spell_name .. ".xml", card_x, card_y)
 			GameShootProjectile(entity_id, card_x, card_y, card_x + vel_x, card_y + vel_y,pid)
 			local projcomp = EntityGetFirstComponentIncludingDisabled( pid, "ProjectileComponent" )
-			ComponentSetValue2(projcomp, "mWhoShot", entity_id)
-			local genomecomp = EntityGetFirstComponentIncludingDisabled( entity_id, "GenomeDataComponent" )
-			ComponentSetValue2(projcomp, "mShooterHerdId", ComponentGetValue2(genomecomp,"herd_id"))
+			if projcomp then
+				ComponentSetValue2(projcomp, "mWhoShot", entity_id)
+				local genomecomp = EntityGetFirstComponentIncludingDisabled( entity_id, "GenomeDataComponent" )
+				if genomecomp then
+					ComponentSetValue2(projcomp, "mShooterHerdId", ComponentGetValue2(genomecomp,"herd_id"))
+				end
+			end
+
 			local velcomp = EntityGetFirstComponentIncludingDisabled( pid, "VelocityComponent" )
-			ComponentSetValue2(velcomp, "mVelocity", vel_x, vel_y)
+			if velcomp then
+				ComponentSetValue2(velcomp, "mVelocity", vel_x, vel_y)
+			end
+
 			EntityKill(attack_card)
 			ComponentSetValue2(varcomp,"value_int",current_frame)
 		else
@@ -256,7 +273,7 @@ elseif attack_state == "rapid" then
 		if attack_card ~= nil then
 			local card_x, card_y = EntityGetTransform(attack_card)
 			local spellcomp = EntityGetFirstComponentIncludingDisabled(attack_card,"VariableStorageComponent")
-			local spell_index = ComponentGetValue2(spellcomp,"value_int")
+			local spell_index = spellcomp and ComponentGetValue2(spellcomp,"value_int") or 1
 			local spell_stats = spells[spell_index]
 			local spell_name = spell_stats[1]
 			local speed_min = spell_stats[2][1]
@@ -268,12 +285,21 @@ elseif attack_state == "rapid" then
 
 			local pid = EntityLoad("mods/noita.hardmod/files/modules/vanilla_bosses/entity/gate_boss_projectiles/" .. spell_name .. ".xml", card_x, card_y)
 			GameShootProjectile(entity_id, card_x, card_y, card_x + vel_x, card_y + vel_y,pid)
+
 			local projcomp = EntityGetFirstComponentIncludingDisabled( pid, "ProjectileComponent" )
-			ComponentSetValue2(projcomp, "mWhoShot", entity_id)
-			local genomecomp = EntityGetFirstComponentIncludingDisabled( entity_id, "GenomeDataComponent" )
-			ComponentSetValue2(projcomp, "mShooterHerdId", ComponentGetValue2(genomecomp,"herd_id"))
+			if projcomp then
+				ComponentSetValue2(projcomp, "mWhoShot", entity_id)
+				local genomecomp = EntityGetFirstComponentIncludingDisabled( entity_id, "GenomeDataComponent" )
+				if genomecomp then
+					ComponentSetValue2(projcomp, "mShooterHerdId", ComponentGetValue2(genomecomp,"herd_id"))
+				end
+			end
+
 			local velcomp = EntityGetFirstComponentIncludingDisabled( pid, "VelocityComponent" )
-			ComponentSetValue2(velcomp, "mVelocity", vel_x, vel_y)
+			if velcomp then
+				ComponentSetValue2(velcomp, "mVelocity", vel_x, vel_y)
+			end
+
 			EntityKill(attack_card)
 		end
 		ComponentSetValue2(varcomp,"value_int",current_frame)

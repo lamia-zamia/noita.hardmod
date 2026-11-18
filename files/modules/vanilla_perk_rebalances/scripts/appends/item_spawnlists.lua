@@ -1,4 +1,3 @@
----@diagnostic disable-next-line: undefined-global
 local list = spawnlists.potion_spawnlist
 
 local rnd_min = list.rnd_max + 1

@@ -7,8 +7,8 @@ local platcomp = EntityGetFirstComponentIncludingDisabled( owner, "CharacterPlat
 if not platcomp then return end
 local frames_in_air = ComponentGetValue2( platcomp, "mFramesInAirCounter" )
 
-local controls = EntityGetFirstComponent( owner, "ControlsComponent" )
-local is_fly_pressed = ComponentGetValue2( controls, "mButtonDownFly" )
+local controls = EntityGetFirstComponent(owner, "ControlsComponent")
+local is_fly_pressed = controls and ComponentGetValue2(controls, "mButtonDownFly")
 
 local markers = EntityGetWithTag( "hardmod_rewind_marker" )
 if markers ~= nil and frames_in_air == 0 then

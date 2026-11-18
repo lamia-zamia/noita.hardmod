@@ -2,8 +2,8 @@
 local entity_id = GetUpdatedEntityID()
 local parent_id = EntityGetParent(entity_id)
 
-local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(parent_id,"AnimalAIComponent") or 0
-if animal_ai_comp == 0 then goto skipsetup end
+local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(parent_id,"AnimalAIComponent")
+if not animal_ai_comp then return end
 local aspd = ComponentGetValue2(animal_ai_comp,"attack_ranged_frames_between")
 ComponentSetValue2(animal_ai_comp,"attack_ranged_frames_between",math.max(1,math.floor(aspd*8)))
 
@@ -17,5 +17,3 @@ for k=1,#aicomps do
     local aspd = ComponentGetValue2(v,"frames_between_global")
     ComponentSetValue2(v,"frames_between_global",math.max(1,math.floor(aspd*6)))
 end
-
-::skipsetup::

@@ -14,7 +14,6 @@ function spawn_all_perks(x, y, ...)
 		GamePlaySound("data/audio/Desktop/event_cues.bank", "event_cues/angered_the_gods/create", x, y)
 		GameScreenshake(150)
 
-		---@diagnostic disable-next-line: undefined-global
 		temple_spawn_guardian(x + 30, y - 30)
 	end
 end

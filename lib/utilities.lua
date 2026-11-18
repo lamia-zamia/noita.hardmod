@@ -366,7 +366,6 @@ end
 function utils.GetPerkPickupCount(perk_id)
 	dofile_once("data/scripts/perks/perk_list.lua")
 
-	---@diagnostic disable-next-line: undefined-global
 	local flag_name = get_perk_picked_flag_name(perk_id)
 	local pickup_count = tonumber(GlobalsGetValue(flag_name .. "_PICKUP_COUNT", "0"))
 

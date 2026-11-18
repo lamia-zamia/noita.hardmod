@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 local utils = dofile_once( "mods/noita.hardmod/lib/utilities.lua" ) ---@type utils
 
 local root = "mods/noita.hardmod/files/modules/spell_variety/"

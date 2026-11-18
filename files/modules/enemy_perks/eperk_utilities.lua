@@ -97,7 +97,7 @@ end
 
 ---function to give enemy perks
 ---@param entity_id entity_id
----@param perks_to_give int|table|nil pass number to pass X random perks, pass table to give specific selection of perks
+---@param perks_to_give table|int|nil pass number to pass X random perks, pass table to give specific selection of perks
 ---@param data table context passed to functions, used for both random selection and perk behaviour
 function utilities.give_enemy_perks(entity_id, perks_to_give, data)
 	local perks_to_give_type = type(perks_to_give)

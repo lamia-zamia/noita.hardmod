@@ -13,7 +13,7 @@ if tonumber( GlobalsGetValue( "hardmod_time_trial_start_y" ) ) or 0 == 0 then re
 GamePrintImportant( "$hardmod_perk_time_trial_msg_fail" )
 utils.EntityRemoveAllByTag( player, "hardmod_time_trial" )
 SwapPerkIconForSpent( player, "$hardmod_perk_time_trial_name", false )
-GlobalsSetValue( "hardmod_time_trial_start_y", 0 )
+GlobalsSetValue("hardmod_time_trial_start_y", "0")
 
 local x, y = EntityGetTransform( player )
 GamePlaySound( "data/audio/Desktop/animals.bank", "animals/sheep/confused", x, y )

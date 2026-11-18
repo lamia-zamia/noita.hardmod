@@ -7,7 +7,11 @@ local x, y = EntityGetTransform( perk_entity_id )
 
 local prev_max_eid = utils.GetInternalInt( perk_entity_id, "prev_max_eid", true )
 local new_max = EntitiesGetMaxID()
+
 for entity_id = prev_max_eid + 1, new_max do
+	---@diagnostic disable-next-line: cast-type-mismatch
+	---@cast entity_id entity_id
+
 	if EntityHasTag( entity_id, "homing_target" ) and utils.GetInternalInt( entity_id, "hardmod_spell_gems_script_added", true ) == 0 then
 		EntityAddComponent2( entity_id, "LuaComponent",
 		{
