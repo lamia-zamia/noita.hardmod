@@ -22,11 +22,8 @@
 		>
 	</LuaComponent>
 	
-	<GameEffectComponent
-		lifetime="1800"
-		effect="NONE"
-	>
-	</LifetimeComponent>
+	<!-- <GameEffectComponent effect="NONE"></GameEffectComponent> -->
+	<LifetimeComponent lifetime="1800"></LifetimeComponent>
 	
 	<UIIconComponent
 		icon_sprite_file="mods/noita.hardmod/files/modules/phantom_nemesis/ui_gfx/status_indicators/nohealing.png"

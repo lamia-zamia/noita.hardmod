@@ -12,7 +12,7 @@
 			damage="0.22"
 			create_shell_casing="0"
 			bounces_left="0"
-			ragdoll_fx_on_collision=""
+			ragdoll_fx_on_collision="NONE"
 			velocity_sets_scale="0"
 			velocity_sets_rotation="0"
 			lifetime="600"
