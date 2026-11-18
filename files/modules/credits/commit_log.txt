@@ -800,3 +800,9 @@ sneak in some changes rq
 write globla definitions globals.lua
 Fix warnings and get rid of diagnostic disable undefined-global
 todo i guess
+fix redefined local
+fix: trailing-whitespace
+h
+format (zptr1): remove spaces between brackets
+format (zptr1): remove brackets from if
+format (zptr1): spaces after comma (except in for loops)
