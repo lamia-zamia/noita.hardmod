@@ -800,9 +800,15 @@ sneak in some changes rq
 write globla definitions globals.lua
 Fix warnings and get rid of diagnostic disable undefined-global
 todo i guess
+fixing some stuff
 fix redefined local
 fix: trailing-whitespace
 h
+fixed Amplified Items quest from mountain altar
 format (zptr1): remove spaces between brackets
 format (zptr1): remove brackets from if
+tweaks
 format (zptr1): spaces after comma (except in for loops)
+some more tweaks
+finishing touches
+added Vuoksikivi to altar sacrificable items
