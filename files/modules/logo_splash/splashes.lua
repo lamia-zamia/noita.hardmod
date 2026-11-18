@@ -148,6 +148,7 @@ local locked_splashes = {
 		"Impressive!!!",
 		"Enjoy your golden starter wands",
 		"There's more to explore here",
+		"time for harharmod",
 	},
 	hardmod_unlocked_indulgence = {
 		"ITS A BRIMSTONE, ITS NOT A PENIS",
