@@ -1069,8 +1069,7 @@ g_vines =
 
 -- this is a special function tweaked for spawning things in coalmine
 function spawn_items(pos_x, pos_y)
-
-	local x_offset,y_offset = 5,5
+	local x_offset, y_offset = 5, 5
 
 	local r = ProceduralRandom(pos_x, pos_y)
 	-- 20% is air, nothing happens
@@ -1094,11 +1093,11 @@ function spawn_small_enemies(x, y, w, h, is_open_path)
 		local spawn_percent = BiomeMapGetVerticalPositionInsideBiome(x, y)
 		spawn_percent = (2.1 * spawn_percent) + 0.2
 		if r > spawn_percent then return end
-		spawn_with_limited_random(g_small_enemies,x,y,0,0,{"longleg","fungus"})
-		--spawn_hp(g_small_enemies,x,y,0,0,0.4,"coalmines")
+		spawn_with_limited_random(g_small_enemies, x, y, 0, 0, {"longleg", "fungus"})
+		--spawn_hp(g_small_enemies, x, y, 0, 0, 0.4, "coalmines")
 	else
-		spawn_with_limited_random(g_small_enemies,x,y,0,0,{"longleg","fungus"})
-		--spawn_hp(g_small_enemies,x,y,0,0,0.4,"coalmines")
+		spawn_with_limited_random(g_small_enemies, x, y, 0, 0, {"longleg", "fungus"})
+		--spawn_hp(g_small_enemies, x, y, 0, 0, 0.4, "coalmines")
 	end
 end
 
@@ -1108,48 +1107,48 @@ function spawn_big_enemies(x, y, w, h, is_open_path)
 		local spawn_percent = BiomeMapGetVerticalPositionInsideBiome(x, y)
 		spawn_percent = (1.75 * spawn_percent) - 0.1
 		if r > spawn_percent then return end
-		spawn_with_limited_random(g_big_enemies,x,y,0,0,{"longleg","fungus"})
-		--spawn_hp(g_big_enemies,x,y,0,0,0.4,"coalmines")
+		spawn_with_limited_random(g_big_enemies, x, y, 0, 0, {"longleg", "fungus"})
+		--spawn_hp(g_big_enemies, x, y, 0, 0, 0.4, "coalmines")
 	else
-		spawn_with_limited_random(g_big_enemies,x,y,0,0,{"longleg","fungus"})
-		--spawn_hp(g_big_enemies,x,y,0,0,0.4,"coalmines")
+		spawn_with_limited_random(g_big_enemies, x, y, 0, 0, {"longleg", "fungus"})
+		--spawn_hp(g_big_enemies, x, y, 0, 0, 0.4, "coalmines")
 	end
 end
 
 function spawn_lamp(x, y)
-	spawn(g_lamp,x,y,0,0)
+	spawn(g_lamp, x, y, 0, 0)
 end
 
 function spawn_ghostlamp(x, y)
-	spawn2(g_ghostlamp,x,y,0,0)
+	spawn2(g_ghostlamp, x, y, 0, 0)
 end
 
 function spawn_props(x, y)
-	spawn(g_props,x,y-3,0,0)
+	spawn(g_props, x, y-3, 0, 0)
 end
 
 function spawn_props2(x, y)
-	spawn(g_props2,x,y-3,0,0)
+	spawn(g_props2, x, y-3, 0, 0)
 end
 
 function spawn_props3(x, y)
-	spawn(g_props3,x,y,0,0)
+	spawn(g_props3, x, y, 0, 0)
 end
 
 function spawn_unique_enemy(x, y)
-	spawn(g_unique_enemy,x,y)
+	spawn(g_unique_enemy, x, y)
 end
 
 function spawn_unique_enemy2(x, y)
-	spawn(g_unique_enemy2,x,y)
+	spawn(g_unique_enemy2, x, y)
 end
 
 function spawn_unique_enemy3(x, y)
-	spawn(g_unique_enemy3,x,y)
+	spawn(g_unique_enemy3, x, y)
 end
 
 function spawn_fungi(x, y)
-	spawn(g_fungi,x,y)
+	spawn(g_fungi, x, y)
 end
 
 function load_pixel_scene(x, y)
@@ -1197,15 +1196,15 @@ function load_i_structures(x, y)
 	spawn(g_i_structures, x, y-30, 0, 0)
 end
 
-function spawn_stash(x,y)
+function spawn_stash(x, y)
 end
 
 function spawn_nest(x, y)
-	spawn(g_nest,x+4,y)
+	spawn(g_nest, x+4, y)
 end
 
 function spawn_vines(x, y)
-	spawn(g_vines,x+5,y+5)
+	spawn(g_vines, x+5, y+5)
 end
 
 function spawn_altar_torch(x, y)
@@ -1219,7 +1218,7 @@ function spawn_chest(x, y)
 		super_chest_spawn_rate = 100
 	end
 
-	local rnd = Random(1,super_chest_spawn_rate)
+	local rnd = Random(1, super_chest_spawn_rate)
 
 	if rnd >= super_chest_spawn_rate-1 then
 		EntityLoad("data/entities/items/pickup/chest_random_super.xml", x, y)

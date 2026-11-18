@@ -4,8 +4,8 @@ local speed = 400
 
 local entity_id = GetUpdatedEntityID()
 local pos_x, pos_y, rot = EntityGetTransform(entity_id)
-local wand_vsc_comp = EntityGetFirstComponentIncludingDisabled(entity_id,"VariableStorageComponent")
-local phantom_tier = wand_vsc_comp and ComponentGetValue2(wand_vsc_comp,"value_float") or 0
+local wand_vsc_comp = EntityGetFirstComponentIncludingDisabled(entity_id, "VariableStorageComponent")
+local phantom_tier = wand_vsc_comp and ComponentGetValue2(wand_vsc_comp, "value_float") or 0
 local proj_filepath = (
 	phantom_tier >= 5
 		and "mods/noita.hardmod/files/modules/phantom_nemesis/files/entities/projectiles/fire_wand_ghastly_projectile.xml"

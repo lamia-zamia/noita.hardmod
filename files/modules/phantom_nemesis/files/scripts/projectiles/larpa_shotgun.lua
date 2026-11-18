@@ -2,10 +2,10 @@ dofile_once("data/scripts/lib/utilities.lua")
 
 local entity_id    = GetUpdatedEntityID()
 local pos_x, pos_y, rot = EntityGetTransform(entity_id)
-local vel_x, vel_y = 0,0
+local vel_x, vel_y = 0, 0
 local amount = 3
 
-if EntityHasTag(entity_id,"projectile_cloned") then return end
+if EntityHasTag(entity_id, "projectile_cloned") then return end
 
 local variablestorages = EntityGetComponent(entity_id, "VariableStorageComponent")
 local projectile_file = ""
@@ -26,16 +26,15 @@ if vcomp then
 end
 
 for k=1,amount do
-
-    local length = 400 * math.random(0.70,1.30)
+    local length = 400 * math.random(0.70, 1.30)
 
     --3.12 * 0.15 / 2 = 0.234
     --GamePrint("rot is " .. rot)
     local offset_x = vel_x * 0.2
     local offset_y = vel_x * 0.2
 
-    vel_x = vel_x + math.random(offset_x * -1,offset_x)
-    vel_y = vel_y + math.random(offset_y * -1,offset_y)
+    vel_x = vel_x + math.random(offset_x * -1, offset_x)
+    vel_y = vel_y + math.random(offset_y * -1, offset_y)
 
 
     if #projectile_file > 0 then

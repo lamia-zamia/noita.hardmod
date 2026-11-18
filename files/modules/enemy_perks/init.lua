@@ -100,7 +100,7 @@ end
 local function apply_enemy_perks()
 	for _,entity_id in ipairs(targets) do
 		local is_boss = EntityHasTag(entity_id, "boss")
-		local x,y = EntityGetTransform(entity_id)
+		local x, y = EntityGetTransform(entity_id)
 		local biome = biome_index[DebugBiomeMapGetFilename(x, y)]
 		local num = 0
 
@@ -177,9 +177,9 @@ function hooks.post_update(frame)
 
 
 	if InputIsKeyJustDown(inspect_bind) then
-		local x,y = DEBUG_GetMouseWorld()
+		local x, y = DEBUG_GetMouseWorld()
 		selected_creature = EntityGetClosestWithTag(x, y, "hardmod_blessed")
-		local creature_x,creature_y = EntityGetTransform(selected_creature)
+		local creature_x, creature_y = EntityGetTransform(selected_creature)
 		if not creature_x then return end
 		if (creature_x-x)^2 + (creature_y-y)^2 > 16^2 then selected_creature = nil end
 		print("selected creature: "..tostring(selected_creature))

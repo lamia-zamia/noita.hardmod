@@ -84,7 +84,7 @@ hooks.new_perks = {
 		max_in_perk_pool = 2,
 		usable_by_enemies = false,
 		func = function(entity_perk_item, entity_who_picked, item_name, pickup_count)
-			local x,y = EntityGetTransform(entity_who_picked)
+			local x, y = EntityGetTransform(entity_who_picked)
 			local child_id = EntityLoad(dir.."entities/perks/shield_oversized.xml", x, y)
 
 			if ModIsEnabled("quant.ew") then
@@ -215,7 +215,7 @@ hooks.perk_patches = {
 		func = function(perk, taker, perk_name)
 			local wand = utils.GetHeldWand(taker)
 			if not wand then return end
-			local x,y = EntityGetTransform(wand)
+			local x, y = EntityGetTransform(wand)
 
 			local ability_comp = EntityGetFirstComponentIncludingDisabled(wand, "AbilityComponent")
 			if not ability_comp then return end
@@ -226,7 +226,7 @@ hooks.perk_patches = {
 			local capacity = EntityGetWandCapacity(wand) --do not include ACs
 			local always_cast_count = math.max(0, full_capacity - capacity)
 
-			local perk_x,perk_y =  EntityGetTransform(perk)
+			local perk_x, perk_y =  EntityGetTransform(perk)
 			SetRandomSeed(perk_x, perk_y)
 
 			--lesser of (multiply by 1.3-1.5 OR add 100-500), plus random 100-500
@@ -309,7 +309,7 @@ hooks.perk_patches = {
 		ui_icon = dir.."ui_gfx/perks/promote_random_spell_016.png",
 		perk_icon = dir.."ui_gfx/perks/promote_random_spell.png",
 		func = function(perk_entity, taker, perk_name)
-			local x,y = EntityGetTransform(perk_entity)
+			local x, y = EntityGetTransform(perk_entity)
 			local wand = utils.GetHeldWand(taker)
 			if not wand then
 				GamePrintImportant("$hardmod_promote_ac_fail_empty", "$logdesc_d2d_promote_ac_fail_no_wands")
@@ -372,7 +372,7 @@ hooks.perk_patches = {
 			local promotions = 0
 			SetRandomSeed(-51-y, x+1)
 			for i = 1, starting_num_spells do
-				local rnd = Random(1,#spells)
+				local rnd = Random(1, #spells)
 				local target_spell = spells[rnd]
 				table.remove(spells, rnd)
 				if Random() <= chance_to_promote then

@@ -25,17 +25,17 @@ local sprites_path = "mods/noita.hardmod/files/modules/enemy_perks/perk_sprites/
 local icons_path = "mods/noita.hardmod/files/modules/enemy_perks/perk_icons/"
 
 local enemy_is_ranged_attack = function(self, data)
-	local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy,"AnimalAIComponent")
+	local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy, "AnimalAIComponent")
 	if animal_ai_comp
-	and ComponentGetValue2(animal_ai_comp,"attack_ranged_enabled")
+	and ComponentGetValue2(animal_ai_comp, "attack_ranged_enabled")
 	and not ComponentGetValue2(animal_ai_comp, "tries_to_ranged_attack_friends") then
 		return true
 	end
 end
 
 local enemy_is_melee = function(self, data)
-	local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy,"AnimalAIComponent")
-	if animal_ai_comp and ComponentGetValue2(animal_ai_comp,"attack_melee_enabled") then
+	local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy, "AnimalAIComponent")
+	if animal_ai_comp and ComponentGetValue2(animal_ai_comp, "attack_melee_enabled") then
 		return true
 	end
 end
@@ -395,9 +395,9 @@ enemy_perks = {
 		},
 		condition = function(self, data)
 			if EntityHasTag(data.target_enemy, "thundermage") then return end
-			local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy,"AnimalAIComponent")
+			local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy, "AnimalAIComponent")
 			if animal_ai_comp
-			and ComponentGetValue2(animal_ai_comp,"attack_ranged_enabled")
+			and ComponentGetValue2(animal_ai_comp, "attack_ranged_enabled")
 			and not ComponentGetValue2(animal_ai_comp, "tries_to_ranged_attack_friends")
 			and ComponentGetValue2(animal_ai_comp, "attack_ranged_frames_between") >= 60 then -- only on slow shooters
 				return true
@@ -441,9 +441,9 @@ enemy_perks = {
 			wizards_den = 8,
 		},
 		condition = function(self, data)
-			local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy,"AnimalAIComponent")
+			local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy, "AnimalAIComponent")
 			if animal_ai_comp
-			and ComponentGetValue2(animal_ai_comp,"attack_ranged_enabled")
+			and ComponentGetValue2(animal_ai_comp, "attack_ranged_enabled")
 			and not ComponentGetValue2(animal_ai_comp, "tries_to_ranged_attack_friends")
 			and ComponentGetValue2(animal_ai_comp, "attack_ranged_frames_between") >= 60 then -- only on slow shooters
 				return true
@@ -855,9 +855,9 @@ enemy_perks = {
 		unique_slot = "on_death",
 		condition = function(self, data) return spawn_on_death_blacklist(self, data) end,
 		on_death = function(self, entity_id, ddata)
-			for _=1, Random(3,5) do
+			for _=1, Random(3, 5) do
 				local eid = EntityLoad("data/entities/animals/rat.xml", ddata.x, ddata.y)
-				EntityAddTag(eid,"felcesis_ignore")
+				EntityAddTag(eid, "felcesis_ignore")
 				EntityAddComponent2(eid, "VariableStorageComponent", {_tags="no_gold_drop"})
 				local dmc = EntityGetFirstComponent(eid, "DamageModelComponent")
 				if dmc then ComponentSetValue2(dmc, "ragdoll_fx_forced", "DISINTEGRATED") end
@@ -877,9 +877,9 @@ enemy_perks = {
 		unique_slot = "on_death",
 		condition = function(self, data) return spawn_on_death_blacklist(self, data) end,
 		on_death = function(self, entity_id, ddata)
-			for _=1, Random(2,4) do
+			for _=1, Random(2, 4) do
 				local eid = EntityLoad("data/entities/animals/skullrat.xml", ddata.x, ddata.y)
-				EntityAddTag(eid,"felcesis_ignore")
+				EntityAddTag(eid, "felcesis_ignore")
 			end
 		end
 	},
@@ -895,9 +895,9 @@ enemy_perks = {
 		unique_slot = "on_death",
 		condition = function(self, data) return spawn_on_death_blacklist(self, data) end,
 		on_death = function(self, entity_id, ddata)
-			for _=1, Random(1,3) do
+			for _=1, Random(1, 3) do
 				local eid = EntityLoad("data/entities/animals/skullfly.xml", ddata.x, ddata.y)
-				EntityAddTag(eid,"felcesis_ignore")
+				EntityAddTag(eid, "felcesis_ignore")
 			end
 		end,
 	},
@@ -1179,7 +1179,7 @@ enemy_perks = {
 			local factions = "mage,mage_swapper,ghost,"
 			local creatures = { "monk", }
 
-			local strparts = split_string(EntityGetFilename(data.target_enemy),"/")
+			local strparts = split_string(EntityGetFilename(data.target_enemy), "/")
 			local filename = strparts[#strparts]
 			local filename_match = false
 			for _,creature_name in ipairs(creatures) do
@@ -1290,7 +1290,7 @@ for i,perk in ipairs(enemy_perks) do
 			if biome_condition_type == "number" then
 				self.weight = biome_condition
 			elseif biome_condition_type == "function" then
-				return biome_condition(self, data, ...) and cond(self,data, ...)
+				return biome_condition(self, data, ...) and cond(self, data, ...)
 			end
 			return cond(self, data, ...)
 		end

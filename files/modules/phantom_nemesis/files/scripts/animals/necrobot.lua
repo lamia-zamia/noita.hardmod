@@ -5,7 +5,7 @@ local radius = 70
 
 local targets = EntityGetInRadiusWithTag(x, y, radius, "mortal")
 local found = false
-EntityAddTag(entity_id,"necrobot_NOT")
+EntityAddTag(entity_id, "necrobot_NOT")
 
 for i,v in ipairs(targets) do
 	if not EntityHasTag(v, "player_unit") and not EntityHasTag(v, "necrobot_NOT") then

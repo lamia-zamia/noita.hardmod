@@ -35,8 +35,8 @@ function utils.ImageReplace(destination, image)
 
 	local dest_data = {}
 	local img_data = {}
-	img_data.id,img_data.w,img_data.h = ModImageMakeEditable(image, 0, 0)
-	dest_data.id,dest_data.w,dest_data.h = ModImageMakeEditable(destination, img_data.w, img_data.h)
+	img_data.id, img_data.w, img_data.h = ModImageMakeEditable(image, 0, 0)
+	dest_data.id, dest_data.w, dest_data.h = ModImageMakeEditable(destination, img_data.w, img_data.h)
 
 	local w = math.max(img_data.w, dest_data.w)
 	local h = math.max(img_data.h, dest_data.h)
@@ -64,8 +64,8 @@ function utils.ImageOverlay(destination, image, offset_x, offset_y, alpha_multip
 
 	local dest_data = {}
 	local img_data = {}
-	img_data.id,img_data.w,img_data.h = ModImageMakeEditable(image, 0, 0)
-	dest_data.id,dest_data.w,dest_data.h = ModImageMakeEditable(destination, 0, 0)
+	img_data.id, img_data.w, img_data.h = ModImageMakeEditable(image, 0, 0)
+	dest_data.id, dest_data.w, dest_data.h = ModImageMakeEditable(destination, 0, 0)
 
 	local w = img_data.w
 	local h = img_data.h

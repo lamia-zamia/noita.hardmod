@@ -9,7 +9,7 @@ if ai_comp then
 		ComponentSetValue2(ai_comp, "attack_ranged_frames_between", fire_rate * 2)
 	end
 end
-local attack_comps = EntityGetComponentIncludingDisabled(owner,"AIAttackComponent") or {}
+local attack_comps = EntityGetComponentIncludingDisabled(owner, "AIAttackComponent") or {}
 for z=1,#attack_comps do
     local attack_comp = attack_comps[z]
     ComponentSetValue2(attack_comp, "frames_between", ComponentGetValue2(attack_comp, "frames_between") * 2)

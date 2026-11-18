@@ -85,7 +85,7 @@ for enemy,data in pairs(edit) do
 
 		local tags = f.attr.tags or file.attr.tags or "boss"
 		if not (','..tags..','):find(",boss,") then
-			if #tags == 0 then tags = "boss" else tags = table.concat({tags,"boss"}, ',') end
+			if #tags == 0 then tags = "boss" else tags = table.concat({tags, "boss"}, ',') end
 			f.attr.tags = tags
 		end
 		if data.tags then

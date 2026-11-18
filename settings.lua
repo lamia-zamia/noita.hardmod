@@ -159,7 +159,7 @@ function has_value(table, value)
 	return false
 end
 
-function input_listen(key_inputs,mouse_inputs,joystick_inputs,mod_setting)
+function input_listen(key_inputs, mouse_inputs, joystick_inputs, mod_setting)
 	local there_is_input = false
 	for _, code in pairs(key_codes) do
 		if InputIsKeyDown(code) then
@@ -242,7 +242,7 @@ mod_settings = {
 				value_default = "key_code,mouse_code,2,joystick_code",
 				ui_fn = function(_mod_id, gui, in_main_menu, im_id, setting)
 					if listening_alt_fire then
-						input_listen(key_inputs,mouse_inputs,joystick_inputs,"noita.hardmod.alt_fire_keybind")
+						input_listen(key_inputs, mouse_inputs, joystick_inputs, "noita.hardmod.alt_fire_keybind")
 					end
 					local _id = 0
 					local function id()
@@ -265,21 +265,21 @@ mod_settings = {
 								for key, value in pairs(key_codes) do
 									if value == code then
 										keybind_string = keybind_string .. key
-										ModSettingSet("noita.hardmod.alt_fire_keybind_translated",key)
+										ModSettingSet("noita.hardmod.alt_fire_keybind_translated", key)
 									end
 								end
 							elseif mode == "mouse_code" then
 								for key, value in pairs(mouse_codes) do
 									if value == code then
 										keybind_string = keybind_string .. key
-										ModSettingSet("noita.hardmod.alt_fire_keybind_translated",key)
+										ModSettingSet("noita.hardmod.alt_fire_keybind_translated", key)
 									end
 								end
 							elseif mode == "joystick_code" then
 								for key, value in pairs(joystick_codes) do
 									if value == code then
 										keybind_string = keybind_string .. key
-										ModSettingSet("noita.hardmod.alt_fire_keybind_translated",key)
+										ModSettingSet("noita.hardmod.alt_fire_keybind_translated", key)
 									end
 								end
 							end
@@ -380,7 +380,7 @@ function ModSettingsGui(gui, in_main_menu)
 		local offset = "       "
 		local label = GameTextGetTranslatedOrNot(module.ui_name)
 
-		local clicked,right_clicked = GuiButton(gui, new_id(), -18, 3, offset..label)
+		local clicked, right_clicked = GuiButton(gui, new_id(), -18, 3, offset..label)
 		if clicked then
 			if ModSettingGet(module_disabled) then
 				ModSettingRemove(module_disabled)

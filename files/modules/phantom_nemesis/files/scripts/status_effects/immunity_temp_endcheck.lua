@@ -28,7 +28,7 @@ if c_check ~= true then
 				--local mult = ComponentObjectGetValue2(comp, "damage_multipliers", name)
 				local refdmg = ComponentObjectGetValue2(comp, "damage_multipliers", "overeating") --Surely nobody will mess with this value.. right?
 				--mult = mult + 1.00
-				ComponentObjectSetValue2(comp, "damage_multipliers", name, math.max(1,refdmg))
+				ComponentObjectSetValue2(comp, "damage_multipliers", name, math.max(1, refdmg))
 			end
 		end
     end

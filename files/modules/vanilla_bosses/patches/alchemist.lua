@@ -12,8 +12,8 @@ utils.patchifile("data/entities/animals/boss_alchemist/projectile_counter_create
 		from = [[local entity_id]],
 		insert_before = [[
 		do
-			local comp = EntityGetFirstComponent(GetUpdatedEntityID(),"HitboxComponent")
-			if comp and ComponentGetValue2(comp,"damage_multiplier") <= 0.01 then return end
+			local comp = EntityGetFirstComponent(GetUpdatedEntityID(), "HitboxComponent")
+			if comp and ComponentGetValue2(comp, "damage_multiplier") <= 0.01 then return end
 		end
 		]]
 	},

@@ -23,7 +23,7 @@ function death(damage_type_bit_field, message, attacker, drop_items)
 					end
 					if new_perk_discovered then GameAddFlagRun("hardmod_new_enemy_perk_discovered") end
 
-					local x,y = EntityGetTransform(entity_id)
+					local x, y = EntityGetTransform(entity_id)
 					local death_data = {
 						x = x, y = y,
 						attacker_was_player = false,

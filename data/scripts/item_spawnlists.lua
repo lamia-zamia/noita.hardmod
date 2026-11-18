@@ -320,7 +320,7 @@ function spawn_from_list(target_list, x, y)
 	if #temp == 0 then ip:error(("Warning! Provided spawnlist [%s] had no valid entries."):format(target_list), target_list) return end
 
 	local target
-	local rnd = ProceduralRandomf(x,y, 0, total_weight)
+	local rnd = ProceduralRandomf(x, y, 0, total_weight)
 	for _, entry in ipairs(temp) do
 		if rnd <= entry.weight then
 			target = entry

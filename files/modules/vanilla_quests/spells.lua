@@ -36,7 +36,7 @@ return {
 				local player = GetUpdatedEntityID()
 				if not IsPlayer(player) then return end
 
-				local x,y = EntityGetTransform(player)
+				local x, y = EntityGetTransform(player)
 				local children = EntityGetAllChildren(player) or {}
 				local potion = nil
 

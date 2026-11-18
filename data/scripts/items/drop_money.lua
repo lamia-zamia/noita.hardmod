@@ -362,7 +362,7 @@ function do_money_drop(amount_multiplier, trick_kill, damage_type_bit_field, mes
 	for _,nugget in ipairs(data.nuggets) do
 		local eid = EntityLoad(nugget.path, x + (nugget.x or 0), y + (nugget.y or 0))
 		nugget.eid = eid
-		local found_healing,found_money = not nugget.heal_amount,nil
+		local found_healing, found_money = not nugget.heal_amount, nil
 		for _,varcomp in ipairs(EntityGetComponent(eid, "VariableStorageComponent") or {}) do
 			local name = ComponentGetValue2(varcomp, "name")
 			if name == "gold_value" then

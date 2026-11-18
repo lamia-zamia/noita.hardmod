@@ -853,7 +853,7 @@ lootlib.default_loot_tables.chest_random = {
     label = "random_card",
     weight = 5,
     spawn_random_cards = function()
-      local rnd = Random(0,100)
+      local rnd = Random(0, 100)
 			if rnd <= 50 then return 1
 			elseif rnd <= 70 then return 2
 			elseif rnd <= 80 then return 3
@@ -1006,12 +1006,12 @@ lootlib.default_loot_tables.utility_box = {
       return card.type == ACTION_TYPE_UTILITY or card.type == ACTION_TYPE_MODIFIER
     end,
     spawn_random_cards = function()
-      local rnd = Random(0,100)
-			if rnd <= 40 then return 2
-			elseif rnd <= 60 then return 3
-			elseif rnd <= 77 then return 4
-			elseif rnd <= 90 then return 5
-			else return 6 end
+		local rnd = Random(0, 100)
+		if rnd <= 40 then return 2
+		elseif rnd <= 60 then return 3
+		elseif rnd <= 77 then return 4
+		elseif rnd <= 90 then return 5
+		else return 6 end
     end
   },
   { label = "add_2_rolls", weight = 2, var = "rolls", add = 2 },

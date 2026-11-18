@@ -81,7 +81,13 @@ for _, file in ipairs(acid_traps)do
 	end
 end
 
-local tota_traps = {"data/entities/buildings/arrowtrap_left.xml", "data/entities/buildings/arrowtrap_right.xml", "data/entities/buildings/firetrap_left.xml", "data/entities/buildings/firetrap_right.xml", "data/entities/buildings/thundertrap_left.xml", "data/entities/buildings/thundertrap_right.xml", "data/entities/buildings/spittrap_left.xml", "data/entities/buildings/spittrap_right.xml",}
+local tota_traps = {
+	"data/entities/buildings/arrowtrap_left.xml", "data/entities/buildings/arrowtrap_right.xml",
+	"data/entities/buildings/firetrap_left.xml", "data/entities/buildings/firetrap_right.xml",
+	"data/entities/buildings/thundertrap_left.xml", "data/entities/buildings/thundertrap_right.xml",
+	"data/entities/buildings/spittrap_left.xml", "data/entities/buildings/spittrap_right.xml",
+}
+
 local projectile_mappings = {
 	["data/entities/projectiles/arrow.xml"] = "mods/noita.hardmod/files/modules/trappier_traps/arrow.xml",
 	["data/entities/projectiles/fire_trap.xml"] = "mods/noita.hardmod/files/modules/trappier_traps/fire_trap.xml",

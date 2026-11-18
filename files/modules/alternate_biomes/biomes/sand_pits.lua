@@ -1006,7 +1006,7 @@ function spawn_small_enemies(x, y)
 	spawn_percent = (2.5 * spawn_percent) + 0.35
 	if r > spawn_percent then return end
 
-	spawn(g_small_enemies,x,y)
+	spawn(g_small_enemies, x, y)
 end
 
 function spawn_big_enemies(x, y)
@@ -1015,39 +1015,39 @@ function spawn_big_enemies(x, y)
 	spawn_percent = (2.1 * spawn_percent)
 	if r > spawn_percent then return end
 
-	spawn(g_big_enemies,x,y)
+	spawn(g_big_enemies, x, y)
 end
 
 function spawn_lamp(x, y)
-	spawn(g_lamp,x,y+2,0,0)
+	spawn(g_lamp, x, y+2, 0, 0)
 end
 
 function spawn_props(x, y)
-	spawn(g_props,x,y-3,0,0)
+	spawn(g_props, x, y-3, 0, 0)
 end
 
 function spawn_props2(x, y)
-	spawn(g_props2,x,y-3,0,0)
+	spawn(g_props2, x, y-3, 0, 0)
 end
 
 function spawn_props3(x, y)
-	spawn(g_props3,x,y,0,0)
+	spawn(g_props3, x, y, 0, 0)
 end
 
 function spawn_unique_enemy(x, y)
-	spawn(g_unique_enemy,x,y)
+	spawn(g_unique_enemy, x, y)
 end
 
 function spawn_unique_enemy2(x, y)
-	spawn(g_unique_enemy2,x,y)
+	spawn(g_unique_enemy2, x, y)
 end
 
 function spawn_unique_enemy3(x, y)
-	spawn(g_unique_enemy3,x,y)
+	spawn(g_unique_enemy3, x, y)
 end
 
 function load_pixel_scene(x, y)
-	--spawn(g_cranes,x+35,y+35,0,0)
+	--spawn(g_cranes, x+35, y+35, 0, 0)
 end
 
 function load_pixel_scene2(x, y)
@@ -1083,7 +1083,7 @@ function load_gunpowderpool_04(x, y)
 end
 
 function spawn_physicsstructure(x, y)
-	spawn(g_physicsstructure,x-5,y-5,0,0)
+	spawn(g_physicsstructure, x-5, y-5, 0, 0)
 end
 
 function spawn_wheel(x, y)
@@ -1099,23 +1099,23 @@ function spawn_wheel_tiny(x, y)
 end
 
 function spawn_hanger(x, y)
-	spawn(g_hanger,x,y,0,0)
+	spawn(g_hanger, x, y, 0, 0)
 end
 
 function spawn_rock(x, y)
-	spawn(g_rock,x,y)
+	spawn(g_rock, x, y)
 end
 
 function spawn_hanging_prop(x, y)
-	spawn(g_hanging_props,x,y)
+	spawn(g_hanging_props, x, y)
 end
 
 function spawn_nest(x, y)
-	spawn(g_nest,x+4,y+8,0,0)
+	spawn(g_nest, x+4, y+8, 0, 0)
 end
 
 function spawn_ladder(x, y)
-	--spawn(g_ladder,x,y-80,0,0)
+	--spawn(g_ladder, x, y-80, 0, 0)
 end
 
 function spawn_shopitem(x, y)
@@ -1136,16 +1136,16 @@ function spawn_receptacle(x, y)
 end
 
 -- Background sprites
-function spawn_tower_short(x,y)
-	generate_tower(x,y,ProceduralRandomi(x-4,y+3,0,2))
+function spawn_tower_short(x, y)
+	generate_tower(x, y, ProceduralRandomi(x-4, y+3, 0, 2))
 end
 
-function spawn_tower_tall(x,y)
-	generate_tower(x,y,ProceduralRandomi(x+7,y-1,2,3))
+function spawn_tower_tall(x, y)
+	generate_tower(x, y, ProceduralRandomi(x+7, y-1, 2, 3))
 end
 
 function generate_tower(x, y, height)
-	if ProceduralRandom(x,y) > 0.5 then
+	if ProceduralRandom(x, y) > 0.5 then
 		return
 	end
 
@@ -1168,18 +1168,18 @@ function generate_tower(x, y, height)
 	load_random_background_sprite(g_tower_tops, x, y)
 end
 
-function spawn_beam_low(x,y)
+function spawn_beam_low(x, y)
 	LoadBackgroundSprite(root.."gfx/sand_pits/beam_low.png", x-60, y-35, 60, true)
 end
 
-function spawn_beam_low_flipped(x,y)
+function spawn_beam_low_flipped(x, y)
 	LoadBackgroundSprite(root.."gfx/sand_pits/beam_low_flipped.png", x-60, y-35, 60, true)
 end
 
-function spawn_beam_steep(x,y)
+function spawn_beam_steep(x, y)
 	LoadBackgroundSprite(root.."gfx/sand_pits/beam_steep.png", x-35, y-60, 60, true)
 end
 
-function spawn_beam_steep_flipped(x,y)
+function spawn_beam_steep_flipped(x, y)
 	LoadBackgroundSprite(root.."gfx/sand_pits/beam_steep_flipped.png", x-35, y-60, 60, true)
 end

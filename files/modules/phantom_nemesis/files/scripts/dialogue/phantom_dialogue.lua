@@ -5,9 +5,9 @@ dofile_once("data/scripts/lib/utilities.lua") --Tired Sinning
 
 local entity_id = GetUpdatedEntityID()
 local host_id = EntityGetRootEntity(entity_id)
-local dialogue_vsc_comp = EntityGetComponentIncludingDisabled(entity_id,"VariableStorageComponent")[3]
-local forced_speak = ComponentGetValue2(dialogue_vsc_comp,"value_string")
-local last_idle_talk = ComponentGetValue2(dialogue_vsc_comp,"value_int")
+local dialogue_vsc_comp = EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent")[3]
+local forced_speak = ComponentGetValue2(dialogue_vsc_comp, "value_string")
+local last_idle_talk = ComponentGetValue2(dialogue_vsc_comp, "value_int")
 local idle_talk_cd = 1200
 local cam_x, cam_y, cam_w, cam_h = GameGetCameraBounds()
 local radius = math.floor((cam_w / 4) * 3)
@@ -45,7 +45,7 @@ local num = 0
 
 function GetPlayer()
   local tags = {"player_unit", "polymorphed_player", "polymorphed_cessation"}
-	for tag=1,#tags do
+	for tag=1, #tags do
 		local player = EntityGetWithTag(tags[tag])
 		if #player > 0 then
 			return player[1]
@@ -118,9 +118,9 @@ local events = {
                 rate = 2
                 alpha = 0.7
                 local d_opts = {forced_speak}
-                local dialogue = d_opts[math.random(1,#d_opts)]
+                local dialogue = d_opts[math.random(1, #d_opts)]
                 tone = "power"
-                ComponentSetValue2(dialogue_vsc_comp,"value_string","")
+                ComponentSetValue2(dialogue_vsc_comp, "value_string", "")
                 return true, dialogue
             end
             return false
@@ -131,10 +131,10 @@ local events = {
             if GetPlayer() == nil and GameGetFrameNum() > last_idle_talk + (idle_talk_cd * 0.5) then
                 rate = 2
                 alpha = 0.7
-                local d_opts = {"Good riddance","We can rest easy now","It's finally over","We can now cease to be","My purpose is fulfilled"}
-                local dialogue = d_opts[math.random(1,#d_opts)]
+                local d_opts = {"Good riddance", "We can rest easy now", "It's finally over", "We can now cease to be", "My purpose is fulfilled"}
+                local dialogue = d_opts[math.random(1, #d_opts)]
                 tone = "gossip"
-                ComponentSetValue2(dialogue_vsc_comp,"value_int",GameGetFrameNum())
+                ComponentSetValue2(dialogue_vsc_comp, "value_int", GameGetFrameNum())
                 return true, dialogue
             end
             return false
@@ -145,13 +145,13 @@ local events = {
             if GameGetFrameNum() > last_idle_talk + idle_talk_cd then
                 rate = 2
                 alpha = 0.7
-                local d_opts = {"You can't escape your sins","I SEE YOU","Your death will not be mourned","You can pray but you won't find forgiveness","Winter is coming for you","I will make you inanimate","Hell won't be enough for you!","Your end has come"}
-                local dialogue = d_opts[math.random(1,#d_opts)]
+                local d_opts = {"You can't escape your sins", "I SEE YOU", "Your death will not be mourned", "You can pray but you won't find forgiveness", "Winter is coming for you", "I will make you inanimate", "Hell won't be enough for you!", "Your end has come"}
+                local dialogue = d_opts[math.random(1, #d_opts)]
                 tone = "norm"
                 if dialogue == "I SEE YOU" then
                     tone = "power"
                 end
-                ComponentSetValue2(dialogue_vsc_comp,"value_int",GameGetFrameNum())
+                ComponentSetValue2(dialogue_vsc_comp, "value_int", GameGetFrameNum())
                 return true, dialogue
             end
             return false
@@ -160,7 +160,7 @@ local events = {
 }
 
 for k=1,#events do
-    if events[k].trigger() == true and EntityHasTag(entity_id,"graham_speaking") == false then
+    if events[k].trigger() == true and EntityHasTag(entity_id, "graham_speaking") == false then
         local bool, dialogue = events[k].trigger()
         if bool == true then
             Speak(entity_id, dialogue)

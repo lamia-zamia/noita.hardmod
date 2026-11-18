@@ -2,8 +2,8 @@ dofile_once("data/scripts/lib/utilities.lua")
 
 local entity_id    = GetUpdatedEntityID()
 local x, y = EntityGetTransform(entity_id)
-local vsc_comp = EntityGetFirstComponent(entity_id,"VariableStorageComponent")
-local init_frame = vsc_comp and ComponentGetValue2(vsc_comp,"value_int") or 0
+local vsc_comp = EntityGetFirstComponent(entity_id, "VariableStorageComponent")
+local init_frame = vsc_comp and ComponentGetValue2(vsc_comp, "value_int") or 0
 local warning_period = 120
 local current_frame = GameGetFrameNum()
 

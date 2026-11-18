@@ -1117,7 +1117,7 @@ function GetWand(gun)
 	local gun_in_wand_space = {}
 
 	gun_in_wand_space.fire_rate_wait = clamp(((gun["fire_rate_wait"] + 5) / 7)-1, 0, 4)
-	gun_in_wand_space.actions_per_round = clamp(gun["actions_per_round"]-1,0,2)
+	gun_in_wand_space.actions_per_round = clamp(gun["actions_per_round"]-1, 0, 2)
 	gun_in_wand_space.shuffle_deck_when_empty = clamp(gun["shuffle_deck_when_empty"], 0, 1)
 	gun_in_wand_space.deck_capacity = clamp((gun["deck_capacity"]-3)/3, 0, 7) -- TODO
 	gun_in_wand_space.spread_degrees = clamp(((gun["spread_degrees"] + 5) / 5) - 1, 0, 2)
@@ -1129,7 +1129,7 @@ function GetWand(gun)
 			best_wand = wand
 			best_score = score
 			-- just randomly return one of them...
-			if score == 0 and Random(0,100) < 33 then
+			if score == 0 and Random(0, 100) < 33 then
 				return best_wand
 			end
 		end

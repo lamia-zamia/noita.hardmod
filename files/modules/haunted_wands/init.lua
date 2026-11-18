@@ -22,7 +22,7 @@ utils.modifile("data/scripts/particles/wand_pickup.lua",
 -- [[	for k,v in pairs(variables_01) do
 -- 		apply_random_variable(gun, v)
 -- 	end
--- 	p = Random(0,100)
+-- 	p = Random(0, 100)
 -- 	if p < 100 then
 -- 		local mtp = Random(1.5, 2.0)
 -- 		gun["fire_rate_wait"] = (gun["fire_rate_wait"]) / mtp

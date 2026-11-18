@@ -1,5 +1,5 @@
 function shot(entity_id)
-    if EntityHasTag(entity_id,"projectile_cloned") then return end
+    if EntityHasTag(entity_id, "projectile_cloned") then return end
 
     --Adds homing to a projectile using designated values
     EntityAddComponent2(entity_id, "HomingComponent", {

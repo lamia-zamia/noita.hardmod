@@ -2,22 +2,22 @@
 local entity_id = GetUpdatedEntityID()
 local parent_id = EntityGetParent(entity_id)
 
-local acomp = EntityGetFirstComponentIncludingDisabled(parent_id,"AnimalAIComponent")
+local acomp = EntityGetFirstComponentIncludingDisabled(parent_id, "AnimalAIComponent")
 if acomp then
-    ComponentSetValue2(acomp,"can_fly",true)
+    ComponentSetValue2(acomp, "can_fly", true)
 end
 
-local pcomp = EntityGetFirstComponentIncludingDisabled(parent_id,"PathFindingComponent")
+local pcomp = EntityGetFirstComponentIncludingDisabled(parent_id, "PathFindingComponent")
 if pcomp then
-    ComponentSetValue2(pcomp,"can_fly",true)
-    ComponentSetValue2(pcomp,"can_walk",false)
+    ComponentSetValue2(pcomp, "can_fly", true)
+    ComponentSetValue2(pcomp, "can_walk", false)
 end
 
-local wcomp = EntityGetFirstComponentIncludingDisabled(parent_id,"WormComponent")
+local wcomp = EntityGetFirstComponentIncludingDisabled(parent_id, "WormComponent")
 if wcomp then
-    ComponentSetValue2(wcomp,"gravity",0)
-    ComponentSetValue2(wcomp,"tail_gravity",0)
-    ComponentSetValue2(wcomp,"is_water_worm",false)
+    ComponentSetValue2(wcomp, "gravity", 0)
+    ComponentSetValue2(wcomp, "tail_gravity", 0)
+    ComponentSetValue2(wcomp, "is_water_worm", false)
 end
 
 local hitbox_comp = EntityGetFirstComponentIncludingDisabled(entity_id, "HitboxComponent")
@@ -25,10 +25,10 @@ local hitbox_feet_y = 2
 local hitbox_feet_width = 4
 if hitbox_comp then
     hitbox_feet_y = ComponentGetValue2(hitbox_comp, "aabb_max_y")
-    hitbox_feet_width = ComponentGetValue2(hitbox_comp,"aabb_max_x") + 2
+    hitbox_feet_width = ComponentGetValue2(hitbox_comp, "aabb_max_x") + 2
 end
 
-EntityAddComponent2(entity_id,"ParticleEmitterComponent",{
+EntityAddComponent2(entity_id, "ParticleEmitterComponent", {
     emitted_material_name="spark_blue_dark",
     lifetime_min=0.6,
     lifetime_max=0.8,
@@ -53,4 +53,4 @@ EntityAddComponent2(entity_id,"ParticleEmitterComponent",{
 
 })
 
-EntityAddTag(parent_id,"flying")
+EntityAddTag(parent_id, "flying")

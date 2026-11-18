@@ -13,7 +13,7 @@ function death(damage_type_bit_field, message, attacker, drop_items)
 
 	local function get_translation_or_nil(str)
 		if str == nil then return end
-		if str:sub(1,1) ~= '$' then str = '$' .. str end
+		if str:sub(1, 1) ~= '$' then str = '$' .. str end
 		local tl = GameTextGetTranslatedOrNot(str)
 		if #tl > 0 then return tl end
 	end
@@ -21,12 +21,12 @@ function death(damage_type_bit_field, message, attacker, drop_items)
 	local function match_action(str) return get_translation_or_nil("$action_" .. (str or "")) end
 	local function match_animal(str) return get_translation_or_nil("$animal_" .. (str or "")) end
 
-	local function get_file_name(target) return EntityGetFilename(target):match("[^/]*$"):sub(1,-5) end
+	local function get_file_name(target) return EntityGetFilename(target):match("[^/]*$"):sub(1, -5) end
 
 	local function get_projectile_filename_from_varcomp(target)
 		for _,varcomp in ipairs(EntityGetComponent(target, "VariableStorageComponent") or {}) do
 			if ComponentGetValue2(varcomp, "name") == "projectile_file" then
-				return ComponentGetValue2(varcomp, "value_string"):match("[^/]*$"):sub(1,-5)
+				return ComponentGetValue2(varcomp, "value_string"):match("[^/]*$"):sub(1, -5)
 			end
 		end
 	end

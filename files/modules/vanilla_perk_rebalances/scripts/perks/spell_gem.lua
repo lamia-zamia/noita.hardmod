@@ -70,7 +70,7 @@ function item_pickup(entity_item, entity_who_picked, item_name)
 					if item > 0 then
 						if EZWand.IsWand(item) then
 							local wand = EZWand(item)
-							local spells,attached_spells = wand:GetSpells()
+							local spells, attached_spells = wand:GetSpells()
 							for i,spell in ipairs(spells) do
 								table.insert(all_card_actions, spell.entity_id)
 							end

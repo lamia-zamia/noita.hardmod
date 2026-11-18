@@ -138,7 +138,11 @@ function UpgradeWandManaChargeSpeed(wand, percent, min_increase, limit)
 
 	if wand.manaChargeSpeed < limit then
 		wand.manaChargeSpeed = math.min(old_value + math.max(old_value * percent, min_increase), limit)
-		GamePrint("Your wand's mana charge speed was increased! (" .. string.format("%.0f", old_value) .. " > " .. string.format("%.0f",wand.manaChargeSpeed) .. ")")
+		GamePrint(
+			"Your wand's mana charge speed was increased! ("
+			.. string.format("%.0f", old_value) .. " > "
+			.. string.format("%.0f", wand.manaChargeSpeed) .. ")"
+		)
 		return true
 	end
 
@@ -151,7 +155,11 @@ function UpgradeWandSpread(wand, percent, min_decrease, limit)
 
 	if wand.spread > limit then
 		wand.spread = math.max(old_value - math.max(old_value * percent, -min_decrease), limit)
-		GamePrint("Your wand's spread was decreased! (" .. string.format("%.0f", old_value) .. " > " .. string.format("%.0f",wand.spread) .. ")")
+		GamePrint(
+			"Your wand's spread was decreased! ("
+			.. string.format("%.0f", old_value) .. " > "
+			.. string.format("%.0f", wand.spread) .. ")"
+		)
 		return true
 	end
 

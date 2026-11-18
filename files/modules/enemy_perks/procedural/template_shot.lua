@@ -1,7 +1,7 @@
 local callback_data = dofile_once("mods/noita.hardmod/files/modules/enemy_perks/procedural/data.lua")
 
 function shot(projectile)
-	local x,y = EntityGetTransform(projectile)
+	local x, y = EntityGetTransform(projectile)
 	EntityAddChild(projectile, EntityLoad("mods/noita.hardmod/files/modules/enemy_perks/generated/%ID%_shot.xml", x, y))
 
 	local callback = callback_data.callbacks_index["%ID%"]

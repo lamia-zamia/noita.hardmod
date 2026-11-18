@@ -14,23 +14,23 @@ function shot(entity_id)
 		local delete_proj = false
 
 	    --Grabs a list of all TeleportProjectileComponents and disables them
-	    local comps = EntityGetComponentIncludingDisabled(entity_id,"TeleportProjectileComponent")
+	    local comps = EntityGetComponentIncludingDisabled(entity_id, "TeleportProjectileComponent")
 		for _,v in pairs(comps or {}) do
-			EntityRemoveComponent(entity_id,v)
+			EntityRemoveComponent(entity_id, v)
 			delete_proj = true
 		end
 
 	    --Grabs a list of all Swapper Components and disables them
-	    local fxcomps = EntityGetComponentIncludingDisabled(entity_id,"HitEffectComponent")
+	    local fxcomps = EntityGetComponentIncludingDisabled(entity_id, "HitEffectComponent")
 		for _,v in pairs(fxcomps or {}) do
-			if ComponentGetValue2(v,"effect_hit") == "SWAPPER" then
-				EntityRemoveComponent(entity_id,v)
+			if ComponentGetValue2(v, "effect_hit") == "SWAPPER" then
+				EntityRemoveComponent(entity_id, v)
 				delete_proj = true
 			end
 	    end
 
 	    --Disables RGB Portals from teleporting you
-	    EntitySetComponentsWithTagEnabled(entity_id,"apotheosis_blob_boss",false)
+	    EntitySetComponentsWithTagEnabled(entity_id, "apotheosis_blob_boss", false)
 
 	    if delete_proj then
 	    	EntityKill(entity_id)
