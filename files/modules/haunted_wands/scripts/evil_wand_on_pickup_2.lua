@@ -47,7 +47,7 @@ end
 local ai_comp = EntityGetFirstComponentIncludingDisabled( evil_wand_ghost, "AnimalAIComponent" )
 if ai_comp then
 	ComponentSetValue2( ai_comp, "ai_state", 0 )
-	ComponentSetValue2( ai_comp, "ai_state_timer", GameGetFrameNum() + 90 )
+	ComponentSetValue2( ai_comp, "ai_state_timer", GameGetFrameNum() + 45 )
 end
 
 EntityRemoveComponent( wand_entity, GetUpdatedComponentID() )
