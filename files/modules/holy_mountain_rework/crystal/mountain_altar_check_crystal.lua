@@ -1,26 +1,11 @@
 dofile_once("data/scripts/perks/perk.lua")
+local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
 local entity_id = GetUpdatedEntityID()
 local x,y = EntityGetTransform(entity_id)
 
 if GameHasFlagRun("hardmod.collapse_crystal_sacrificed") then EntityKill(entity_id) return end
 
-
-local function SpawnPerkCircle(perks, x, y, radius)
-	local radian = 2*math.pi
-	radius = math.max(radius, #perks*20/(radian))
-
-	local step = 1/#perks
-	local random_rot = Randomf(0,step)
-	local perk_eids = {}
-	for i,perk in ipairs(perks) do
-		local x_pos = x + radius * math.cos((i * step * radian)+random_rot)
-		local y_pos = y + radius * math.sin((i * step * radian)+random_rot)
-		perk_eids[#perk_eids+1] = perk_spawn(x_pos, y_pos, perk.id, true)
-	end
-
-	return perk_eids
-end
 
 for _,crystal in ipairs(EntityGetInRadiusWithTag(x, y, 50, "hm_crystal")) do
 	if EntityGetName(crystal) == "hardmod.collapse_crystal" then
@@ -47,7 +32,7 @@ for _,crystal in ipairs(EntityGetInRadiusWithTag(x, y, 50, "hm_crystal")) do
 			valid_perks[i], valid_perks[j] = valid_perks[j], valid_perks[i]
 		end
 
-		local perks = SpawnPerkCircle(valid_perks, x, y, 220)
+		local perks = utils.SpawnPerkCircle(valid_perks, x, y, 220)
 		for _,perk in ipairs(perks) do
 			EntityAddComponent2(perk, "LuaComponent", {
 				execute_every_n_frame = -1,

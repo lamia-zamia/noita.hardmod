@@ -640,7 +640,7 @@ enemy_perks = {
 		end,
 		func = function(self, entity_id, data)
 			if ComponentGetValue2(data.dmc, "blood_material") == "blood_fading" then ComponentSetValue2(data.dmc, "blood_material", "blood") end
-			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 2)
+			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 3)
 		end
 	},
 	{
@@ -662,6 +662,7 @@ enemy_perks = {
 			ComponentSetValue2(data.dmc, "blood_spray_material", "blood_cold")
 			EntitySetDamageFromMaterial(entity_id, "blood_cold", 0)
 			EntitySetDamageFromMaterial(entity_id, "blood_cold_vapour", 0)
+			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 1.5)
 			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 1.5)
 		end
 	},
@@ -723,6 +724,7 @@ enemy_perks = {
 		func = function(self, entity_id, data)
 			ComponentSetValue2(data.dmc, "blood_material", "magic_liquid_teleportation")
 			ComponentSetValue2(data.dmc, "blood_spray_material", "magic_liquid_teleportation")
+			ComponentSetValue2(data.dmc, "blood_multiplier", ComponentGetValue2(data.dmc, "blood_multiplier") * 1.5)
 
 			local eid = EntityCreateNew("random_teleports")
 			EntityAddComponent2(eid, "GameEffectComponent", {
