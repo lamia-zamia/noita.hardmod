@@ -45,7 +45,7 @@ shop_items.pouch_materials = {
 	},
 	{
 		material = "orb_powder",
-		price = 90,
+		price = 250,
 		weight = 5,
 	},
 }

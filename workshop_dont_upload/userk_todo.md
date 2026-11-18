@@ -31,7 +31,6 @@
 - 2nd and 3rd hand statue kicked drops summon portal spell
 - Snail module crashes?
 - make HM basin changes work in final stage
-- sungems dont spawn
 - Ira should probs remove CBC from their champion
 - fix PW cursed liquid to be like apoth's
 
