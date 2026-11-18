@@ -44,11 +44,10 @@ if dmg_comp then
 	ComponentSetValue2( dmg_comp, "hp", hp )
 end
 
--- TODO: what is owner referring to here?
--- local ai_comp = EntityGetFirstComponentIncludingDisabled( owner, "AnimalAIComponent" )
--- if ai_comp then
--- 	ComponentSetValue2( ai_comp, "ai_state", 0 )
--- 	ComponentSetValue2( ai_comp, "ai_state_timer", GameGetFrameNum() + 90 )
--- end
+local ai_comp = EntityGetFirstComponentIncludingDisabled( evil_wand_ghost, "AnimalAIComponent" )
+if ai_comp then
+	ComponentSetValue2( ai_comp, "ai_state", 0 )
+	ComponentSetValue2( ai_comp, "ai_state_timer", GameGetFrameNum() + 45 )
+end
 
 EntityRemoveComponent( wand_entity, GetUpdatedComponentID() )
