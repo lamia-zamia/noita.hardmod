@@ -217,7 +217,7 @@ enemy_perks = {
 		weight = 1,
 		max = 2,
 		min_level = 3,
-		unique_slot = "large_aura",
+		-- unique_slot = "large_aura", -- has great synergy with other large_aura perks so I think we should keep it separate
 		biome_conditions = {
 			magical_temple = 2,
 			temple_of_the_art = 3,
@@ -1147,6 +1147,18 @@ enemy_perks = {
 	-- 	end
 	-- },
 	{
+		id = "UNDETECTABLE",
+		name = "$hardmod_eperk_undetectable_name",
+		description = "$hardmod_eperk_undetectable_desc",
+		weight = 5,
+		priority = 10,
+		max = 1,
+		min_level = 3,
+		func = function(self, entity_id, data)
+			EntityRemoveTag(entity_id, "homing_target")
+		end
+	},
+	{
 		id = "ALL_SEEING",
 		name = "$hardmod_eperk_all_seeing_name",
 		description = "$hardmod_eperk_all_seeing_desc",
@@ -1210,6 +1222,7 @@ enemy_perks = {
 		priority = 25,
 		max = 1,
 		min_level = 6,
+		unique_slot = "large_aura",
 		biome_conditions = {
 			sky = 4,
 			hell = 4,
@@ -1222,6 +1235,20 @@ enemy_perks = {
 		func = function(self, entity_id, data)
 			local x, y = EntityGetTransform(entity_id)
 			EntityAddChild(entity_id, EntityLoad( dir.."entities/tether_aura_dormant.xml", x, y))
+		end
+	},
+	{
+		id = "ANTI_TELE_AURA",
+		name = "$hardmod_eperk_anti_tele_aura_name",
+		description = "$hardmod_eperk_anti_tele_aura_desc",
+		weight = 2,
+		priority = 23,
+		max = 1,
+		min_level = 6,
+		unique_slot = "large_aura",
+		func = function(self, entity_id, data)
+			local x, y = EntityGetTransform(entity_id)
+			EntityAddChild(entity_id, EntityLoad( dir.."entities/anti_tele_aura.xml", x, y))
 		end
 	},
 }

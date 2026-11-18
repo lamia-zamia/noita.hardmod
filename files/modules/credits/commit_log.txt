@@ -775,5 +775,14 @@ more warnings fixed
 TODO
 reduce mana cost of arcs
 fix wand experimenter circumvention on the toolbox
+fixed 0 0 eperk bug
 further buff Squiddy
 remove old files
+improved perk selection process (weights will be whack for a little while)
+finished setting up the unique slots
+imported itemlib
+add Untraceable perk
+add Anti-Teleportation Field eperk
+adapt new eperk attributes
+fix anti-tele aura destroying any projectile
+make anti-tele aura a bit less intense
