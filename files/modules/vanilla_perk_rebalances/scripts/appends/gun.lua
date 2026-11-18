@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 local function try_apply_wand_experimenter_heal()
 	local player = GetUpdatedEntityID()
 	if not reflecting and player ~= 0 then
@@ -26,11 +24,11 @@ local function try_apply_wand_experimenter_heal()
 
 		-- skip if any spells had been dropped to the ground
 		local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
-		if #discard ~= utils.GetInternalInt( wand_entity, "initial_spell_count" ) then return end
+		if #discarded ~= utils.GetInternalInt( wand_entity, "initial_spell_count" ) then return end
 
 		-- skip if the player already has full hp
 		local dmg_comp = EntityGetFirstComponentIncludingDisabled( player, "DamageModelComponent" )
-		if dmg_comp then return end
+		if not dmg_comp then return end
 		local p_hp = ComponentGetValue2( dmg_comp, "hp" )
 		local p_max_hp = ComponentGetValue2( dmg_comp, "max_hp" )
 		if p_hp == p_max_hp then return end

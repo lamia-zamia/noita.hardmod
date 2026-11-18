@@ -2,6 +2,7 @@ local module_id = GetUpdatedEntityID()
 local host_id = EntityGetRootEntity(module_id)
 local pos_x, pos_y = EntityGetTransform(host_id)
 local teleportation_data = EntityGetFirstComponentIncludingDisabled(module_id,"VariableStorageComponent")
+if not teleportation_data then return end
 
 --Teleportation data
 local next_teleport_frame = ComponentGetValue2(teleportation_data,"value_int")
@@ -29,9 +30,9 @@ function GetDistanceFromTarget(entity_id,victim_id)
 end
 
 function SetTeleportLocation()
-    local current_target = GetPlayer() or 0
+    local current_target = GetPlayer()
     local distance_from_target = GetDistanceFromTarget(host_id,current_target)
-    if current_target == 0 or distance_from_target < 128 or distance_from_target > 800 or IsInvisible( current_target ) then return end
+    if not current_target or distance_from_target < 128 or distance_from_target > 800 or IsInvisible( current_target ) then return end
     SetRandomSeed(pos_x+current_frame,pos_y)
     if EntityGetIsAlive(current_target) == false and current_target ~= 0 then return end
     local t_x,t_y = EntityGetTransform(current_target)
@@ -47,13 +48,17 @@ function SetTeleportLocation()
 
     local eid = EntityLoad("mods/noita.hardmod/files/modules/phantom_nemesis/files/entities/misc/fx/teleport_indicator.xml",tele_x,tele_y)
     local tele_vsc = EntityGetFirstComponentIncludingDisabled(eid,"VariableStorageComponent")
-    ComponentSetValue2(tele_vsc,"value_int",host_id)
+	if tele_vsc then
+		ComponentSetValue2(tele_vsc,"value_int",host_id)
+	end
 
     --Teleport indication
     GamePlaySound( "data/audio/Desktop/misc.bank", "misc/teleport_use", tele_x, tele_y )
-    local eid = EntityLoad("mods/noita.hardmod/files/modules/phantom_nemesis/files/particles/indicator_ring.xml", tele_x, tele_y)
-    local particle_comp = EntityGetFirstComponentIncludingDisabled(eid,"ParticleEmitterComponent")
-    ComponentSetValue2(particle_comp,"emitted_material_name","spark_blue_dark")
+    local ring_eid = EntityLoad("mods/noita.hardmod/files/modules/phantom_nemesis/files/particles/indicator_ring.xml", tele_x, tele_y)
+    local particle_comp = EntityGetFirstComponentIncludingDisabled(ring_eid,"ParticleEmitterComponent")
+	if particle_comp then
+		ComponentSetValue2(particle_comp,"emitted_material_name","spark_blue_dark")
+	end
 
     --Set teleport CD
     ComponentSetValue2(teleportation_data,"value_int",current_frame + teleportation_cooldown)

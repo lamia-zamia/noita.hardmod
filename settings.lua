@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 dofile("data/scripts/lib/mod_settings.lua")
 
 --[[
@@ -251,7 +250,7 @@ mod_settings = {
 						return _id
 					end
 					local keybind_string = ""
-					local keybind_setting = ModSettingGet("noita.hardmod.alt_fire_keybind")
+					local keybind_setting = tostring(ModSettingGet("noita.hardmod.alt_fire_keybind"))
 					local mode = "key_code"
 					for code in string.gmatch(keybind_setting, "[^,]+") do
 						if code == "mouse_code" or code == "key_code" or code == "joystick_code" then
@@ -260,6 +259,7 @@ mod_settings = {
 							if keybind_string ~= "" then
 								keybind_string = keybind_string .. " + "
 							end
+							---@diagnostic disable-next-line: cast-local-type
 							code = tonumber(code)
 							if mode == "key_code" then
 								for key, value in pairs(key_codes) do
@@ -299,7 +299,7 @@ mod_settings = {
 						listening_mid_fire = false
 						listening_beacon = false
 						there_has_been_input = false
-						old_binding = ModSettingGet("noita.hardmod.alt_fire_keybind")
+						old_binding = tonumber(ModSettingGet("noita.hardmod.alt_fire_keybind")) or 0
 					end
 					GuiColorSetForNextWidget(gui, 1, 1, 1, 0.5)
 					GuiText(gui, 5, 5, keybind_current .. keybind_string)

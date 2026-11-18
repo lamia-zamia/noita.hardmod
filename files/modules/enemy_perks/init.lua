@@ -43,7 +43,6 @@ hooks.player_spawned = function()
 	end
 
 	dofile_once("data/scripts/perks/perk_list.lua")
-	---@diagnostic disable-next-line: undefined-global
 	for _,perk in ipairs(perk_list) do
 		AddFlagPersistent("perk_picked_"..perk.id:lower())
 	end

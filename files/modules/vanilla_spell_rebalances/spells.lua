@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 local function apply_freeze()
 	if reflecting then return end
 

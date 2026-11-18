@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 local new_perks = {}
 local perk_patches = {}
 local edit_perk_hooks = {}

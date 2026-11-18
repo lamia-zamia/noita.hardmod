@@ -7,8 +7,10 @@ local pos_x, pos_y = EntityGetTransform(parent_id)
 local attack_file = pickrandomspell( pos_x, pos_y )
 
 local comp = EntityGetFirstComponentIncludingDisabled(parent_id,"AnimalAIComponent")
-ComponentSetValue2(comp,"attack_ranged_entity_file",attack_file)
-ComponentSetValue2(comp,"attack_ranged_enabled",true)
+if comp then
+	ComponentSetValue2(comp,"attack_ranged_entity_file",attack_file)
+	ComponentSetValue2(comp,"attack_ranged_enabled",true)
+end
 
 local aicomps = EntityGetComponentIncludingDisabled(parent_id,"AIAttackComponent") or {}
 if #aicomps < 1 then return end

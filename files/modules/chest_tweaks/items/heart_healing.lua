@@ -32,7 +32,6 @@ function item_pickup(item, picked_by)
 	if max_hp == max_hp_old then
 		description = GameTextGet("$logdesc_heart_blocked", tostring(math.floor(max_hp*25)))
 	else
-		---@diagnostic disable-next-line: undefined-global
 		heal_entity(picked_by, 1)
 	end
 

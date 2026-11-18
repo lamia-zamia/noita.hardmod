@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 local utils = dofile_once( "mods/noita.hardmod/lib/utilities.lua" ) ---@type utils
 
 function damage_received( damage, desc, entity_who_caused, is_fatal )

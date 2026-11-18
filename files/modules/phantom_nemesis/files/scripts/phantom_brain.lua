@@ -1,10 +1,10 @@
 local entity_id = GetUpdatedEntityID()
 local root_id = EntityGetRootEntity(entity_id)
 local pos_x, pos_y = EntityGetTransform(entity_id)
-local vsc_comp = EntityGetFirstComponentIncludingDisabled(entity_id,"VariableStorageComponent") or 0
-local vsc_comp2 = EntityGetFirstComponentIncludingDisabled(entity_id,"VariableStorageComponent") or 0
-local tier = ComponentGetValue2(vsc_comp,"value_float")
-local last_pheromone_hint_cd = ComponentGetValue2(vsc_comp2,"value_int")
+local vsc_comp = EntityGetFirstComponentIncludingDisabled(entity_id,"VariableStorageComponent")
+local vsc_comp2 = EntityGetFirstComponentIncludingDisabled(entity_id,"VariableStorageComponent")
+local tier = vsc_comp and ComponentGetValue2(vsc_comp,"value_float") or 0
+local last_pheromone_hint_cd = vsc_comp2 and ComponentGetValue2(vsc_comp2,"value_int") or 0
 
 local function RecreateOriginalHost(host_id)
     local filepath = EntityGetFilename(host_id)
@@ -26,13 +26,16 @@ local function BanishFelcesisEarly()
 end
 
 local function RemoveOldFelcesis() --There can only be one!!!
-    local this_spawntime = ComponentGetValue2(vsc_comp,"value_int")
+    local this_spawntime = vsc_comp and ComponentGetValue2(vsc_comp, "value_int") or GameGetFrameNum()
     local suspects = EntityGetWithTag("felcesis_possessed") or {}
+
     for _,suspect in ipairs(suspects) do
         local children = EntityGetAllChildren(suspect) or {}
         for _,child in ipairs(children) do
             if EntityGetName(child) == "felcesis_brain" then
-                local suspect_vsc = EntityGetFirstComponentIncludingDisabled(child,"VariableStorageComponent") or 0
+                local suspect_vsc = EntityGetFirstComponentIncludingDisabled(child,"VariableStorageComponent")
+				if not suspect_vsc then return end
+
                 local suspect_spawntime = ComponentGetValue2(suspect_vsc,"value_int") or 0
                 if EntityGetIsAlive(suspect) and suspect_spawntime < this_spawntime then
                     EntityKill(suspect)
@@ -97,7 +100,7 @@ local function BrainUpdate()
         local comp = GameGetGameEffect( root_id, "CHARM" )
         if comp ~= 0 then
             ComponentSetValue2( comp, "effect", "NONE")
-            if last_pheromone_hint_cd + 1800 < GameGetFrameNum() then
+            if last_pheromone_hint_cd + 1800 < GameGetFrameNum() and vsc_comp2 then
                 GamePrint(GameTextGet("$hardmod_phantom_pheromone_resist",GameTextGetTranslatedOrNot("$hardmod_phantom_phantom_name")))
                 ComponentSetValue2(vsc_comp2,"value_int",GameGetFrameNum())
             end

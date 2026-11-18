@@ -53,7 +53,6 @@ function sv_utils.ResetMoveSpeed( entity_id, effect_name )
 		ComponentSetValue2( plat_comp, "fly_velocity_x", ComponentGetValue2( plat_comp, "fly_velocity_x" ) * mtp_x )
 	end
 
-	---@diagnostic disable-next-line: undefined-global
     local vsc = get_variable_storage_component( entity_id, effect_name .. "_move_speed_mtp" )
     EntityRemoveComponent( entity_id, vsc )
 end

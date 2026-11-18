@@ -5,6 +5,9 @@ function damage_received( damage, desc, entity_who_caused, is_fatal )
     local ally = utils.GetInternalInt( owner, "hardmod_soul_linked_ally" ) or 0
     if ally == 0 then return end
 
+	---@diagnostic disable-next-line: cast-type-mismatch
+	---@cast ally entity_id
+
     local dmg_comp_self = EntityGetFirstComponentIncludingDisabled( owner, "DamageModelComponent" )
     local dmg_comp_ally = EntityGetFirstComponentIncludingDisabled( ally, "DamageModelComponent" )
     if dmg_comp_self and dmg_comp_ally then
@@ -31,6 +34,9 @@ function damage_about_to_be_received( damage, x, y, entity_thats_responsible, cr
     local ally = utils.GetInternalInt( owner, "hardmod_soul_linked_ally" ) or 0
 
     if ally > 0 then
+		---@diagnostic disable-next-line: cast-type-mismatch
+		---@cast ally entity_id
+
         local dmg_comp_self = EntityGetFirstComponentIncludingDisabled( owner, "DamageModelComponent" )
         local dmg_comp_ally = EntityGetFirstComponentIncludingDisabled( ally, "DamageModelComponent" )
         if dmg_comp_self and dmg_comp_ally then

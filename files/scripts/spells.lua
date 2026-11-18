@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 local new_spells = {}
 local spell_patches = {}
 local edit_spell_hooks = {}

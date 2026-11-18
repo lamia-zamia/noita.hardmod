@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 -- default biome functions that get called if we can't find a a specific biome that works for us
 -- The level of action ids that are spawned from the chests
 CHEST_LEVEL = 1

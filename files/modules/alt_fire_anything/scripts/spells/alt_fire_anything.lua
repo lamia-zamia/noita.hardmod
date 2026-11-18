@@ -5,13 +5,14 @@ local controls = EntityGetFirstComponent(caster, "ControlsComponent")
 if not controls then return end
 
 local function is_alt_fire_pressed()
-    local binding = ModSettingGet( "noita.hardmod.alt_fire_keybind" )
+    local binding = tostring(ModSettingGet("noita.hardmod.alt_fire_keybind"))
     local mode = "key_code"
     for code in string.gmatch(binding, "[^,]+") do
         if code == "mouse_code" or code == "key_code" or code == "joystick_code" then
             mode = code
         else
-            code = tonumber(code)
+			---@diagnostic disable-next-line: cast-local-type
+            code = tonumber(code) or 0
             if mode == "key_code" then
                 if InputIsKeyDown(code) then
                   return true

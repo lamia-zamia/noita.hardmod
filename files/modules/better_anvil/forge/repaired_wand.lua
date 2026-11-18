@@ -13,7 +13,6 @@ return function (x, y)
 
 	-- then add passives
 	for i=1,passives_to_spawn do
-		---@diagnostic disable-next-line: undefined-global
 		local spell_id = GetRandomActionWithType(x, y, 5, ACTION_TYPE_PASSIVE, i)
 		wand:AddSpells(spell_id)
 	end

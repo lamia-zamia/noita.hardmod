@@ -3,9 +3,15 @@ local host_id = EntityGetRootEntity(GetUpdatedEntityID())
 if host_id == GetUpdatedEntityID() then EntityKill(ability_id) end
 local pos_x,pos_y = EntityGetTransform(host_id)
 local dmg_comp = EntityGetFirstComponentIncludingDisabled(host_id,"DamageModelComponent")
+
+if not dmg_comp then return end
+
 local hp_max = ComponentGetValue2(dmg_comp,"max_hp")
 local hp = ComponentGetValue2(dmg_comp,"hp")
+
 local vsc_comp = EntityGetFirstComponentIncludingDisabled(ability_id,"VariableStorageComponent")
+if not vsc_comp then return end
+
 local frame_regeneration_started_on = ComponentGetValue2(vsc_comp,"value_int")
 local current_frame = GameGetFrameNum()
 local regeneration_duration = 60

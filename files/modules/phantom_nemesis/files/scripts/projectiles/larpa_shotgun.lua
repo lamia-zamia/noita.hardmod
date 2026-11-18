@@ -22,8 +22,7 @@ end
 
 local vcomp = EntityGetFirstComponent(entity_id, "VelocityComponent")
 if vcomp then
-	-- TODO: deprecated
-	vel_x,vel_y = ComponentGetValueVector2(vcomp, "mVelocity")
+	vel_x, vel_y = ComponentGetValue2(vcomp, "mVelocity")
 end
 
 for k=1,amount do

@@ -1,3 +1,4 @@
+---@diagnostic disable: param-type-mismatch, deprecated, need-check-nil, undefined-global
 -- #########################################
 -- #######       EZWand v2.2.2       #######
 -- #########################################

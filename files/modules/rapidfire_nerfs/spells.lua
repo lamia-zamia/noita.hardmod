@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 local hooks = {}
 
 dofile_once("mods/noita.hardmod/files/modules/rapidfire_nerfs/scripts/null_mana.lua")

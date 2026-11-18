@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 local root = "mods/noita.hardmod/files/modules/alternate_biomes/"
 local biome_name = "data/biome/excavationsite.xml"
 

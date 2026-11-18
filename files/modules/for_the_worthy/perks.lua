@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 local root = "mods/noita.hardmod/files/modules/for_the_worthy/"
 local hooks = {}
 

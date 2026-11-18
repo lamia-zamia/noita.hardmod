@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 local ADD_CARD_IDS = { ADD_TRIGGER = true, ADD_TIMER = true, ADD_DEATH_TRIGGER = true }
 
 local is_card_stepped_over = { ACTION_TYPE_MODIFIER = true, ACTION_TYPE_PASSIVE = true, ACTION_TYPE_OTHER = true, ACTION_TYPE_DRAW_MANY = true }

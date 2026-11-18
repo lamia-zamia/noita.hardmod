@@ -1,4 +1,4 @@
----@diagnostic disable: undefined-global
+---@diagnostic disable: param-type-mismatch
 
 MaxBiomeModifierCount = { default = 5 }
 BiomeModifierChances = {

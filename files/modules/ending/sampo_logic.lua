@@ -14,16 +14,19 @@ local function update_orb_glyphs(orb_count,player_present,invis)
 		local glow_count = 0
 		local children = EntityGetAllChildren(eid,"hardmod_sampo_orb_glyph")
 		local snuffed = true
-		for i=1,#children do local orb_glyph = children[i]
+		for i,orb_glyph in ipairs(children or {}) do
 			local glyphcomp = EntityGetFirstComponentIncludingDisabled(orb_glyph, "SpriteComponent")
 			local og_alpha = 0.5
+			if not glyphcomp then goto continue end
 			if glow_count < orb_count then
 				local glyph_sprite = ComponentGetValue2(glyphcomp, "image_file")
 				if glyph_sprite ~= "mods/noita.hardmod/files/modules/ending/gfx/sampo_orb_indicator_2.png" then
 					ComponentSetValue2(glyphcomp, "image_file", "mods/noita.hardmod/files/modules/ending/gfx/sampo_orb_indicator_2.png")
 					local fxcomp = EntityGetFirstComponentIncludingDisabled(orb_glyph, "ParticleEmitterComponent")
-					ComponentSetValue2(fxcomp,"emission_interval_min_frames",2)
-					ComponentSetValue2(fxcomp,"emission_interval_max_frames",2)
+					if fxcomp then
+						ComponentSetValue2(fxcomp,"emission_interval_min_frames",2)
+						ComponentSetValue2(fxcomp,"emission_interval_max_frames",2)
+					end
 				end
 				og_alpha = 1
 				glow_count = glow_count + 1
@@ -34,12 +37,16 @@ local function update_orb_glyphs(orb_count,player_present,invis)
 				ComponentSetValue2(glyphcomp, "alpha", alpha)
 				utils.SetInternalInt(eid, "hardmod_sampo_orb_glyphs_invisible", 0)
 				local fxcomp = EntityGetFirstComponentIncludingDisabled(orb_glyph, "ParticleEmitterComponent")
-				ComponentSetValue2(fxcomp, "custom_alpha", alpha * 0.5)
+				if fxcomp then
+					ComponentSetValue2(fxcomp, "custom_alpha", alpha * 0.5)
+				end
 			elseif (not player_present) and alpha > 0 then
 				alpha = math.max(alpha - (og_alpha / 60),0)
 				ComponentSetValue2(glyphcomp, "alpha", alpha)
 				local fxcomp = EntityGetFirstComponentIncludingDisabled(orb_glyph, "ParticleEmitterComponent")
-				ComponentSetValue2(fxcomp, "custom_alpha", alpha * 0.5)
+				if fxcomp then
+					ComponentSetValue2(fxcomp, "custom_alpha", alpha * 0.5)
+				end
 				snuffed = false
 			end
 			local radius = 32 * (alpha / og_alpha)
@@ -47,6 +54,8 @@ local function update_orb_glyphs(orb_count,player_present,invis)
 			local sy = center_y - (radius * math.sin(rot_step * i + theta))
 			local sr = math.rad(15) * math.sin(sway)
 			EntitySetTransform(orb_glyph, sx, sy, sr)
+
+			::continue::
 		end
 		if (not player_present) and snuffed then
 			utils.SetInternalInt(eid, "hardmod_sampo_orb_glyphs_invisible", 1)
@@ -108,7 +117,7 @@ local function reenable_sampo()
 	EntityAddTag(eid, "sampo_unlocked")
 
 	local children = EntityGetAllChildren(eid,"hardmod_sampo_orb_glyph")
-	for i=1,#children do local orb_glyph = children[i]
+	for _,orb_glyph in pairs(children or {}) do
 		EntityKill(orb_glyph)
 	end
 end
@@ -123,22 +132,22 @@ local function check_orb_count()
 		local x, y = EntityGetTransform(eid)
 		local glyph_detect_radius = 100
 		local player_present = EntityGetInRadiusWithTag(x,y,glyph_detect_radius,"player_unit") or {}
-		player_present = #player_present > 0
 
-		update_orb_glyphs(orb_count,player_present,invis == 1)
+		update_orb_glyphs(orb_count,#player_present > 0,invis == 1)
 	else
 		local wait_frames = 60
 		local x, y = EntityGetTransform(eid)
 		local interactcomp = EntityGetFirstComponentIncludingDisabled(eid, "InteractableComponent")
-		local interact_radius = ComponentGetValue2(interactcomp,"radius")
-		local player_present = EntityGetInRadiusWithTag(x,y,interact_radius,"player_unit") or {}
-		player_present = #player_present > 0
-		if player_present then
-			local frames_viewed = (utils.GetInternalInt(eid, "hardmod_sampo_view_frames") or 0) + 1
-			print("frames_viewed: " .. tostring(frames_viewed))
-			utils.SetInternalInt(eid, "hardmod_sampo_view_frames", frames_viewed)
-			if frames_viewed >= wait_frames then
-				GameAddFlagRun("hardmod_sampo_viewed")
+		if interactcomp then
+			local interact_radius = ComponentGetValue2(interactcomp,"radius")
+			local player_present = EntityGetInRadiusWithTag(x,y,interact_radius,"player_unit") or {}
+			if #player_present > 0 then
+				local frames_viewed = (utils.GetInternalInt(eid, "hardmod_sampo_view_frames") or 0) + 1
+				print("frames_viewed: " .. tostring(frames_viewed))
+				utils.SetInternalInt(eid, "hardmod_sampo_view_frames", frames_viewed)
+				if frames_viewed >= wait_frames then
+					GameAddFlagRun("hardmod_sampo_viewed")
+				end
 			end
 		end
 	end

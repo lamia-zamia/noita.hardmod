@@ -30,6 +30,8 @@ function enabled_changed( entity_id, state )
 	ComponentSetValue2( inv2, "mActualActiveItem", 0 )
 
 	local acomp = EntityGetFirstComponentIncludingDisabled( entity_id, "AbilityComponent" )
+	if not acomp then return end
+
 	-- local reload_time = EntityGetFirstComponentIncludingDisabled( owner, "VariableStorageComponent", "hardmod_wand_reload_time" ) or -1
 	-- if reload_time == -1 then
 	local EZWand = dofile_once( "mods/noita.hardmod/lib/ezwand.lua" )
@@ -42,9 +44,6 @@ function enabled_changed( entity_id, state )
 		ComponentSetValue2( acomp, "mReloadNextFrameUsable", GameGetFrameNum() + reload_time )
 		ComponentSetValue2( acomp, "mReloadFramesLeft", reload_time )
 		ComponentSetValue2( acomp, "reload_time_frames", reload_time )
-		if EntityHasTag( owner, "player_unit" ) then
-			GamePrint( GameTextGetTranslatedOrNot( "$hardmod_gameprint_instant_recharge_fail" ) )
-		end
 	end
 
 	if reload_time > 60 then
