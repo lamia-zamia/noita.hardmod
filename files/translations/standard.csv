@@ -364,7 +364,6 @@ hardmod_spell_recharge_shield_name,Recharge Shield,Щит перезарядки
 hardmod_spell_recharge_shield_desc,"Grants a shield, mana regen and move speed while the wand recharges","Даёт щит, восстановление маны и скорость передвижения, пока жезл перезаряжается",,,,,,,,,,,,
 hardmod_eperk_stinky_aura_name,Stinky Aura,Вонючая аура,,,,,,,,,,,,
 hardmod_eperk_stinky_aura_desc,This enemy lacks personal hygiene.,Этот враг не соблюдает личную гигиену.,,,,,,,,,,,,
-hardmod_gameprint_instant_recharge_fail,"The instant recharge trick no longer works. Go find a faster wand!","Трюк с мгновенной перезарядкой больше не работает. Найди жезл пошустрее!",,,,,,,,,,,,
 hardmod_perk_wand_experimenter_desc,"Firing all spells on an unedited wand heals you, up to 5 times per wand.","Выстрел всеми заклинаниями из неотредактированного жезла лечит вас, до 5 раз на жезл.",,,,,,,,,,,,
 hardmod_eperk_dark_flames_name,Dark Wizard,Тёмный Маг,,,,,,,,,,,,
 hardmod_eperk_dark_flames_desc,"This enemy's projectiles leave behind a trail of dark flames.",Заклинания этого врага оставляют за собой след из тёмных огней.,,,,,,,,,,,,
