@@ -96,6 +96,12 @@ local sacrifice_items = {
 			EntityKill(eid)
 		end
 	},
+	{
+		id = "waterstone",
+		identity_tag = "waterstone",
+		spawn_perk = "BREATH_UNDERWATER",
+		not_in_hellmode = true,
+	},
 }
 
 local tag_items = {}
@@ -143,6 +149,7 @@ local function handle_sacrifice(sacrifice_data, eid)
 	local cheese_sac = GameHasFlagRun("hardmod_mountain_sacrificed_cheese")
 	local all_sac = GameHasFlagRun("hardmod_mountain_amplified_items")
 	if not is_hellmode and thunderstone_sac and brimstone_sac and cheese_sac and not all_sac then
+		GameAddFlagRun("hardmod_mountain_amplified_items")
 		dofile_once("data/scripts/perks/perk.lua")
 		perk_spawn(x, y - 30, "HARDMOD_ITEM_IMMUNITIES", true)
 
