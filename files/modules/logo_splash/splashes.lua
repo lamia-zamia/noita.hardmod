@@ -34,7 +34,7 @@ local evil_level = (year * 31469 + month * 929 + day * 541) % 100 + 1
 local months = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
 
 -- stylua: ignore start
-local lines_of_code = "27,588"---Updated by `scripts/build.js`, do not edit or format
+local lines_of_code = "27,857"---Updated by `scripts/build.js`, do not edit or format
 -- stylua: ignore end
 
 ---@type (splash_entry | string)[]

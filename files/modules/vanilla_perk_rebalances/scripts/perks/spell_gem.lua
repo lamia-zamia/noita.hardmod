@@ -62,52 +62,52 @@ function item_pickup( entity_item, entity_who_picked, item_name )
 		local all_card_actions = {}
 
 		-- insert all spells slotted in wands
-	    if EntityGetName( child ) == "inventory_quick" then
-	        local inventory_items = EntityGetAllChildren( child )
-	        if( inventory_items ~= nil ) then
-	            for z=1, #inventory_items do
-	            	item = inventory_items[z]
-	            	if item > 0 then
-	            		if EZWand.IsWand( item ) then
-		            		local wand = EZWand( item )
-		            		local spells,attached_spells = wand:GetSpells()
-		            		for i,spell in ipairs( spells ) do
-		            			table.insert( all_card_actions, spell.entity_id )
-		            		end
-		            	else
-		            		-- also restore charges to materialized bombs
-		            		local item_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemComponent" )
-		            		if item_comp ~= nil then
-		            			local uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
-		            			if uses_remaining ~= nil and uses_remaining > -1 then
-		            				table.insert( all_card_actions, item )
-		            			end
-		            		end
-		            	end
-	            	end
-	            end
-	        end
-	    end
+		if EntityGetName( child ) == "inventory_quick" then
+			local inventory_items = EntityGetAllChildren( child )
+			if( inventory_items ~= nil ) then
+				for z=1, #inventory_items do
+					local item = inventory_items[z]
+					if item > 0 then
+						if EZWand.IsWand( item ) then
+							local wand = EZWand( item )
+							local spells,attached_spells = wand:GetSpells()
+							for i,spell in ipairs( spells ) do
+								table.insert( all_card_actions, spell.entity_id )
+							end
+						else
+							-- also restore charges to materialized bombs
+							local item_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemComponent" )
+							if item_comp ~= nil then
+								local uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
+								if uses_remaining ~= nil and uses_remaining > -1 then
+									table.insert( all_card_actions, item )
+								end
+							end
+						end
+					end
+				end
+			end
+		end
 
-	    -- insert all spells in the 'full' inventory
-	    if EntityGetName( child ) == "inventory_full" then
-	        local inv_card_actions = EntityGetAllChildren( child )
-	        if( inv_card_actions ~= nil ) then
-	            for z=1, #inv_card_actions do
-	            	inv_card_action = inv_card_actions[z]
+		-- insert all spells in the 'full' inventory
+		if EntityGetName( child ) == "inventory_full" then
+			local inv_card_actions = EntityGetAllChildren( child )
+			if( inv_card_actions ~= nil ) then
+				for z=1, #inv_card_actions do
+					local inv_card_action = inv_card_actions[z]
 
-	            	local item_comp = EntityGetFirstComponentIncludingDisabled( inv_card_action, "ItemComponent" )
-	            	if item_comp then
-	    				table.insert( all_card_actions, inv_card_action )
-	            	end
-	            end
-	        end
-	    end
+					local item_comp = EntityGetFirstComponentIncludingDisabled( inv_card_action, "ItemComponent" )
+					if item_comp then
+						table.insert( all_card_actions, inv_card_action )
+					end
+				end
+			end
+		end
 
-	    for i,card_action in ipairs( all_card_actions ) do
-	    	local charge_amount = 0
+		for i,card_action in ipairs( all_card_actions ) do
+			local charge_amount = 0
 
-		    local item_comp = EntityGetFirstComponentIncludingDisabled( card_action, "ItemComponent" )
+			local item_comp = EntityGetFirstComponentIncludingDisabled( card_action, "ItemComponent" )
 			local max_uses = get_max_uses( card_action )
 			if item_comp and max_uses and max_uses > -1 then
 
@@ -148,11 +148,11 @@ function item_pickup( entity_item, entity_who_picked, item_name )
 					end
 				end
 			end
-	    end
+		end
 	end
 
-    -- play a little sound, show a little vfx
-    local x, y = EntityGetTransform( entity_item )
+	-- play a little sound, show a little vfx
+	local x, y = EntityGetTransform( entity_item )
 	GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/pick_item_generic/create", x, y )
 	EntityLoad( "data/entities/particles/gold_pickup_large.xml", x, y )
 
@@ -162,6 +162,6 @@ function item_pickup( entity_item, entity_who_picked, item_name )
 		trigger_wand_refresh( held_wand, 1.0 )
 	end
 
-    -- destroy the gem
+	-- destroy the gem
 	EntityKill( entity_item )
 end

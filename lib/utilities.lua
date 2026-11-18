@@ -655,4 +655,28 @@ function utils.LinebreakString(str, max_width, font)
 	return table.concat(lines, "\n")
 end
 
+---Function to spawn perks in a circle formation
+---@param perks table list of perks
+---@param x any
+---@param y any
+---@param radius any
+---@return table
+function utils.SpawnPerkCircle(perks, x, y, radius)
+	radius = radius or 0
+	local radian = 2*math.pi
+	radius = math.max(radius, #perks*20/(radian))
+
+	local step = 1/#perks
+	local random_rot = Randomf(0,step)
+	local perk_eids = {}
+	for i,perk in ipairs(perks) do
+		local perk_id =  type(perk) == "table" and perk.id or perk
+		local x_pos = x + radius * math.cos((i * step * radian)+random_rot)
+		local y_pos = y + radius * math.sin((i * step * radian)+random_rot)
+		perk_eids[#perk_eids+1] = perk_spawn(x_pos, y_pos, perk_id, true)
+	end
+
+	return perk_eids
+end
+
 return utils

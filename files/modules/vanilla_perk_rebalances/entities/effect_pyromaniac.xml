@@ -1,6 +1,6 @@
 <Entity tags="perk_entity">
 	<InheritTransformComponent>
-    </InheritTransformComponent>
+	</InheritTransformComponent>
 	
 	<MagicConvertMaterialComponent
 		from_material_tag="[gas]"
@@ -13,4 +13,6 @@
 		temperature_reaction_temp="7"
 		clean_stains="0"
 	></MagicConvertMaterialComponent>
+
+	<GameEffectComponent effect="PROTECTION_FIRE"/>
 </Entity>
