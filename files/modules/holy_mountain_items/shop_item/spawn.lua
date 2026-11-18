@@ -46,7 +46,7 @@ function hardmod_spawn_purchasable_item(x, y)
 	EntityAddComponent2(entity, "SpriteComponent", {
 		_tags = "enabled_in_world",
 		offset_x = item.offset_x or 0,
-		offset_y = item.offset_y or 0,
+		offset_y = (item.offset_y or 0)-.05,
 		image_file = item.sprite
 	})
 

@@ -211,6 +211,38 @@ function utilities.give_enemy_perks(entity_id, perks_to_give, data)
 end
 
 
+function utilities.handle_perk_on_death(perks, ddata)
+	ddata.attacker_was_player = EntityHasTag(ddata.attacker, "player_unit") or EntityHasTag(ddata.attacker, "polymorphed_player")
+
+	local new_perk_discovered
+	ddata.held_perks = {}
+	ddata.how_many_of_each_perk = {}
+	for perk_id in perks:gmatch("([^,]+)") do
+		ddata.how_many_of_each_perk[perk_id] = (perk_id[perk_id] or 0) + 1
+		ddata.held_perks[#ddata.held_perks+1] = perk_id
+		if ddata.attacker_was_player then
+			local persistent_flag_name = "perk_picked_enemyperk_"..perk_id:lower()
+			if not HasFlagPersistent(persistent_flag_name) then
+				new_perk_discovered = true
+				AddFlagPersistent(persistent_flag_name)
+				GameAddFlagRun("new_"..persistent_flag_name)
+			end
+		end
+	end
+	if new_perk_discovered then GameAddFlagRun("hardmod_new_enemy_perk_discovered") end
+
+	local x,y = EntityGetTransform(ddata.entity_id)
+	SetRandomSeed(5932+y, x-135)
+	for _,perk in ipairs(dofile_once("mods/noita.hardmod/files/modules/enemy_perks/enemy_perks_list.lua")) do
+		if perk.on_death and ddata.how_many_of_each_perk[perk.id] then
+			for _=1,ddata.how_many_of_each_perk[perk.id] do
+				perk:on_death(ddata.entity_identity_id, ddata)
+			end
+		end
+	end
+end
+
+
 return function(eperks)
 	enemy_perks = eperks
 	for _,perk in ipairs(enemy_perks) do

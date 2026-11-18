@@ -68,14 +68,12 @@ local function spawn_on_death_blacklist(self, data)
 		["data/entities/animals/skullfly.xml"] = true,
 		["data/entities/animals/crypt/skullfly.xml"] = true,
 	}
-	local banned_perks = {
-		"HARDMOD_FORBIDDEN_ARTS"
-	}
-	for _,banned_perk in ipairs(banned_perks) do
-		if data.how_many_of_each_perk[banned_perk] then return end
-	end
+	--local banned_perks = {}
+	--for _,banned_perk in ipairs(banned_perks) do
+	--	if data.how_many_of_each_perk[banned_perk] then return end
+	--end
 
-	return not (banned_creatures[EntityGetFilename(data.target_enemy)] or data.how_many_of_each_perk["HARDMOD_BOUNTY"] or data.how_many_of_each_perk["HARDMOD_SHADOW_REVIVAL"])
+	return not banned_creatures[EntityGetFilename(data.target_enemy)]
 end
 
 local function split_string(inputstr, sep)
@@ -262,9 +260,13 @@ enemy_perks = {
 		priority = 4,
 		max = 1,
 		min_level = 5,
-		unique_slot = "on_death",
 		condition = function(self, data) return data.dmc and not data.is_boss end,
 		func = function(self, entity_id, data)
+			for _,luacomp in ipairs(EntityGetComponent(entity_id, "LuaComponent") or {}) do
+				if ComponentGetValue2(luacomp, "script_death") == "mods/noita.hardmod/files/modules/enemy_perks/perk_holder_died.lua" then
+					EntityRemoveComponent(entity_id, luacomp)
+				end
+			end
 			EntityAddComponent2(entity_id, "LuaComponent", {
 				script_death = "mods/noita.hardmod/files/modules/enemy_perks/scripts/spawn_shadow_revive_orb.lua",
 			})
@@ -941,7 +943,7 @@ enemy_perks = {
 		id = "OMEGA_BLACKHOLE_DEATH",
 		name = "$hardmod_eperk_omega_blackhole_death_name",
 		description = "$hardmod_eperk_omega_blackhole_death_desc",
-		weight = .5,
+		weight = .2,
 		priority = 15,
 		max = 1,
 		min_level = 11,
@@ -958,7 +960,7 @@ enemy_perks = {
 		id = "OMEGA_WHITEHOLE_DEATH",
 		name = "$hardmod_eperk_omega_whitehole_death_name",
 		description = "$hardmod_eperk_omega_whitehole_death_desc",
-		weight = .5,
+		weight = .1,
 		priority = 15,
 		max = 1,
 		min_level = 11,

@@ -22,6 +22,34 @@ shop_items.potion_materials = {
 	},
 }
 
+shop_items.pouch_materials = {
+	{
+		material = "silver",
+		price = 80,
+		weight = 10,
+	},
+	{
+		material = "purifying_powder",
+		price = 110,
+		weight = 10,
+	},
+	{
+		material = "gunpowder_unstable",
+		price = 60,
+		weight = 10,
+	},
+	{
+		material = "fungi",
+		price = 90,
+		weight = 10,
+	},
+	{
+		material = "orb_powder",
+		price = 90,
+		weight = 5,
+	},
+}
+
 shop_items.items = {
 	{
 		id = "ring_of_returning",
@@ -64,15 +92,15 @@ shop_items.items = {
 				end
 			end
 		end,
-		offset_x = 4, offset_y = 3.95,
+		offset_x = 4, offset_y = 4,
 	},
 	{
 		id = "pouch",
 		name = "$item_powder_stash_3",
-		weight = 30,
+		weight = 40,
 		base_cost = 30,
-		entity = "data/entities/items/pickup/potion_empty.xml",
-		sprite = "data/items_gfx/potion.png",
+		entity = dir.."entities/empty_pouch.xml",
+		sprite = "data/items_gfx/material_pouch.png",
 		condition = function(self)
 			local mat_data = utils.RandomFromTable(shop_items.pouch_materials)
 			self.material = mat_data.material
@@ -83,9 +111,6 @@ shop_items.items = {
 			return true
 		end,
 		generate_func = function(self, entity_id)
-			EntityAddComponent2(entity_id, "PotionComponent", {
-				custom_color_material = CellFactory_GetType(self.material)
-			})
 			EntityAddComponent2(entity_id, "VariableStorageComponent", {
 				name = "potion_material",
 				value_string = self.material
@@ -98,12 +123,12 @@ shop_items.items = {
 				end
 			end
 		end,
-		offset_x = 4, offset_y = 3.95,
+		offset_x = 5, offset_y = 7,
 	},
 	{
 		id = "refreshing_gourd",
 		name = "$item_gourd",
-		weight = 30,
+		weight = 35,
 		base_cost = 180,
 		entity = "data/entities/items/pickup/gourd.xml",
 		sprite = "data/ui_gfx/items/gourd.png",
@@ -125,7 +150,7 @@ shop_items.items = {
 		weight = 10,
 		base_cost = 400,
 		entity = "data/entities/items/pickup/beamstone.xml",
-		sprite = dir.."gfx/items_gfx/beamstone.png",
+		sprite = "data/ui_gfx/items/beamstone.png",
 		offset_x = 4, offset_y = 6,
 		hm_escape = true,
 	},
