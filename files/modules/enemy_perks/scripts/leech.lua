@@ -6,7 +6,7 @@ local min_hp_drain_to = 0.04
 
 local dmc = EntityGetFirstComponent(root, "DamageModelComponent")
 if not dmc then return end
-local hp,max_hp = ComponentGetValue2(dmc, "hp"),ComponentGetValue2(dmc, "max_hp")
+local hp, max_hp = ComponentGetValue2(dmc, "hp"), ComponentGetValue2(dmc, "max_hp")
 local missing_hp = max_hp - hp
 if missing_hp <= 0 then return end
 

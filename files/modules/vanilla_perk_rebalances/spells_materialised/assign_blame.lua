@@ -6,9 +6,9 @@ function shot(projectile)
 	local proj_comps = EntityGetComponent(projectile, "ProjectileComponent")
 	for _, proj_comp in ipairs(proj_comps or {}) do
 		if ComponentGetValue2(proj_comp, "mWhoShot") ~= 0 then
-			ComponentSetValue2(proj_comp, "mWhoShot",player)
-			ComponentSetValue2(proj_comp, "mEntityThatShot",player)
-			ComponentSetValue2(proj_comp, "mShooterHerdId",herd)
+			ComponentSetValue2(proj_comp, "mWhoShot", player)
+			ComponentSetValue2(proj_comp, "mEntityThatShot", player)
+			ComponentSetValue2(proj_comp, "mShooterHerdId", herd)
 		end
 	end
 end

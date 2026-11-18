@@ -148,4 +148,4 @@ for _,filepath in ipairs(ModLuaFileGetAppends("mods/noita.hardmod/lib/biome_inde
 	dofile_once(filepath)(simple_ids, exact_paths)
 end
 
-return simple_ids,exact_paths
+return simple_ids, exact_paths

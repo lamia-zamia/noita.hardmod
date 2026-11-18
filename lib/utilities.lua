@@ -78,7 +78,7 @@ function utils.dumpf(o, q, r)
 			elseif q then
 				k = '["'..k..'"]'
 			end
-			s = s .. _t .. '    '..k..' = ' .. utils.dumpf(v,q,r+1) .. ',\n'
+			s = s .. _t .. '    '..k..' = ' .. utils.dumpf(v, q, r+1) .. ',\n'
 		end
 		if table_is_empty then
 			return s:sub(1, -2) .. '}'
@@ -606,7 +606,7 @@ function utils.WandAddAlwaysCast(entity_id, action_id)
 	end
 
 	local item_component = EntityGetFirstComponentIncludingDisabled(action_entity_id, "ItemComponent")
-	if item_component then 
+	if item_component then
 		ComponentSetValue2(item_component, "permanently_attached", true)
 	end
 
@@ -666,7 +666,7 @@ function utils.SpawnPerkCircle(perks, x, y, radius)
 	radius = math.max(radius, #perks*20/(radian))
 
 	local step = 1/#perks
-	local random_rot = Randomf(0,step)
+	local random_rot = Randomf(0, step)
 	local perk_eids = {}
 	for i,perk in ipairs(perks) do
 		local perk_id =  type(perk) == "table" and perk.id or perk

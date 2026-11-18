@@ -9,7 +9,7 @@ dofile_once("data/scripts/biome_scripts.lua")
 dofile_once("data/scripts/biome_modifiers.lua")
 dofile("data/scripts/items/generate_shop_item.lua")
 
-RegisterSpawnFunction(0xffffeedd, "init" )
+RegisterSpawnFunction(0xffffeedd, "init")
 RegisterSpawnFunction(0xff0000ff, "spawn_nest")
 RegisterSpawnFunction(0xffFF50FF, "spawn_hanger")
 RegisterSpawnFunction(0xff00AC64, "load_pixel_scene4")
@@ -292,8 +292,8 @@ g_unique_enemy2 =
 		entity 	= "data/entities/animals/miner_santa.xml",
 		spawn_check = function()
 			local year, month, day = GameGetDateAndTimeLocal()
-			
-			if ( month == 12 ) and ( day >= 24 ) and ( day <= 26 ) then
+
+			if month == 12 and day >= 24 and day <= 26 then
 				return true
 			else
 				return false
@@ -983,16 +983,16 @@ function init()
 end
 
 -- this is a special function tweaked for spawning things in coal mines
-function spawn_items( pos_x, pos_y )
-	local r = ProceduralRandom( pos_x, pos_y )
+function spawn_items(pos_x, pos_y)
+	local r = ProceduralRandom(pos_x, pos_y)
 	-- 20% is air, nothing happens
 	-- is this needed anymore?
-	-- if( r < 0.47 ) then return end
-	r = ProceduralRandom( pos_x-11.431, pos_y+10.5257 )
+	-- if r < 0.47 then return end
+	r = ProceduralRandom(pos_x-11.431, pos_y+10.5257)
 
-	if( r < 0.725 ) then
+	if r < 0.725 then
 	else
-		LoadPixelScene( "data/biome_impl/wand_altar.png", "data/biome_impl/wand_altar_visual.png", pos_x-10, pos_y-17, "", true )
+		LoadPixelScene("data/biome_impl/wand_altar.png", "data/biome_impl/wand_altar_visual.png", pos_x-10, pos_y-17, "", true)
 		return
 	end
 end
@@ -1001,185 +1001,185 @@ end
 
 
 function spawn_small_enemies(x, y)
-	local r = ProceduralRandom( x, y )
-	local spawn_percent = BiomeMapGetVerticalPositionInsideBiome( x, y )
-	spawn_percent = ( 2.5 * spawn_percent ) + 0.35
-	if( r > spawn_percent ) then return end
+	local r = ProceduralRandom(x, y)
+	local spawn_percent = BiomeMapGetVerticalPositionInsideBiome(x, y)
+	spawn_percent = (2.5 * spawn_percent) + 0.35
+	if r > spawn_percent then return end
 
-	spawn(g_small_enemies,x,y)
+	spawn(g_small_enemies, x, y)
 end
 
 function spawn_big_enemies(x, y)
-	local r = ProceduralRandom( x, y )
-	local spawn_percent = BiomeMapGetVerticalPositionInsideBiome( x, y )
-	spawn_percent = ( 2.1 * spawn_percent )
-	if( r > spawn_percent ) then return end
+	local r = ProceduralRandom(x, y)
+	local spawn_percent = BiomeMapGetVerticalPositionInsideBiome(x, y)
+	spawn_percent = (2.1 * spawn_percent)
+	if r > spawn_percent then return end
 
-	spawn(g_big_enemies,x,y)
+	spawn(g_big_enemies, x, y)
 end
 
 function spawn_lamp(x, y)
-	spawn(g_lamp,x,y+2,0,0)
+	spawn(g_lamp, x, y+2, 0, 0)
 end
 
 function spawn_props(x, y)
-	spawn(g_props,x,y-3,0,0)
+	spawn(g_props, x, y-3, 0, 0)
 end
 
 function spawn_props2(x, y)
-	spawn(g_props2,x,y-3,0,0)
+	spawn(g_props2, x, y-3, 0, 0)
 end
 
 function spawn_props3(x, y)
-	spawn(g_props3,x,y,0,0)
+	spawn(g_props3, x, y, 0, 0)
 end
 
 function spawn_unique_enemy(x, y)
-	spawn(g_unique_enemy,x,y)
+	spawn(g_unique_enemy, x, y)
 end
 
 function spawn_unique_enemy2(x, y)
-	spawn(g_unique_enemy2,x,y)
+	spawn(g_unique_enemy2, x, y)
 end
 
 function spawn_unique_enemy3(x, y)
-	spawn(g_unique_enemy3,x,y)
+	spawn(g_unique_enemy3, x, y)
 end
 
-function load_pixel_scene( x, y )
-	--spawn(g_cranes,x+35,y+35,0,0)
+function load_pixel_scene(x, y)
+	--spawn(g_cranes, x+35, y+35, 0, 0)
 end
 
-function load_pixel_scene2( x, y )
-	load_random_background_sprite( g_mechanism_background, x, y )
+function load_pixel_scene2(x, y)
+	load_random_background_sprite(g_mechanism_background, x, y)
 end
 
-function load_pixel_scene4( x, y )
-	load_random_pixel_scene( g_pixel_scene_04, x, y )
+function load_pixel_scene4(x, y)
+	load_random_pixel_scene(g_pixel_scene_04, x, y)
 end
 
-function load_pixel_scene4_alt( x, y )
-	load_random_pixel_scene( g_pixel_scene_04_alt, x, y )
+function load_pixel_scene4_alt(x, y)
+	load_random_pixel_scene(g_pixel_scene_04_alt, x, y)
 end
 
-function load_puzzleroom( x, y )
-	load_random_pixel_scene( g_puzzleroom, x, y )
+function load_puzzleroom(x, y)
+	load_random_pixel_scene(g_puzzleroom, x, y)
 end
 
-function load_gunpowderpool_01( x, y )
-	load_random_pixel_scene( g_gunpowderpool_01, x, y )
+function load_gunpowderpool_01(x, y)
+	load_random_pixel_scene(g_gunpowderpool_01, x, y)
 end
 
-function load_gunpowderpool_02( x, y )
-	load_random_pixel_scene( g_gunpowderpool_02, x, y )
+function load_gunpowderpool_02(x, y)
+	load_random_pixel_scene(g_gunpowderpool_02, x, y)
 end
 
-function load_gunpowderpool_03( x, y )
-	load_random_pixel_scene( g_gunpowderpool_03, x-3, y+3 )
+function load_gunpowderpool_03(x, y)
+	load_random_pixel_scene(g_gunpowderpool_03, x-3, y+3)
 end
 
-function load_gunpowderpool_04( x, y )
-	load_random_pixel_scene( g_gunpowderpool_04, x, y )
+function load_gunpowderpool_04(x, y)
+	load_random_pixel_scene(g_gunpowderpool_04, x, y)
 end
 
 function spawn_physicsstructure(x, y)
-	spawn(g_physicsstructure,x-5,y-5,0,0)
+	spawn(g_physicsstructure, x-5, y-5, 0, 0)
 end
 
 function spawn_wheel(x, y)
-	EntityLoad( "data/entities/props/physics_wheel.xml", x, y )
+	EntityLoad("data/entities/props/physics_wheel.xml", x, y)
 end
 
 function spawn_wheel_small(x, y)
-	EntityLoad( "data/entities/props/physics_wheel_small.xml", x, y )
+	EntityLoad("data/entities/props/physics_wheel_small.xml", x, y)
 end
 
 function spawn_wheel_tiny(x, y)
-	EntityLoad( "data/entities/props/physics_wheel_tiny.xml", x, y )
+	EntityLoad("data/entities/props/physics_wheel_tiny.xml", x, y)
 end
 
 function spawn_hanger(x, y)
-	spawn(g_hanger,x,y,0,0)
+	spawn(g_hanger, x, y, 0, 0)
 end
 
 function spawn_rock(x, y)
-	spawn(g_rock,x,y)
+	spawn(g_rock, x, y)
 end
 
 function spawn_hanging_prop(x, y)
-	spawn(g_hanging_props,x,y)
+	spawn(g_hanging_props, x, y)
 end
 
 function spawn_nest(x, y)
-	spawn(g_nest,x+4,y+8,0,0)
+	spawn(g_nest, x+4, y+8, 0, 0)
 end
 
 function spawn_ladder(x, y)
-	--spawn(g_ladder,x,y-80,0,0)
+	--spawn(g_ladder, x, y-80, 0, 0)
 end
 
-function spawn_shopitem( x, y )
-	generate_shop_item( x, y, false, 2 )
+function spawn_shopitem(x, y)
+	generate_shop_item(x, y, false, 2)
 end
 
-function spawn_meditation_cube( x, y )
-	SetRandomSeed( x, y )
-	local rnd = Random( 1, 100 )
-	if( rnd > 96 and not ModIsEnabled("nightmare") ) then
-		LoadPixelScene( "data/biome_impl/excavationsite/meditation_cube.png", "data/biome_impl/excavationsite/meditation_cube_visual.png", x-20, y-29, "", true )
-		EntityLoad( "data/entities/buildings/teleport_meditation_cube.xml", x, y-70 )
+function spawn_meditation_cube(x, y)
+	SetRandomSeed(x, y)
+	local rnd = Random(1, 100)
+	if rnd > 96 and not ModIsEnabled("nightmare") then
+		LoadPixelScene("data/biome_impl/excavationsite/meditation_cube.png", "data/biome_impl/excavationsite/meditation_cube_visual.png", x-20, y-29, "", true)
+		EntityLoad("data/entities/buildings/teleport_meditation_cube.xml", x, y-70)
 	end
 end
 
-function spawn_receptacle( x, y )
-	EntityLoad( "data/entities/buildings/receptacle_steam.xml", x, y )
+function spawn_receptacle(x, y)
+	EntityLoad("data/entities/buildings/receptacle_steam.xml", x, y)
 end
 
 -- Background sprites
-function spawn_tower_short(x,y)
-	generate_tower(x,y,ProceduralRandomi(x-4,y+3,0,2))
+function spawn_tower_short(x, y)
+	generate_tower(x, y, ProceduralRandomi(x-4, y+3, 0, 2))
 end
 
-function spawn_tower_tall(x,y)
-	generate_tower(x,y,ProceduralRandomi(x+7,y-1,2,3))
+function spawn_tower_tall(x, y)
+	generate_tower(x, y, ProceduralRandomi(x+7, y-1, 2, 3))
 end
 
-function generate_tower( x, y, height )
-	if ProceduralRandom(x,y) > 0.5 then
+function generate_tower(x, y, height)
+	if ProceduralRandom(x, y) > 0.5 then
 		return
 	end
 
 	y = y + 15
 
 	-- bottom
-	LoadBackgroundSprite(root.."gfx/sand_pits/tower_bottom_1.png", x, y, 40, true )
+	LoadBackgroundSprite(root.."gfx/sand_pits/tower_bottom_1.png", x, y, 40, true)
 	y = y - 60
-	
+
 	-- middle parts
 	for i=1, height do
 		if y > 1600 then -- build up when not near the top of the biome
-			load_random_background_sprite( g_tower_mids, x, y )
+			load_random_background_sprite(g_tower_mids, x, y)
 			y = y - 60
 		end
 	end
 
 	-- top
 	x = x - 50
-	load_random_background_sprite( g_tower_tops, x, y )
+	load_random_background_sprite(g_tower_tops, x, y)
 end
 
-function spawn_beam_low(x,y)
-	LoadBackgroundSprite(root.."gfx/sand_pits/beam_low.png", x-60, y-35, 60, true )
+function spawn_beam_low(x, y)
+	LoadBackgroundSprite(root.."gfx/sand_pits/beam_low.png", x-60, y-35, 60, true)
 end
 
-function spawn_beam_low_flipped(x,y)
+function spawn_beam_low_flipped(x, y)
 	LoadBackgroundSprite(root.."gfx/sand_pits/beam_low_flipped.png", x-60, y-35, 60, true)
 end
 
-function spawn_beam_steep(x,y)
+function spawn_beam_steep(x, y)
 	LoadBackgroundSprite(root.."gfx/sand_pits/beam_steep.png", x-35, y-60, 60, true)
 end
 
-function spawn_beam_steep_flipped(x,y)
+function spawn_beam_steep_flipped(x, y)
 	LoadBackgroundSprite(root.."gfx/sand_pits/beam_steep_flipped.png", x-35, y-60, 60, true)
 end

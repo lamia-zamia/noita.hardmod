@@ -177,12 +177,12 @@ if not fixnoita then
 			value_int = "0",
 		}))
 	end
-	
+
 	-- Prepend with our new function.
 	ModTextFileSetContent("data/entities/animals/boss_alchemist/key_music.lua",
 		ModTextFileGetContent("mods/noita.hardmod/files/modules/vanilla_bugfixes/key_script_prepend.lua") .. ModTextFileGetContent("data/entities/animals/boss_alchemist/key_music.lua")
 	)
-	
+
 	-- Replace flag check with our function.
 	utils.modifile("data/entities/animals/boss_alchemist/key_music.lua",
 		[[GameHasFlagRun( mm_flag ) and ( GameHasFlagRun( mm_flag .. "_done" ) == false )]],

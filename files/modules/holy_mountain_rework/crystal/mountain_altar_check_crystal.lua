@@ -16,7 +16,7 @@ for _,crystal in ipairs(EntityGetInRadiusWithTag(x, y, 50, "hm_crystal")) do
 
 		GameScreenshake(80)
 		GamePlaySound("data/audio/Desktop/event_cues.bank", "event_cues/orb/create", x, y)
-		EntityLoad("data/entities/particles/image_emitters/magical_symbol.xml", x, y ) --okay we need to stop overusing this effect BUT IT FITS SO WELL HERE!!!
+		EntityLoad("data/entities/particles/image_emitters/magical_symbol.xml", x, y) --okay we need to stop overusing this effect BUT IT FITS SO WELL HERE!!!
 		GamePrintImportant("$hardmod_collapse_crystal_sacrificed", "$hardmod_collapse_crystal_sacrificed_desc")
 
 		local valid_perks = {}

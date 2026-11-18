@@ -11,6 +11,6 @@ end
 local old_spawn_all_shopitems = spawn_all_shopitems
 ---@diagnostic disable-next-line:lowercase-global
 function spawn_all_shopitems(x, y, ...)
-	old_spawn_all_shopitems(x,y,...)
+	old_spawn_all_shopitems(x, y, ...)
 	dofile_once("mods/noita.hardmod/files/modules/holy_mountain_items/scripts/inject_shop_items.lua")(x, y)
 end

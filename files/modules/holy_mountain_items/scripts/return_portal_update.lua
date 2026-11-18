@@ -1,7 +1,7 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
 local portal_id = GetUpdatedEntityID()
-local x, y = EntityGetTransform(portal_id )
+local x, y = EntityGetTransform(portal_id)
 
 local player = EntityGetInRadiusWithTag(x, y, 15, "player_unit")[1]
 if player ~= nil then

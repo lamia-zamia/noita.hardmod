@@ -1,13 +1,13 @@
 local ability_id = GetUpdatedEntityID()
 local host_id = EntityGetRootEntity(ability_id)
 local comp_id = GetUpdatedComponentID()
-local x,y = EntityGetTransform(host_id)
-local fogofwar_vision = GameGetFogOfWar(x,y)
+local x, y = EntityGetTransform(host_id)
+local fogofwar_vision = GameGetFogOfWar(x, y)
 local children = EntityGetAllChildren(host_id) or {}
 local stored_abilities = ""
 for _,child in ipairs(children) do
     if EntityGetName(child) == "felcesis_brain" then
-		local comp = EntityGetFirstComponentIncludingDisabled(child,"VariableStorageComponent")
+		local comp = EntityGetFirstComponentIncludingDisabled(child, "VariableStorageComponent")
         stored_abilities = comp and ComponentGetValue2(comp, "value_string")
         break
     end

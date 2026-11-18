@@ -58,7 +58,7 @@ hooks.new_eid = function(entity_id, varcomp_tree)
     --This function iterates over every new entity that has been created at the start of a frame.
     if GameHasFlagRun("spawn_more_enemies") and (EntityHasTag(entity_id, "enemy") and not EntityHasTag(entity_id, "boss")) then
         SetRandomSeed(-entity_id, gd.frame)
-        if Random(1,5) == 1 then
+        if Random(1, 5) == 1 then
             local x,y = EntityGetTransform(entity_id)
             EntityLoad(EntityGetFilename(entity_id), x, y)
         end

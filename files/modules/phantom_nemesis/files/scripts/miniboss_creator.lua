@@ -76,7 +76,7 @@ local context_checks = {
 			local player_id = EntityGetWithTag("player_unit")[1] or 0
 			local protective_perk_count = 0
 			if player_id > 0 then
-				local children = EntityGetAllChildren( player_id ) or {}
+				local children = EntityGetAllChildren(player_id) or {}
 				for _,child in ipairs(children) do
 					if EntityHasTag(child,"effect_protection") then protective_perk_count = protective_perk_count + 1 end
 				end
@@ -90,7 +90,7 @@ local context_checks = {
 			local player_id = EntityGetWithTag("player_unit")[1] or 0
 			local shield_perk_count = 0
 			if player_id > 0 then
-				local children = EntityGetAllChildren( player_id ) or {}
+				local children = EntityGetAllChildren(player_id) or {}
 				for _,child in ipairs(children) do
 					if EntityHasTag(child,"energy_shield") then shield_perk_count = shield_perk_count + 1 end
 				end
@@ -130,13 +130,13 @@ local context_checks = {
 	}
 }
 
-function IsValidEnemy( file )
+function IsValidEnemy(file)
 	local test = "data/entities/animals/"
-	
-	if ( string.sub( file, 1, #test ) == test ) then
+
+	if string.sub(file, 1, #test) == test then
 		return true
 	end
-	
+
 	return false
 end
 
@@ -164,7 +164,7 @@ local function GetAbilityWeight(ability_id, context, tier)
 	---@class WeightConsideration
 	---@field affected_abilities string[]
 	---@field weight_change fun(ability_id: string)
-	
+
 	---@type WeightConsideration[]
 	local weight_considerations = {
 		{
@@ -269,7 +269,7 @@ local function GetAbilityWeight(ability_id, context, tier)
 			affected_abilities = {"necrobot"},
 			weight_change = function ()
 				local x,y = EntityGetTransform(GetUpdatedEntityID())
-				local targets = EntityGetInRadiusWithTag( x, y, 128, "mortal" ) or {}
+				local targets = EntityGetInRadiusWithTag(x, y, 128, "mortal") or {}
 				for k=1,#targets,-1 do
 					if EntityHasTag(targets[k],"player_unit") or EntityHasTag(targets[k],"necrobot_NOT") then
 						table.remove(targets,k)
@@ -559,11 +559,11 @@ function FindPossessionTarget(biomes_visited)
 		end
 
 		--Filter by already charmed enemies
-		local charm_count = GameGetGameEffectCount(target,"CHARM" )
+		local charm_count = GameGetGameEffectCount(target, "CHARM")
 		if charm_count > 0 then
 			goto skipthistarget
 		end
-		
+
 		--Filter by healer & support-type enemies
 		if animal_ai_comp and ComponentGetValue2(animal_ai_comp,"tries_to_ranged_attack_friends") == true then
 			goto skipthistarget

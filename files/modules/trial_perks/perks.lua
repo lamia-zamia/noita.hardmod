@@ -1,4 +1,4 @@
-dofile_once( "mods/noita.hardmod/files/modules/trial_perks/scripts/trial_perk_utils.lua" )
+dofile_once("mods/noita.hardmod/files/modules/trial_perks/scripts/trial_perk_utils.lua")
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
 return {
@@ -13,22 +13,22 @@ return {
 			one_off_effect = true,
 			usable_by_enemies = false,
 			holy_mountain_exclusive = true,
-			func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+			func = function(entity_perk_item, entity_who_picked, item_name, pickup_count)
 				if reflecting then return end
-				dofile_once( "data/scripts/lib/utilities.lua" )
+				dofile_once("data/scripts/lib/utilities.lua")
 
 				-- register the current y position to disqualify nearby hearts
-				local x, y = EntityGetTransform( entity_who_picked )
+				local x, y = EntityGetTransform(entity_who_picked)
 				GlobalsSetValue("hardmod_time_trial_start_y", tostring(y))
 
 				-- add GameEffect, if it doesn't exist already
-				local game_effect = EntityGetAllChildren( entity_who_picked, "hardmod_time_trial_game_effect" )[1]
+				local game_effect = EntityGetAllChildren(entity_who_picked, "hardmod_time_trial_game_effect")[1]
 				if not game_effect then
-					LoadGameEffectEntityTo( entity_who_picked, "mods/noita.hardmod/files/modules/trial_perks/entities/game_effects/effect_time_trial.xml" )
+					LoadGameEffectEntityTo(entity_who_picked, "mods/noita.hardmod/files/modules/trial_perks/entities/game_effects/effect_time_trial.xml")
 				end
 			end,
-			_remove = function( entity_who_picked )
-				utils.EntityRemoveAllByTag( entity_who_picked, "hardmod_time_trial" )
+			_remove = function(entity_who_picked)
+				utils.EntityRemoveAllByTag(entity_who_picked, "hardmod_time_trial")
 			end,
 		},
 		{
@@ -41,12 +41,12 @@ return {
 			one_off_effect = true,
 			usable_by_enemies = false,
 			holy_mountain_exclusive = true,
-			func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+			func = function(entity_perk_item, entity_who_picked, item_name, pickup_count)
 				if reflecting then return end
-				dofile_once( "data/scripts/lib/utilities.lua" )
+				dofile_once("data/scripts/lib/utilities.lua")
 
 				-- register the current y position to disqualify nearby hearts
-				local x, y = EntityGetTransform( entity_who_picked )
+				local x, y = EntityGetTransform(entity_who_picked)
 				GlobalsSetValue("hardmod_glass_heart_start_y", tostring(y))
 
 				-- add a damage_received script
@@ -57,13 +57,13 @@ return {
 				})
 
 				-- add GameEffect, if it doesn't exist already
-				local game_effect = EntityGetAllChildren( entity_who_picked, "hardmod_glass_heart_game_effect" )[1]
+				local game_effect = EntityGetAllChildren(entity_who_picked, "hardmod_glass_heart_game_effect")[1]
 				if not game_effect then
-					LoadGameEffectEntityTo( entity_who_picked, "mods/noita.hardmod/files/modules/trial_perks/entities/game_effects/effect_glass_heart.xml" )
+					LoadGameEffectEntityTo(entity_who_picked, "mods/noita.hardmod/files/modules/trial_perks/entities/game_effects/effect_glass_heart.xml")
 				end
 			end,
-			_remove = function( entity_who_picked )
-				utils.EntityRemoveAllByTag( entity_who_picked, "hardmod_glass_heart" )
+			_remove = function(entity_who_picked)
+				utils.EntityRemoveAllByTag(entity_who_picked, "hardmod_glass_heart")
 			end,
 		},
 	}

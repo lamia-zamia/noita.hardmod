@@ -1,6 +1,6 @@
 function item_pickup(item, taker, name)
 	local entity_id = GetUpdatedEntityID()
-	local x,y = EntityGetTransform(entity_id)
+	local x, y = EntityGetTransform(entity_id)
 	local self_path = ComponentGetValue2(GetUpdatedComponentID(), "script_item_picked_up")
 
 	--GamePlaySound("data/audio/Desktop/misc.bank", "game_effect/invisibility/deactivate", x, y)

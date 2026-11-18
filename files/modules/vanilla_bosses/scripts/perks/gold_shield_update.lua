@@ -13,7 +13,7 @@ if #projectiles > 0 then
 	for i,proj_id in ipairs(projectiles) do
 		local px, py = EntityGetTransform(proj_id)
 		local proj_comp = EntityGetFirstComponentIncludingDisabled(proj_id, "ProjectileComponent")
-		if proj_comp ~= nil then			
+		if proj_comp ~= nil then
 			local mWhoShot = ComponentGetValue2(proj_comp, "mWhoShot")
 			if mWhoShot ~= owner then
 				EntityLoad("mods/noita.hardmod/files/modules/vanilla_bosses/gfx/particles/gold_shield_particle.xml", px, py)
@@ -27,11 +27,11 @@ local trigger_frame = utils.GetInternalInt(shield_id, "hardmod_gold_shield_trigg
 if trigger_frame == -1 then
 	utils.SetInternalInt(shield_id, "hardmod_gold_shield_trigger_frame", GameGetFrameNum())
 elseif GameGetFrameNum() - trigger_frame > duration then
-	GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/shield/deactivate", x, y )
-	EntitySetComponentsWithTagEnabled( shield_id, "hardmod_gold_shield_active", false )
+	GamePlaySound("data/audio/Desktop/projectiles.bank", "player_projectiles/shield/deactivate", x, y)
+	EntitySetComponentsWithTagEnabled(shield_id, "hardmod_gold_shield_active", false)
 
 	-- show standby particles right away on Squidward
-	if EntityHasTag( owner, "miniboss" ) then
-		EntitySetComponentsWithTagEnabled( shield_id, "hardmod_gold_shield_inactive", true )
+	if EntityHasTag(owner, "miniboss") then
+		EntitySetComponentsWithTagEnabled(shield_id, "hardmod_gold_shield_inactive", true)
 	end
 end

@@ -10,7 +10,7 @@ function shot(entity_id)
 	local burn_vfx = EntityLoad("data/entities/misc/burn.xml", x, y)
 	EntityAddComponent2(burn_vfx, "InheritTransformComponent", {})
 	EntityAddChild(entity_id, burn_vfx)
-	
+
 	EntityAddComponent2(entity_id, "LuaComponent", {
 		script_source_file = "mods/noita.hardmod/files/modules/enemy_perks/scripts/pyrelord_plus_on_proj_death.lua",
 		execute_every_n_frame = -1,

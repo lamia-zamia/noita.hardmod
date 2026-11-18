@@ -86,7 +86,7 @@ local function add_init_error(err)
 	for line in err:gmatch("[^\n]+") do
 		table.insert(init_error_lines, line)
 	end
-	print("[noita.hardmod] [ERROR]",err)
+	print("[noita.hardmod] [ERROR]", err)
 end
 
 local function add_module(module)
