@@ -42,7 +42,9 @@ function enabled_changed( entity_id, state )
 		ComponentSetValue2( acomp, "mReloadNextFrameUsable", GameGetFrameNum() + reload_time )
 		ComponentSetValue2( acomp, "mReloadFramesLeft", reload_time )
 		ComponentSetValue2( acomp, "reload_time_frames", reload_time )
-		GamePrint( GameTextGetTranslatedOrNot( "$hardmod_gameprint_instant_recharge_fail" ) )
+		if EntityHasTag( owner, "player_unit" ) then
+			GamePrint( GameTextGetTranslatedOrNot( "$hardmod_gameprint_instant_recharge_fail" ) )
+		end
 	end
 
 	if reload_time > 60 then
