@@ -194,11 +194,11 @@ hooks.new_spells = {
 
             c.extra_entities = c.extra_entities .. "mods/noita.hardmod/files/modules/limited_spells/entities/spells/damage_double.xml,"
             c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
-            draw_actions( 1, true )
+            draw_actions(1, true)
 
             if reflecting then return end
-            local x, y = EntityGetTransform( GetUpdatedEntityID() )
-            GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/black_hole/create", x, y )
+            local x, y = EntityGetTransform(GetUpdatedEntityID())
+            GamePlaySound("data/audio/Desktop/projectiles.bank", "player_projectiles/black_hole/create", x, y)
         end,
     },
 }
@@ -367,7 +367,7 @@ hooks.spell_patches = {
 	["SWARM_FIREBUG"] = { max_uses = 16 },
 	["SWARM_WASP"] = { max_uses = 16 },
 	["FRIEND_FLY"] = { max_uses = 16 },
-	
+
 	["THUNDERBALL"] = { max_uses = 10 },
 	["DAMAGE_FOREVER"] = { max_uses = -1 },
 	["ALL_DISCS"] = { max_uses = 10, never_unlimited = true },

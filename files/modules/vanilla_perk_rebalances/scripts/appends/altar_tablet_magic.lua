@@ -6,10 +6,10 @@ perk_list = perk_list
 local dir = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/"
 
 
-local x, y = EntityGetTransform( GetUpdatedEntityID() )
+local x, y = EntityGetTransform(GetUpdatedEntityID())
 
-local function get_distance( x1, y1, x2, y2 )
-	local result = math.sqrt( ( x2 - x1 ) ^ 2 + ( y2 - y1 ) ^ 2 )
+local function get_distance(x1, y1, x2, y2)
+	local result = math.sqrt((x2 - x1) ^ 2 + (y2 - y1) ^ 2)
 	return result
 end
 
@@ -108,7 +108,7 @@ for i,item in ipairs(sacrifice_items) do
 
 	if item.spawn_perk then
 		function item.func(eid)
-			local ix,iy = EntityGetTransform(eid)
+			local ix, iy = EntityGetTransform(eid)
 			-- standard mountain altar feedback
 			EntityLoad("data/entities/particles/image_emitters/chest_effect.xml", ix, iy)
 			GamePrintImportant("$log_altar_magic")

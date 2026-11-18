@@ -5,7 +5,7 @@ local max_extras = 2
 return function (x, y)
   SetRandomSeed(x, y)
   local extras = Random(1, max_extras)
-  
+
   SpawnActionItem(x, y, level)
 
   x = x - 10 * (extras / 2)

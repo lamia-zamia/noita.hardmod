@@ -1,4 +1,4 @@
-local utils = dofile_once( "mods/noita.hardmod/lib/utilities.lua" ) ---@type utils
+local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
 local root = "mods/noita.hardmod/files/modules/spell_variety/"
 
@@ -92,9 +92,9 @@ return {
 				-- if this spell is part of a trigger payload, don't raise the wand's fire rate
 				-- (there might be more performant ways to do this)
 				local apply_boost = true
-				for _,card in ipairs( hand ) do
+				for _,card in ipairs(hand) do
 					if card.type == ACTION_TYPE_PROJECTILE
-						and ( string.find( card.id, "TRIGGER" ) or string.find( card.id, "TIMER" ) ) then
+						and (string.find(card.id, "TRIGGER") or string.find(card.id, "TIMER")) then
 						apply_boost = false
 					end
 				end
@@ -163,16 +163,15 @@ return {
 				c.fire_rate_wait = c.fire_rate_wait + 48
 				if reflecting then return end
 
-				local utils = dofile_once( "mods/noita.hardmod/lib/utilities.lua" )
-				local prev_cast_frame = utils.GetInternalInt( GetUpdatedEntityID(), "hardmod_parry_prev_cast_frame" ) or 0
+				local prev_cast_frame = utils.GetInternalInt(GetUpdatedEntityID(), "hardmod_parry_prev_cast_frame") or 0
 				local current_frame = GameGetFrameNum()
 				if current_frame - prev_cast_frame > 48 then
-					add_projectile( "mods/noita.hardmod/files/modules/trial_perks/entities/spells/parry.xml" )
-					utils.SetInternalInt( GetUpdatedEntityID(), "hardmod_parry_prev_cast_frame", current_frame )
+					add_projectile("mods/noita.hardmod/files/modules/trial_perks/entities/spells/parry.xml")
+					utils.SetInternalInt(GetUpdatedEntityID(), "hardmod_parry_prev_cast_frame", current_frame)
 				else
-					local x, y = EntityGetTransform( GetUpdatedEntityID() )
-                    GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y )
-                    add_projectile( "data/entities/projectiles/deck/fizzle.xml" )
+					local x, y = EntityGetTransform(GetUpdatedEntityID())
+                    GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
+                    add_projectile("data/entities/projectiles/deck/fizzle.xml")
 				end
 			end,
 		},

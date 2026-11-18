@@ -25,17 +25,17 @@ local sprites_path = "mods/noita.hardmod/files/modules/enemy_perks/perk_sprites/
 local icons_path = "mods/noita.hardmod/files/modules/enemy_perks/perk_icons/"
 
 local enemy_is_ranged_attack = function(self, data)
-	local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy,"AnimalAIComponent")
+	local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy, "AnimalAIComponent")
 	if animal_ai_comp
-	and ComponentGetValue2(animal_ai_comp,"attack_ranged_enabled")
+	and ComponentGetValue2(animal_ai_comp, "attack_ranged_enabled")
 	and not ComponentGetValue2(animal_ai_comp, "tries_to_ranged_attack_friends") then
 		return true
 	end
 end
 
 local enemy_is_melee = function(self, data)
-	local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy,"AnimalAIComponent")
-	if animal_ai_comp and ComponentGetValue2(animal_ai_comp,"attack_melee_enabled") then
+	local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy, "AnimalAIComponent")
+	if animal_ai_comp and ComponentGetValue2(animal_ai_comp, "attack_melee_enabled") then
 		return true
 	end
 end
@@ -203,9 +203,9 @@ enemy_perks = {
 		end,
 		func = function(self, entity_id, data)
 			local x, y = EntityGetTransform(entity_id)
-			local tier = ( data.how_many_of_each_perk[self.id] or 0 ) + 1
+			local tier = (data.how_many_of_each_perk[self.id] or 0) + 1
 
-			EntityAddChild(entity_id, EntityLoad( dir.."entities/protector_shield_t"..tier..".xml", x, y))
+			EntityAddChild(entity_id, EntityLoad(dir.."entities/protector_shield_t"..tier..".xml", x, y))
 		end
 	},
 	{
@@ -227,12 +227,12 @@ enemy_perks = {
 		end,
 		func = function(self, entity_id, data)
 			local x, y = EntityGetTransform(entity_id)
-			local tier = ( data.how_many_of_each_perk[self.id] or 0 ) + 1
+			local tier = (data.how_many_of_each_perk[self.id] or 0) + 1
 
 			if tier == 1 then
-				EntityAddChild(entity_id, EntityLoad( dir.."entities/area_protector_shield_t1.xml", x, y))
+				EntityAddChild(entity_id, EntityLoad(dir.."entities/area_protector_shield_t1.xml", x, y))
 			elseif tier == 2 then
-				EntityAddChild(entity_id, EntityLoad( dir.."entities/area_protector_shield_t2.xml", x, y))
+				EntityAddChild(entity_id, EntityLoad(dir.."entities/area_protector_shield_t2.xml", x, y))
 			end
 		end
 	},
@@ -370,7 +370,7 @@ enemy_perks = {
 		condition = enemy_is_ranged_attack,
 		func = function(self, entity_id, data)
 			GetGameEffectLoadTo(entity_id, "PROTECTION_FIRE", false)
-			
+
 			local stacks = (data.how_many_of_each_perk[self.id] or 0) + 1
 			if stacks == 1 then
 				EntityAddComponent2(entity_id, "LuaComponent", {
@@ -397,9 +397,9 @@ enemy_perks = {
 		},
 		condition = function(self, data)
 			if EntityHasTag(data.target_enemy, "thundermage") then return end
-			local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy,"AnimalAIComponent")
+			local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy, "AnimalAIComponent")
 			if animal_ai_comp
-			and ComponentGetValue2(animal_ai_comp,"attack_ranged_enabled")
+			and ComponentGetValue2(animal_ai_comp, "attack_ranged_enabled")
 			and not ComponentGetValue2(animal_ai_comp, "tries_to_ranged_attack_friends")
 			and ComponentGetValue2(animal_ai_comp, "attack_ranged_frames_between") >= 60 then -- only on slow shooters
 				return true
@@ -443,9 +443,9 @@ enemy_perks = {
 			wizards_den = 8,
 		},
 		condition = function(self, data)
-			local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy,"AnimalAIComponent")
+			local animal_ai_comp = EntityGetFirstComponentIncludingDisabled(data.target_enemy, "AnimalAIComponent")
 			if animal_ai_comp
-			and ComponentGetValue2(animal_ai_comp,"attack_ranged_enabled")
+			and ComponentGetValue2(animal_ai_comp, "attack_ranged_enabled")
 			and not ComponentGetValue2(animal_ai_comp, "tries_to_ranged_attack_friends")
 			and ComponentGetValue2(animal_ai_comp, "attack_ranged_frames_between") >= 60 then -- only on slow shooters
 				return true
@@ -857,9 +857,9 @@ enemy_perks = {
 		unique_slot = "on_death",
 		condition = function(self, data) return spawn_on_death_blacklist(self, data) end,
 		on_death = function(self, entity_id, ddata)
-			for _=1, Random(3,5) do
+			for _=1, Random(3, 5) do
 				local eid = EntityLoad("data/entities/animals/rat.xml", ddata.x, ddata.y)
-				EntityAddTag(eid,"felcesis_ignore")
+				EntityAddTag(eid, "felcesis_ignore")
 				EntityAddComponent2(eid, "VariableStorageComponent", {_tags="no_gold_drop"})
 				local dmc = EntityGetFirstComponent(eid, "DamageModelComponent")
 				if dmc then ComponentSetValue2(dmc, "ragdoll_fx_forced", "DISINTEGRATED") end
@@ -879,9 +879,9 @@ enemy_perks = {
 		unique_slot = "on_death",
 		condition = function(self, data) return spawn_on_death_blacklist(self, data) end,
 		on_death = function(self, entity_id, ddata)
-			for _=1, Random(2,4) do
+			for _=1, Random(2, 4) do
 				local eid = EntityLoad("data/entities/animals/skullrat.xml", ddata.x, ddata.y)
-				EntityAddTag(eid,"felcesis_ignore")
+				EntityAddTag(eid, "felcesis_ignore")
 			end
 		end
 	},
@@ -897,9 +897,9 @@ enemy_perks = {
 		unique_slot = "on_death",
 		condition = function(self, data) return spawn_on_death_blacklist(self, data) end,
 		on_death = function(self, entity_id, ddata)
-			for _=1, Random(1,3) do
+			for _=1, Random(1, 3) do
 				local eid = EntityLoad("data/entities/animals/skullfly.xml", ddata.x, ddata.y)
-				EntityAddTag(eid,"felcesis_ignore")
+				EntityAddTag(eid, "felcesis_ignore")
 			end
 		end,
 	},
@@ -985,7 +985,7 @@ enemy_perks = {
 		end,
 		func = function(self, entity_id, data)
 			local worming_it_flight_style = EntityGetFirstComponent(entity_id, "WormComponent")
-			if not worming_it_flight_style then return --[[ :( ]] end
+			if not worming_it_flight_style then return --[[ :(]] end
 
 			ComponentSetValue2(worming_it_flight_style, "gravity", 0)
 		end
@@ -1054,7 +1054,7 @@ enemy_perks = {
 		condition = increment_weight_with_level,
 		func = function(self, entity_id, data)
 			local x, y = EntityGetTransform(entity_id)
-			EntityAddChild(entity_id, EntityLoad( dir.."entities/shield_sapper_aura.xml", x, y))
+			EntityAddChild(entity_id, EntityLoad(dir.."entities/shield_sapper_aura.xml", x, y))
 		end
 	},
 	{
@@ -1181,7 +1181,7 @@ enemy_perks = {
 			local factions = "mage,mage_swapper,ghost,"
 			local creatures = { "monk", }
 
-			local strparts = split_string(EntityGetFilename(data.target_enemy),"/")
+			local strparts = split_string(EntityGetFilename(data.target_enemy), "/")
 			local filename = strparts[#strparts]
 			local filename_match = false
 			for _,creature_name in ipairs(creatures) do
@@ -1239,12 +1239,12 @@ enemy_perks = {
 		end,
 		func = function(self, entity_id, data)
 			local x, y = EntityGetTransform(entity_id)
-			EntityAddChild(entity_id, EntityLoad( dir.."entities/tether_aura_dormant.xml", x, y))
+			EntityAddChild(entity_id, EntityLoad(dir.."entities/tether_aura_dormant.xml", x, y))
 
 			local stacks = (data.how_many_of_each_perk[self.id] or 0) + 1
 			if stacks == 2 then
-				local utils = dofile_once( "mods/noita.hardmod/lib/utilities.lua" ) ---@type utils
-				utils.SetInternalInt( entity_id, "hardmod_tether_stacks", stacks )
+				local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
+				utils.SetInternalInt(entity_id, "hardmod_tether_stacks", stacks)
 			end
 		end
 	},
@@ -1259,7 +1259,7 @@ enemy_perks = {
 		unique_slot = "large_aura",
 		func = function(self, entity_id, data)
 			local x, y = EntityGetTransform(entity_id)
-			EntityAddChild(entity_id, EntityLoad( dir.."entities/anti_tele_aura.xml", x, y))
+			EntityAddChild(entity_id, EntityLoad(dir.."entities/anti_tele_aura.xml", x, y))
 		end
 	},
 }
@@ -1292,7 +1292,7 @@ for i,perk in ipairs(enemy_perks) do
 			if biome_condition_type == "number" then
 				self.weight = biome_condition
 			elseif biome_condition_type == "function" then
-				return biome_condition(self, data, ...) and cond(self,data, ...)
+				return biome_condition(self, data, ...) and cond(self, data, ...)
 			end
 			return cond(self, data, ...)
 		end

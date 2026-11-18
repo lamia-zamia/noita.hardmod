@@ -1,6 +1,6 @@
 local forge_location = dofile_once("mods/noita.hardmod/files/modules/better_anvil/forge/location.lua")
 
-RegisterSpawnFunction( 0xff4cac00, "spawn_forge_tablet" )
+RegisterSpawnFunction(0xff4cac00, "spawn_forge_tablet")
 
 function spawn_forge_tablet(x, y)
   local book = EntityLoad("mods/noita.hardmod/files/modules/better_anvil/forge/book_moved.xml", x, y)

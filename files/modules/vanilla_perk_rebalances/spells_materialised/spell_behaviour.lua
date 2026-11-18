@@ -54,8 +54,8 @@ SPELLS_MATERIALISED_CUSTOM_BEHAVIOUR = {
 		func = function(caster, inventory2_component, held_spell, remaining_uses)
 			local platformshooter = EntityGetFirstComponentIncludingDisabled(EntityGetParent(caster), "PlatformShooterPlayerComponent")
 			if platformshooter ~= nil then
-				ComponentSetValue2( platformshooter, "mCessationDo", true )
-				ComponentSetValue2( platformshooter, "mCessationLifetime", 20)
+				ComponentSetValue2(platformshooter, "mCessationDo", true)
+				ComponentSetValue2(platformshooter, "mCessationLifetime", 20)
 			end
 		end
 	},

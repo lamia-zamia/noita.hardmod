@@ -14,4 +14,8 @@ for xml in nxml.edit_file("data/entities/animals/boss_wizard/boss_wizard.xml") d
 	}))
 end
 
-utils.modifile("data/entities/animals/boss_wizard/death.lua", [[EntityLoad( "data/entities/items/pickup/wandstone.xml",  x + 16, y )]], [[--EntityLoad( "data/entities/items/pickup/wandstone.xml",  x + 16, y )]])
+utils.modifile(
+	"data/entities/animals/boss_wizard/death.lua",
+	[[EntityLoad( "data/entities/items/pickup/wandstone.xml",  x + 16, y )]],
+	[[--EntityLoad( "data/entities/items/pickup/wandstone.xml",  x + 16, y )]]
+)

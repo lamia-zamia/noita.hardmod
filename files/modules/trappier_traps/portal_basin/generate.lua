@@ -91,7 +91,10 @@ function spawn_altar_top(x, y, is_solid)
 	if y > 12000 then colors = base.."altar_top_ending.png" end
 	LoadPixelScene(
 		colors,	"data/biome_impl/temple/altar_top_visual.png",
-		x, y-40, "", true, false, {["ff0000ff"] = material,}
+		x, y-40, "", true, false,
+		{
+			["ff0000ff"] = material,
+		}
 	)
 
 	if is_solid then

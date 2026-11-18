@@ -75,7 +75,7 @@ end
 local new_core = index.."\n"
 local function update_core(line)
 
-	if line:sub(1,1) == ',' then new_core = new_core..line.."\n" return end
+	if line:sub(1, 1) == ',' then new_core = new_core..line.."\n" return end
 
 
 	local current_column = 1
@@ -105,8 +105,8 @@ end
 
 
 local function transcribe_line(line)
-	if line:sub(1,1) == ',' then return end
-	if line:sub(1,#"hardmod_setting_") == "hardmod_setting_" then return end
+	if line:sub(1, 1) == ',' then return end
+	if line:sub(1, #"hardmod_setting_") == "hardmod_setting_" then return end
 
 
 	local current_column = 1
@@ -146,7 +146,7 @@ while true do
 end
 f:close()
 
-local nc = io.open(path.."core.csv","w") --update core.csv
+local nc = io.open(path.."core.csv", "w") --update core.csv
 if nc then
 	nc:write(new_core)
 	nc:close()
@@ -173,17 +173,17 @@ if standard_file == nil then return end
 standard_file:write(standard)
 standard_file:close()
 
-for lang,name in pairs(nonstandard_langs) do
+for lang, name in pairs(nonstandard_langs) do
 	local translation = ""
 	for i, key in ipairs(translations["key"]) do
 		local tl = translations[lang][i]
 		if #tl == 0 then tl = translations["en"][i] end
-		local line = key .. ","..tl
+		local line = key .. "," .. tl
 		translation = translation .. line .. ",,,,,,,,,,,,,\n"
 	end
 
 
-	local nonstandard_file = io.open(path .. name .. ".csv","w")
+	local nonstandard_file = io.open(path .. name .. ".csv", "w")
 	if nonstandard_file then
 		nonstandard_file:write(translation)
 		nonstandard_file:close()

@@ -16,7 +16,7 @@ function utils.add_effect(owner, base_amount, amount, cooldown, reset_timer)
     	end
     end
 
-    local x,y = EntityGetTransform(owner)
+    local x, y = EntityGetTransform(owner)
     local effect = EntityLoad("mods/noita.hardmod/files/modules/enemy_perks/entities/curser_effect.xml", x, y)
     EntityAddChild(owner, effect)
     local gec = EntityGetFirstComponent(effect, "GameEffectComponent")

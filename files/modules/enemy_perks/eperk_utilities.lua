@@ -76,7 +76,7 @@ function utilities.select_random_perk(t, data)
 	local temp = {}
 	for _, entry in ipairs(t) do
 		local id = entry.id
-		local max,min_level,max_level = entry.max,entry.min_level,entry.max_level
+		local max, min_level, max_level = entry.max, entry.min_level, entry.max_level
 
 		local unique_slot = entry.unique_slot
 		if unique_slot then
@@ -112,7 +112,7 @@ function utilities.give_enemy_perks(entity_id, perks_to_give, data)
 		if ComponentHasTag(vsc_comp, "no_gold_drop") then return end
 	end
 
-	local x,y = EntityGetTransform(entity_id)
+	local x, y = EntityGetTransform(entity_id)
 	local enemy_perks_handler
 	for _,child in ipairs(EntityGetAllChildren(entity_id) or {}) do
 		if EntityGetName(child) == "hardmod.enemy_perks" then enemy_perks_handler = child break end

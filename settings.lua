@@ -159,7 +159,7 @@ function has_value(table, value)
 	return false
 end
 
-function input_listen(key_inputs,mouse_inputs,joystick_inputs,mod_setting)
+function input_listen(key_inputs, mouse_inputs, joystick_inputs, mod_setting)
 	local there_is_input = false
 	for _, code in pairs(key_codes) do
 		if InputIsKeyDown(code) then
@@ -210,7 +210,7 @@ function input_listen(key_inputs,mouse_inputs,joystick_inputs,mod_setting)
 		decided = true
 	end
 	binding = binding:sub(1, -2)
-	ModSettingSet( mod_setting, binding )
+	ModSettingSet(mod_setting, binding)
 
 	if there_has_been_input and not there_is_input then
 		listening_alt_fire = false
@@ -220,8 +220,8 @@ function input_listen(key_inputs,mouse_inputs,joystick_inputs,mod_setting)
 		key_inputs = {}
 		mouse_inputs = {}
 		joystick_inputs = {}
-		if ModSettingGet( mod_setting ) == "key_code,mouse_code,joystick_code" then
-		  ModSettingSet( mod_setting, old_binding )
+		if ModSettingGet(mod_setting) == "key_code,mouse_code,joystick_code" then
+		  ModSettingSet(mod_setting, old_binding)
 		end
 	end
 end
@@ -240,9 +240,9 @@ mod_settings = {
 				id = "alt_fire_keybind",
 				ui_name = "Keybind",
 				value_default = "key_code,mouse_code,2,joystick_code",
-				ui_fn = function(mod_id, gui, in_main_menu, im_id, setting)
+				ui_fn = function(_mod_id, gui, in_main_menu, im_id, setting)
 					if listening_alt_fire then
-						input_listen(key_inputs,mouse_inputs,joystick_inputs,"noita.hardmod.alt_fire_keybind")
+						input_listen(key_inputs, mouse_inputs, joystick_inputs, "noita.hardmod.alt_fire_keybind")
 					end
 					local _id = 0
 					local function id()
@@ -265,21 +265,21 @@ mod_settings = {
 								for key, value in pairs(key_codes) do
 									if value == code then
 										keybind_string = keybind_string .. key
-										ModSettingSet("noita.hardmod.alt_fire_keybind_translated",key)
+										ModSettingSet("noita.hardmod.alt_fire_keybind_translated", key)
 									end
 								end
 							elseif mode == "mouse_code" then
 								for key, value in pairs(mouse_codes) do
 									if value == code then
 										keybind_string = keybind_string .. key
-										ModSettingSet("noita.hardmod.alt_fire_keybind_translated",key)
+										ModSettingSet("noita.hardmod.alt_fire_keybind_translated", key)
 									end
 								end
 							elseif mode == "joystick_code" then
 								for key, value in pairs(joystick_codes) do
 									if value == code then
 										keybind_string = keybind_string .. key
-										ModSettingSet("noita.hardmod.alt_fire_keybind_translated",key)
+										ModSettingSet("noita.hardmod.alt_fire_keybind_translated", key)
 									end
 								end
 							end
@@ -380,7 +380,7 @@ function ModSettingsGui(gui, in_main_menu)
 		local offset = "       "
 		local label = GameTextGetTranslatedOrNot(module.ui_name)
 
-		local clicked,right_clicked = GuiButton(gui, new_id(), -18, 3, offset..label)
+		local clicked, right_clicked = GuiButton(gui, new_id(), -18, 3, offset..label)
 		if clicked then
 			if ModSettingGet(module_disabled) then
 				ModSettingRemove(module_disabled)

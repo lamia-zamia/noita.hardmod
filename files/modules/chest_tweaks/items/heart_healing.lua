@@ -16,7 +16,7 @@ function item_pickup(item, picked_by)
 
 			local max_hp_cap = tonumber(ComponentGetValue2(damagemodel, "max_hp_cap"))
 			if max_hp_cap > 0 then
-				max_hp = math.min( max_hp, max_hp_cap )
+				max_hp = math.min(max_hp, max_hp_cap)
 			end
 
 			ComponentSetValue2(damagemodel, "mLastMaxHpChangeFrame", GameGetFrameNum())

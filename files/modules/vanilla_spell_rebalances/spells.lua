@@ -30,7 +30,7 @@ hooks.new_spells = {
 		mana = 8,
 		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/cards/card_torch_magic.xml",
 		action = function()
-			draw_actions( 1, true )
+			draw_actions(1, true)
 		end,
 	},
 }
@@ -209,21 +209,21 @@ hooks.spell_patches = {
 		never_unlimited = true,
 		action = function()
 			c.fire_rate_wait = c.fire_rate_wait + 60
-			add_projectile( "data/entities/projectiles/deck/bomb_detonator.xml" )
+			add_projectile("data/entities/projectiles/deck/bomb_detonator.xml")
 		end,
 		-- 	if reflecting then return end
 
-		-- 	local utils = dofile_once( "mods/noita.hardmod/lib/utilities.lua" )
-		-- 	local prev_cast_frame = utils.GetInternalInt( GetUpdatedEntityID(), "hardmod_bomb_detonator_prev_cast_frame" ) or 0
+		-- 	local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua")
+		-- 	local prev_cast_frame = utils.GetInternalInt(GetUpdatedEntityID(), "hardmod_bomb_detonator_prev_cast_frame") or 0
 		-- 	local current_frame = GameGetFrameNum()
-		-- 	local x, y = EntityGetTransform( GetUpdatedEntityID() )
+		-- 	local x, y = EntityGetTransform(GetUpdatedEntityID())
 		-- 	if current_frame - prev_cast_frame > 30 then
-		-- 		add_projectile( "data/entities/projectiles/deck/bomb_detonator.xml" )
-		-- 		GamePlaySound( "data/audio/Desktop/misc.bank", "misc/beam_from_sky_kick", x, y )
-		-- 		utils.SetInternalInt( GetUpdatedEntityID(), "hardmod_bomb_detonator_prev_cast_frame", current_frame )
+		-- 		add_projectile("data/entities/projectiles/deck/bomb_detonator.xml")
+		-- 		GamePlaySound("data/audio/Desktop/misc.bank", "misc/beam_from_sky_kick", x, y)
+		-- 		utils.SetInternalInt(GetUpdatedEntityID(), "hardmod_bomb_detonator_prev_cast_frame", current_frame)
 		-- 	else
-        --         GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y )
-        --         add_projectile( "data/entities/projectiles/deck/fizzle.xml" )
+        --         GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
+        --         add_projectile("data/entities/projectiles/deck/fizzle.xml")
 		-- 	end
 		-- end,
 	},
