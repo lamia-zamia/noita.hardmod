@@ -81,7 +81,7 @@ ip.lists = {
 				local ox = self.offset_x or 0
 				local oy = self.offset_y or 0
 
-				if GameHasFlagRun("greed_curse") and ( GameHasFlagRun("greed_curse_gone") == false ) then
+				if GameHasFlagRun("greed_curse") and not GameHasFlagRun("greed_curse_gone") then
 					EntityLoad("data/entities/items/pickup/physics_gold_orb_greed.xml", x + ox, y + oy)
 				else
 					EntityLoad("data/entities/items/pickup/physics_gold_orb.xml", x + ox, y + oy)
@@ -136,8 +136,8 @@ ip.lists = {
 			origin = "vanilla",
 			weight = 1,
 			use_self = true,
-			load_entity_func = function (self, x, y )
-					-- NOTE( Petri ): 6.3.2023 - Changed the SetRandomSeed to be different, so that we might get other runestones than edges
+			load_entity_func = function (self, x, y)
+					-- NOTE(Petri): 6.3.2023 - Changed the SetRandomSeed to be different, so that we might get other runestones than edges
 					SetRandomSeed(x+2617.941, y-1229.3581)
 					local opt = ip.runestones[Random(1, #ip.runestones)]
 					local ox = self.offset_x or 0
@@ -159,10 +159,10 @@ ip.lists = {
 					local ox = self.offset_x or 0
 					local oy = self.offset_y or 0
 
-					if GameHasFlagRun( "greed_curse" ) and ( GameHasFlagRun( "greed_curse_gone" ) == false ) then
-						EntityLoad( "data/entities/items/pickup/physics_greed_die.xml", x + ox, y + oy )
+					if GameHasFlagRun("greed_curse") and not GameHasFlagRun("greed_curse_gone") then
+						EntityLoad("data/entities/items/pickup/physics_greed_die.xml", x + ox, y + oy)
 					else
-						EntityLoad( "data/entities/items/pickup/physics_die.xml", x + ox, y + oy )
+						EntityLoad("data/entities/items/pickup/physics_die.xml", x + ox, y + oy)
 					end
 				end,
 			offset_y = -12,

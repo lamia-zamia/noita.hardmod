@@ -210,7 +210,7 @@ function input_listen(key_inputs,mouse_inputs,joystick_inputs,mod_setting)
 		decided = true
 	end
 	binding = binding:sub(1, -2)
-	ModSettingSet( mod_setting, binding )
+	ModSettingSet(mod_setting, binding)
 
 	if there_has_been_input and not there_is_input then
 		listening_alt_fire = false
@@ -220,8 +220,8 @@ function input_listen(key_inputs,mouse_inputs,joystick_inputs,mod_setting)
 		key_inputs = {}
 		mouse_inputs = {}
 		joystick_inputs = {}
-		if ModSettingGet( mod_setting ) == "key_code,mouse_code,joystick_code" then
-		  ModSettingSet( mod_setting, old_binding )
+		if ModSettingGet(mod_setting) == "key_code,mouse_code,joystick_code" then
+		  ModSettingSet(mod_setting, old_binding)
 		end
 	end
 end

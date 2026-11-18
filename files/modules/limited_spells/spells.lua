@@ -194,11 +194,11 @@ hooks.new_spells = {
 
             c.extra_entities = c.extra_entities .. "mods/noita.hardmod/files/modules/limited_spells/entities/spells/damage_double.xml,"
             c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
-            draw_actions( 1, true )
+            draw_actions(1, true)
 
             if reflecting then return end
-            local x, y = EntityGetTransform( GetUpdatedEntityID() )
-            GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/black_hole/create", x, y )
+            local x, y = EntityGetTransform(GetUpdatedEntityID())
+            GamePlaySound("data/audio/Desktop/projectiles.bank", "player_projectiles/black_hole/create", x, y)
         end,
     },
 }

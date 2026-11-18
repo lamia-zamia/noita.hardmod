@@ -1,5 +1,5 @@
-function get_magnitude( x, y )
-	local result = math.sqrt( x ^ 2 + y ^ 2 )
+function get_magnitude(x, y)
+	local result = math.sqrt(x ^ 2 + y ^ 2)
 	return result
 end
 
@@ -210,7 +210,7 @@ elseif attack_state == "normal" then
 		local attack_card = nil
 		for i=1,card_count do local spell_card = spell_cards[i]
 			local card_x, card_y = EntityGetTransform(spell_card)
-			local distance = get_magnitude( (card_x - p_x), (card_y - p_y) )
+			local distance = get_magnitude((card_x - p_x), (card_y - p_y))
 			if distance < closest_distance and (not RaytracePlatforms(card_x,card_y,p_x,p_y)) then
 				closest_distance = distance
 				attack_card = spell_card
@@ -231,16 +231,16 @@ elseif attack_state == "normal" then
 
 			local pid = EntityLoad("mods/noita.hardmod/files/modules/vanilla_bosses/entity/gate_boss_projectiles/" .. spell_name .. ".xml", card_x, card_y)
 			GameShootProjectile(entity_id, card_x, card_y, card_x + vel_x, card_y + vel_y,pid)
-			local projcomp = EntityGetFirstComponentIncludingDisabled( pid, "ProjectileComponent" )
+			local projcomp = EntityGetFirstComponentIncludingDisabled(pid, "ProjectileComponent")
 			if projcomp then
 				ComponentSetValue2(projcomp, "mWhoShot", entity_id)
-				local genomecomp = EntityGetFirstComponentIncludingDisabled( entity_id, "GenomeDataComponent" )
+				local genomecomp = EntityGetFirstComponentIncludingDisabled(entity_id, "GenomeDataComponent")
 				if genomecomp then
 					ComponentSetValue2(projcomp, "mShooterHerdId", ComponentGetValue2(genomecomp,"herd_id"))
 				end
 			end
 
-			local velcomp = EntityGetFirstComponentIncludingDisabled( pid, "VelocityComponent" )
+			local velcomp = EntityGetFirstComponentIncludingDisabled(pid, "VelocityComponent")
 			if velcomp then
 				ComponentSetValue2(velcomp, "mVelocity", vel_x, vel_y)
 			end
@@ -264,7 +264,7 @@ elseif attack_state == "rapid" then
 		local attack_card = nil
 		for i=1,card_count do local spell_card = spell_cards[i]
 			local card_x, card_y = EntityGetTransform(spell_card)
-			local distance = get_magnitude( (card_x - p_x), (card_y - p_y) )
+			local distance = get_magnitude((card_x - p_x), (card_y - p_y))
 			if distance < closest_distance then
 				closest_distance = distance
 				attack_card = spell_card
@@ -286,16 +286,16 @@ elseif attack_state == "rapid" then
 			local pid = EntityLoad("mods/noita.hardmod/files/modules/vanilla_bosses/entity/gate_boss_projectiles/" .. spell_name .. ".xml", card_x, card_y)
 			GameShootProjectile(entity_id, card_x, card_y, card_x + vel_x, card_y + vel_y,pid)
 
-			local projcomp = EntityGetFirstComponentIncludingDisabled( pid, "ProjectileComponent" )
+			local projcomp = EntityGetFirstComponentIncludingDisabled(pid, "ProjectileComponent")
 			if projcomp then
 				ComponentSetValue2(projcomp, "mWhoShot", entity_id)
-				local genomecomp = EntityGetFirstComponentIncludingDisabled( entity_id, "GenomeDataComponent" )
+				local genomecomp = EntityGetFirstComponentIncludingDisabled(entity_id, "GenomeDataComponent")
 				if genomecomp then
 					ComponentSetValue2(projcomp, "mShooterHerdId", ComponentGetValue2(genomecomp,"herd_id"))
 				end
 			end
 
-			local velcomp = EntityGetFirstComponentIncludingDisabled( pid, "VelocityComponent" )
+			local velcomp = EntityGetFirstComponentIncludingDisabled(pid, "VelocityComponent")
 			if velcomp then
 				ComponentSetValue2(velcomp, "mVelocity", vel_x, vel_y)
 			end

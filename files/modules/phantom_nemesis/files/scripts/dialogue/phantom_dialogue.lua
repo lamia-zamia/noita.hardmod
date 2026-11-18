@@ -35,7 +35,7 @@ local tone = "norm"
 -- "gossip" is when he makes an off handed comment or something
 -- ^ one of the sounds sort of sound like a laugh so you could also use it for when he's joking
 -- "quiet" is when he's trying to be quiet, only really used in the introduction
--- "yell" is when he's screaming at you, only really used for mountain altar (and now destroying the stone :) )
+-- "yell" is when he's screaming at you, only really used for mountain altar (and now destroying the stone :))
 -- "long" is when there's a lot of dialogue, mostly when informing/scolding you of something
 -- "pained" is when he's dying, only one use scenario
 -- will default to "norm" if nothing is given
@@ -79,7 +79,7 @@ function Speak(entity, text, pool)
     -- thank you to Evaisa (and Copi) for making this not trash
     local gui = GuiCreate()
     GuiStartFrame(gui)
-    local offset_x = GuiGetTextDimensions( gui, text, size_x ) * 0.625
+    local offset_x = GuiGetTextDimensions(gui, text, size_x) * 0.625
     GuiDestroy(gui)
 
     EntityAddTag(entity, "graham_speaking")
@@ -164,7 +164,7 @@ for k=1,#events do
         local bool, dialogue = events[k].trigger()
         if bool == true then
             Speak(entity_id, dialogue)
-	        GamePlaySound( "mods/noita.hardmod/files/modules/phantom_nemesis/files/audio/phantom_audio.bank", "felcesis/phantom_talk", x, y );
+	        GamePlaySound("mods/noita.hardmod/files/modules/phantom_nemesis/files/audio/phantom_audio.bank", "felcesis/phantom_talk", x, y);
             break
         end
     end

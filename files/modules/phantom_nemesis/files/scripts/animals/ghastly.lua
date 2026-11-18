@@ -9,12 +9,12 @@ if target ~= 0 then
 
     --Line of Sight check
     local hit = RaytraceSurfaces(r_x, r_y - 10, t_x, t_y - 6)
-    if not hit and IsInvisible( target ) == false then
+    if not hit and IsInvisible(target) == false then
         r_x = r_x + math.random(-50,50)
         r_y = r_y + math.random(-50,50)
         local proj_filepath = "mods/noita.hardmod/files/modules/phantom_nemesis/files/entities/projectiles/fire_wand_ghastly.xml"
         local proj_id = EntityLoad(proj_filepath,r_x,r_y)
-        GameShootProjectile( parent_id, r_x, r_y, t_x, t_y, proj_id)
+        GameShootProjectile(parent_id, r_x, r_y, t_x, t_y, proj_id)
 
         local taunt_voicelines = {"The bigger they are..","BRING THEM DOWN!","BEGONE!"}
 
@@ -29,6 +29,6 @@ if target ~= 0 then
 				ComponentSetValue2(wand_vsc_comp,"value_float",phantom_tier)
 			end
         end
-		GamePlaySound( "data/audio/Desktop/animals.bank", "animals/statue/appear", r_x, r_y );
+		GamePlaySound("data/audio/Desktop/animals.bank", "animals/statue/appear", r_x, r_y);
     end
 end

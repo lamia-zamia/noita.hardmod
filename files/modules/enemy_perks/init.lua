@@ -87,7 +87,7 @@ end
 local targets = {}
 hooks.new_eid = function(entity_id)
 	if ModIsEnabled("Apotheosis") then
-		if string.find( EntityGetFilename(entity_id), "mods/Apotheosis/data/entities/animals/psychotic/") then
+		if string.find(EntityGetFilename(entity_id), "mods/Apotheosis/data/entities/animals/psychotic/") then
 			EntityAddTag(entity_id, "no_enemy_perks")
 		end
 	end

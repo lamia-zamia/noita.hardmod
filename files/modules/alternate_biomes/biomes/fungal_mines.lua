@@ -125,7 +125,7 @@ g_big_enemies =
 		spawn_check = function()
 			local year, month, day = GameGetDateAndTimeLocal()
 
-			if ( month == 12 ) and ( day >= 24 ) and ( day <= 26 ) then
+			if month == 12 and day >= 24 and day <= 26 then
 				return true
 			else
 				return false
@@ -164,7 +164,7 @@ g_big_enemies =
 		spawn_check = function()
 			local year, month, day = GameGetDateAndTimeLocal()
 
-			if ( month == 12 ) and ( day >= 24 ) and ( day <= 26 ) then
+			if month == 12 and day >= 24 and day <= 26 then
 				return true
 			else
 				return false
@@ -292,7 +292,7 @@ g_unique_enemy2 =
 		spawn_check = function()
 			local year, month, day = GameGetDateAndTimeLocal()
 
-			if ( month == 12 ) and ( day >= 24 ) and ( day <= 26 ) then
+			if month == 12 and day >= 24 and day <= 26 then
 				return true
 			else
 				return false
@@ -798,7 +798,7 @@ g_pixel_scene_02 =
 		is_unique		= 0,
 	},
 	--[[
-	-- TODO( Petri ): Disabled the other wand traps for now, to test if this box2d electricty based wand trap is even a good idea
+	-- TODO(Petri): Disabled the other wand traps for now, to test if this box2d electricty based wand trap is even a good idea
 	{
 		prob   			= 1.5,
 		material_file 	= "data/biome_impl/coalmine/wandtrap_h_01.png",
@@ -1068,32 +1068,32 @@ g_vines =
 --------------
 
 -- this is a special function tweaked for spawning things in coalmine
-function spawn_items( pos_x, pos_y )
+function spawn_items(pos_x, pos_y)
 
 	local x_offset,y_offset = 5,5
 
-	local r = ProceduralRandom( pos_x, pos_y )
+	local r = ProceduralRandom(pos_x, pos_y)
 	-- 20% is air, nothing happens
-	if( r < 0.47 ) then return end
-	r = ProceduralRandom( pos_x-11.431, pos_y+10.5257 )
+	if(r < 0.47) then return end
+	r = ProceduralRandom(pos_x-11.431, pos_y+10.5257)
 
-	if( r < 0.755 ) then
+	if(r < 0.755) then
 	else
-		LoadPixelScene( "data/biome_impl/wand_altar.png", "data/biome_impl/wand_altar_visual.png", pos_x-10+x_offset, pos_y-17+x_offset, "", true )
+		LoadPixelScene("data/biome_impl/wand_altar.png", "data/biome_impl/wand_altar_visual.png", pos_x-10+x_offset, pos_y-17+x_offset, "", true)
 	end
 
-	-- LoadPixelScene( "data/biome_impl/wand_altar.png", "data/biome_impl/wand_altar_visual.png", pos_x-10, pos_y-17, "", true )
+	-- LoadPixelScene("data/biome_impl/wand_altar.png", "data/biome_impl/wand_altar_visual.png", pos_x-10, pos_y-17, "", true)
 end
 
 -- actual functions that get called from the wang generator
 
 
 function spawn_small_enemies(x, y, w, h, is_open_path)
-	if( is_open_path ) then
-		local r = ProceduralRandom( x, y )
-		local spawn_percent = BiomeMapGetVerticalPositionInsideBiome( x, y )
-		spawn_percent = ( 2.1 * spawn_percent ) + 0.2
-		if( r > spawn_percent ) then return end
+	if(is_open_path) then
+		local r = ProceduralRandom(x, y)
+		local spawn_percent = BiomeMapGetVerticalPositionInsideBiome(x, y)
+		spawn_percent = (2.1 * spawn_percent) + 0.2
+		if(r > spawn_percent) then return end
 		spawn_with_limited_random(g_small_enemies,x,y,0,0,{"longleg","fungus"})
 		--spawn_hp(g_small_enemies,x,y,0,0,0.4,"coalmines")
 	else
@@ -1103,11 +1103,11 @@ function spawn_small_enemies(x, y, w, h, is_open_path)
 end
 
 function spawn_big_enemies(x, y, w, h, is_open_path)
-	if( is_open_path ) then
-		local r = ProceduralRandom( x, y )
-		local spawn_percent = BiomeMapGetVerticalPositionInsideBiome( x, y )
-		spawn_percent = ( 1.75 * spawn_percent ) - 0.1
-		if( r > spawn_percent ) then return end
+	if(is_open_path) then
+		local r = ProceduralRandom(x, y)
+		local spawn_percent = BiomeMapGetVerticalPositionInsideBiome(x, y)
+		spawn_percent = (1.75 * spawn_percent) - 0.1
+		if(r > spawn_percent) then return end
 		spawn_with_limited_random(g_big_enemies,x,y,0,0,{"longleg","fungus"})
 		--spawn_hp(g_big_enemies,x,y,0,0,0.4,"coalmines")
 	else
@@ -1152,49 +1152,49 @@ function spawn_fungi(x, y)
 	spawn(g_fungi,x,y)
 end
 
-function load_pixel_scene( x, y )
-	-- load_random_pixel_scene( g_pixel_scene_01, x, y )
-	SetRandomSeed( x, y )
-	if( Random( 1, 100 ) > 50 ) then
-		load_random_pixel_scene( g_oiltank, x, y )
+function load_pixel_scene(x, y)
+	-- load_random_pixel_scene(g_pixel_scene_01, x, y)
+	SetRandomSeed(x, y)
+	if(Random(1, 100) > 50) then
+		load_random_pixel_scene(g_oiltank, x, y)
 	else
-		load_random_pixel_scene( g_pixel_scene_01, x, y )
+		load_random_pixel_scene(g_pixel_scene_01, x, y)
 	end
 end
 
-function load_pixel_scene2( x, y )
-	load_random_pixel_scene( g_pixel_scene_02, x, y )
+function load_pixel_scene2(x, y)
+	load_random_pixel_scene(g_pixel_scene_02, x, y)
 end
 
-function load_oiltank( x, y )
-	-- load_random_pixel_scene( g_oiltank, x, y )
-	SetRandomSeed( x, y )
-	if( Random( 1, 100 ) <= 50 ) then
-		load_random_pixel_scene( g_oiltank, x, y )
+function load_oiltank(x, y)
+	-- load_random_pixel_scene(g_oiltank, x, y)
+	SetRandomSeed(x, y)
+	if(Random(1, 100) <= 50) then
+		load_random_pixel_scene(g_oiltank, x, y)
 	else
-		load_random_pixel_scene( g_pixel_scene_01, x, y )
+		load_random_pixel_scene(g_pixel_scene_01, x, y)
 	end
 end
 
-function load_oiltank_alt( x, y )
-	load_random_pixel_scene( g_oiltank_alt, x, y )
+function load_oiltank_alt(x, y)
+	load_random_pixel_scene(g_oiltank_alt, x, y)
 end
 
-function load_altar( x, y )
-	LoadPixelScene( "data/biome_impl/altar.png", "data/biome_impl/altar_visual.png", x-92, y-96, "", true )
-	EntityLoad( "data/entities/buildings/altar.xml", x, y-32 )
+function load_altar(x, y)
+	LoadPixelScene("data/biome_impl/altar.png", "data/biome_impl/altar_visual.png", x-92, y-96, "", true)
+	EntityLoad("data/entities/buildings/altar.xml", x, y-32)
 end
 
-function load_structures( x, y )
-	spawn( g_structures, x, y-30, 0, 0 )
+function load_structures(x, y)
+	spawn(g_structures, x, y-30, 0, 0)
 end
 
-function load_large_structures( x, y )
-	spawn( g_large_structures, x, y-30, 0, 0 )
+function load_large_structures(x, y)
+	spawn(g_large_structures, x, y-30, 0, 0)
 end
 
-function load_i_structures( x, y )
-	spawn( g_i_structures, x, y-30, 0, 0 )
+function load_i_structures(x, y)
+	spawn(g_i_structures, x, y-30, 0, 0)
 end
 
 function spawn_stash(x,y)
@@ -1209,69 +1209,69 @@ function spawn_vines(x, y)
 end
 
 function spawn_altar_torch(x, y)
-	EntityLoad( "data/entities/props/altar_torch.xml", x-7, y-38 )
+	EntityLoad("data/entities/props/altar_torch.xml", x-7, y-38)
 end
 
 function spawn_chest(x, y)
-	SetRandomSeed( x, y )
+	SetRandomSeed(x, y)
 	local super_chest_spawn_rate = 2000
-	if GameHasFlagRun( "greed_curse" ) and ( GameHasFlagRun( "greed_curse_gone" ) == false ) then
+	if GameHasFlagRun("greed_curse") and (GameHasFlagRun("greed_curse_gone") == false) then
 		super_chest_spawn_rate = 100
 	end
 
 	local rnd = Random(1,super_chest_spawn_rate)
 
 	if (rnd >= super_chest_spawn_rate-1) then
-		EntityLoad( "data/entities/items/pickup/chest_random_super.xml", x, y)
+		EntityLoad("data/entities/items/pickup/chest_random_super.xml", x, y)
 	else
-		EntityLoad( "data/entities/items/pickup/chest_random.xml", x, y)
+		EntityLoad("data/entities/items/pickup/chest_random.xml", x, y)
 	end
 end
 
 function spawn_skulls(x, y) end
 
-function spawn_shopitem( x, y )
-	generate_shop_item( x, y, false, 1 )
+function spawn_shopitem(x, y)
+	generate_shop_item(x, y, false, 1)
 end
 
 function spawn_trapwand(x, y)
 	local options = { "wands/level_01/wand_001", "wands/level_01/wand_002", "wands/level_01/wand_003", "wands/level_01/wand_004", "wands/level_01/wand_005", "wands/level_01/wand_006", "wands/level_01/wand_007", "wands/level_01/wand_008", "wands/level_01/wand_009", "wand_level_01" }
-	SetRandomSeed( x, y )
+	SetRandomSeed(x, y)
 
-	local rnd = Random( 1, #options )
+	local rnd = Random(1, #options)
 	local wand_to_spawn = "data/entities/items/" .. options[rnd] .. ".xml"
 
-	local wand_id = EntityLoad( wand_to_spawn, x, y)
-	EntityAddTag( wand_id, "trap_wand" )
+	local wand_id = EntityLoad(wand_to_spawn, x, y)
+	EntityAddTag(wand_id, "trap_wand")
 end
 
-function spawn_bbqbox( x, y )
-	SetRandomSeed( x, y )
-	local rnd = Random( 1, 100 )
-	if( rnd <= 99 ) then
-		spawn_big_enemies( x, y )
-		spawn_big_enemies( x + 20, y )
-		spawn_big_enemies( x + 20, y + 10 )
-		spawn_heart( x + 10, y + 10 )
+function spawn_bbqbox(x, y)
+	SetRandomSeed(x, y)
+	local rnd = Random(1, 100)
+	if(rnd <= 99) then
+		spawn_big_enemies(x, y)
+		spawn_big_enemies(x + 20, y)
+		spawn_big_enemies(x + 20, y + 10)
+		spawn_heart(x + 10, y + 10)
 	else
-		EntityLoadCameraBound( "data/entities/items/pickup/jar_of_urine.xml", x, y )
-		EntityLoad( "mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/shotgunner/hardmod_fungal_shotgunner.xml", x + 10, y )
+		EntityLoadCameraBound("data/entities/items/pickup/jar_of_urine.xml", x, y)
+		EntityLoad("mods/noita.hardmod/files/modules/alternate_biomes/enemies/fungal/shotgunner/hardmod_fungal_shotgunner.xml", x + 10, y)
 	end
 end
 
-function spawn_swing_puzzle_box( x, y )
-	EntityLoad( "data/entities/props/physics/trap_electricity_suspended.xml", x, y)
+function spawn_swing_puzzle_box(x, y)
+	EntityLoad("data/entities/props/physics/trap_electricity_suspended.xml", x, y)
 end
 
-function spawn_swing_puzzle_target( x, y )
-	EntityLoad( "data/entities/buildings/swing_puzzle_target.xml", x, y)
+function spawn_swing_puzzle_target(x, y)
+	EntityLoad("data/entities/buildings/swing_puzzle_target.xml", x, y)
 end
 
-function spawn_oiltank_puzzle( x, y )
-	EntityLoad( "data/entities/buildings/oiltank_puzzle.xml", x, y)
+function spawn_oiltank_puzzle(x, y)
+	EntityLoad("data/entities/buildings/oiltank_puzzle.xml", x, y)
 end
 
-function spawn_receptacle_oil( x, y )
-	EntityLoad( "data/entities/buildings/receptacle_oil.xml", x, y )
-	EntityLoad( "data/entities/items/pickup/potion_empty.xml", x+72, y-17 )
+function spawn_receptacle_oil(x, y)
+	EntityLoad("data/entities/buildings/receptacle_oil.xml", x, y)
+	EntityLoad("data/entities/items/pickup/potion_empty.xml", x+72, y-17)
 end

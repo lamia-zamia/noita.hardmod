@@ -169,7 +169,7 @@ function interacting(interactor, entity, name)
 	local x, y = EntityGetTransform(entity)
 
 	if current_orb_count < orbs_required then
-		GamePlaySound( "data/audio/Desktop/projectiles.snd", "projectiles/magic/create", x, y)
+		GamePlaySound("data/audio/Desktop/projectiles.snd", "projectiles/magic/create", x, y)
 		return
 	end
 end

@@ -15,9 +15,9 @@ function GetShieldRadius(entity_id)
 	return furthest_hitbox_point + padding
 end
 
-function damage_received( damage, desc, entity_who_caused, is_fatal )
+function damage_received(damage, desc, entity_who_caused, is_fatal)
 	local entity_id    = GetUpdatedEntityID()
-	local pos_x, pos_y = EntityGetTransform( entity_id )
+	local pos_x, pos_y = EntityGetTransform(entity_id)
 	local frame = GameGetFrameNum()
 	local shield_cooldown = 720 --12 second cooldown between shields
 	local vcomp
@@ -32,7 +32,7 @@ function damage_received( damage, desc, entity_who_caused, is_fatal )
 		end
 	end
 
-	if ( entity_who_caused == entity_id ) or (frame <= last_frame + shield_cooldown) then return end
+	if (entity_who_caused == entity_id) or (frame <= last_frame + shield_cooldown) then return end
 
 	local children = EntityGetAllChildren(entity_id)
 	for _,v in pairs(children or {}) do
@@ -44,8 +44,8 @@ function damage_received( damage, desc, entity_who_caused, is_fatal )
 
 	local shield_radius_default = 18
 	local shield_radius = GetShieldRadius(entity_id)
-	local shield_id = EntityLoad( "mods/noita.hardmod/files/modules/phantom_nemesis/files/entities/misc/shield_reactive_shield.xml", pos_x, pos_y )
-	EntityAddChild( entity_id, shield_id )
+	local shield_id = EntityLoad("mods/noita.hardmod/files/modules/phantom_nemesis/files/entities/misc/shield_reactive_shield.xml", pos_x, pos_y)
+	EntityAddChild(entity_id, shield_id)
 
 	local shield_comp = EntityGetFirstComponentIncludingDisabled(shield_id,"EnergyShieldComponent")
 	if shield_comp then

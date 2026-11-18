@@ -4,7 +4,7 @@ dofile_once("mods/noita.hardmod/files/modules/phantom_nemesis/files/scripts/magi
 local entity_id = GetUpdatedEntityID()
 local parent_id = EntityGetParent(entity_id)
 local pos_x, pos_y = EntityGetTransform(parent_id)
-local attack_file = pickrandomspell( pos_x, pos_y )
+local attack_file = pickrandomspell(pos_x, pos_y)
 
 local comp = EntityGetFirstComponentIncludingDisabled(parent_id,"AnimalAIComponent")
 if comp then

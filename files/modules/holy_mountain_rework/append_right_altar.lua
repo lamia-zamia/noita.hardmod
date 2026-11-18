@@ -31,7 +31,7 @@ function hardmod_spawn_spear_statue(x, y)
 end
 
 function hardmod_spawn_collapse_crystal(x, y)
-	EntityLoad( "mods/noita.hardmod/files/modules/holy_mountain_rework/crystal/crystal.xml", x, y)
-	EntityLoad( "mods/noita.hardmod/files/modules/holy_mountain_rework/crystal/crystal_attractor.xml", x, y)
-	EntityLoad( "mods/noita.hardmod/files/modules/holy_mountain_rework/crystal/crystal_base.xml", x, y+5)
+	EntityLoad("mods/noita.hardmod/files/modules/holy_mountain_rework/crystal/crystal.xml", x, y)
+	EntityLoad("mods/noita.hardmod/files/modules/holy_mountain_rework/crystal/crystal_attractor.xml", x, y)
+	EntityLoad("mods/noita.hardmod/files/modules/holy_mountain_rework/crystal/crystal_base.xml", x, y+5)
 end

@@ -38,12 +38,12 @@ end
 
 local function modify_xray()
 	local path = "data/entities/projectiles/deck/xray.xml"
-	local xml = nxml.parse( ModTextFileGetContent( path ) )
+	local xml = nxml.parse(ModTextFileGetContent(path))
 	local proj_comp = xml:first_of("ProjectileComponent")
 	if proj_comp then
-		proj_comp:set( "lifetime", 30 )
+		proj_comp:set("lifetime", 30)
 	end
-	ModTextFileSetContent( path, tostring(xml) )
+	ModTextFileSetContent(path, tostring(xml))
 end
 
 local function modify_wand_experimenter()
@@ -160,8 +160,8 @@ hooks.mod_post_init = function()
 	ModLuaFileAppend("data/scripts/gun/gun_extra_modifiers.lua", dir.."scripts/appends/gun_extra_modifiers.lua")
 	ModLuaFileAppend("data/scripts/item_spawnlists.lua", dir.."scripts/appends/item_spawnlists.lua")
 	ModLuaFileAppend("data/scripts/biomes/snowcastle_hourglass_chamber.lua", dir.."scripts/appends/hourglass_chamber.lua")
-	-- ModLuaFileAppend( "data/scripts/gun/gun.lua", dir.."/scripts/appends/gun.lua" )
-	-- ModLuaFileAppend( "data/scripts/gun/procedural/gun_procedural.lua", dir.."/scripts/appends/gun_procedural.lua" )
+	-- ModLuaFileAppend("data/scripts/gun/gun.lua", dir.."/scripts/appends/gun.lua")
+	-- ModLuaFileAppend("data/scripts/gun/procedural/gun_procedural.lua", dir.."/scripts/appends/gun_procedural.lua")
 
 	-- ModLuaFileAppend("data/scripts/perks/perk.lua", root.."scripts/appends/perk.lua")
 	-- ModLuaFileAppend("data/scripts/magic/altar_tablet_magic.lua", root.."scripts/appends/altar_tablet_magic.lua")

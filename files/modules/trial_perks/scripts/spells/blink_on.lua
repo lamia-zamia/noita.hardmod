@@ -1,17 +1,17 @@
-dofile_once( "mods/noita.hardmod/files/modules/trial_perks/scripts/trial_perk_utils.lua" )
+dofile_once("mods/noita.hardmod/files/modules/trial_perks/scripts/trial_perk_utils.lua")
 
 local owner = nil
-local proj_comp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "ProjectileComponent" )
+local proj_comp = EntityGetFirstComponentIncludingDisabled(GetUpdatedEntityID(), "ProjectileComponent")
 if proj_comp then
-	local mWhoShot = ComponentGetValue2( proj_comp, "mWhoShot" )
+	local mWhoShot = ComponentGetValue2(proj_comp, "mWhoShot")
 	if mWhoShot then
 		owner = mWhoShot
 	end
 end
 
 if owner == nil then return end
-if not EntityHasTag( owner, "player_unit" ) then return end
-local ctrl_comp = EntityGetFirstComponent( owner, "ControlsComponent" )
+if not EntityHasTag(owner, "player_unit") then return end
+local ctrl_comp = EntityGetFirstComponent(owner, "ControlsComponent")
 if not ctrl_comp then return end
 
 local x, y = EntityGetTransform(owner)

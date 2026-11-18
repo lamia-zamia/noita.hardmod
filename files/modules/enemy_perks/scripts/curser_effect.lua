@@ -83,4 +83,4 @@ if target_x == nil then return end
 
 -- move towards target
 pos_x,pos_y = vec_lerp(pos_x, pos_y, target_x, target_y, lerp_amount)
-EntitySetTransform( entity_id, pos_x, pos_y, 0, 1, 1)
+EntitySetTransform(entity_id, pos_x, pos_y, 0, 1, 1)

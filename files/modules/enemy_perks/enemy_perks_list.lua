@@ -205,9 +205,9 @@ enemy_perks = {
 		end,
 		func = function(self, entity_id, data)
 			local x, y = EntityGetTransform(entity_id)
-			local tier = ( data.how_many_of_each_perk[self.id] or 0 ) + 1
+			local tier = (data.how_many_of_each_perk[self.id] or 0) + 1
 
-			EntityAddChild(entity_id, EntityLoad( dir.."entities/protector_shield_t"..tier..".xml", x, y))
+			EntityAddChild(entity_id, EntityLoad(dir.."entities/protector_shield_t"..tier..".xml", x, y))
 		end
 	},
 	{
@@ -229,12 +229,12 @@ enemy_perks = {
 		end,
 		func = function(self, entity_id, data)
 			local x, y = EntityGetTransform(entity_id)
-			local tier = ( data.how_many_of_each_perk[self.id] or 0 ) + 1
+			local tier = (data.how_many_of_each_perk[self.id] or 0) + 1
 
 			if tier == 1 then
-				EntityAddChild(entity_id, EntityLoad( dir.."entities/area_protector_shield_t1.xml", x, y))
+				EntityAddChild(entity_id, EntityLoad(dir.."entities/area_protector_shield_t1.xml", x, y))
 			elseif tier == 2 then
-				EntityAddChild(entity_id, EntityLoad( dir.."entities/area_protector_shield_t2.xml", x, y))
+				EntityAddChild(entity_id, EntityLoad(dir.."entities/area_protector_shield_t2.xml", x, y))
 			end
 		end
 	},
@@ -983,7 +983,7 @@ enemy_perks = {
 		end,
 		func = function(self, entity_id, data)
 			local worming_it_flight_style = EntityGetFirstComponent(entity_id, "WormComponent")
-			if not worming_it_flight_style then return --[[ :( ]] end
+			if not worming_it_flight_style then return --[[ :(]] end
 
 			ComponentSetValue2(worming_it_flight_style, "gravity", 0)
 		end
@@ -1052,7 +1052,7 @@ enemy_perks = {
 		condition = increment_weight_with_level,
 		func = function(self, entity_id, data)
 			local x, y = EntityGetTransform(entity_id)
-			EntityAddChild(entity_id, EntityLoad( dir.."entities/shield_sapper_aura.xml", x, y))
+			EntityAddChild(entity_id, EntityLoad(dir.."entities/shield_sapper_aura.xml", x, y))
 		end
 	},
 	{
@@ -1237,12 +1237,12 @@ enemy_perks = {
 		end,
 		func = function(self, entity_id, data)
 			local x, y = EntityGetTransform(entity_id)
-			EntityAddChild(entity_id, EntityLoad( dir.."entities/tether_aura_dormant.xml", x, y))
+			EntityAddChild(entity_id, EntityLoad(dir.."entities/tether_aura_dormant.xml", x, y))
 
 			local stacks = (data.how_many_of_each_perk[self.id] or 0) + 1
 			if stacks == 2 then
-				local utils = dofile_once( "mods/noita.hardmod/lib/utilities.lua" ) ---@type utils
-				utils.SetInternalInt( entity_id, "hardmod_tether_stacks", stacks )
+				local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
+				utils.SetInternalInt(entity_id, "hardmod_tether_stacks", stacks)
 			end
 		end
 	},
@@ -1257,7 +1257,7 @@ enemy_perks = {
 		unique_slot = "large_aura",
 		func = function(self, entity_id, data)
 			local x, y = EntityGetTransform(entity_id)
-			EntityAddChild(entity_id, EntityLoad( dir.."entities/anti_tele_aura.xml", x, y))
+			EntityAddChild(entity_id, EntityLoad(dir.."entities/anti_tele_aura.xml", x, y))
 		end
 	},
 }

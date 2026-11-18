@@ -10,9 +10,9 @@ local physbody_comp = EntityGetFirstComponentIncludingDisabled(master_id,"Physic
 local _, _, rot, scale_x, scale_y = EntityGetTransform(master_id)
 
 if physbody_comp then
-    PhysicsComponentSetTransform( physbody_comp, pos_x, pos_y, rot, 0, 0, 0)
+    PhysicsComponentSetTransform(physbody_comp, pos_x, pos_y, rot, 0, 0, 0)
 else
     EntitySetTransform(master_id, pos_x, pos_y, rot, scale_x, scale_y)
 end
-GamePlaySound( "data/audio/Desktop/misc.bank", "misc/teleport_use", pos_x, pos_y )
+GamePlaySound("data/audio/Desktop/misc.bank", "misc/teleport_use", pos_x, pos_y)
 EntityKill(entity_id)

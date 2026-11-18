@@ -213,7 +213,7 @@ function lootlib.spawn_loot(ctx)
   for _,entity in pairs(ctx.entities) do
     local eid = EntityLoad(entity.file, entity.x, entity.y)
 
-    local item_comp = EntityGetFirstComponent( eid, "ItemComponent" )
+    local item_comp = EntityGetFirstComponent(eid, "ItemComponent")
     if item_comp and ComponentGetValue2(item_comp, "auto_pickup") then
       ComponentSetValue2(item_comp, "next_frame_pickable", GameGetFrameNum() + 30)
     end

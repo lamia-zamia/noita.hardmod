@@ -21,8 +21,8 @@ local function BanishFelcesisEarly()
     RecreateOriginalHost(root_id)
     EntityKill(root_id)
     GamePrint(GameTextGet("$hardmod_phantom_enraged",GameTextGetTranslatedOrNot("$hardmod_phantom_phantom_name")))
-    GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/angered_the_gods/create", pos_x, pos_y )
-    GameScreenshake( 150 )
+    GamePlaySound("data/audio/Desktop/event_cues.bank", "event_cues/angered_the_gods/create", pos_x, pos_y)
+    GameScreenshake(150)
 end
 
 local function RemoveOldFelcesis() --There can only be one!!!
@@ -97,9 +97,9 @@ end
 local function BrainUpdate()
     if tier >= 4 then
         --Becomes immune to pheromone at tier 4 and above
-        local comp = GameGetGameEffect( root_id, "CHARM" )
+        local comp = GameGetGameEffect(root_id, "CHARM")
         if comp ~= 0 then
-            ComponentSetValue2( comp, "effect", "NONE")
+            ComponentSetValue2(comp, "effect", "NONE")
             if last_pheromone_hint_cd + 1800 < GameGetFrameNum() and vsc_comp2 then
                 GamePrint(GameTextGet("$hardmod_phantom_pheromone_resist",GameTextGetTranslatedOrNot("$hardmod_phantom_phantom_name")))
                 ComponentSetValue2(vsc_comp2,"value_int",GameGetFrameNum())
@@ -107,7 +107,7 @@ local function BrainUpdate()
         end
     else
         --Can be immediately killed with pheromone before tier 4 at the cost of angering it
-        local charmTest = GameGetGameEffectCount( root_id, "CHARM" )
+        local charmTest = GameGetGameEffectCount(root_id, "CHARM")
         if charmTest >= 1 then
             BanishFelcesisEarly()
             return

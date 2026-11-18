@@ -23,7 +23,7 @@ hooks.post_update = function ()
 	local felcesis_summon_lastdeath_time = tostring(GlobalsGetValue("felcesis_last_death","0"))
 
 	local cam_x,cam_y = GameGetCameraBounds()
-	local currbiome = BiomeMapGetName( cam_x, cam_y )
+	local currbiome = BiomeMapGetName(cam_x, cam_y)
 
 	local minimum_time_inside_biome = 1800 --Safeguard against entering a biome for second then leaving still incrementing Ira's power level, this means the player must be inside a biome for at least 30 seconds for Ira to increment their power level because the player entered it.
 	if currbiome ~= last_seen_biome then
@@ -58,7 +58,7 @@ hooks.post_update = function ()
 	::finishlimitcheck::
 
 	if (current_frame - biome_entered_frame) >= minimum_time_inside_biome and GameHasFlagRun(flag) == false then
-		GameAddFlagRun( flag )
+		GameAddFlagRun(flag)
 		GlobalsSetValue("felceis_last_biome_frame",tostring(current_frame))
 		last_frame_entered_new_biome = current_frame
 		GlobalsSetValue("felcesis_biomes_visited",tostring(biomes_visited + biome_weight)) --Increment the phantom's biome power
@@ -75,15 +75,15 @@ hooks.post_update = function ()
 			local player_id = EntityGetWithTag("player_unit")[1] or 0
 			if player_id > 0 then
 				local plyr_x,plyr_y = EntityGetTransform(player_id)
-				GamePlaySound( "mods/noita.hardmod/files/modules/phantom_nemesis/files/audio/phantom_audio.bank", "felcesis/phantom_possess", plyr_x, plyr_y )
+				GamePlaySound("mods/noita.hardmod/files/modules/phantom_nemesis/files/audio/phantom_audio.bank", "felcesis/phantom_possess", plyr_x, plyr_y)
 
 				if GameHasFlagRun("felcesis_haunting_started") == false then
-					GamePlaySound( "mods/noita.hardmod/files/modules/phantom_nemesis/files/audio/phantom_audio.bank", "felcesis/phantom_summon", plyr_x, plyr_y )
+					GamePlaySound("mods/noita.hardmod/files/modules/phantom_nemesis/files/audio/phantom_audio.bank", "felcesis/phantom_summon", plyr_x, plyr_y)
 					GameAddFlagRun("felcesis_haunting_started")
 				end
 			end
 			--Summon audio
-			GamePlaySound( "mods/noita.hardmod/files/modules/phantom_nemesis/files/audio/phantom_audio.bank", "felcesis/phantom_possess", targ_x, targ_y )
+			GamePlaySound("mods/noita.hardmod/files/modules/phantom_nemesis/files/audio/phantom_audio.bank", "felcesis/phantom_possess", targ_x, targ_y)
 		end
 	end
 end

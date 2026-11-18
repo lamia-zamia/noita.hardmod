@@ -19,7 +19,7 @@ if hp < hp_max * 0.4 and frame_regeneration_started_on == 0 then
     ComponentSetValue2(vsc_comp,"value_int",current_frame)
     EntityAddChild(host_id,EntityLoad("data/entities/misc/effect_regeneration.xml",0,0))
 elseif frame_regeneration_started_on > 0 then
-    EntityInflictDamage( host_id, (hp_max * 0.01)*-1, "DAMAGE_HEALING", "$streamingevent_areadamage_enemy", "NONE", 0, 0, host_id )
+    EntityInflictDamage(host_id, (hp_max * 0.01)*-1, "DAMAGE_HEALING", "$streamingevent_areadamage_enemy", "NONE", 0, 0, host_id)
     if current_frame > frame_regeneration_started_on + regeneration_duration then
         EntityKill(ability_id)
     end

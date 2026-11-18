@@ -1,5 +1,4 @@
-function damage_about_to_be_received( damage, x, y, entity_thats_responsible, critical_hit_chance )
-
+function damage_about_to_be_received(damage, x, y, entity_thats_responsible, critical_hit_chance)
     local reduced_damage = damage * 0.5 --Reduce all incoming damage by 50%
     local entity_id = GetUpdatedEntityID()
     local host_entity = EntityGetRootEntity(entity_id)
@@ -21,7 +20,7 @@ function damage_about_to_be_received( damage, x, y, entity_thats_responsible, cr
     if rng < critical_hit_chance then
         local critical_mult = math.max(5,math.floor((critical_hit_chance * 0.05)))
         local ex,ey = EntityGetTransform(GetUpdatedEntityID())
-        GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/critical_hit/create", ex, ey)
+        GamePlaySound("data/audio/Desktop/projectiles.bank", "player_projectiles/critical_hit/create", ex, ey)
         reduced_damage = reduced_damage * critical_mult
     end
 

@@ -4,8 +4,8 @@ local parent = EntityGetRootEntity(entity)
 if parent == nil then return end
 
 local x, y = EntityGetTransform(parent)
-local controls_comp = EntityGetFirstComponent( parent, "ControlsComponent" )
-if controls_comp then x,y = ComponentGetValue2( controls_comp, "mMousePosition") end
+local controls_comp = EntityGetFirstComponent(parent, "ControlsComponent")
+if controls_comp then x,y = ComponentGetValue2(controls_comp, "mMousePosition") end
 
 if entity then
 	EntitySetTransform(entity, x, y

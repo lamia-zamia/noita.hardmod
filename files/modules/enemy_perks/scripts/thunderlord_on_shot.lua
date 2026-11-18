@@ -1,13 +1,13 @@
-function shot( entity_id )
+function shot(entity_id)
 	local x, y = EntityGetTransform(entity_id)
 
 	-- iffy workaround to make thunderlord not apply stun if they are electric stun immune,
 	-- cba to implement something more thorough atm
 	local apply_stun = true
-	local nearby_players = EntityGetWithTag( "player_unit" )
+	local nearby_players = EntityGetWithTag("player_unit")
 	if nearby_players then
-		for i,player in ipairs( nearby_players ) do
-			if GameGetGameEffect( player, "STUN_PROTECTION_ELECTRICITY" ) then
+		for i,player in ipairs(nearby_players) do
+			if GameGetGameEffect(player, "STUN_PROTECTION_ELECTRICITY") then
 				apply_stun = false
 			end
 		end

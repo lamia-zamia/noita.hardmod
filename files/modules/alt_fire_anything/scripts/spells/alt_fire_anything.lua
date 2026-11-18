@@ -42,7 +42,7 @@ if is_alt_fire_pressed() then
       		  EntityRemoveComponent(caster, vsc)
         end
     end
-    EntityAddComponent2( caster, "VariableStorageComponent", {
+    EntityAddComponent2(caster, "VariableStorageComponent", {
         name = "alt_fire_cause",
         value_string = "alt_fire",
         value_int = GameGetFrameNum()

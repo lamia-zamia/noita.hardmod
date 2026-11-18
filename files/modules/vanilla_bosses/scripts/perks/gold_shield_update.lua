@@ -27,11 +27,11 @@ local trigger_frame = utils.GetInternalInt(shield_id, "hardmod_gold_shield_trigg
 if trigger_frame == -1 then
 	utils.SetInternalInt(shield_id, "hardmod_gold_shield_trigger_frame", GameGetFrameNum())
 elseif GameGetFrameNum() - trigger_frame > duration then
-	GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/shield/deactivate", x, y )
-	EntitySetComponentsWithTagEnabled( shield_id, "hardmod_gold_shield_active", false )
+	GamePlaySound("data/audio/Desktop/projectiles.bank", "player_projectiles/shield/deactivate", x, y)
+	EntitySetComponentsWithTagEnabled(shield_id, "hardmod_gold_shield_active", false)
 
 	-- show standby particles right away on Squidward
-	if EntityHasTag( owner, "miniboss" ) then
-		EntitySetComponentsWithTagEnabled( shield_id, "hardmod_gold_shield_inactive", true )
+	if EntityHasTag(owner, "miniboss") then
+		EntitySetComponentsWithTagEnabled(shield_id, "hardmod_gold_shield_inactive", true)
 	end
 end

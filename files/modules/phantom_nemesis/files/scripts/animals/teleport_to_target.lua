@@ -32,18 +32,18 @@ end
 function SetTeleportLocation()
     local current_target = GetPlayer()
     local distance_from_target = GetDistanceFromTarget(host_id,current_target)
-    if not current_target or distance_from_target < 128 or distance_from_target > 800 or IsInvisible( current_target ) then return end
+    if not current_target or distance_from_target < 128 or distance_from_target > 800 or IsInvisible(current_target) then return end
     SetRandomSeed(pos_x+current_frame,pos_y)
     if EntityGetIsAlive(current_target) == false and current_target ~= 0 then return end
     local t_x,t_y = EntityGetTransform(current_target)
     local angle = math.rad(Random(0,359))
 
     local did_hit = false
-    local tele_x = t_x + math.cos( angle ) * tele_distance_from_target
-    local tele_y = t_y - math.sin( angle ) * tele_distance_from_target
+    local tele_x = t_x + math.cos(angle) * tele_distance_from_target
+    local tele_y = t_y - math.sin(angle) * tele_distance_from_target
 
-    did_hit, tele_x, tele_y = RaytracePlatforms( t_x, t_y, tele_x, tele_y )
-    local currbiome = BiomeMapGetName( tele_x, tele_y )
+    did_hit, tele_x, tele_y = RaytracePlatforms(t_x, t_y, tele_x, tele_y)
+    local currbiome = BiomeMapGetName(tele_x, tele_y)
     if currbiome == "$biome_holymountain" then return end --Do not follow the player into the holy mountain, the gods wouldn't like that
 
     local eid = EntityLoad("mods/noita.hardmod/files/modules/phantom_nemesis/files/entities/misc/fx/teleport_indicator.xml",tele_x,tele_y)
@@ -53,7 +53,7 @@ function SetTeleportLocation()
 	end
 
     --Teleport indication
-    GamePlaySound( "data/audio/Desktop/misc.bank", "misc/teleport_use", tele_x, tele_y )
+    GamePlaySound("data/audio/Desktop/misc.bank", "misc/teleport_use", tele_x, tele_y)
     local ring_eid = EntityLoad("mods/noita.hardmod/files/modules/phantom_nemesis/files/particles/indicator_ring.xml", tele_x, tele_y)
     local particle_comp = EntityGetFirstComponentIncludingDisabled(ring_eid,"ParticleEmitterComponent")
 	if particle_comp then
