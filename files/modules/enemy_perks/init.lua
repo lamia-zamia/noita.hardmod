@@ -47,7 +47,7 @@ hooks.player_spawned = function()
 	for _,perk in ipairs(perk_list) do
 		AddFlagPersistent("perk_picked_"..perk.id:lower())
 	end
-end --and nil --comment `and nil` to run above func
+end and nil --comment `and nil` to run above func
 
 local function update_perk_unlock_states()
 	for _,perk in ipairs(enemy_perks) do
