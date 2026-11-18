@@ -153,6 +153,9 @@ local locked_splashes = {
 	hardmod_unlocked_indulgence = {
 		"ITS A BRIMSTONE, ITS NOT A PENIS",
 	},
+	hardmod_found_spirit_weaken = {
+		"They're vulnerability ghosts, not weakness ghosts!"
+	},
 }
 
 for flag,list in pairs(locked_splashes) do

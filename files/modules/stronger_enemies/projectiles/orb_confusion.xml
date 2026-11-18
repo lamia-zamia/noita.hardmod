@@ -46,7 +46,6 @@
 			hole_destroy_liquid="1" 
 			hole_enabled="1" 
 			damage = "0"
-			hole_image="data/temp/explosion_hole.png"
 			explosion_sprite_emissive="1"
 			explosion_sprite_additive="1"
 			particle_effect="0" 
@@ -64,7 +63,6 @@
 			light_g="135"
 			light_b="140"
 			stains_enabled="1" 
-			stains_image="data/temp/explosion_stain.png"
 		></config_explosion>
 	</ProjectileComponent>
 	

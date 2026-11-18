@@ -175,5 +175,21 @@ return {
 				end
 			end,
 		},
+		{
+			id = "HARDMOD_GIGA_CHAINSAW",
+			name = "$harmdod_spell_giga_chainsaw_name",
+			description = "$harmdod_spell_giga_chainsaw_desc",
+			sprite = root.."gfx/ui_gfx/spells/giga_chainsaw.png",
+			related_projectiles = { root.."entities/spells/giga_chainsaw.xml" },
+			type = ACTION_TYPE_PROJECTILE,
+			spawn_level = "2,3,4",
+			spawn_probability = "0.3,0.5,0.5",
+			price = 130,
+			mana = 30,
+			action = function()
+				c.fire_rate_wait = c.fire_rate_wait + 16
+				add_projectile(root.."entities/spells/giga_chainsaw.xml")
+			end
+		},
 	}
 }
