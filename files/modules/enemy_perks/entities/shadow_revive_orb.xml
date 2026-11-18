@@ -12,7 +12,7 @@
 		execute_every_n_frame="220"
 	/>
 
-	<LuaComponent script_death="data/scripts/buildings/failed_alchemist_orb_death.lua"/>
+	<LuaComponent script_death="mods/noita.hardmod/files/modules/enemy_perks/scripts/shadow_orb_death.lua"/>
 
 	<HitboxComponent
 		_enabled="1"

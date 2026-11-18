@@ -789,7 +789,26 @@ make anti-tele aura a bit less intense
 make Double Damage appear more early
 added shitty altar sacrifice secret, expanded HM item shop pool
 removed perks debug and ran split.lua_run
+harharmod
+update biome map & fix guiding powder
+remove instant recharge msg
+add the Notla spell
 fix wand ghost thingy
 make taika not trigger instant recharge msg
 some Tether eperk changes
 sneak in some changes rq
+write globla definitions globals.lua
+Fix warnings and get rid of diagnostic disable undefined-global
+todo i guess
+fixing some stuff
+fix redefined local
+fix: trailing-whitespace
+h
+fixed Amplified Items quest from mountain altar
+format (zptr1): remove spaces between brackets
+format (zptr1): remove brackets from if
+tweaks
+format (zptr1): spaces after comma (except in for loops)
+some more tweaks
+finishing touches
+added Vuoksikivi to altar sacrificable items

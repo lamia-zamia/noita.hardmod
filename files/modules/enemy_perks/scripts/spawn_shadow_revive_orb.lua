@@ -19,6 +19,15 @@ function death(damage_type_bit_field, message, attacker, drop_items)
 	local x,y = EntityGetTransform(entity_id) --also nil on repeat
 	local orb_for_pondering = EntityLoad("mods/noita.hardmod/files/modules/enemy_perks/entities/shadow_revive_orb.xml", x, y)
 
+	local dmc = EntityGetFirstComponentIncludingDisabled(entity_id, "DamageModelComponent")
+	if dmc then
+		local hp = math.max(2.5, ComponentGetValue2(dmc, "max_hp"))
+		for _,orb_dmc in ipairs(EntityGetComponent(orb_for_pondering, "DamageModelComponent") or {}) do
+			ComponentSetValue2(orb_dmc, "max_hp", hp)
+			ComponentSetValue2(orb_dmc, "hp", hp)
+		end
+	end
+
 	EntitySetName(orb_for_pondering, EntityGetFilename(entity_id))
 	EntityAddComponent2(orb_for_pondering, "VariableStorageComponent", {
 		name = "hardmod_stored_perks",

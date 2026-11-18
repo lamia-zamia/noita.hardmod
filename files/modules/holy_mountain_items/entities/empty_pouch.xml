@@ -1,0 +1,6 @@
+<Entity>
+	<Base file="data/entities/items/pickup/powder_stash.xml">
+		<LuaComponent/>
+		<LuaComponent _remove_from_base="1"/>
+	</Base>
+</Entity>
