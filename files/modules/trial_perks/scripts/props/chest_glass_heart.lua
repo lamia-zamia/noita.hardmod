@@ -71,7 +71,7 @@ function on_open(entity_item)
 
 	-- PositionSeedComponent
 	local position_comp = EntityGetFirstComponent(entity_item, "PositionSeedComponent")
-	if(position_comp) then
+	if position_comp then
 		rand_x = ComponentGetValue2(position_comp, "pos_x")
 		rand_y = ComponentGetValue2(position_comp, "pos_y")
 	end

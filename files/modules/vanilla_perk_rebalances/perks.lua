@@ -247,12 +247,12 @@ hooks.perk_patches = {
 
 			--nonsense to de-child overflowing spells from capacity decrease
 			local c = EntityGetAllChildren(wand)
-			if (c ~= nil) and (#c > capacity + always_cast_count) then
+			if c and #c > capacity + always_cast_count then
 				for i=always_cast_count+1,#c do
 					local spell = c[i]
 					local comp2 = EntityGetFirstComponentIncludingDisabled(spell, "ItemActionComponent")
 
-					if (comp2 ~= nil) and (i > capacity + always_cast_count) then
+					if comp2 and i > capacity + always_cast_count then
 
 						EntityRemoveFromParent(spell)
 						EntitySetTransform(spell, x, y, 0)

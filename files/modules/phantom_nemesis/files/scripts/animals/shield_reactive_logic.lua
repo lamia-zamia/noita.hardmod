@@ -32,7 +32,7 @@ function damage_received(damage, desc, entity_who_caused, is_fatal)
 		end
 	end
 
-	if (entity_who_caused == entity_id) or (frame <= last_frame + shield_cooldown) then return end
+	if entity_who_caused == entity_id or frame <= last_frame + shield_cooldown then return end
 
 	local children = EntityGetAllChildren(entity_id)
 	for _,v in pairs(children or {}) do

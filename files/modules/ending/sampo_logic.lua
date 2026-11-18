@@ -40,7 +40,7 @@ local function update_orb_glyphs(orb_count,player_present,invis)
 				if fxcomp then
 					ComponentSetValue2(fxcomp, "custom_alpha", alpha * 0.5)
 				end
-			elseif (not player_present) and alpha > 0 then
+			elseif not player_present and alpha > 0 then
 				alpha = math.max(alpha - (og_alpha / 60),0)
 				ComponentSetValue2(glyphcomp, "alpha", alpha)
 				local fxcomp = EntityGetFirstComponentIncludingDisabled(orb_glyph, "ParticleEmitterComponent")
@@ -57,7 +57,7 @@ local function update_orb_glyphs(orb_count,player_present,invis)
 
 			::continue::
 		end
-		if (not player_present) and snuffed then
+		if not player_present and snuffed then
 			utils.SetInternalInt(eid, "hardmod_sampo_orb_glyphs_invisible", 1)
 		end
 		return

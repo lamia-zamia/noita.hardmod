@@ -36,7 +36,7 @@ end
 
 local function check_for_player()
 	local nearest_player = EntityGetInRadiusWithTag(x, y, RADIUS, "player_unit")[1]
-	if (not nearest_player) then
+	if not nearest_player then
 		local players = EntityGetWithTag("player_unit")
 		if players then
 			for _,player in ipairs(players) do

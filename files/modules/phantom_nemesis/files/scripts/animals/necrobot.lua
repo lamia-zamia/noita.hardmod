@@ -8,10 +8,10 @@ local found = false
 EntityAddTag(entity_id,"necrobot_NOT")
 
 for i,v in ipairs(targets) do
-	if (EntityHasTag(v, "player_unit") == false) and (EntityHasTag(v, "necrobot_NOT") == false) then
+	if not EntityHasTag(v, "player_unit") and not EntityHasTag(v, "necrobot_NOT") then
 		local file = EntityGetFilename(v)
 
-		if (file ~= nil) and (#file > 0) and (string.find(file, "entities/animals/") ~= nil) then
+		if file and #file > 0 and string.find(file, "entities/animals/") then
 			EntityAddComponent2(v, "LuaComponent", {
 				script_death = "data/scripts/status_effects/necrobot.lua",
 				execute_every_n_frame = -1,

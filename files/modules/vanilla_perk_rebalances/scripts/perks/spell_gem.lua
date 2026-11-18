@@ -64,7 +64,7 @@ function item_pickup(entity_item, entity_who_picked, item_name)
 		-- insert all spells slotted in wands
 		if EntityGetName(child) == "inventory_quick" then
 			local inventory_items = EntityGetAllChildren(child)
-			if(inventory_items ~= nil) then
+			if inventory_items ~= nil then
 				for z=1, #inventory_items do
 					local item = inventory_items[z]
 					if item > 0 then
@@ -92,7 +92,7 @@ function item_pickup(entity_item, entity_who_picked, item_name)
 		-- insert all spells in the 'full' inventory
 		if EntityGetName(child) == "inventory_full" then
 			local inv_card_actions = EntityGetAllChildren(child)
-			if(inv_card_actions ~= nil) then
+			if inv_card_actions ~= nil then
 				for z=1, #inv_card_actions do
 					local inv_card_action = inv_card_actions[z]
 

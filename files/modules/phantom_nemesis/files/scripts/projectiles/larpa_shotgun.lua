@@ -11,7 +11,7 @@ local variablestorages = EntityGetComponent(entity_id, "VariableStorageComponent
 local projectile_file = ""
 
 
-if (variablestorages ~= nil) then
+if variablestorages ~= nil then
 	for j,storage_id in ipairs(variablestorages) do
 		local var_name = ComponentGetValue2(storage_id, "name")
 		if var_name == "projectile_file" then
@@ -38,7 +38,7 @@ for k=1,amount do
     vel_y = vel_y + math.random(offset_y * -1,offset_y)
 
 
-    if (#projectile_file > 0) then
+    if #projectile_file > 0 then
         local eid = shoot_projectile_from_projectile(entity_id, projectile_file, pos_x, pos_y, vel_x, vel_y)
         EntityAddTag(eid, "projectile_cloned")
     end

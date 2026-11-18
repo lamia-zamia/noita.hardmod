@@ -987,10 +987,10 @@ function spawn_items(pos_x, pos_y)
 	local r = ProceduralRandom(pos_x, pos_y)
 	-- 20% is air, nothing happens
 	-- is this needed anymore?
-	-- if(r < 0.47) then return end
+	-- if r < 0.47 then return end
 	r = ProceduralRandom(pos_x-11.431, pos_y+10.5257)
 
-	if(r < 0.725) then
+	if r < 0.725 then
 	else
 		LoadPixelScene("data/biome_impl/wand_altar.png", "data/biome_impl/wand_altar_visual.png", pos_x-10, pos_y-17, "", true)
 		return
@@ -1004,7 +1004,7 @@ function spawn_small_enemies(x, y)
 	local r = ProceduralRandom(x, y)
 	local spawn_percent = BiomeMapGetVerticalPositionInsideBiome(x, y)
 	spawn_percent = (2.5 * spawn_percent) + 0.35
-	if(r > spawn_percent) then return end
+	if r > spawn_percent then return end
 
 	spawn(g_small_enemies,x,y)
 end
@@ -1013,7 +1013,7 @@ function spawn_big_enemies(x, y)
 	local r = ProceduralRandom(x, y)
 	local spawn_percent = BiomeMapGetVerticalPositionInsideBiome(x, y)
 	spawn_percent = (2.1 * spawn_percent)
-	if(r > spawn_percent) then return end
+	if r > spawn_percent then return end
 
 	spawn(g_big_enemies,x,y)
 end
@@ -1125,7 +1125,7 @@ end
 function spawn_meditation_cube(x, y)
 	SetRandomSeed(x, y)
 	local rnd = Random(1, 100)
-	if(rnd > 96 and not ModIsEnabled("nightmare")) then
+	if rnd > 96 and not ModIsEnabled("nightmare") then
 		LoadPixelScene("data/biome_impl/excavationsite/meditation_cube.png", "data/biome_impl/excavationsite/meditation_cube_visual.png", x-20, y-29, "", true)
 		EntityLoad("data/entities/buildings/teleport_meditation_cube.xml", x, y-70)
 	end

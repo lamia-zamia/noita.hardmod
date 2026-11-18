@@ -27,7 +27,7 @@ local function collapse()
 	local temple_areacheckers = EntityGetInRadiusWithTag(x, y, 2048, "temple_areachecker")
 	for _,areachecker in pairs(temple_areacheckers) do
 		local area_x, area_y = EntityGetTransform(areachecker)
-		if(math.abs(y - area_y) < 512) then
+		if math.abs(y - area_y) < 512 then
 			EntityKill(areachecker)
 		end
 	end

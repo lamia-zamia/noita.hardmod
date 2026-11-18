@@ -143,7 +143,7 @@ ip.lists = {
 					local ox = self.offset_x or 0
 					local oy = self.offset_y or 0
 					local entity_id = EntityLoad(opt, x + ox, y + oy)
-					if (Random(1, 10) == 2) then
+					if Random(1, 10) == 2 then
 						---@diagnostic disable-next-line: undefined-global
 						runestone_activate(entity_id) --using vanilla function in case someone modifies it for a specific purpose
 					end
@@ -301,7 +301,7 @@ function spawn_from_list(target_list, x, y)
 	local temp = {}
 	local total_weight = 0
 	for _,entry in ipairs(spawn_list) do
-		if (entry.spawn_requires_flag and not GameHasFlagRun(entry.spawn_requires_flag))
+		if entry.spawn_requires_flag and not GameHasFlagRun(entry.spawn_requires_flag)
 		or entry.condition and not entry:condition(x, y) then
 			if ip.spawn_can_fail then
 				entry.load_entity_func = nil

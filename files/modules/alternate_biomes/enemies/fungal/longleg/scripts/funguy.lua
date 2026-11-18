@@ -7,7 +7,7 @@ local targets = EntityGetInRadiusWithTag(x, y, 64, "player_unit")
 
 last_pollen = last_pollen or 0
 
-if (#targets > 0 and GameGetFrameNum() - last_pollen > 120) then
+if #targets > 0 and GameGetFrameNum() - last_pollen > 120 then
 	SetRandomSeed(x + entity_id, y + GameGetFrameNum())
 	last_pollen = GameGetFrameNum()
 	for i = 0, 15 do

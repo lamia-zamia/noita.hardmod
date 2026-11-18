@@ -65,13 +65,13 @@ hooks = { ---@class drop_money_hooks
 		{
 			id = "cap_drop_money",
 			func = function(data)
-				if(data.amount >= 200000 * 11) then
+				if data.amount >= 200000 * 11 then
 					local extra_money = (data.amount - (200000 * 10))
 					data.amount = data.amount - extra_money
 
 					-- clamp extra money to int32 maxish
 					-- also no need to spawn rest of the dough
-					if(extra_money > (2147483647 - 512)) then
+					if extra_money > (2147483647 - 512) then
 						extra_money = (2147483647 - 512)
 						data.amount = 0
 					end
@@ -81,7 +81,7 @@ hooks = { ---@class drop_money_hooks
 						func = function(self, eid)
 							for i,v in ipairs(EntityGetComponent(eid, "VariableStorageComponent") or {}) do
 								local n = ComponentGetValue2(v, "name")
-								if (n == "gold_value") then
+								if n == "gold_value" then
 									ComponentSetValue2(v, "value_int", extra_money)
 									break
 								end

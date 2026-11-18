@@ -133,7 +133,7 @@ local context_checks = {
 function IsValidEnemy(file)
 	local test = "data/entities/animals/"
 
-	if (string.sub(file, 1, #test) == test) then
+	if string.sub(file, 1, #test) == test then
 		return true
 	end
 

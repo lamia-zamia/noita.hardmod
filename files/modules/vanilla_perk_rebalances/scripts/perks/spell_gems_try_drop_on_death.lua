@@ -7,7 +7,7 @@ local function has_vsc(eid, variable_name)
 	if vs_comps ~= nil then
 		for _,vs_comp in pairs(vs_comps) do
 			local var_name = ComponentGetValue2(vs_comp, "name")
-			if(var_name == variable_name) then
+			if var_name == variable_name then
 				return true
 			end
 		end
