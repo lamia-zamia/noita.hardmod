@@ -9,7 +9,7 @@ function hardmod_spawn_area_checks(x, y)
 	local tbrick1 = CellFactory_GetType("templebrick_noedge_static")
 	local tbrick2 = CellFactory_GetType("templebrick_static")
 
-	local function place_mat_checker(x, y, w, h)
+	local function place_mat_checker(ax, ay, aw, ah)
 		local comp = EntityAddComponent2(mat_check_manager, "MaterialAreaCheckerComponent", {
 			material = tbrick1,
 			material2 = tbrick2,
@@ -18,7 +18,7 @@ function hardmod_spawn_area_checks(x, y)
 		})
 
 		--min x, min y, max x, max y
-		ComponentSetValue2(comp, "area_aabb", x, y, x+w, y+h)
+		ComponentSetValue2(comp, "area_aabb", ax, ay, ax+aw, ay+ah)
 	end
 	place_mat_checker(-16, -90, 120, 1)
 	place_mat_checker(120-16, -90, 1, 24+90)

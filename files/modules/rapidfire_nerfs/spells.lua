@@ -112,7 +112,7 @@ hooks.spell_patches = {
 						if v.mana ~= nil then
 							hand_cost = hand_cost + v.mana
 						end
-						for i,id in ipairs( mana_reducing_spells ) do
+						for _,id in ipairs( mana_reducing_spells ) do
 							if id == v.id then
 								mana_reducing_spell_count = mana_reducing_spell_count + 1
 							end

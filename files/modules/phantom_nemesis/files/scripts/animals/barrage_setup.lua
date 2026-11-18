@@ -11,9 +11,9 @@ local aicomps = EntityGetComponentIncludingDisabled(parent_id,"AIAttackComponent
 if #aicomps < 1 then return end
 for k=1,#aicomps do
     local v = aicomps[k]
-    local aspd = ComponentGetValue2(v,"frames_between")
-    ComponentSetValue2(v,"frames_between",math.max(1,math.floor(aspd*6)))
+    local zxcv = ComponentGetValue2(v,"frames_between")
+    ComponentSetValue2(v,"frames_between",math.max(1,math.floor(zxcv*6)))
 
-    local aspd = ComponentGetValue2(v,"frames_between_global")
-    ComponentSetValue2(v,"frames_between_global",math.max(1,math.floor(aspd*6)))
+    local qwef = ComponentGetValue2(v,"frames_between_global")
+    ComponentSetValue2(v,"frames_between_global",math.max(1,math.floor(qwef*6)))
 end

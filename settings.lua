@@ -240,7 +240,7 @@ mod_settings = {
 				id = "alt_fire_keybind",
 				ui_name = "Keybind",
 				value_default = "key_code,mouse_code,2,joystick_code",
-				ui_fn = function(mod_id, gui, in_main_menu, im_id, setting)
+				ui_fn = function(_mod_id, gui, in_main_menu, im_id, setting)
 					if listening_alt_fire then
 						input_listen(key_inputs,mouse_inputs,joystick_inputs,"noita.hardmod.alt_fire_keybind")
 					end

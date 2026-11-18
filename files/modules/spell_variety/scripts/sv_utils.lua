@@ -35,8 +35,6 @@ function sv_utils.ResetMoveSpeed( entity_id, effect_name )
 	-- don't execute this function if the same effect already exists
 	-- if utils.GetInternalString( entity_id, effect_name .. "_move_speed_mtp" ) ~= nil then return end
 
-    local plat_comp = EntityGetFirstComponentIncludingDisabled( entity_id, "CharacterPlatformingComponent" )
-
     stored_mtp_value = utils.GetInternalString( entity_id, effect_name .. "_move_speed_mtp" )
     local parsed = split_string( stored_mtp_value, ',' )
     local mtp_x = 1.0 / parsed[1]

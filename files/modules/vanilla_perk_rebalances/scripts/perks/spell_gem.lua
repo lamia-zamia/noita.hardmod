@@ -104,7 +104,7 @@ function item_pickup( entity_item, entity_who_picked, item_name )
 			end
 		end
 
-		for i,card_action in ipairs( all_card_actions ) do
+		for _,card_action in ipairs( all_card_actions ) do
 			local charge_amount = 0
 
 			local item_comp = EntityGetFirstComponentIncludingDisabled( card_action, "ItemComponent" )
@@ -136,7 +136,7 @@ function item_pickup( entity_item, entity_who_picked, item_name )
 						ComponentSetValue2( item_comp, "uses_remaining", new_uses )
 
 						local spell_id = ComponentGetValue2( itemx_comp, "action_id" )
-						for i,action in ipairs( actions ) do
+						for _,action in ipairs( actions ) do
 							if action.id == spell_id then
 								local diff = ( new_uses - uses_remaining )
 

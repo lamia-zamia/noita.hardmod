@@ -15,7 +15,6 @@ MultiplyProjDmg( proj_id, mtp, "big_shot" )
 utils.SetInternalInt( nearest_player, "hardmod_big_shot_last_frame_used", GameGetFrameNum() )
 
 -- play a sound effect based on how charged the shot was
-local x, y = EntityGetTransform( proj_id )
 if frames_since_last_use >= MAX_FRAMES then
 	GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/black_hole_big/create", x, y )
 elseif frames_since_last_use >= ( MAX_FRAMES / 2 ) then

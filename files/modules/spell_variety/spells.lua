@@ -163,7 +163,6 @@ return {
 				c.fire_rate_wait = c.fire_rate_wait + 48
 				if reflecting then return end
 
-				local utils = dofile_once( "mods/noita.hardmod/lib/utilities.lua" )
 				local prev_cast_frame = utils.GetInternalInt( GetUpdatedEntityID(), "hardmod_parry_prev_cast_frame" ) or 0
 				local current_frame = GameGetFrameNum()
 				if current_frame - prev_cast_frame > 48 then

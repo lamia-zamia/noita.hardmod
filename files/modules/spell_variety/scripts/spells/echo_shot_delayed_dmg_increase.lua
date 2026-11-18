@@ -8,8 +8,8 @@ function MultiplyProjDmg( proj_id, mtp, mtp_source_name )
 
         local proj_comp = EntityGetFirstComponent( proj_id, "ProjectileComponent" )
         if proj_comp then
-            local old_dmg = ComponentGetValue2( proj_comp, "damage" )
-            ComponentSetValue2( proj_comp, "damage", old_dmg * mtp )
+            local old_proj_dmg = ComponentGetValue2( proj_comp, "damage" )
+            ComponentSetValue2( proj_comp, "damage", old_proj_dmg * mtp )
 
             local old_expl_dmg = ComponentObjectGetValue2( proj_comp, "config_explosion", "damage" )
             if old_expl_dmg ~= nil then

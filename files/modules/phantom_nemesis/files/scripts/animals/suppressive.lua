@@ -15,6 +15,6 @@ for k=1,#aicomps do
     local aspd = ComponentGetValue2(v,"frames_between")
     ComponentSetValue2(v,"frames_between",math.max(1,math.floor(aspd/4)))
 
-    local aspd = ComponentGetValue2(v,"frames_between_global")
-    ComponentSetValue2(v,"frames_between_global",math.max(1,math.floor(aspd/4)))
+    local qwef = ComponentGetValue2(v,"frames_between_global")
+    ComponentSetValue2(v,"frames_between_global",math.max(1,math.floor(qwef/4)))
 end

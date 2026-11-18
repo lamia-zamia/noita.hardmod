@@ -38,10 +38,10 @@ if distance_from_edge > 100 then
 		local new_x, new_y = 0, 0
 
 		while tries < max_tries and not valid do
-			local direction_x = Random(0, 1)
-			if direction_x == 0 then direction_x = -1 end
+			local dx = Random(0, 1)
+			if dx == 0 then dx = -1 end
 
-			new_x = camera_center_x + (camera_w / 2 + max_distance_from_edge) * direction_x
+			new_x = camera_center_x + (camera_w / 2 + max_distance_from_edge) * dx
 			new_y = Random(camera_y, camera_y + camera_h)
 
 			if not RaytracePlatforms(new_x + 2, new_y + 2, new_x - 2, new_y - 2) then valid = true end

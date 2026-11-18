@@ -20,8 +20,8 @@ function damage_about_to_be_received( damage, x, y, entity_thats_responsible, cr
 
     if rng < critical_hit_chance then
         local critical_mult = math.max(5,math.floor((critical_hit_chance * 0.05)))
-        local x,y = EntityGetTransform(GetUpdatedEntityID())
-        GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/critical_hit/create", x, y)
+        local ex,ey = EntityGetTransform(GetUpdatedEntityID())
+        GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/critical_hit/create", ex, ey)
         reduced_damage = reduced_damage * critical_mult
     end
 

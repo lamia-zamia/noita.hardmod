@@ -2,10 +2,10 @@ local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
 local entity_id = GetUpdatedEntityID()
 
-local function has_vsc( entity_id, variable_name )
-	local vs_comps = EntityGetComponent( entity_id, "VariableStorageComponent" )	
+local function has_vsc( eid, variable_name )
+	local vs_comps = EntityGetComponent( eid, "VariableStorageComponent" )
 	if vs_comps ~= nil then
-		for _,vs_comp in pairs( vs_comps ) do 
+		for _,vs_comp in pairs( vs_comps ) do
 			local var_name = ComponentGetValue2( vs_comp, "name" )
 			if( var_name == variable_name ) then
 				return true

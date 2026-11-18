@@ -1,6 +1,6 @@
 local utils = dofile_once( "mods/noita.hardmod/lib/utilities.lua" ) ---@type utils
 
-function damage_about_to_be_received( damage, x, y, entity_who_caused, critical_hit_chance )
+function damage_about_to_be_received(damage, _x, _y, entity_who_caused, critical_hit_chance)
 	local boss = GetUpdatedEntityID()
 	local x, y = EntityGetTransform( boss )
 

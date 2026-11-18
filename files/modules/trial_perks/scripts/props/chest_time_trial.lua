@@ -3,7 +3,7 @@ local utils = dofile_once( "mods/noita.hardmod/lib/utilities.lua" )
 
 -------------------------------------------------------------------------------
 
-local function drop_wand( x, y )
+local function drop_wand(_x, _y)
 	local chest_id = GetUpdatedEntityID()
 	local x, y = EntityGetTransform( chest_id )
 

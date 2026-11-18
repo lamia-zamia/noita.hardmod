@@ -9,7 +9,6 @@ local dialogue_vsc_comp = EntityGetComponentIncludingDisabled(entity_id,"Variabl
 local forced_speak = ComponentGetValue2(dialogue_vsc_comp,"value_string")
 local last_idle_talk = ComponentGetValue2(dialogue_vsc_comp,"value_int")
 local idle_talk_cd = 1200
-local x, y = EntityGetTransform(entity_id)
 local cam_x, cam_y, cam_w, cam_h = GameGetCameraBounds()
 local radius = math.floor((cam_w / 4) * 3)
 
@@ -18,7 +17,6 @@ local radius = math.floor((cam_w / 4) * 3)
 --"You crawl into my tomb, crack my coffin open, rend MY flesh apart, but you die to a purple freak because he turned you into a sheep? You're pathetic"
 --Spoop: Maaayyybee...
 --Conga: I still think this would be funny
-local entity_id = GetUpdatedEntityID()
 local x, y = EntityGetTransform(entity_id)
 math.randomseed(x+y)
 SetRandomSeed(x + GameGetFrameNum(), y + 1394)
@@ -64,8 +62,8 @@ function Speak(entity, text, pool)
     if textComponent then return end
 
     local old_text = text
-    local x, y = EntityGetTransform(entity_id)
-    SetRandomSeed(entity_id + x + 2352, GameGetFrameNum() - y + 24806)
+    local ex, ey = EntityGetTransform(entity_id)
+    SetRandomSeed(entity_id + ex + 2352, GameGetFrameNum() - ey + 24806)
 
     local hitbox_comp = EntityGetFirstComponentIncludingDisabled(entity_id, "HitboxComponent")
     local hitbox_height_y = 0

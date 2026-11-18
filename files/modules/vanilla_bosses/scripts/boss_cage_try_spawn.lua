@@ -11,8 +11,8 @@ function damage_received( damage, desc, entity_who_caused, is_fatal )
 		local boss_max_hp = ComponentGetValue2( dmg_comp, "max_hp" )
 
 		dofile_once( "data/scripts/lib/utilities.lua" )
-		local px, py = EntityGetTransform( entity_who_caused )
-		local dist = get_distance( x, y, px, py )
+		local cx, cy = EntityGetTransform( entity_who_caused )
+		local dist = get_distance( x, y, cx, cy )
 		local outer_radius = utils.GetInternalInt( boss, "boss_cage_aura_outer_radius" ) or 500
 		if damage > 0 and EntityHasTag( entity_who_caused, "player_unit" ) and dist < outer_radius * 0.9 then
 			utils.SetInternalInt( boss, "boss_cage_aura_frames_before_max", 3600 )
