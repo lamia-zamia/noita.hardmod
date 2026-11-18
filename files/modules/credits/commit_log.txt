@@ -786,3 +786,5 @@ add Anti-Teleportation Field eperk
 adapt new eperk attributes
 fix anti-tele aura destroying any projectile
 make anti-tele aura a bit less intense
+added shitty altar sacrifice secret, expanded HM item shop pool
+removed perks debug and ran split.lua_run
