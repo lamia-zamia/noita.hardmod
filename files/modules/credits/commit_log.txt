@@ -809,6 +809,11 @@ format (zptr1): remove spaces between brackets
 format (zptr1): remove brackets from if
 tweaks
 format (zptr1): spaces after comma (except in for loops)
+why did it show a trailing-space warning only now??
+change blue ghosts's status effect name and add a splash text
 some more tweaks
 finishing touches
 added Vuoksikivi to altar sacrificable items
+surprised that got left in
+G I G A    C H A I N S A W .
+fix some xml errors
