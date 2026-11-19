@@ -11,7 +11,7 @@ hooks.new_spells = {
 		spawn_probability = "0.8,0.8,0.8,0.8,0.7,0.6", -- SPREAD_REDUCE
         custom_xml_file   = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/custom_cards/card_pinpointer.xml",
         price             = 100,
-        mana              = 2,
+        mana              = 6,
         action = function()
         	draw_actions(1, true)
         end,
