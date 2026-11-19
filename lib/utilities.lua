@@ -10,16 +10,22 @@ utils.module_dir = "mods/noita.hardmod/files/modules/"
 ---@return integer
 function utils.escape(str) return str:gsub("[%(%)%.%%%+%-%*%?%[%^%$%]]", "%%%1") end
 
--- Convenient function to simplify modifying files, gsub \r\n to \n to edit multiple lines at a time.
+-- Same as utils.escape but for the replacement string (only escapes %)
+function utils.escape_replacement(str) return str and str:gsub("%%", "%%%%") end
+
+-- Convenient function to simplify modifying files. Any spaces/newlines in `from` are converted to `%s*`, so you don't have to worry about keeping original spaces.
 ---@param file string filepath
----@param target string target you wish to replace
----@param sub string what you wish to replace it with
-function utils.modifile(file, target, sub)
-	ModTextFileSetContent(file, ModTextFileGetContent(file):gsub("\r\n", "\n"):gsub(utils.escape(target), sub))
+---@param from string target you wish to replace
+---@param to string what you wish to replace it with
+function utils.modifile(file, from, to)
+	from = utils.escape(from):gsub("%s+", "%%s*")
+	to = utils.escape_replacement(to)
+
+	ModTextFileSetContent(file, ModTextFileGetContent(file):gsub(from, to))
 end
 
 ---@class ModifileReplacement
----@field from string Search string
+---@field from string Search string. Any spaces/newlines are replaced with `%s*`, so you do not have to worry about keeping original spaces.
 ---@field to string? String to replace to (defaults to `from` if you use `insert_before`/`insert_after`)
 ---@field insert_before string? String to insert before the result
 ---@field insert_after string? String to insert after the result
@@ -30,15 +36,31 @@ end
 ---@param file string filepath
 ---@param replacements ModifileReplacement[] Array of replacements to apply to the file
 function utils.patchifile(file, replacements)
-	local content = ModTextFileGetContent(file):gsub("\r\n", "\n")
+	local content = ModTextFileGetContent(file)
+	local o = content
+
 	for _,replacement in pairs(replacements) do
 		local from = replacement.pattern and replacement.from or utils.escape(replacement.from)
-		local to = replacement.to or replacement.from
+		local to = utils.escape_replacement(replacement.to or "")
 
-		if replacement.insert_before then to = replacement.insert_before..to end
-		if replacement.insert_after then to = to..replacement.insert_after end
+		if not replacement.pattern then
+			from = from:gsub("%s+", "%%s*")
+		end
+
+		if replacement.insert_before or replacement.insert_after then
+			to = utils.escape_replacement(replacement.insert_before or "") .. "%1" .. utils.escape_replacement(replacement.insert_after or "")
+			from = "("..from..")"
+		elseif not replacement.to then
+			error("Missing to or insert_before/insert_after in a replacement")
+		end
 
 		content = content:gsub(from, to, replacement.count)
+	end
+
+	if file == "data/scripts/perks/perk_reflect.lua" then
+		print(file)
+		print(o)
+		print(content)
 	end
 
 	ModTextFileSetContent(file, content)
