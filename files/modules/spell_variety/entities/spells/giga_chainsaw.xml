@@ -64,7 +64,7 @@
 			is_digger="1"
 			audio_enabled="0"
 		></config_explosion>
-		<damage_by_type slice="0.5"></damage_by_type>
+		<damage_by_type slice="0.8"></damage_by_type>
 	</ProjectileComponent>
 
 	<HitEffectComponent

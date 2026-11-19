@@ -102,6 +102,7 @@ actions = {}
 ---@field game_effect_entities string
 ---@field sound_loop_tag string
 ---@field projectile_file string
+---@field global_null_shot boolean Custom field added by HardMod
 
 ---@type ShotState
 c = nil

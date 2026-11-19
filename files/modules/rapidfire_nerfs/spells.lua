@@ -1,8 +1,12 @@
 local hooks = {}
 
-dofile_once("mods/noita.hardmod/files/modules/rapidfire_nerfs/scripts/null_mana.lua")
-
 local mana_reducing_spells = { "MANA_REDUCE", "HARDMOD_MANA_REDUCE", "APOTHEOSIS_WATER_POWER" }
+
+local null_shot_nullify = {
+	"damage_electricity_add", "damage_explosion_add", "damage_explosion",
+	"damage_critical_chance", "damage_ice_add", "damage_projectile_add",
+	"damage_critical_chance", "damage_healing_add", "gore_particles",
+}
 
 hooks.spell_patches = {
 	["CHAINSAW"] = {
@@ -142,7 +146,14 @@ hooks.new_spells = {
 		action = function()
 			c.fire_rate_wait = c.fire_rate_wait + 6
 			current_reload_time = current_reload_time + 1
-			HardmodActionNullMana()
+			c.damage_null_all = 1
+			for _,key in pairs(null_shot_nullify) do
+				c[key] = 0
+			end
+
+			c.extra_entities = c.extra_entities.."data/entities/particles/tinyspark_white_small.xml,data/entities/misc/zero_damage.xml,"
+			c.global_null_shot = true
+
 			draw_actions(1, true)
 		end
 	},
