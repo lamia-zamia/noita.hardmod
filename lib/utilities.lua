@@ -37,7 +37,6 @@ end
 ---@param replacements ModifileReplacement[] Array of replacements to apply to the file
 function utils.patchifile(file, replacements)
 	local content = ModTextFileGetContent(file)
-	local o = content
 
 	for _,replacement in pairs(replacements) do
 		local from = replacement.pattern and replacement.from or utils.escape(replacement.from)
@@ -55,12 +54,6 @@ function utils.patchifile(file, replacements)
 		end
 
 		content = content:gsub(from, to, replacement.count)
-	end
-
-	if file == "data/scripts/perks/perk_reflect.lua" then
-		print(file)
-		print(o)
-		print(content)
 	end
 
 	ModTextFileSetContent(file, content)
