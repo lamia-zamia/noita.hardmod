@@ -47,16 +47,16 @@ function hardmod_get_card_cast_delay(card)
 	return known_delay
 end
 
---- Funi shenanigans
-local function charge_payload_cast_delay(nested_shot)
-	if not c or c == nested_shot.state then return end
+local function apply_global_stats(from, to)
+	if not from or from == to then return end
 
-	c.fire_rate_wait = c.fire_rate_wait + nested_shot.state.fire_rate_wait * payload_cast_delay_scale
-	c.spread_degrees = c.spread_degrees + nested_shot.state.spread_degrees * payload_spread_degrees_scale
+	to.fire_rate_wait = from.fire_rate_wait
+	to.spread_degrees = from.spread_degrees
 end
 
-local previous_draw_shot = draw_shot
+local old_draw_shot = draw_shot
 function draw_shot(shot, instant_reload_if_empty)
-	previous_draw_shot(shot, instant_reload_if_empty)
-	charge_payload_cast_delay(shot)
+	apply_global_stats(c, shot.state)
+	old_draw_shot(shot, instant_reload_if_empty)
+	apply_global_stats(shot.state, c)
 end
