@@ -6,7 +6,7 @@
 
 	<LuaComponent
 		script_source_file="mods/noita.hardmod/files/modules/enemy_perks/scripts/anti_tele_aura_update.lua"
-		execute_every_n_frame="1"
+		execute_every_n_frame="3"
 	></LuaComponent>
 
 	<ParticleEmitterComponent 

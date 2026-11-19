@@ -132,6 +132,7 @@ local splashes = {
 	"Working hard at hardly working!",
 	"It's MISTER Squidward to you",
 	"It's MISS Master of Masters to you",
+	"It's a lovely morning in the mines, and you are a horrible witch",
 }
 
 local function add_splashes(tbl, fmt)

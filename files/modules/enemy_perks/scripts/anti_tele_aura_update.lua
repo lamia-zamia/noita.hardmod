@@ -8,14 +8,10 @@ local RADIUS = 220
 local nearby_players = EntityGetInRadiusWithTag(x, y, RADIUS, "player_unit")
 if nearby_players then
 	for i,player in ipairs(nearby_players) do
-		utils.SetInternalInt(player, "hardmod_anti_tele_last_frame", GameGetFrameNum())
+		--utils.SetInternalInt(player, "hardmod_anti_tele_last_frame", GameGetFrameNum()) this appears unused?
 
-		if EntityGetFirstComponentIncludingDisabled(player, "LuaComponent", "hardmod_player_tele_disabler") == nil then
-			EntityAddComponent2(player, "LuaComponent", {
-				_tags = "hardmod_player_tele_disabler",
-				script_shot = "mods/noita.hardmod/files/modules/enemy_perks/scripts/anti_tele_aura_on_shot.lua",
-				execute_every_n_frame = -1,
-			})
+		if #(EntityGetAllChildren(player, "hardmod_player_tele_disabler") or {}) == 0 then
+			EntityAddChild(player, EntityLoad("mods/noita.hardmod/files/modules/enemy_perks/entities/anti_tele_effect.xml", x, y))
 		end
 		-- if string.find(EntityGetFilename(proj), "tele")
 		-- or string.find(EntityGetFilename(proj), "blink") then

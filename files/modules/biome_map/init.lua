@@ -93,7 +93,8 @@ ModMaterialsFileAdd("mods/noita.hardmod/files/modules/biome_map/materials.xml")
 
 function hooks.player_spawned(pid, is_run_start)
 	if is_run_start then
-		EntitySetDamageFromMaterial(pid, "hardmod_cursed_liquid", 0.003)
+		EntitySetDamageFromMaterial(pid, "hardmod_cursed_liquid", 0.004)
+		EntitySetDamageFromMaterial(pid, "hardmod_cursed_liquid_static", 0.004)
 	end
 
 	local path = MagicNumbersGetValue("BIOME_MAP")

@@ -43,6 +43,17 @@ function hardmod_spawn_purchasable_item(x, y)
 		x, y
 	)
 
+	EntityAddComponent2(entity, "ItemComponent", {
+		_tags = "enabled_in_world",
+		item_name = item.name,
+		ui_sprite = item.sprite,
+		max_child_items = 0,
+		is_pickable = true,
+		is_equipable_forced = true,
+		play_spinning_animation = false,
+		preferred_inventory = "QUICK",
+	})
+
 	EntityAddComponent2(entity, "SpriteComponent", {
 		_tags = "enabled_in_world",
 		offset_x = item.offset_x or 0,
@@ -70,17 +81,6 @@ function hardmod_spawn_purchasable_item(x, y)
 			update_transform = true,
 			update_transform_rotation = false,
 			z_index = -1,
-		})
-
-		EntityAddComponent2(entity, "ItemComponent", {
-			_tags = "enabled_in_world",
-			item_name = item.name,
-			ui_sprite = item.sprite,
-			max_child_items = 0,
-			is_pickable = true,
-			is_equipable_forced = true,
-			play_spinning_animation = false,
-			preferred_inventory = "QUICK",
 		})
 	end
 

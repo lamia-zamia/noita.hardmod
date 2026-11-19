@@ -151,7 +151,7 @@ shop_items.items = {
 		base_cost = 400,
 		entity = "data/entities/items/pickup/beamstone.xml",
 		sprite = "data/ui_gfx/items/beamstone.png",
-		offset_x = 4, offset_y = 6,
+		offset_x = 8, offset_y = 11,
 		hm_escape = true,
 	},
 }

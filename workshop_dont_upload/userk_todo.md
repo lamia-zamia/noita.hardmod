@@ -7,10 +7,10 @@
 - Add Parallel Parity module
 - Look into improving early-game mobility
 	- This has been done via guaranteed Hastium basin in stage 2, though more options isnt a terrible idea, wait and observe on this topic for now
-- rewrite perk selection logic to be more integrated
 - remove item immunities perk if apotheosis is enabled?
 - fix zerk strat (i have a plan :> (concrete))
 - move food poisoning immunity to EYV and make sure it works with vomit eperk
+- make icon on anti-tele status better
 
 ## Enemy Perk Ideas
 - Mass Chaotic Polymorph on death
@@ -32,7 +32,6 @@
 - Snail module crashes?
 - make HM basin changes work in final stage
 - Ira should probs remove CBC from their champion
-- fix PW cursed liquid to be like apoth's
 
 ## Spell Issues
 ### These are not things I intend to change on my own, but with the consultation of Yui and the other devs in #noita-coommunity-collab
