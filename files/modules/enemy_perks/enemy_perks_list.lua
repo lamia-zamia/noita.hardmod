@@ -939,6 +939,7 @@ enemy_perks = {
 			EntityLoad("data/entities/projectiles/deck/black_hole_big.xml", ddata.x, ddata.y)
 		end
 	},
+	--[[ disabled fn for not being very interesting, may add back in the future when we have enough eperks that its presence doesnt make much of a difference
 	{
 		id = "WHITEHOLE_DEATH",
 		name = "$hardmod_eperk_whitehole_death_name",
@@ -958,7 +959,7 @@ enemy_perks = {
 		on_death = function(self, entity_id, ddata)
 			EntityLoad("data/entities/projectiles/deck/white_hole_big.xml", ddata.x, ddata.y)
 		end
-	},
+	},--]]
 	{
 		id = "OMEGA_BLACKHOLE_DEATH",
 		name = "$hardmod_eperk_omega_blackhole_death_name",

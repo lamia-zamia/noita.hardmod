@@ -11,6 +11,8 @@
 - fix zerk strat (i have a plan :> (concrete))
 - move food poisoning immunity to EYV and make sure it works with vomit eperk
 - make icon on anti-tele status better
+- add sort after fields for perks and spells
+- make shit perk border chunkier?
 
 ## Enemy Perk Ideas
 - Mass Chaotic Polymorph on death
