@@ -185,7 +185,7 @@ return {
 			spawn_level = "2,3,4",
 			spawn_probability = "0.3,0.5,0.5",
 			price = 130,
-			mana = 60,
+			mana = 50,
 			action = function()
 				c.fire_rate_wait, current_reload_time = current_reload_time, c.fire_rate_wait
 				c.spread_degrees = c.spread_degrees + 16
