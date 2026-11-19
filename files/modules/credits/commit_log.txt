@@ -817,3 +817,16 @@ added Vuoksikivi to altar sacrificable items
 surprised that got left in
 G I G A    C H A I N S A W .
 fix some xml errors
+Make CD/spread *truly* global
+make pinpointer passive actually reduce spread and increase speed, bit exploitable rn tho
+remove unused gun.lua
+move all `gun.lua` stuff to `core`
+Improvements to modifile/patchifile
+forgor to remove debug thingy
+improve giga chainsaw
+makeit cost 50 mana instead of 60
+change spell names
+HP multipliers my belovehated (we had to do it, sorry) (dw its not as bad as nightmare mode) (pinky promise)
+buff freeze field and poly field slightly (less mana ,more uses, remove never_unlimited) but make it spawn later and rarer
+buff cabbage boss
+todo

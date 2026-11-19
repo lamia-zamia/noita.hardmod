@@ -1,4 +1,4 @@
-local biome_index ---@type biome_path_to_simple_id
+dofile_once("mods/noita.hardmod/files/modules/stronger_enemies/hp-multipliers.lua")
 
 local hell_damage_multipliers = {
 	melee = 3,
@@ -89,37 +89,5 @@ function HardmodEnableHell(player)
 end
 
 function HardmodTransformEnemyHell(eid)
-	if EntityHasTag(eid, "hardmod_hell_mult") then return end
-	if EntityHasTag(eid, "boss") then return end
-
-	if not biome_index then
-		biome_index = dofile_once("mods/noita.hardmod/lib/biome_index.lua")
-	end
-
-	local x, y = EntityGetTransform(eid)
-	local biome = biome_index[DebugBiomeMapGetFilename(x, y)]
-	if not biome then return end
-
-	local multipliers = hell_enemy_biome_multipliers[biome]
-	if not multipliers then return end
-
-	local dmc = EntityGetFirstComponent(eid, "DamageModelComponent")
-	if dmc then
-		local max_hp = ComponentGetValue2(dmc, "max_hp")
-		local new_hp = max_hp * multipliers.hp
-
-		ComponentSetValue2(dmc, "max_hp", new_hp)
-		ComponentSetValue2(dmc, "hp", new_hp)
-	end
-
-	local aicomp = EntityGetFirstComponent(eid, "AnimalAIComponent")
-	if aicomp then
-		local melee = ComponentGetValue2(aicomp, "attack_melee_frames_between")
-		local ranged = ComponentGetValue2(aicomp, "attack_ranged_frames_between")
-
-		ComponentSetValue2(aicomp, "attack_melee_frames_between", (melee or 0) * multipliers.speed)
-		ComponentSetValue2(aicomp, "attack_ranged_frames_between", (ranged or 0) * multipliers.speed)
-	end
-
-	EntityAddTag(eid, "hardmod_hell_mult")
+	HardmodTransformEnemy(eid, hell_enemy_biome_multipliers)
 end
