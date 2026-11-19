@@ -2,7 +2,6 @@
 
 - write a todo
 - finally get to making my quest
-- make enemies after jungle have 2x hp, maybe 3x hp in some later areas
 - a couple funni spells that i had an idea for since long ago
 - figure out a way to improve shit spells like expanding sphere
 - path of dark flame

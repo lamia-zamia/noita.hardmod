@@ -4,31 +4,36 @@ dofile_once("data/scripts/game_helpers.lua")
 -- 69 heal for non-shufflers (as per vanilla)
 local heal_amounts = { 1.2, 0.6, 0.36, 0.24, 0.16, 0.12, 0.08 }
 
+local function play_fail_sound(player)
+	local x, y = EntityGetTransform(player)
+	GamePlaySound("data/audio/Desktop/misc.bank", "collision/barrel_water/destroy", x, y)
+end
+
 function wand_fired(wand)
-  if not wand then return end
+	if not wand then return end
 
-  local player = EntityGetRootEntity(GetUpdatedEntityID())
-  if not player or not IsPlayer(player) then return end
+	local player = EntityGetRootEntity(GetUpdatedEntityID())
+	if not player or not IsPlayer(player) then return end
 
-  local state = GetStoredWandState(wand)
-  local new_state = GetNewWandState(wand)
+	local state = GetStoredWandState(wand)
+	local new_state = GetNewWandState(wand)
 
-  -- Nuh uh!
-  if not state or IsWandStateInvalid(state, new_state) then
-    return
-  end
+	-- Nuh uh!
+	if not state or IsWandStateInvalid(state, new_state) then
+		return
+	end
 
-  local comp = EntityGetFirstComponentIncludingDisabled(wand, "AbilityComponent")
-  if not comp then return end
+	local comp = EntityGetFirstComponentIncludingDisabled(wand, "AbilityComponent")
+	if not comp then return end
 
-  local casts = tonumber(ComponentGetValue2(comp, "stat_times_player_has_shot")) or 0
+	local casts = tonumber(ComponentGetValue2(comp, "stat_times_player_has_shot")) or 0
 
-  if casts > #heal_amounts then
-    MarkWandAsTinkered(wand)
-    return
-  end
+	if casts > #heal_amounts then
+		MarkWandAsTinkered(wand)
+		return
+	end
 
-  local hp = heal_amounts[casts]
+	local hp = heal_amounts[casts]
 
-  heal_entity(player, hp)
+	heal_entity(player, hp)
 end
