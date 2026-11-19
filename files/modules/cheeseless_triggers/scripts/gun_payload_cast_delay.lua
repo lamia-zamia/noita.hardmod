@@ -46,17 +46,3 @@ function hardmod_get_card_cast_delay(card)
 
 	return known_delay
 end
-
-local function apply_global_stats(from, to)
-	if not from or from == to then return end
-
-	to.fire_rate_wait = from.fire_rate_wait
-	to.spread_degrees = from.spread_degrees
-end
-
-local old_draw_shot = draw_shot
-function draw_shot(shot, instant_reload_if_empty)
-	apply_global_stats(c, shot.state)
-	old_draw_shot(shot, instant_reload_if_empty)
-	apply_global_stats(shot.state, c)
-end

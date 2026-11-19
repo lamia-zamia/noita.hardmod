@@ -1,5 +1,7 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
+ModLuaFileAppend("data/scripts/gun/gun.lua", "mods/noita.hardmod/files/modules/core/gun.lua")
+
 -- remove perks with not_progress from progress menu
 utils.modifile("data/scripts/perks/perk_reflect.lua",
 [[	RegisterPerk( 
@@ -21,3 +23,5 @@ utils.modifile("data/scripts/perks/perk_reflect.lua",
 if ModIsEnabled("Apotheosis") then
 	utils.modifile("mods/Apotheosis/files/scripts/perks/custom_perks.lua", 'do c = perk_list[z]', 'do local c = perk_list[z]')
 end
+
+return {}
