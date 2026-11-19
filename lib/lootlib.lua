@@ -342,7 +342,7 @@ function lootlib.spawn_gold(ctx, gold)
     end
 
     if not entity then break end
-    
+
     table.insert(ctx.entities, {
       file = entity,
       x = ctx.vars.pos_x,
@@ -729,7 +729,7 @@ local function chest_on_open_patch(entity)
   SetRandomSeed(ctx.vars.rand_x, ctx.vars.rand_y)
 
   lootlib.roll_loot(loot_table, ctx)
-  
+
   for _,hook in pairs(LOOTLIB_DATA.chest_post_open_hooks) do
     hook(ctx, loot_table, loot_table_name)
   end

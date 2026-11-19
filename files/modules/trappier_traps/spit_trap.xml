@@ -49,8 +49,6 @@
     x_vel_max="10"
     y_vel_min="-10"
     y_vel_max="10"
-    count_min="1"
-    count_max="2"
     lifetime_min="1.1"
     lifetime_max="2.8"
     create_real_particles="1"
@@ -72,4 +70,3 @@
 	</VariableStorageComponent>
   
 </Entity>
-

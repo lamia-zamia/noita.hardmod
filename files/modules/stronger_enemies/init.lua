@@ -54,6 +54,12 @@ local function patch_enemy_changes()
 			from = [[data/entities/misc/effect_spirit_weakness.xml]],
 			to = [[mods/noita.hardmod/files/modules/stronger_enemies/entities/effect_spirit_weaken.xml]]
 		},
+		{
+			from = [[EntityAddChild]],
+			insert_before = [[
+				AddFlagPersistent("hardmod_found_spirit_weaken")
+			]]
+		}
 	})
 
 	for xml in nxml.edit_file("data/entities/animals/weakspirit.xml") do

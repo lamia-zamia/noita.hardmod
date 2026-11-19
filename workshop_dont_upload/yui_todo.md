@@ -14,3 +14,4 @@
   * original freezing appears much later
 - glittering field should not do 1f piercing
 - can i change all spells to not have 1f piercing in a good way, or do i have to hardcode the ones i wanna change?
+- [QoL] make wand experimenter not heal if the player is wounded or has full HP

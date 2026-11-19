@@ -1,8 +1,6 @@
 <Entity>
-
-    <HitEffectComponent 
+    <HitEffectComponent
         effect_hit="LOAD_UNIQUE_CHILD_ENTITY"
-        value_string="mods/noita.hardmod/files/modules/phantom_nemesis/entities/status_effects/effect_nohealing.xml"" >
-	</HitEffectComponent >
-
+        value_string="mods/noita.hardmod/files/modules/phantom_nemesis/entities/status_effects/effect_nohealing.xml"
+	></HitEffectComponent>
 </Entity>
