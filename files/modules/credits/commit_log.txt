@@ -836,6 +836,26 @@ lotta shit
 made aura visuals from anti-teleport aura and shield sapper eperks more tolerable
 Update eperk_utilities.lua
 forgot to push this
+wand experimenter QoL
+fix custom wand gen stuff
+remove vanilla pickup effect in HM shop potions/pouches/etc
+show tinker hint in orbrooms (opens inventory when u enter em)
+dont spawn squiddy if the orb hasn't been taken
+fix (btw did you know you can do `pairs(thing or {})` without having a giant ass nested if statement)
+no fun allowed apparently
+mini library for the tower diamond quests
+vanilla_quests: make so that you can do all tower quests in a single run without peaceful reset
+Tower cheese is no more.
+cleanup game flags after tower_visited_all
+update description of torch and electric torch
+make matter eater cost only 60 mana
+rework parth of dark flame
+updat todo
+nerf PERSONALRUNTHROWER
+change potion to sea to have 3 max uses instead of 2
+Add BiomeID type to biome_index.lua
+add a `player_biome_changed` hook
 make Treasure Hunter stack exponentially
 fix stinky aura visuals mismatch
 fix(???)
+add Inhibitor spell
