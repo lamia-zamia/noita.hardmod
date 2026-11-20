@@ -817,6 +817,8 @@ added Vuoksikivi to altar sacrificable items
 surprised that got left in
 G I G A    C H A I N S A W .
 fix some xml errors
+Delete potion.xml
+formatting nonsense
 Make CD/spread *truly* global
 make pinpointer passive actually reduce spread and increase speed, bit exploitable rn tho
 remove unused gun.lua
@@ -830,3 +832,5 @@ HP multipliers my belovehated (we had to do it, sorry) (dw its not as bad as nig
 buff freeze field and poly field slightly (less mana ,more uses, remove never_unlimited) but make it spawn later and rarer
 buff cabbage boss
 todo
+lotta shit
+made aura visuals from anti-teleport aura and shield sapper eperks more tolerable
