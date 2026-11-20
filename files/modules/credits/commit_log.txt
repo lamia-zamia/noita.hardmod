@@ -834,3 +834,5 @@ buff cabbage boss
 todo
 lotta shit
 made aura visuals from anti-teleport aura and shield sapper eperks more tolerable
+Update eperk_utilities.lua
+forgot to push this
