@@ -1,0 +1,19 @@
+<Entity name="card_inhibitor">
+	<Base file="data/entities/base_custom_card.xml">
+		<SpriteComponent 
+			image_file="mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/spells/inhibitor.png"
+		></SpriteComponent>
+
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="HARDMOD_INHIBITOR"
+		></ItemActionComponent>
+	</Base>
+
+	<LuaComponent
+		_tags="enabled_in_hand"
+		script_enabled_changed="mods/noita.hardmod/files/modules/vanilla_perk_rebalances/scripts/spells/inhibitor.lua"
+	></LuaComponent>
+
+	<InheritTransformComponent _tags="enabled_in_world,enabled_in_hand"></InheritTransformComponent>
+</Entity>

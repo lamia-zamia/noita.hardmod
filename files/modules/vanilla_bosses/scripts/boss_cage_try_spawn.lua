@@ -1,4 +1,5 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
+dofile_once("data/scripts/lib/utilities.lua")
 
 function damage_received(damage, desc, entity_who_caused, is_fatal)
 	local boss = GetUpdatedEntityID()
@@ -10,7 +11,6 @@ function damage_received(damage, desc, entity_who_caused, is_fatal)
 		local boss_hp = ComponentGetValue2(dmg_comp, "hp")
 		local boss_max_hp = ComponentGetValue2(dmg_comp, "max_hp")
 
-		dofile_once("data/scripts/lib/utilities.lua")
 		local cx, cy = EntityGetTransform(entity_who_caused)
 		local dist = get_distance(x, y, cx, cy)
 		local outer_radius = utils.GetInternalInt(boss, "boss_cage_aura_outer_radius") or 500

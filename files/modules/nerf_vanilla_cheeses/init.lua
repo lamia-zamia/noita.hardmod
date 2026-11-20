@@ -1,10 +1,8 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
-
-local hooks = {}
-local dir = "mods/noita.hardmod/files/modules/nerf_vanilla_cheeses/"
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 
-
+local hooks = {} ---@type hooks
+local dir = "mods/noita.hardmod/files/modules/nerf_vanilla_cheeses/"
 
 ModMagicNumbersFileAdd(dir.."magic_numbers.xml")
 
@@ -87,7 +85,40 @@ for xml in nxml.edit_file("data/entities/player_base.xml") do
 	end
 end
 
+-- nyehehe
 ModLuaFileAppend("data/scripts/biomes/roadblock.lua", dir.."scripts/roadblock_append.lua")
 
+-- no free tower wands 4 u
+ModLuaFileAppend("data/scripts/biomes/tower_end.lua", dir.."scripts/tower_end_append.lua")
+
+local tower_levels = {}
+for i=1,10 do
+	local biome = "data/biome/tower/solid_wall_tower_"..tostring(i)..".xml"
+	tower_levels[biome] = "tower_visited_"..tostring(i)
+end
+
+function hooks.player_biome_changed(player, x, y, file,...)
+	local flag = tower_levels[file]
+	if not flag or GameHasFlagRun("tower_visited_all") or GameHasFlagRun(flag) then
+		return
+	end
+
+	GameAddFlagRun(flag)
+	print("tower progress:", flag)
+
+	local all = true
+	for _,level in pairs(tower_levels) do
+		if not GameHasFlagRun(level) then
+			all = false
+			break
+		end
+	end
+
+	if all then
+		GameAddFlagRun("tower_visited_all")
+		print("visited all!!")
+		for _,level in pairs(tower_levels) do GameRemoveFlagRun(level) end
+	end
+end
 
 return hooks

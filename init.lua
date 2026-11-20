@@ -55,6 +55,7 @@ local hooks = {
 	--Player hooks
 	player_spawned = {}, --OnPlayerSpawned
 	player_changed = {}, --on player polymorphed/unpolymorphed
+	player_biome_changed = {}, -- when the player changes biome
 	player_destroyed = {}, --OnPlayerDied
 
 	--Pause hooks
@@ -171,7 +172,15 @@ translations = translations .. "\n" .. ModTextFileGetContent("mods/noita.hardmod
 translations = translations:gsub("\r", ""):gsub("\n\n+", "\n")
 ModTextFileSetContent("data/translations/common.csv", translations)
 
+local biome_idx, biome_idx_rev
+---@return biome_path_to_simple_id, exact_id_to_biome_path
+function HARDMOD_GLOBAL_DATA.get_biome_index()
+	if not biome_index then
+		biome_idx, biome_idx_rev = dofile_once("mods/noita.hardmod/lib/biome_index.lua")
+	end
 
+	return biome_idx, biome_idx_rev
+end
 
 function OnModPreInit() try_run_hooks("mod_pre_init") end
 function OnModInit() try_run_hooks("mod_init") end
@@ -196,7 +205,19 @@ function OnWorldInitialized() try_run_hooks("world_init") end
 function OnPlayerSpawned(pid)
 	gd.player = pid
 	gd.player_does_not_exist = false
+
 	local is_run_start = not GameHasFlagRun("noita.hardmod.on_player_spawned_flag")
+	if is_run_start then
+		if not EntityGetFirstComponent(pid, "BiomeTrackerComponent") then
+			EntityAddComponent2(pid, "BiomeTrackerComponent")
+		end
+
+		EntityAddComponent2(pid, "LuaComponent", {
+			script_biome_entered = "mods/noita.hardmod/files/scripts/biome_entered.lua",
+			execute_every_n_frame = -1
+		})
+	end
+
 	try_run_hooks("player_spawned", pid, is_run_start)
 	GameAddFlagRun("noita.hardmod.on_player_spawned_flag")
 
@@ -232,7 +253,7 @@ end
 
 local prev_max_eid = -1
 local max_eid = -1
-local check_entities = function(is_post)
+local function check_entities(is_post)
 	local old_player = gd.player
 	local borked_polymorph_entity
 	if not (gd.player_does_not_exist or EntityGetIsAlive(gd.player)) then
@@ -302,6 +323,25 @@ local check_entities = function(is_post)
 	end
 end
 
+local old_biome_file
+local function on_player_biome_changed()
+	if not gd.player then return end
+	GameRemoveFlagRun("hardmod_player_biome_changed")
+
+	local x, y = EntityGetTransform(gd.player)
+	local filename = DebugBiomeMapGetFilename(x, y)
+
+	if filename == old_biome_file then return end
+	old_biome_file = filename
+
+	local biome_id = gd.get_biome_index()[filename] or "unknown"
+	local biome_name = GlobalsGetValue("hardmod_player_new_biome_name", "_EMPTY_")
+
+	for _,func in pairs(hooks.player_biome_changed) do
+		func(gd.player, x, y, filename, biome_id, biome_name)
+	end
+end
+
 function OnWorldPreUpdate()
 	gd.frame = GameGetFrameNum()
 	SetRandomSeed(-2497, 492-gd.frame) --maybe fixes stale-randomness issues?
@@ -314,6 +354,11 @@ end
 
 function OnWorldPostUpdate()
 	check_entities(true)
+
+	if GameHasFlagRun("hardmod_player_biome_changed") then
+		on_player_biome_changed()
+	end
+
 	for _,func in ipairs(hooks.post_update) do
 		func(gd.frame)
 	end
