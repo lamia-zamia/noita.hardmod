@@ -19,6 +19,7 @@ function shot(projectile)
 	aura = EntityGetClosestWithTag(x, y, "hardmod_anti_tele_aura")
 	if not aura then EntityKill(entity_id) return end
 	ax, ay = EntityGetTransform(aura)
+	if not x or not ax then return end -- ok sure
 
 	if utils.get_distance(x, y, ax, ay) > RADIUS then EntityKill(entity_id) return end
 
