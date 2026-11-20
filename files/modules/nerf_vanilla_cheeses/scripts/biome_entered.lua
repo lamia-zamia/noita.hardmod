@@ -6,6 +6,8 @@ for i=1,10 do
 end
 
 function biome_entered()
+	if GameHasFlagRun("tower_visited_all") then return end
+
 	local player = GetUpdatedEntityID()
 	local x, y = EntityGetTransform(player)
 	local file = DebugBiomeMapGetFilename(x, y)
@@ -23,8 +25,8 @@ function biome_entered()
 		end
 
 		if all then
-			print("progress: ALL!")
 			GameAddFlagRun("tower_visited_all")
+			for _,flag in pairs(tower_levels) do GameRemoveFlagRun(flag) end
 		end
 	end
 end
