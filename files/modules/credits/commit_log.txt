@@ -859,3 +859,6 @@ make Treasure Hunter stack exponentially
 fix stinky aura visuals mismatch
 fix(???)
 add Inhibitor spell
+make haunted wand gen seed dependent
+fix duplicate vscs
+bring torches to wand tip
