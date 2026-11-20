@@ -279,6 +279,8 @@ hardmod_perk_emergency_recall_name,Emergency Recall,Экстренный воз�
 hardmod_perk_emergency_recall_desc,You are teleported back in time upon taking damage.,Вы телепортируетесь назад во времени при получении урона.,,,,,,,,,,,,
 hardmod_spell_pinpointer_name,Pinpointer,Лазерная указка,Apontador,Guía,Zeiger,Viseur laser,Puntualizzatore,Wskaźnik,汇聚器,ピンポインター,핀포인터,,NOTE - taken from vanilla
 hardmod_spell_pinpointer_desc,"Gives your wand a handy sightline for aiming, lower spread and faster projectile speed!",RU_MISSING,,,,,,,,,,,,
+hardmod_spell_inhibitor_name,Inhibitor,,,,,,,,,,,,,
+hardmod_spell_inhibitor_desc,"Prevents perks from applying to the wand",,,,,,,,,,,,,
 hardmod_perk_summon_toolbox_name,Summon Toolbox,Набор инструментов,,,,,,,,,,,,
 hardmod_perk_summon_toolbox_desc,"You gain a toolbox containing random upgrades for your wands.\nVisiting new biomes with it generates new spells.","Вы получите набор инструментов, который будет содержать в себе случайные улучшения для ваших жезлов.\nПосещение новых биомов будет генерировать новые заклинания.",,,,,,,,,,,,
 hardmod_spell_upgrade_capacity_name,Upgrade: Capacity,Улучшение: Ёмкость,,,,,,,,,,,,

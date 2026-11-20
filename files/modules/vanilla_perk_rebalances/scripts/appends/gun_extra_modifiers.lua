@@ -1,3 +1,7 @@
+extra_modifiers.projectile_homing = function()
+	c.extra_entities = c.extra_entities .. "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/homing_perk.xml,"
+end
+
 extra_modifiers.lower_spread = function()
 	c.spread_degrees = c.spread_degrees - 5
 	c.damage_projectile_add = c.damage_projectile_add + 1

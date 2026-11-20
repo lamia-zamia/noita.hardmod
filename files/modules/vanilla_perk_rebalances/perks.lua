@@ -202,6 +202,17 @@ hooks.new_perks = {
 }
 
 hooks.perk_patches = {
+	["PROJECTILE_HOMING"] = {
+		-- Reimplement this as a ShotEffectComponent for the Inhibitor spell
+		-- (i am NOT making it support game effects)
+		game_effect = "NONE",
+		func = function(perk, player)
+			EntityAddComponent2(player, "ShotEffectComponent", {
+				_tags = "perk_component",
+				extra_modifier = "projectile_homing",
+			})
+		end
+	},
 	["REMOVE_FOG_OF_WAR"] = { not_in_default_perk_pool = true },
 	["SHIELD"] = { stackable_maximum = 3 },
 	["ABILITY_ACTIONS_MATERIALIZED"] = { --works with most spells now, not just a specific selection of bomb spells

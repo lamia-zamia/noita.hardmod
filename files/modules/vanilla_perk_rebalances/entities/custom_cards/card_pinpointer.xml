@@ -6,7 +6,7 @@
 
 		<ItemActionComponent 
 			_tags="enabled_in_world"
-			action_id="HARDMOD_SPELL_PINPOINTER"
+			action_id="HARDMOD_PINPOINTER"
 		></ItemActionComponent>
 	</Base>
 

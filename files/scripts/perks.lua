@@ -19,6 +19,12 @@ local function add_patches(path)
 			if curr_value ~= nil and value ~= curr_value then print(('[%s] COLLISION at "%s": %s -> %s'):format(perk_id, key, curr_value, value)) end
 			perk_patches[perk_id][key] = value
 		end
+
+		-- idk why was it not working otherwise
+		if perk_patch.remove_game_effect then
+			perk_patches[perk_id].game_effect = nil
+			perk_patches[perk_id].game_effect2 = nil
+		end
 	end
 	if hooks.edit_perk then
 		edit_perk_hooks[#edit_perk_hooks+1] = hooks.edit_perk
