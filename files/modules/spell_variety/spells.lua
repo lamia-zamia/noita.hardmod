@@ -72,16 +72,14 @@ return {
 		    mana                = 4,
 		    action = function()
 				-- for the tooltip
-				c.fire_rate_wait = c.fire_rate_wait - 10
-				current_reload_time = current_reload_time - 20
+				if reflecting then
+					c.fire_rate_wait = c.fire_rate_wait - 10
+					current_reload_time = current_reload_time - 20
+					return
+				end
 
 				-- add entity that controls the spell's reach
 				c.extra_entities = c.extra_entities .. root.."entities/spells/controlled_reach.xml,"
-
-				if reflecting then return end
-				-- reset; initial -10 -20 was just for the tooltip, pls no delet this
-				c.fire_rate_wait = c.fire_rate_wait + 10
-				current_reload_time = current_reload_time + 20
 
 				-- determine the distance
 				dofile_once("data/scripts/lib/utilities.lua")
@@ -90,7 +88,7 @@ return {
 				local dist = get_distance(ox, oy, mx, my)
 
 				-- if this spell is part of a trigger payload, don't raise the wand's fire rate
-				-- (there might be more performant ways to do this)
+				-- (there might be better ways to do this)
 				local apply_boost = true
 				for _,card in ipairs(hand) do
 					if card.type == ACTION_TYPE_PROJECTILE
@@ -150,7 +148,7 @@ return {
 			id					= "HARDMOD_PARRY",
 			name				= "$hardmod_spell_parry_name",
 			description			= "$hardmod_spell_parry_desc",
-			sprite				= "mods/noita.hardmod/files/modules/trial_perks/gfx/ui_gfx/spells/parry.png",
+			sprite				= root.."gfx/ui_gfx/spells/parry.png",
 			related_projectiles	= { "mods/noita.hardmod/files/modules/trial_perks/entities/spells/parry.xml" },
 			type				= ACTION_TYPE_STATIC_PROJECTILE,
 			spawn_level			= "2,3,4", -- HEAL_BULLET
