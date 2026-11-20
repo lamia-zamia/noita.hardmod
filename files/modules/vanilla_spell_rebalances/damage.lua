@@ -2,25 +2,53 @@ local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 local deck = "data/entities/projectiles/deck/"
 
 local damage_nerfs = {
-	["chainsaw.xml"] = { slice = 0.3 },
-	["digger.xml"] = { drill = 0.1 },
+	["chainsaw"] = { dmg = { slice = 0.3 } },
+	["digger"] = { dmg = { drill = 0.1 } },
 
 	-- so that enemies realize theyre being damaged
-	["flamethrower.xml"] = { projectile = 0.01 },
+	["flamethrower"] = { projectile = 0.01 },
+
+	["data/entities/projectiles/darkflame.xml"] = { unpierce = true },
+	["data/entities/projectiles/darkflame_stationary.xml"] = {
+		projectile = 0.05,
+		unpierce = true,
+		dmg = {
+			fire = 0.3,
+		},
+	},
+
+	["purple_explosion_field"] = {
+		unpierce = true,
+	},
 
 	-- Already can't have any damage, just want to fix the lying tooltip
 	-- (smh nolla)
-	["powerdigger.xml"] = { drill = 0 },
+	["powerdigger"] = { dmg = { drill = 0 } },
 }
 
 for proj,nerfs in pairs(damage_nerfs) do
-	for file in nxml.edit_file(deck..proj) do
-		local dmg = file:first_of("ProjectileComponent"):first_of("damage_by_type")
-		if dmg then
-			for kind,value in pairs(nerfs) do
+	local path = proj:find("%.xml") and proj or deck..proj..".xml"
+
+	for file in nxml.edit_file(path) do
+		local pcomp = file:first_of("ProjectileComponent")
+		if not pcomp then goto continue end
+
+		if nerfs.projectile then
+			pcomp:set("damage", nerfs.projectile)
+		end
+
+		if nerfs.unpierce then
+			pcomp:set("damage_every_x_frames", 15)
+		end
+
+		local dmg = pcomp:first_of("damage_by_type")
+		if dmg and nerfs.dmg then
+			for kind,value in pairs(nerfs.dmg) do
 				dmg:set(kind, value)
 			end
 		end
+
+		::continue::
 	end
 end
 

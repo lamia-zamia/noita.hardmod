@@ -55,6 +55,14 @@ for file in nxml.edit_file("data/entities/projectiles/deck/buckshot_player.xml")
 	end
 end
 
+for file in nxml.edit_file("data/entities/projectiles/darkflame.xml") do
+	for comp in file:each_of("LuaComponent") do
+		if comp.attr.script_source_file == "data/scripts/projectiles/darkflame.lua" then
+			comp:set("execute_every_n_frame", 2)
+		end
+	end
+end
+
 local notes = {
 	"kantele/kantele_a", "kantele/kantele_d",
 	"kantele/kantele_dis", "kantele/kantele_e",
