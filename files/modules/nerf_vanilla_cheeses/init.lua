@@ -1,10 +1,8 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
+local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 
 local hooks = {}
 local dir = "mods/noita.hardmod/files/modules/nerf_vanilla_cheeses/"
-local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
-
-
 
 ModMagicNumbersFileAdd(dir.."magic_numbers.xml")
 
