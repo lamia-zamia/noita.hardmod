@@ -226,11 +226,13 @@ hooks.spell_patches = {
 		-- end,
 	},
 	["TORCH"] = {
+		description = "$hardmod_spell_torch_desc",
 		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/cards/card_torch.xml",
 	},
 	["TORCH_ELECTRIC"] = {
-		mana = -2,
+		description = "$hardmod_spell_torch_electric_desc",
 		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/cards/card_torch_electric.xml",
+		mana = -2,
 	},
 }
 
