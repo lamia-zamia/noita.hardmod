@@ -261,7 +261,7 @@ end
 ---@param new_value int New value of the variable (or initial value, if VSC did not exist)
 function utils.SetInternalInt(entity_id, variable_name, new_value)
 	local variable_found = false
-	local vscomps = EntityGetComponent(entity_id, "VariableStorageComponent")
+	local vscomps = EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent")
 	if vscomps ~= nil then
 		for key,comp_id in pairs(vscomps) do
 			local var_name = ComponentGetValue2(comp_id, "name")
