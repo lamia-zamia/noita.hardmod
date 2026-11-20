@@ -939,14 +939,13 @@ enemy_perks = {
 			EntityLoad("data/entities/projectiles/deck/black_hole_big.xml", ddata.x, ddata.y)
 		end
 	},
-	--[[ disabled fn for not being very interesting, may add back in the future when we have enough eperks that its presence doesnt make much of a difference
 	{
 		id = "WHITEHOLE_DEATH",
 		name = "$hardmod_eperk_whitehole_death_name",
 		description = "$hardmod_eperk_whitehole_death_desc",
-		weight = .5,
+		weight = .1,
 		priority = 15,
-		max = 1,
+		max = 15,
 		min_level = 4,
 		max_level = 10,
 		unique_slot = "on_death",
@@ -959,7 +958,7 @@ enemy_perks = {
 		on_death = function(self, entity_id, ddata)
 			EntityLoad("data/entities/projectiles/deck/white_hole_big.xml", ddata.x, ddata.y)
 		end
-	},--]]
+	},
 	{
 		id = "OMEGA_BLACKHOLE_DEATH",
 		name = "$hardmod_eperk_omega_blackhole_death_name",
