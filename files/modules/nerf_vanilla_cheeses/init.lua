@@ -87,7 +87,19 @@ for xml in nxml.edit_file("data/entities/player_base.xml") do
 	end
 end
 
+-- nyehehe
 ModLuaFileAppend("data/scripts/biomes/roadblock.lua", dir.."scripts/roadblock_append.lua")
 
+-- no free tower wands 4 u
+ModLuaFileAppend("data/scripts/biomes/tower_end.lua", dir.."scripts/tower_end_append.lua")
+
+function hooks.player_spawned(eid, new_run)
+	if new_run then
+		EntityAddComponent2(eid, "LuaComponent", {
+			script_biome_entered = dir.."scripts/biome_entered.lua",
+			execute_every_n_frame = -1
+		})
+	end
+end
 
 return hooks

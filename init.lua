@@ -196,7 +196,12 @@ function OnWorldInitialized() try_run_hooks("world_init") end
 function OnPlayerSpawned(pid)
 	gd.player = pid
 	gd.player_does_not_exist = false
+
 	local is_run_start = not GameHasFlagRun("noita.hardmod.on_player_spawned_flag")
+	if is_run_start and not EntityGetFirstComponent(pid, "BiomeTrackerComponent") then
+		EntityAddComponent2(pid, "BiomeTrackerComponent")
+	end
+
 	try_run_hooks("player_spawned", pid, is_run_start)
 	GameAddFlagRun("noita.hardmod.on_player_spawned_flag")
 
