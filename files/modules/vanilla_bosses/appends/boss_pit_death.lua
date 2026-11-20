@@ -41,11 +41,10 @@ function death(damage_type_bit_field, damage_message, entity_thats_responsible, 
 	wand:SetSprite("mods/noita.hardmod/files/modules/vanilla_bosses/gfx/items/wand_squidward.png", 10, 5, 18, 0)
 
 	local preset_spell_count = 2
-	if wand:GetFreeSlotsCount() < preset_spell_count then
-		for i=1, preset_spell_count do
-			wand:RemoveSpellAtIndex(wand.capacity - (preset_spell_count + i))
-		end
+	while wand:GetFreeSlotsCount() < preset_spell_count do
+		wand:RemoveSpellAtIndex(wand.capacity - preset_spell_count - 1)
 	end
+
     wand:AddSpells("WORM_RAIN", "METEOR_RAIN")
 
 	-- spawn the perk
