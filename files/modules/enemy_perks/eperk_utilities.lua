@@ -78,6 +78,7 @@ function utilities.select_random_perk(t, data)
 		local id = entry.id
 		local max, min_level, max_level = entry.max, entry.min_level, entry.max_level
 
+		if entry.requires_dmc and not data.dmc then goto continue end
 		if data.is_boss and entry.not_boss then goto continue end
 		if data.is_shop_guardian and entry.not_shop_guardian then goto continue end
 		if data.how_many_of_each_perk[id] then entry.weight = entry.weight * 1.15^data.how_many_of_each_perk[id] end
