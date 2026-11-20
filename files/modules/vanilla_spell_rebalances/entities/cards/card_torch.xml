@@ -9,14 +9,20 @@
 		smooth_filtering="1"
 		fog_of_war_hole="1"
 		has_special_scale="1"
-		special_scale_x="3.0"
-		special_scale_y="3.0"
+		special_scale_x="2.0"
+		special_scale_y="2.0"
 	/>
 
 	<LuaComponent
 		_tags="enabled_in_hand"
 		script_source_file="mods/noita.hardmod/files/modules/vanilla_spell_rebalances/scripts/torch_update.lua"
 		execute_every_n_frame="1"
+	></LuaComponent>
+
+	<LuaComponent
+		_tags="enabled_in_hand"
+		script_enabled_changed="mods/noita.hardmod/files/modules/vanilla_spell_rebalances/scripts/torch_on_enabled.lua"
+		execute_every_n_frame="-1"
 	></LuaComponent>
 
 </Entity>

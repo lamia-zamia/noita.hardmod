@@ -190,4 +190,10 @@
 		execute_every_n_frame="1"
 	></LuaComponent>
 
+	<LuaComponent
+		_tags="enabled_in_hand"
+		script_enabled_changed="mods/noita.hardmod/files/modules/vanilla_spell_rebalances/scripts/torch_on_enabled.lua"
+		execute_every_n_frame="-1"
+	></LuaComponent>
+
 </Entity>
