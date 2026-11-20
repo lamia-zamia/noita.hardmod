@@ -1,6 +1,21 @@
 local hooks = {}
 
 hooks.new_spells = {
+	{
+		id = "HARDMOD_INHIBITOR",
+		name = "$hardmod_spell_inhibitor_name",
+		description = "$hardmod_spell_inhibitor_desc",
+		sprite = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/ui_gfx/spells/inhibitor.png",
+		type = ACTION_TYPE_PASSIVE,
+		spawn_level = "1,2,3,4,5,6",
+		spawn_probability = "0.6,0.6,0.6,0.6,0.5,0.4",
+		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/custom_cards/card_inhibitor.xml",
+		price = 100,
+		mana = 5,
+		action = function()
+			draw_actions(1, true)
+		end
+	},
     {
         id                = "HARDMOD_PINPOINTER",
         name              = "$hardmod_spell_pinpointer_name",
@@ -11,7 +26,7 @@ hooks.new_spells = {
 		spawn_probability = "0.8,0.8,0.8,0.8,0.7,0.6", -- SPREAD_REDUCE
         custom_xml_file   = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/custom_cards/card_pinpointer.xml",
         price             = 100,
-        mana              = 6,
+        mana              = 7,
         action = function()
         	draw_actions(1, true)
         end,

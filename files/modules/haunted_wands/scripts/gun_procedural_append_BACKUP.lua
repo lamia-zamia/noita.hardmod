@@ -311,6 +311,14 @@ end
 -- 	local wand = EZWand(wand_entity)
 
 -- 	-- check if the wand has space for the spell(s)
+
+-- this is wrong!!!!!!! do this instead if you restore this code
+--[[
+	while wand:GetFreeSlotsCount() < passives_to_spawn do
+		wand:RemoveSpellAtIndex(wand.capacity - passives_to_spawn - 1)
+	end
+]]--
+
 -- 	local preset_spell_count = 2
 -- 	if wand:GetFreeSlotsCount() < preset_spell_count then
 

@@ -30,6 +30,7 @@ return {
 			spawn_level = "10",
 			spawn_probability = "0",
 			spawn_requires_flag = "card_unlocked_hardmod_sea_mimic",
+			max_uses = 3,
 			action = function()
 				if reflecting then return end
 

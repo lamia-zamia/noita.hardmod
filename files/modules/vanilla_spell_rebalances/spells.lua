@@ -161,11 +161,12 @@ hooks.spell_patches = {
 	},
 	["DARKFLAME"] = {
 		sprite = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/gfx/ui_gfx/spells/darkflame_player.png",
-		max_uses = -1,
 		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/card_darkflame_player.xml",
+		max_uses = -1,
+		mana = 40,
 		action = function()
 			add_projectile("mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/darkflame_player.xml")
-			c.fire_rate_wait = c.fire_rate_wait + 20
+			c.fire_rate_wait = c.fire_rate_wait + 14
 		end,
 	},
 	["FLAMETHROWER"] = { -- damage is also changed in damage.lua
@@ -226,11 +227,13 @@ hooks.spell_patches = {
 		-- end,
 	},
 	["TORCH"] = {
+		description = "$hardmod_spell_torch_desc",
 		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/cards/card_torch.xml",
 	},
 	["TORCH_ELECTRIC"] = {
-		mana = -2,
+		description = "$hardmod_spell_torch_electric_desc",
 		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/cards/card_torch_electric.xml",
+		mana = -2,
 	},
 }
 

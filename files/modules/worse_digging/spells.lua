@@ -1,6 +1,7 @@
 return {
 	spell_patches = {
 		["MATTER_EATER"] = {
+			mana = 60,
 			max_uses = -1,
 			never_unlimited = false,
 		},

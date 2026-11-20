@@ -55,6 +55,14 @@ for file in nxml.edit_file("data/entities/projectiles/deck/buckshot_player.xml")
 	end
 end
 
+for file in nxml.edit_file("data/entities/projectiles/darkflame.xml") do
+	for comp in file:each_of("LuaComponent") do
+		if comp.attr.script_source_file == "data/scripts/projectiles/darkflame.lua" then
+			comp:set("execute_every_n_frame", 2)
+		end
+	end
+end
+
 local notes = {
 	"kantele/kantele_a", "kantele/kantele_d",
 	"kantele/kantele_dis", "kantele/kantele_e",
@@ -74,7 +82,18 @@ for _,note in pairs(notes) do
 	end
 end
 
-dofile_once("mods/noita.hardmod/files/modules/vanilla_spell_rebalances/damage.lua")
+-- PERSONALRUNTHROWER
+local personal_throwers = { "fireball_ray_enemy", "tentacle_ray_enemy", "lightning_ray_enemy" }
+
+for _,thrower in pairs(personal_throwers) do
+	for file in nxml.edit_file("data/entities/misc/"..thrower..".xml") do
+		local comp = file:first_of("LifetimeComponent")
+		if comp then
+			-- 20s
+			comp:set("lifetime", 1200)
+		end
+	end
+end
 
 utils.patchifile("data/scripts/gun/procedural/level_1_wand.lua", {
 	{ from = "BLACK_HOLE_BIG", to = "SLOW_BULLET" },
@@ -87,6 +106,8 @@ utils.patchifile("data/scripts/gun/procedural/level_1_wand.lua", {
 
 -- only one type of portal per run
 utils.modifile("data/scripts/magic/ocarina.lua", "ocarina_secret_00", "kantele_secret_00")
+
+dofile_once("mods/noita.hardmod/files/modules/vanilla_spell_rebalances/damage.lua")
 
 -- todo: custom musical curiosit(ies)?
 -- these for both kantele and ocarina:

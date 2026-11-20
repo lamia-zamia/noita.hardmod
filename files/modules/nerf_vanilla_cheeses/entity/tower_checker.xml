@@ -1,0 +1,7 @@
+<Entity>
+	<LuaComponent
+		script_source_file="mods/noita.hardmod/files/modules/nerf_vanilla_cheeses/scripts/tower_checker.lua"
+		execute_every_n_frame="30"
+		execute_times="-1"
+	></LuaComponent>
+</Entity>
