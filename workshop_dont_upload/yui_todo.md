@@ -4,9 +4,6 @@
 - finally get to making my quest
 - a couple funni spells that i had an idea for since long ago
 - figure out a way to improve shit spells like expanding sphere
-- path of dark flame
-  * remove 1f piercing
-  * convert most of proj dmg into fire dmg to make it less useful for s2p
 - reduce dmg from barriers, or add a proj count cap to s2p
 - give freezing charge the chainsaw treatment?
   * separate modifier that makes a projectile inflict "chilly" on enemies (slower attack and speed but not frozen)
@@ -16,5 +13,3 @@
 - i just wanted to write something but immediately forgor
 - oh right, i discovered a bug where wand experimenter doesnt work on pregenerated wands for some reason
 - also, apply its QoL (delay healing if full HP or wounded) to healthy exploration aswell
-- prevent tower cheesing further
-- make all diamond quests doable in a single world without peaceful reset
