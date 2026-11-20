@@ -13,4 +13,8 @@
   * original freezing appears much later
 - glittering field should not do 1f piercing
 - can i change all spells to not have 1f piercing in a good way, or do i have to hardcode the ones i wanna change?
-- [QoL] make wand experimenter not heal if the player is wounded or has full HP
+- i just wanted to write something but immediately forgor
+- oh right, i discovered a bug where wand experimenter doesnt work on pregenerated wands for some reason
+- also, apply its QoL (delay healing if full HP or wounded) to healthy exploration aswell
+- prevent tower cheesing further
+- make all diamond quests doable in a single world without peaceful reset
