@@ -372,7 +372,7 @@ hardmod_spell_big_shot_name,Big Shot,Большой выстрел,,,,,,,,,,,,
 hardmod_spell_big_shot_desc,"Adds +10% damage for each second since this spell's last use (max. +300%)","Добавляет 10% урона за каждую секунду с момента последнего использования (макс. +300%)",,,,,,,,,,,,
 hardmod_spell_notla_name,Notla,Нотла,,,,,,,,,,,,
 hardmod_spell_notla_desc,The duration of a projectile is halved,Время жизни снаряда уменьшено вдвое,,,,,,,,,,,,
-harmdod_spell_giga_chainsaw_name,"giga chainsaw\ngiga chainsaw\ng1ga chainsaw",RU_MISSING,,,,,,,,,,,NOTE - all lines in spell names get overlayed on top of each other; english translation has a fancy effect but feel free to not do that and just translate 'giga chainsaw'
+harmdod_spell_giga_chainsaw_name,"GIGA CHAINSAW",RU_MISSING,,,,,,,,,,,
 harmdod_spell_giga_chainsaw_desc,"An extremely good tool for cutting meat. It's overflowing with magic!",RU_MISSING,,,,,,,,,,,,
 hardmod_spell_echo_shot_name,Echo Bolt,Эхо-снаряд,,,,,,,,,,,,
 hardmod_spell_echo_shot_desc,Deals quadruple damage at the end of its range,"Наносит четырёхкратный урон на границе своей дальности",,,,,,,,,,,,
