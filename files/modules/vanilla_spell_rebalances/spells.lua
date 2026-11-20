@@ -100,16 +100,14 @@ hooks.spell_patches = {
 		end
 	},
 	["FREEZE_FIELD"] = {
-		mana = 75,
-		max_uses = 3,
-		never_unlimited = true,
+		mana = 50, max_uses = 5,
 		action = function()
 			apply_freeze()
 			add_projectile("data/entities/projectiles/deck/freeze_field.xml")
 			c.fire_rate_wait = c.fire_rate_wait + 15
 		end
 	},
-	["POLYMORPH_FIELD"] = { mana = 90, max_uses = 3, never_unlimited = true },
+	["POLYMORPH_FIELD"] = { mana = 75, max_uses = 5 }, --no need to nerf so hard imo, polymorph immunity exists -K
 	["ELECTROCUTION_FIELD"] = { mana = 50, max_uses = 10 },
 	["CHAOS_POLYMORPH_FIELD"] = { mana = 50 },
 	["AREA_DAMAGE"] = { mana = 60 },

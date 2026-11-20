@@ -32,6 +32,7 @@ local effect_items = {
 	["data/entities/items/pickup/brimstone.xml"] = func_toggle_item_gameeffects("PROTECTION_FIRE"),
 	["data/entities/items/pickup/waterstone.xml"] = func_toggle_item_gameeffects("BREATH_UNDERWATER"),
 	["data/entities/items/pickup/thunderstone.xml"] = func_toggle_item_gameeffects("PROTECTION_ELECTRICITY"),
+	["data/entities/items/pickup/wandstone.xml"] = func_toggle_item_gameeffects("EDIT_WANDS_EVERYWHERE"),
 	--["data/entities/items/pickup/stonestone.xml"] = {}, --no effect associated at present
 	["mods/noita.hardmod/files/modules/vanilla_perk_rebalances/entities/items/cheese.xml"] = func_toggle_item_gameeffects("PROTECTION_MELEE"),
 	["data/entities/items/pickup/sun/sunseed.xml"] = func_toggle_item_gameeffects("REMOVE_FOG_OF_WAR"),

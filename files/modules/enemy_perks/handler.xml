@@ -11,7 +11,7 @@
 
 	<LuaComponent
 		script_source_file="mods/noita.hardmod/files/modules/enemy_perks/handler.lua"
-		execute_every_n_frame="80"
+		execute_every_n_frame="130"
 	/>
 
 	<LuaComponent

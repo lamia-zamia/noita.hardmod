@@ -339,7 +339,7 @@ end
 ---@param distance number?
 ---@returns entity_id?
 function utils.GetPlayerEntity(x, y, distance)
-  local tags = {"player_unit", "polymorphed_player", "polymorphed_cessation"}
+	local tags = {"player_unit", "polymorphed_player", "polymorphed_cessation"}
 	for _,tag in pairs(tags) do
 		local player
 
@@ -354,7 +354,7 @@ function utils.GetPlayerEntity(x, y, distance)
 		end
 	end
 
-  return nil
+	return nil
 end
 
 ---Remaps a value between (a1,b1) to (a2,b2)
@@ -691,6 +691,28 @@ function utils.SpawnPerkCircle(perks, x, y, radius)
 	end
 
 	return perk_eids
+end
+
+
+utils.logging = false
+---useful logger than can be enabled/disabled at will
+---@param ... any all parameters are concatenated into one string
+function utils.log(...)
+	if utils.logging then
+		local t = {...}
+		for i,v in ipairs(t) do t[i] = tostring(v) end
+		print(table.concat(t))
+	end
+end
+
+---get distance between two points
+---@param x1 number
+---@param y1 number
+---@param x2 number
+---@param y2 number
+---@return number
+function utils.get_distance(x1, y1, x2, y2)
+	return ((x2-x1)^2 + (y2-y1)^2)^.5
 end
 
 return utils

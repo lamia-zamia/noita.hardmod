@@ -62,6 +62,6 @@
 		audio_physics_material_solid="gold"
 		show_in_creative_mode="1"
 	>
-		<Graphics color="ff76cc6b"></Graphics>
+		<Graphics color="ff76cc6b"/>
 	</CellDataChild>
 </Materials>

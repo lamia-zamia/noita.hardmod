@@ -78,12 +78,15 @@ function utilities.select_random_perk(t, data)
 		local id = entry.id
 		local max, min_level, max_level = entry.max, entry.min_level, entry.max_level
 
+		if data.is_boss and entry.not_boss then goto continue end
+		if data.is_shop_guardian and entry.not_shop_guardian then goto continue end
+		if data.how_many_of_each_perk[id] then entry.weight = entry.weight * 1.15^data.how_many_of_each_perk[id] end
 		local unique_slot = entry.unique_slot
 		if unique_slot then
 			local taken_by = data.unique_slots[unique_slot]
-			if taken_by ~= nil and taken_by ~= entry.id then goto continue end
+			if taken_by ~= nil and taken_by ~= id then goto continue end
 		end
-		if max and max <= (data.how_many_of_each_perk[entry.id] or 0) then goto continue end
+		if max and max <= (data.how_many_of_each_perk[id] or 0) then goto continue end
 		if (min_level and min_level > level) or (max_level and level > max_level) then goto continue end
 		if entry.condition and not entry:condition(data) then goto continue end
 		temp[#temp+1] = entry
