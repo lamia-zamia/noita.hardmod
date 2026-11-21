@@ -148,7 +148,7 @@ return {
 			id					= "HARDMOD_PARRY",
 			name				= "$hardmod_spell_parry_name",
 			description			= "$hardmod_spell_parry_desc",
-			sprite				= root.."gfx/ui_gfx/spells/parry.png",
+			sprite				= "mods/noita.hardmod/files/modules/trial_perks/gfx/ui_gfx/spells/parry.png",
 			related_projectiles	= { "mods/noita.hardmod/files/modules/trial_perks/entities/spells/parry.xml" },
 			type				= ACTION_TYPE_STATIC_PROJECTILE,
 			spawn_level			= "2,3,4", -- HEAL_BULLET
