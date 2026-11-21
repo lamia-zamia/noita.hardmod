@@ -180,8 +180,8 @@ return {
 			sprite = root.."gfx/ui_gfx/spells/giga_chainsaw.png",
 			related_projectiles = { root.."entities/spells/giga_chainsaw.xml" },
 			type = ACTION_TYPE_PROJECTILE,
-			spawn_level = "2,3,4",
-			spawn_probability = "0.3,0.5,0.5",
+			spawn_level	= "4,5,6",
+			spawn_probability = "0.4,0.4,0.5",
 			price = 130,
 			mana = 50,
 			action = function()
