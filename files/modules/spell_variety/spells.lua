@@ -144,6 +144,24 @@ return {
 			end,
 		},
 		{
+			id = "HARDMOD_SHIELD_BREAKER",
+			name = "$harmdod_spell_shield_breaker_name",
+			description = "$harmdod_spell_shield_breaker_desc",
+			sprite = root.."gfx/ui_gfx/spells/shield_breaker.png",
+			type = ACTION_TYPE_MODIFIER,
+			spawn_level = "2,3,4,5,6", -- CLIPPING_SHOT
+			spawn_probability = "0.2,0.3,0.6,0.4,0.6", -- CLIPPING_SHOT
+			price = 165,
+			mana = 40,
+			action = function()
+				c.fire_rate_wait = c.fire_rate_wait + 25
+				current_reload_time = current_reload_time + 20
+
+				c.extra_entities = c.extra_entities .. root.."entities/spells/shield_breaker.xml,"
+				draw_actions(1, true)
+			end
+		},
+		{
 			id					= "HARDMOD_PARRY",
 			name				= "$hardmod_spell_parry_name",
 			description			= "$hardmod_spell_parry_desc",
