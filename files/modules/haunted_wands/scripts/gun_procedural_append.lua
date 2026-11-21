@@ -1,118 +1,27 @@
 local EZWand = dofile_once("mods/noita.hardmod/lib/ezwand.lua")
 
-local desirable_spells = {
-	"TELEPORT_PROJECTILE_SHORT", -- mobility
-	"TELEPORT_PROJECTILE",
-	"HARDMOD_MINI_CHAINSAW", -- chainsaws
-	"CHAINSAW",
-	"MANA_REDUCE", -- stat enhancers
-	"RECHARGE",
-	"BLACK_HOLE", -- diggers
-	"MATTER_EATER",
-	"LIFETIME", -- lifetime
-	"LIFETIME_DOWN",
-	"NOLLA",
-	"HEAVY_SHOT", -- modifiers
-	"HARDMOD_BIG_SHOT",
-	"DAMAGE_FOREVER",
-	"SPELLS_TO_POWER",
-	"MONEY_MAGIC",
-	"LARPA_DOWNWARDS",
-	"HEAL_BULLET", -- healers
-	"ANTIHEAL",
-	"XRAY", -- utility
-	"BOMB_DETONATOR",
-	"ENERGY_SHIELD_SECTOR", -- passives
+local blacklisted_spells = {
+	HARDMOD_ALT_FIRE_ANYTHING = true,
+	RESET = true,
 }
-
--- local dangerous_spells = {
--- 	"DISC_BULLET_BIG",
--- 	"CRUMBLING_EARTH",
--- 	"MEGALASER",
--- 	"ROCKET",
--- 	"ROCKET_TIER_2",
--- 	"ROCKET_TIER_3",
--- 	"THUNDERBALL",
--- 	"DARKFLAME",
--- }
-
-local function split_string(inputstr, sep)
-	sep = sep or "%s"
-	local t= {}
-	for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
-		table.insert(t, str)
-	end
-	return t
-end
-
-local action_id_table = nil
-local function get_actions_lua_data(action_id)
-	if not actions then dofile_once("data/scripts/gun/gun_actions.lua") end
-	if not action_id_table then
-		action_id_table = {}
-		for _,action in pairs(actions) do
-			action_id_table[action.id] = action
-		end
-	end
-
-	return action_id_table[action_id]
-end
-
-local function does_player_have_spell(action_id)
-	local spells = EntityGetWithTag("card_action")
-	for _,spell in ipairs(spells) do
-		local ia_comp = EntityGetFirstComponentIncludingDisabled(spell, "ItemActionComponent")
-		if ia_comp then
-			local spell_id = ComponentGetValue2(ia_comp, "action_id")
-			if spell_id == action_id then
-				return true
-			end
-		end
-	end
-	return false
-end
-
-local function is_spell_appropriate_tier(action_id, level)
-	-- check if the level of the wand matches the levels of the spells
-	local correct_tier = true
-	local spell_data = get_actions_lua_data(action_id)
-	if spell_data then
-		local lowest_spawn_level = tonumber(split_string(spell_data.spawn_level, ',')[1])
-		return lowest_spawn_level > level
-	end
-
-	return false
-end
 
 local function generate_spells(wand, level)
 	wand:RemoveSpells()
 
-	if false then
-		-- add a random desirable spell
-		local candidates = {}
-		for _,action_id in ipairs(desirable_spells) do
-			if not does_player_have_spell(action_id)
-			and is_spell_appropriate_tier(action_id, level) then
-				table.insert(candidates, action_id)
-			end
-		end
-		if #candidates > 0 then
-			wand:AddSpells(candidates[Random(1, #candidates)])
-		end
-	end
-	if level > 6 and level < 10 then level = 6 end
-
-	-- fill up the rest of the wand with random spells
 	local x, y = EntityGetTransform(wand.entity_id)
-	local max_spell_count = (level * 3) + Random(-1, 1)
-	for i=1, math.min(wand.capacity, max_spell_count) do
-		local spell_to_add = GetRandomAction(x+i, y-i, level)
+	local spell_count = (level * 3) + Random(-1, 1)
+	spell_count = math.min(math.max(spell_count, 3), wand.capacity)
+
+	for i=1,spell_count do
+		local spell = nil
 		local j = 1
-		while spell_to_add == "HARDMOD_ALT_FIRE_ANYTHING" or spell_to_add == "RESET" do
-			spell_to_add = GetRandomAction(x+i+j, y+i+j, level)
+
+		while not spell or blacklisted_spells[spell] do
+			spell = GetRandomAction(x, y, level, i * 100 + j)
 			j = j + 1
 		end
-		wand:AddSpells(spell_to_add)
+
+		wand:AddSpells(spell)
 	end
 end
 
@@ -152,27 +61,27 @@ local function host_evil_ghost(wand, level)
 	EntityAddChild(wand_entity,
 		EntityLoad("mods/noita.hardmod/files/modules/haunted_wands/entities/evil_wand_particles.xml", x, y))
 
-	generate_spells(wand, level - 1)
-	-- custom spell generation toggle was moved to line 89
+	generate_spells(wand, math.max(level - 1, 0))
 end
 
 local _generate_gun = generate_gun
 function generate_gun(cost, level, force_unshuffle)
-	local wand_entity = GetUpdatedEntityID()
-	local x, y = EntityGetTransform(wand_entity)
+	local eid = GetUpdatedEntityID()
+	local x, y = EntityGetTransform(eid)
 
-	local possess_wand = false
-	biome_index = dofile_once("mods/noita.hardmod/lib/biome_index.lua")
-	local biome = biome_index[DebugBiomeMapGetFilename(x, y)]
-	SetRandomSeed(x-level, -y+level)
-	if biome ~= "holy_mountain" and Random(1, 20) == 10 then
-		level = level + 1
-		possess_wand = true
-	end
+	-- summoned in ./biome_scripts_append.lua
+	local evil_pedestal = EntityGetInRadiusWithTag(x, y, 5, "hardmod_evil_pedestal")[1]
+	if evil_pedestal then
+		EntityKill(evil_pedestal)
 
-	_generate_gun(cost, level, force_unshuffle)
-	wand = EZWand(wand_entity)
-	if wand.capacity >= 5 and possess_wand then
-		host_evil_ghost(wand, level)
+		level = math.min(level + 1, 6)
+		_generate_gun(cost, level, force_unshuffle)
+
+		local wand = EZWand(eid)
+		if wand.capacity >= 5 then
+			host_evil_ghost(wand, level)
+		end
+	else
+		_generate_gun(cost, level, force_unshuffle)
 	end
 end

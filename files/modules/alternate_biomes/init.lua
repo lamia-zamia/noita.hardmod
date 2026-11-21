@@ -1,6 +1,7 @@
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua")---@type nxml
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua")---@type utils
 local alt_biomes = dofile_once("mods/noita.hardmod/files/modules/alternate_biomes/biome_list.lua")
+local hooks = {}---@type hooks
 
 local dir = "mods/noita.hardmod/files/modules/alternate_biomes/"
 
@@ -85,7 +86,7 @@ local function add_player_scripts(player)
 	end
 end
 
-return {
-	player_spawned = add_player_scripts,
-	player_changed = add_player_scripts,
-}
+hooks.player_spawned = add_player_scripts
+hooks.player_changed = add_player_scripts
+
+return hooks

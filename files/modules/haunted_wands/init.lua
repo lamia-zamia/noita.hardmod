@@ -1,11 +1,12 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 
-local hooks = {}
+local hooks = {}---@type hooks
 
 hooks.mod_post_init = function()
 	ModLuaFileAppend("data/scripts/gun/procedural/gun_procedural.lua", "mods/noita.hardmod/files/modules/haunted_wands/scripts/gun_procedural_append.lua")
 	ModLuaFileAppend("data/scripts/gun/procedural/gun_procedural_better.lua", "mods/noita.hardmod/files/modules/haunted_wands/scripts/gun_procedural_append.lua")
+	ModLuaFileAppend("data/scripts/biome_scripts.lua", "mods/noita.hardmod/files/modules/haunted_wands/scripts/biome_scripts_append.lua")
 end
 
 -- remove green pickup particles from haunted wands

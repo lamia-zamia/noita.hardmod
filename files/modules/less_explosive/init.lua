@@ -1,10 +1,7 @@
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
+local hooks = {}---@type hooks
 
-local module = {
-
-}
-
-module.edit_material = function(material)
+hooks.edit_material = function(material)
     if material.attr.name == "oil" then
         -- material.attr.burnable = "0" -- oil is really not that flammable, sorry arson enjoyers
 		material.attr.tags = "[liquid],[impure],[liquid_common],[chaotic_transmutation],[evaporable_custom]"
@@ -52,4 +49,4 @@ for _, file in ipairs(explosives)do
 	end
 end
 
-return module
+return hooks

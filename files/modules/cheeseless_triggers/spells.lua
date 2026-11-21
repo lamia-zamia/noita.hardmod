@@ -1,4 +1,4 @@
-local hooks = {}
+local hooks = {}---@type spell_hooks
 
 local ADD_CARD_IDS = { ADD_TRIGGER = true, ADD_TIMER = true, ADD_DEATH_TRIGGER = true }
 

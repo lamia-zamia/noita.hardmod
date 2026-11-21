@@ -1,4 +1,4 @@
-local hooks = {}
+local hooks = {}---@type hooks
 
 hooks.mod_post_init = function()
 	ModLuaFileAppend("data/scripts/gun/gun.lua", "mods/noita.hardmod/files/modules/alt_fire_anything/scripts/gun_append.lua")

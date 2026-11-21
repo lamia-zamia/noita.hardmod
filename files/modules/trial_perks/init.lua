@@ -1,4 +1,4 @@
-local hooks = {}
+local hooks = {}---@type hooks
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 
 hooks.mod_post_init = function()

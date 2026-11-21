@@ -242,28 +242,35 @@ local function update(paused)
 	menu_tracker.draw(gui, screen_width, screen_height)
 end
 
-return {
-	-- Runs unpaused too, so GuiStartFrame clears the splash left over from the last paused frame.
-	pre_update = function()
-		death_tracker.update()
-		update(false)
-	end,
-	pause_pre_update = function()
-		-- Pausing after death has to clear the death splash even when the tracker wants no redraw.
-		if menu_tracker.pause_pre_update() or death_tracker.player_died then update(true) end
-	end,
-	pause_changed = function(is_paused, is_inventory_pause)
-		death_tracker.pause_changed(is_paused, is_inventory_pause)
-		menu_tracker.pause_changed(is_paused, is_inventory_pause)
-	end,
-	player_destroyed = death_tracker.player_destroyed,
-	count_secrets = function(total, found)
-		-- With the pause menu closed, Progress can only have been opened from the death screen.
-		if death_tracker.player_died and menu_tracker.menu_state == "closed" then
-			death_tracker.count_secrets()
-		else
-			menu_tracker.count_secrets()
-		end
-		return total, found
-	end,
-}
+local hooks = {}---@type hooks
+
+hooks.player_destroyed = death_tracker.player_destroyed
+
+-- Runs unpaused too, so GuiStartFrame clears the splash left over from the last paused frame.
+function hooks.pre_update()
+	death_tracker.update()
+	update(false)
+end
+
+function hooks.pause_pre_update()
+	-- Pausing after death has to clear the death splash even when the tracker wants no redraw.
+	if menu_tracker.pause_pre_update() or death_tracker.player_died then update(true) end
+end
+
+function hooks.pause_changed(is_paused, is_inventory_pause)
+	death_tracker.pause_changed(is_paused, is_inventory_pause)
+	menu_tracker.pause_changed(is_paused, is_inventory_pause)
+end
+
+function hooks.count_secrets(total, found)
+	-- With the pause menu closed, Progress can only have been opened from the death screen.
+	if death_tracker.player_died and menu_tracker.menu_state == "closed" then
+		death_tracker.count_secrets()
+	else
+		menu_tracker.count_secrets()
+	end
+
+	return total, found
+end
+
+return hooks

@@ -1,5 +1,5 @@
 local utils = dofile_once( "mods/noita.hardmod/lib/utilities.lua" ) ---@type utils
-local hooks = {}
+local hooks = {}---@type hooks
 
 -- Note: Part of cheeseless_triggers is handled in core/gun.lua
 

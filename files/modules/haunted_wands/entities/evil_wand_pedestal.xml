@@ -1,0 +1,3 @@
+<Entity tags="hardmod_evil_pedestal">
+	<LifetimeComponent lifetime="2"></LifetimeComponent>
+</Entity>

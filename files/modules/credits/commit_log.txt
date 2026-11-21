@@ -869,3 +869,11 @@ more knockback more oomph!!
 add Gem Collector eperk
 classic
 fix Gem Collector not always spawning gems
+pedestal_wand tag for wand pedestals
+changes to haunted wands
+restore the old chance
+make Tinker at Wand Pedestals use the new pedestal_wand tag
+spawn the inhibitor spell when you pick up a perk that adds shot effects, also change its desc
+Add types for spells.lua and perks.lua
+add ---@type hooks to all modules that were missing it
+babe wake up new splash text dropped

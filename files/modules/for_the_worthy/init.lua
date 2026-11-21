@@ -1,4 +1,4 @@
-local hooks = {}
+local hooks = {}---@type hooks
 local root = "mods/noita.hardmod/files/modules/for_the_worthy/"
 
 dofile_once(root.."shared.lua")
