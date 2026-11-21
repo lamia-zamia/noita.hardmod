@@ -1,3 +1,5 @@
+local hooks = {}---@type spell_hooks
+
 local ADD_CARD_IDS = { ADD_TRIGGER = true, ADD_TIMER = true, ADD_DEATH_TRIGGER = true }
 
 local is_card_stepped_over = { ACTION_TYPE_MODIFIER = true, ACTION_TYPE_PASSIVE = true, ACTION_TYPE_OTHER = true, ACTION_TYPE_DRAW_MANY = true }
@@ -70,18 +72,18 @@ local function pay_add_card_costs()
 	return true
 end
 
-return {
-	edit_spell = function(card)
-		if ADD_CARD_IDS[card.id] then
-			local run_card = card.action
-			card.action = function()
-				if not pay_add_card_costs() then
-					OnNotEnoughManaForAction()
-					return
-				end
-
-				run_card()
+function hooks.edit_spell(card)
+	if ADD_CARD_IDS[card.id] then
+		local run_card = card.action
+		card.action = function(...)
+			if not pay_add_card_costs() then
+				OnNotEnoughManaForAction()
+				return
 			end
+
+			run_card(...)
 		end
 	end
-}
+end
+
+return hooks

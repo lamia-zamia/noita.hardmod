@@ -1,4 +1,4 @@
-local hooks = {}
+local hooks = {}---@type spell_hooks
 
 local mana_reducing_spells = { "MANA_REDUCE", "HARDMOD_MANA_REDUCE", "APOTHEOSIS_WATER_POWER" }
 

@@ -1,11 +1,10 @@
-<Entity tags="glue_NOT,polymorphable_NOT">	
-
+<Entity tags="glue_NOT,polymorphable_NOT,teleportable_NOT,no_enemy_perks">
 	<Base file="data/entities/base_apparition.xml">
 		<DamageModelComponent
 			hp="10"
 			max_hp="50"
 		></DamageModelComponent>
-		
+
 		<CameraBoundComponent
 			_enabled="0"
 			max_count="30"
@@ -15,15 +14,15 @@
 		<GenomeDataComponent 
 			herd_id="ghost"
 			food_chain_rank="7"
-			is_predator="1" >
-		</GenomeDataComponent>
+			is_predator="1"
+		></GenomeDataComponent>
 	</Base>
-	
+
 	<!-- <LuaComponent 
 		_enabled="1"
 		remove_after_executed="1"
-		script_source_file="mods/D2DContentPack/files/scripts/animals/staff_guardian_spawn_finality.lua" >
-	</LuaComponent> -->
+		script_source_file="mods/D2DContentPack/files/scripts/animals/staff_guardian_spawn_finality.lua"
+	></LuaComponent> -->
 
 	<LuaComponent
 		script_kick="mods/noita.hardmod/files/modules/haunted_wands/scripts/evil_wand_ghost_on_kicked.lua"
@@ -40,41 +39,30 @@
 		execute_every_n_frame="-1"
 	></LuaComponent>
 
-    <MusicEnergyAffectorComponent
-    	energy_target="0.5">
-    </MusicEnergyAffectorComponent>
+	<MusicEnergyAffectorComponent energy_target="0.5"></MusicEnergyAffectorComponent>
 
 	<AudioLoopComponent
 		file="data/audio/Desktop/animals.bank"
 		event_name="animals/ghost/movement_loop"
 		set_speed_parameter="1"
-		auto_play="1">
-	</AudioLoopComponent>
+		auto_play="1"
+	></AudioLoopComponent>
 
 	<CellEaterComponent
 		_enabled="1"
 		eat_probability="8"
-		radius="20" >
-	</CellEaterComponent>
-	
+		radius="20"
+	></CellEaterComponent>
+
 	<Entity>
-		<InheritTransformComponent />
-		
-	    <GameEffectComponent 
-	        effect="PROTECTION_FREEZE"
-	        frames="-1"
-	    ></GameEffectComponent >
-		
-	    <GameEffectComponent 
-	        effect="KNOCKBACK_IMMUNITY"
-	        frames="-1"
-	    ></GameEffectComponent >
+		<InheritTransformComponent/>
 
-	    <GameEffectComponent
+		<GameEffectComponent effect="PROTECTION_FREEZE" frames="-1"></GameEffectComponent>
+		<GameEffectComponent effect="KNOCKBACK_IMMUNITY" frames="-1"></GameEffectComponent>
+		<GameEffectComponent
 			_tags="effect_protection_all"
-	        effect="PROTECTION_ALL"
-	        frames="240"
-	    ></GameEffectComponent >
+			effect="PROTECTION_ALL"
+			frames="240"
+		></GameEffectComponent>
 	</Entity>
-
 </Entity>

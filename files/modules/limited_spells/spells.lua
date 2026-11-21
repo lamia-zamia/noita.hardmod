@@ -92,7 +92,7 @@ local function run_greek_all(list, recursion_level, spell_type, no_recursion, bl
 	end
 end
 
-local hooks = {}
+local hooks = {}---@type spell_hooks
 
 hooks.new_spells = {
 	{
