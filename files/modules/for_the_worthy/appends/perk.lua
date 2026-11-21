@@ -11,7 +11,7 @@ local hell_perk_remap = {
 
 local hell_remove_perks = {
 	HARDMOD_TINKER_AT_PEDESTALS = true,
-	HARDMOD_PERK_SPELL_GEMS = true,
+	HARDMOD_SPELL_GEMS = true,
 	HARDMOD_ITEM_IMMUNITIES = true,
 	IRON_STOMACH = true,
 	HUNGRY_GHOST = true,
