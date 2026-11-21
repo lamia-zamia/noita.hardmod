@@ -821,6 +821,22 @@ enemy_perks = {
 		end
 	},
 	{
+		id = "SPELL_GEMS",
+		name = "$hardmod_eperk_spell_gems_name",
+		description = "$hardmod_eperk_spell_gems_desc",
+		weight = 4000,
+		priority = 14,
+		max = 1,
+		max_level = 8,
+		condition = spawn_on_death_blacklist,
+		func = function(self, entity_id, data)
+			EntityAddComponent2(entity_id, "LuaComponent", {
+				script_death = dir.."scripts/spell_gems_on_death.lua",
+				execute_every_n_frame = -1,
+			})
+		end
+	},
+	{
 		id = "KAMIKAZE",
 		name = "$hardmod_eperk_kamikaze_name",
 		description = "$hardmod_eperk_kamikaze_desc",
