@@ -1,0 +1,19 @@
+<Entity name="hardmod.stinky_aura" tags="stinky_aura_effect">
+	<InheritTransformComponent/>
+
+	<GameEffectComponent
+		effect="FOOD_POISONING"
+		frames="300"
+	></GameEffectComponent>
+
+	<LifetimeComponent
+		lifetime="300"
+	></LifetimeComponent>
+
+	<UIIconComponent
+		icon_sprite_file="data/ui_gfx/status_indicators/food_poisoning.png"
+		name="$status_food_poisoning"
+		description="$statusdesc_food_poisoning"
+		display_above_head="1"
+	/>
+</Entity>

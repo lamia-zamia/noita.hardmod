@@ -63,6 +63,12 @@ for file in nxml.edit_file("data/entities/projectiles/darkflame.xml") do
 	end
 end
 
+for file in nxml.edit_file("data/entities/projectiles/deck/arrow.xml") do
+	for comp in file:each_of("ProjectileComponent") do
+		comp:set("friendly_fire", false)
+	end
+end
+
 local notes = {
 	"kantele/kantele_a", "kantele/kantele_d",
 	"kantele/kantele_dis", "kantele/kantele_e",
