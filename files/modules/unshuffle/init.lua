@@ -1,5 +1,6 @@
 -- local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua")---@type nxml
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua")---@type utils
+local hooks = {}---@type hooks
 
 utils.patchifile("data/scripts/gun/procedural/level_1_wand.lua", {
 	{
@@ -21,8 +22,8 @@ utils.patchifile("data/scripts/gun/procedural/level_1_wand.lua", {
 	}
 })
 
-return {
-	world_init = function()
-		GlobalsSetValue("PERK_NO_MORE_SHUFFLE_WANDS", "1")
-	end
-}
+function hooks.world_init()
+	GlobalsSetValue("PERK_NO_MORE_SHUFFLE_WANDS", "1")
+end
+
+return hooks

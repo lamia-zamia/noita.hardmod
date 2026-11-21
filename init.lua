@@ -175,7 +175,7 @@ ModTextFileSetContent("data/translations/common.csv", translations)
 local biome_idx, biome_idx_rev
 ---@return biome_path_to_simple_id, exact_id_to_biome_path
 function HARDMOD_GLOBAL_DATA.get_biome_index()
-	if not biome_index then
+	if not biome_idx or not biome_idx_rev then
 		biome_idx, biome_idx_rev = dofile_once("mods/noita.hardmod/lib/biome_index.lua")
 	end
 

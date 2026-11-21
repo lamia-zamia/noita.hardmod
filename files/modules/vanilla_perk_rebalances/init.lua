@@ -1,4 +1,4 @@
-local hooks = {}
+local hooks = {}---@type hooks
 local dir = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/"
 
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml

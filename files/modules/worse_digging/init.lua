@@ -1,7 +1,7 @@
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 local deck = "data/entities/projectiles/deck/"
 
-local hooks = {}
+local hooks = {}---@type hooks
 
 -- matter eaten't
 local matter_eatent_list = {
@@ -23,7 +23,7 @@ function hooks.edit_material(mat)
 		mat.attr.tags = tags .. "[matter_eater_ignore_list]"
 	end
 	if durability_override[name] then
-		mat.attr.durability = durability_override[name]
+		mat:set("durability", durability_override[name])
 	end
 end
 

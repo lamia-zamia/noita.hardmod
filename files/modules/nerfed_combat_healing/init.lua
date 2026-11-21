@@ -1,4 +1,4 @@
-local hooks = {}
+local hooks = {}---@type hooks
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 local dir = "mods/noita.hardmod/files/modules/nerfed_combat_healing/"
 

@@ -1,4 +1,4 @@
-local hooks = {}
+local hooks = {}---@type hooks
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 
 MinibossCreator = dofile_once("mods/noita.hardmod/files/modules/phantom_nemesis/files/scripts/miniboss_creator.lua")

@@ -1,7 +1,7 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 
-local hooks = {}
+local hooks = {}---@type hooks
 
 hooks.mod_post_init = function()
 	ModLuaFileAppend("data/scripts/gun/procedural/gun_procedural.lua", "mods/noita.hardmod/files/modules/haunted_wands/scripts/gun_procedural_append.lua")

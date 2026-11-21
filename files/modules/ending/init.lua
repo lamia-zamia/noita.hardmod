@@ -1,5 +1,6 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua")---@type utils
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
+local hooks = {}---@type hooks
 
 for file in nxml.edit_file("data/entities/animals/boss_centipede/sampo.xml") do
 	local item = file:first_of("ItemComponent")
@@ -82,10 +83,10 @@ if HasFlagPersistent("hardmod_hell_completed") then
 	reddify_wands()
 end
 
-return {
-	player_spawned = function(player, new_run)
-		if new_run and not ModSettingGet("noita.hardmod.for_the_worthy.disabled") then
-			dofile_once("mods/noita.hardmod/files/modules/for_the_worthy/scripts/spawn_perk.lua")
-		end
+function hooks.player_spawned(player, new_run)
+	if new_run and not ModSettingGet("noita.hardmod.for_the_worthy.disabled") then
+		dofile_once("mods/noita.hardmod/files/modules/for_the_worthy/scripts/spawn_perk.lua")
 	end
-}
+end
+
+return hooks
