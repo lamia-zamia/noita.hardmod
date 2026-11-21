@@ -5,7 +5,7 @@ local dir = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/"
 
 hooks.new_perks = {
 	{
-		id = "HARDMOD_PERK_SPELL_GEMS",
+		id = "HARDMOD_SPELL_GEMS",
 		ui_name = "$hardmod_perk_spell_gems_name",
 		ui_description = "$hardmod_perk_spell_gems_desc",
 		ui_icon = dir.."ui_gfx/perks/spell_gems_016.png",
@@ -13,8 +13,8 @@ hooks.new_perks = {
 		stackable = false,
 		one_off_effect = false,
 		usable_by_enemies = false,
-		func = function(entity_perk_item, entity_who_picked, item_name, stacks)
-			if stacks > 0 then return end
+		func = function(entity_perk_item, entity_who_picked, item_name, pickup_count)
+			if pickup_count > 1 then return end
 			EntityAddChild(entity_who_picked, EntityLoad(dir.."entities/perks/spell_gems.xml"))
 		end
 	},
@@ -160,30 +160,30 @@ hooks.new_perks = {
 			EntityAddChild(entity, effect)
 		end
 	},
-	{
-		id = "HARDMOD_EMERGENCY_RECALL",
-		ui_name = "$hardmod_perk_emergency_recall_name",
-		ui_description = "$hardmod_perk_emergency_recall_desc",
-		ui_icon = dir.."ui_gfx/perks/teleportitis_016.png",
-		perk_icon = dir.."ui_gfx/perks/teleportitis.png",
-		stackable = false,
-		usable_by_enemies = false,
-		func = function(entity_perk_item, entity_who_picked, item_name)
-			EntityAddComponent2(entity_who_picked, "LuaComponent", {
-				_tags = "perk_component,hardmod_teleportitis",
-				script_source_file = dir.."scripts/perks/teleportitis_update.lua",
-				execute_every_n_frame = 1,
-			})
-			EntityAddComponent2(entity_who_picked, "LuaComponent", {
-				_tags = "perk_component,hardmod_teleportitis",
-				script_damage_received = dir.."scripts/perks/teleportitis_on_damage.lua",
-				execute_every_n_frame = -1,
-			})
-		end,
-		func_remove = function(entity_who_picked)
-			utils.EntityRemoveAllByTag(entity_who_picked, "hardmod_teleportitis")
-		end,
-	},
+	-- {
+	-- 	id = "HARDMOD_EMERGENCY_RECALL",
+	-- 	ui_name = "$hardmod_perk_emergency_recall_name",
+	-- 	ui_description = "$hardmod_perk_emergency_recall_desc",
+	-- 	ui_icon = dir.."ui_gfx/perks/teleportitis_016.png",
+	-- 	perk_icon = dir.."ui_gfx/perks/teleportitis.png",
+	-- 	stackable = false,
+	-- 	usable_by_enemies = false,
+	-- 	func = function(entity_perk_item, entity_who_picked, item_name)
+	-- 		EntityAddComponent2(entity_who_picked, "LuaComponent", {
+	-- 			_tags = "perk_component,hardmod_teleportitis",
+	-- 			script_source_file = dir.."scripts/perks/teleportitis_update.lua",
+	-- 			execute_every_n_frame = 1,
+	-- 		})
+	-- 		EntityAddComponent2(entity_who_picked, "LuaComponent", {
+	-- 			_tags = "perk_component,hardmod_teleportitis",
+	-- 			script_damage_received = dir.."scripts/perks/teleportitis_on_damage.lua",
+	-- 			execute_every_n_frame = -1,
+	-- 		})
+	-- 	end,
+	-- 	func_remove = function(entity_who_picked)
+	-- 		utils.EntityRemoveAllByTag(entity_who_picked, "hardmod_teleportitis")
+	-- 	end,
+	-- },
 	{
 		id = "HARDMOD_GOLD_IS_DUST",
 		ui_name = "$hardmod_gold_is_dust_perkname",
