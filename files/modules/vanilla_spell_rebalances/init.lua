@@ -101,6 +101,51 @@ for _,thrower in pairs(personal_throwers) do
 	end
 end
 
+
+local torches = {
+	{
+		path = "data/entities/misc/custom_cards/torch.xml",
+		image = "data/particles/torch_fog_of_war_hole.xml",
+		size = 2.5,
+	},
+	{
+		path = "data/entities/misc/custom_cards/torch_electric.xml",
+		image = "data/particles/torch_electric_fog_of_war_hole.xml",
+		size = 3,
+	},
+}
+local torch_fow_template = nxml.new_element("SpriteComponent", {
+	_tags="enabled_in_hand,sound_pick_gold_sand",
+	alpha="1",
+	smooth_filtering="1",
+	fog_of_war_hole="1",
+	has_special_scale="1",
+})
+local torch_update_luacomp = nxml.new_element("LuaComponent", {
+	_tags="enabled_in_hand",
+	script_source_file="mods/noita.hardmod/files/modules/vanilla_spell_rebalances/scripts/torch_update.lua",
+})
+local spell_offset_luacomp = nxml.new_element("LuaComponent", {
+	_tags="enabled_in_hand",
+	script_enabled_changed="mods/noita.hardmod/files/modules/vanilla_spell_rebalances/scripts/set_spell_effect_offset.lua",
+	execute_every_n_frame="-1",
+})
+local inherit_transform_comp = nxml.new_element("InheritTransformComponent", {_tags="enabled_in_hand"})
+for _,torch in ipairs(torches) do
+	for xml in nxml.edit_file(torch.path) do
+		local torch_fow_hole = torch_fow_template
+		torch_fow_hole.attr.image_file = torch.image
+		torch_fow_hole.attr.special_scale_x = tostring(torch.size)
+		torch_fow_hole.attr.special_scale_y = tostring(torch.size)
+		xml:add_child(nxml.new_element("Entity", {name = "hardmod.torch_spotlight", tags="enabled_in_hand"}, {
+			inherit_transform_comp,
+			torch_fow_hole,
+			torch_update_luacomp,
+		}))
+		xml:add_child(spell_offset_luacomp)
+	end
+end
+
 utils.patchifile("data/scripts/gun/procedural/level_1_wand.lua", {
 	{ from = "BLACK_HOLE_BIG", to = "SLOW_BULLET" },
 	{ from = "BLACK_HOLE", to = "SLOW_BULLET" },

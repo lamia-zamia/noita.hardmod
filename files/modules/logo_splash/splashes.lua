@@ -133,6 +133,7 @@ local splashes = {
 	"It's MISTER Squidward to you",
 	"It's MISS Master of Masters to you",
 	"It's a lovely morning in the mines, and you are a horrible witch",
+	"Grand Theft Sampo",
 	"Ira's Ultra Radical Coolio Slick Groovenator 9000",
 }
 
