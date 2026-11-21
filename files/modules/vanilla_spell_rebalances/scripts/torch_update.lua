@@ -1,17 +1,15 @@
-local entity = GetUpdatedEntityID()
-local parent = EntityGetRootEntity(entity)
+local entity_id = GetUpdatedEntityID()
+local owner = EntityGetRootEntity(entity_id)
 
-if parent == nil then return end
+if owner == nil then return end
 
-local x, y = EntityGetTransform(parent)
-local controls_comp = EntityGetFirstComponent(parent, "ControlsComponent")
+local x, y = EntityGetTransform(owner)
+local controls_comp = EntityGetFirstComponent(owner, "ControlsComponent")
 if controls_comp then x, y = ComponentGetValue2(controls_comp, "mMousePosition") end
 
-if entity then
-	EntitySetTransform(entity, x, y)
-end
+EntitySetTransform(entity_id, x, y)
 
-local spr_comp = EntityGetFirstComponentIncludingDisabled(entity, "SpriteComponent")
+local spr_comp = EntityGetFirstComponentIncludingDisabled(entity_id, "SpriteComponent", "sound_pick_gold_sand")
 if not spr_comp then return end
 
 local buffer = 15
