@@ -1,34 +1,36 @@
-return {
-	new_spells = {
-		{
-			id					= "HARDMOD_BLINK",
-			name				= "$hardmod_spell_blink_name",
-			description			= "$hardmod_spell_blink_desc",
-			sprite				= "mods/noita.hardmod/files/modules/trial_perks/gfx/ui_gfx/spells/blink.png",
-			type				= ACTION_TYPE_UTILITY,
-			spawn_probability 	= "0",
-			spawn_requires_flag = "hardmod_impossible_spawn",
-			price				= 400,
-			mana				= 200,
-			max_uses			= 10,
-			indulgence_price    = 1000,
-			never_unlimited		= true,
-			action = function()
-				c.fire_rate_wait = c.fire_rate_wait + 60
-				if reflecting then return end
+local hooks = {}---@type spell_hooks
 
-				local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua")
-				local prev_cast_frame = utils.GetInternalInt(GetUpdatedEntityID(), "hardmod_blink_prev_cast_frame") or 0
-				local current_frame = GameGetFrameNum()
-				if current_frame - prev_cast_frame > 30 then
-					add_projectile("mods/noita.hardmod/files/modules/trial_perks/entities/spells/blink.xml")
-					utils.SetInternalInt(GetUpdatedEntityID(), "hardmod_blink_prev_cast_frame", current_frame)
-				else
-					local x, y = EntityGetTransform(GetUpdatedEntityID())
-                    GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
-                    add_projectile("data/entities/projectiles/deck/fizzle.xml")
-				end
-			end,
-		},
-	}
+hooks.new_spells = {
+	{
+		id					= "HARDMOD_BLINK",
+		name				= "$hardmod_spell_blink_name",
+		description			= "$hardmod_spell_blink_desc",
+		sprite				= "mods/noita.hardmod/files/modules/trial_perks/gfx/ui_gfx/spells/blink.png",
+		type				= ACTION_TYPE_UTILITY,
+		spawn_probability 	= "0",
+		spawn_requires_flag = "hardmod_impossible_spawn",
+		price				= 400,
+		mana				= 200,
+		max_uses			= 10,
+		indulgence_price    = 1000,
+		never_unlimited		= true,
+		action = function()
+			c.fire_rate_wait = c.fire_rate_wait + 60
+			if reflecting then return end
+
+			local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua")
+			local prev_cast_frame = utils.GetInternalInt(GetUpdatedEntityID(), "hardmod_blink_prev_cast_frame") or 0
+			local current_frame = GameGetFrameNum()
+			if current_frame - prev_cast_frame > 30 then
+				add_projectile("mods/noita.hardmod/files/modules/trial_perks/entities/spells/blink.xml")
+				utils.SetInternalInt(GetUpdatedEntityID(), "hardmod_blink_prev_cast_frame", current_frame)
+			else
+				local x, y = EntityGetTransform(GetUpdatedEntityID())
+				GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
+				add_projectile("data/entities/projectiles/deck/fizzle.xml")
+			end
+		end,
+	},
 }
+
+return hooks

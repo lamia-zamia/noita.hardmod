@@ -339,7 +339,7 @@ hooks.perk_patches = {
 			if always_casts >= max_allowed_always_casts then
 				GamePrintImportant("$hardmod_promote_ac_fail", "$hardmod_promote_ac_fail_capped")
 				GamePlaySound("data/audio/Desktop/event_cues.bank", "event_cues/chest_bad/create", x, y)
-				return false
+				return
 			end
 
 			local unique_inv_spells = {}

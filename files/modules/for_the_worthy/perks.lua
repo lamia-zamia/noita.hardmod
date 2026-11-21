@@ -1,5 +1,5 @@
 local root = "mods/noita.hardmod/files/modules/for_the_worthy/"
-local hooks = {}
+local hooks = {}---@type perk_hooks
 
 dofile_once(root.."shared.lua")
 

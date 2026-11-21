@@ -15,7 +15,7 @@ local function apply_freeze()
 	end
 end
 
-local hooks = {}
+local hooks = {}---@type spell_hooks
 
 hooks.new_spells = {
 	{

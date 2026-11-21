@@ -27,6 +27,13 @@
 ---@field max_uses integer?
 ---@field never_unlimited boolean?
 ---@field custom_xml_file string?
+---@field action fun(recursion_level: integer, iteration: integer)
+
+---@class PartialGunAction:GunAction Partial GunAction for patches
+---@field id string?
+---@field name string?
+---@field sprite string?
+---@field type integer?
 ---@field action fun(recursion_level: integer, iteration: integer)?
 
 ---@type GunAction[]
@@ -178,8 +185,15 @@ move_discarded_to_deck = nil
 ---@field not_in_default_perk_pool boolean?
 ---@field not_progress boolean? Hardmod's custom field, hides the perk from the progress menu
 ---@field holy_mountain_exclusive boolean? Hardmod's custom field
----@field func fun(perk_entity: entity_id, picked_by_entity: entity_id, item_name: string)?
+---@field func fun(perk_entity: entity_id, picked_by_entity: entity_id, item_name: string, pickup_count: integer)?
 ---@field func_remove fun(picked_by_entity: entity_id)?
+
+---@class PartialPerk:Perk Partial Perk for patches
+---@field id string?
+---@field ui_name string?
+---@field ui_description string?
+---@field ui_icon string?
+---@field perk_icon string?
 
 ---@type Perk[]
 perk_list = {}
