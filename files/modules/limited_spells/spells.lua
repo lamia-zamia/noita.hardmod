@@ -349,8 +349,33 @@ hooks.spell_patches = {
 	["GRENADE"] = { max_uses = 30 },
 	["GRENADE_TRIGGER"] = { max_uses = 30 },
 	["GRENADE_ANTI"] = { max_uses = 30 },
-	["ROCKET_TIER_2"] = { max_uses = 10 },
-	["ROCKET_TIER_3"] = { max_uses = -1 },
+	["ROCKET"] = {
+		max_uses = 10,
+		action = function()
+			add_projectile("data/entities/projectiles/deck/rocket.xml")
+			c.fire_rate_wait = c.fire_rate_wait + 60
+			c.ragdoll_fx = 2
+			shot_effects.recoil_knockback = 240.0 -- more knockback more oomph!!
+		end,
+	},
+	["ROCKET_TIER_2"] = {
+		max_uses = 10,
+		action = function()
+			add_projectile("data/entities/projectiles/deck/rocket_tier_2.xml")
+			c.fire_rate_wait = c.fire_rate_wait + 90
+			c.ragdoll_fx = 2
+			shot_effects.recoil_knockback = 360.0 -- more knockback more oomph!!
+		end,
+	},
+	["ROCKET_TIER_3"] = {
+		max_uses = 10,
+		action = function()
+			add_projectile("data/entities/projectiles/deck/rocket_tier_3.xml")
+			c.fire_rate_wait = c.fire_rate_wait + 120
+			c.ragdoll_fx = 2
+			shot_effects.recoil_knockback = 420.0 -- more knockback more oomph!!
+		end,
+	},
 
 	["FISH"] = { max_uses = 10 },
 	["EXPLODING_DEER"] = { max_uses = 5 },
