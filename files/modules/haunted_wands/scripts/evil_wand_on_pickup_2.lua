@@ -18,9 +18,6 @@ EntitySetComponentsWithTagEnabled(wand_entity, "enabled_in_world", true)
 
 local icomp = EntityGetFirstComponentIncludingDisabled(wand_entity, "ItemComponent")
 if icomp and EntityHasTag(wand_entity, "wand") then
-	local slot_x, slot_y = ComponentGetValue2(icomp, "inventory_slot")
-
-	ComponentSetValue2(icomp, "inventory_slot", 3 - slot_x, slot_y)
 	ComponentSetValue2(item_comp, "has_been_picked_by_player", false)
 end
 -- until here

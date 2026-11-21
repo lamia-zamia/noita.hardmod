@@ -34,7 +34,7 @@ local evil_level = (year * 31469 + month * 929 + day * 541) % 100 + 1
 local months = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
 
 -- stylua: ignore start
-local lines_of_code = "28,598"---Updated by `scripts/build.js`, do not edit or format
+local lines_of_code = "28,480"---Updated by `scripts/build.js`, do not edit or format
 -- stylua: ignore end
 
 ---@type (splash_entry | string)[]
@@ -134,6 +134,7 @@ local splashes = {
 	"It's MISS Master of Masters to you",
 	"It's a lovely morning in the mines, and you are a horrible witch",
 	"Grand Theft Sampo",
+	"Ira's Ultra Radical Coolio Slick Groovenator 9000",
 }
 
 local function add_splashes(tbl, fmt)

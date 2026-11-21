@@ -1,7 +1,7 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 local img = dofile_once("mods/noita.hardmod/lib/image_utils.lua")
 
-local hooks = {} ---@hooks
+local hooks = {}---@type hooks
 local dir = "mods/noita.hardmod/files/modules/holy_mountain_rework/"
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 
@@ -111,7 +111,7 @@ hooks.edit_material = function(elem)
 			elem.attr.tags = tags..",[worms_lukki_ignore]"
 		end
 	elseif elem.attr.name == "templebrick_static_soft" then
-		elem.attr.durability = 9 --weaken the HM false-walls to be more breakable by starter-bomb spells
+		elem:set("durability", 9) --weaken the HM false-walls to be more breakable by starter-bomb spells
 	end
 end
 

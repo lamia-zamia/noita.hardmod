@@ -1,7 +1,7 @@
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 local lootlib = dofile_once("mods/noita.hardmod/lib/lootlib.lua") ---@type lootlib
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
-local hooks = {}
+local hooks = {}---@type hooks
 
 lootlib.add_patch_script("mods/noita.hardmod/files/modules/vanilla_spell_rebalances/lootlib_patch.lua")
 ModMagicNumbersFileAdd("mods/noita.hardmod/files/modules/vanilla_spell_rebalances/magic_numbers.xml")
@@ -60,6 +60,12 @@ for file in nxml.edit_file("data/entities/projectiles/darkflame.xml") do
 		if comp.attr.script_source_file == "data/scripts/projectiles/darkflame.lua" then
 			comp:set("execute_every_n_frame", 2)
 		end
+	end
+end
+
+for file in nxml.edit_file("data/entities/projectiles/deck/arrow.xml") do
+	for comp in file:each_of("ProjectileComponent") do
+		comp:set("friendly_fire", false)
 	end
 end
 

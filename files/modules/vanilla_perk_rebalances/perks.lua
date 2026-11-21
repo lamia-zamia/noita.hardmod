@@ -1,11 +1,11 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
-local hooks = {}
+local hooks = {}---@type perk_hooks
 local dir = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/"
 
 hooks.new_perks = {
 	{
-		id = "HARDMOD_PERK_SPELL_GEMS",
+		id = "HARDMOD_SPELL_GEMS",
 		ui_name = "$hardmod_perk_spell_gems_name",
 		ui_description = "$hardmod_perk_spell_gems_desc",
 		ui_icon = dir.."ui_gfx/perks/spell_gems_016.png",
@@ -13,8 +13,8 @@ hooks.new_perks = {
 		stackable = false,
 		one_off_effect = false,
 		usable_by_enemies = false,
-		func = function(entity_perk_item, entity_who_picked, item_name, stacks)
-			if stacks > 0 then return end
+		func = function(entity_perk_item, entity_who_picked, item_name, pickup_count)
+			if pickup_count > 1 then return end
 			EntityAddChild(entity_who_picked, EntityLoad(dir.."entities/perks/spell_gems.xml"))
 		end
 	},
@@ -160,30 +160,30 @@ hooks.new_perks = {
 			EntityAddChild(entity, effect)
 		end
 	},
-	{
-		id = "HARDMOD_EMERGENCY_RECALL",
-		ui_name = "$hardmod_perk_emergency_recall_name",
-		ui_description = "$hardmod_perk_emergency_recall_desc",
-		ui_icon = dir.."ui_gfx/perks/teleportitis_016.png",
-		perk_icon = dir.."ui_gfx/perks/teleportitis.png",
-		stackable = false,
-		usable_by_enemies = false,
-		func = function(entity_perk_item, entity_who_picked, item_name)
-			EntityAddComponent2(entity_who_picked, "LuaComponent", {
-				_tags = "perk_component,hardmod_teleportitis",
-				script_source_file = dir.."scripts/perks/teleportitis_update.lua",
-				execute_every_n_frame = 1,
-			})
-			EntityAddComponent2(entity_who_picked, "LuaComponent", {
-				_tags = "perk_component,hardmod_teleportitis",
-				script_damage_received = dir.."scripts/perks/teleportitis_on_damage.lua",
-				execute_every_n_frame = -1,
-			})
-		end,
-		func_remove = function(entity_who_picked)
-			utils.EntityRemoveAllByTag(entity_who_picked, "hardmod_teleportitis")
-		end,
-	},
+	-- {
+	-- 	id = "HARDMOD_EMERGENCY_RECALL",
+	-- 	ui_name = "$hardmod_perk_emergency_recall_name",
+	-- 	ui_description = "$hardmod_perk_emergency_recall_desc",
+	-- 	ui_icon = dir.."ui_gfx/perks/teleportitis_016.png",
+	-- 	perk_icon = dir.."ui_gfx/perks/teleportitis.png",
+	-- 	stackable = false,
+	-- 	usable_by_enemies = false,
+	-- 	func = function(entity_perk_item, entity_who_picked, item_name)
+	-- 		EntityAddComponent2(entity_who_picked, "LuaComponent", {
+	-- 			_tags = "perk_component,hardmod_teleportitis",
+	-- 			script_source_file = dir.."scripts/perks/teleportitis_update.lua",
+	-- 			execute_every_n_frame = 1,
+	-- 		})
+	-- 		EntityAddComponent2(entity_who_picked, "LuaComponent", {
+	-- 			_tags = "perk_component,hardmod_teleportitis",
+	-- 			script_damage_received = dir.."scripts/perks/teleportitis_on_damage.lua",
+	-- 			execute_every_n_frame = -1,
+	-- 		})
+	-- 	end,
+	-- 	func_remove = function(entity_who_picked)
+	-- 		utils.EntityRemoveAllByTag(entity_who_picked, "hardmod_teleportitis")
+	-- 	end,
+	-- },
 	{
 		id = "HARDMOD_GOLD_IS_DUST",
 		ui_name = "$hardmod_gold_is_dust_perkname",
@@ -339,7 +339,7 @@ hooks.perk_patches = {
 			if always_casts >= max_allowed_always_casts then
 				GamePrintImportant("$hardmod_promote_ac_fail", "$hardmod_promote_ac_fail_capped")
 				GamePlaySound("data/audio/Desktop/event_cues.bank", "event_cues/chest_bad/create", x, y)
-				return false
+				return
 			end
 
 			local unique_inv_spells = {}
@@ -449,13 +449,42 @@ local remove_perks = {
 
 --bomb materialised, lukki mutation, no wand tinkering, more blood, personal plasma beam, low recoil, phasing, pinpointer, proj dupe, levitation trail, worm perks
 
-
-
 for _,perk in ipairs(shit_perks) do
 	hooks.perk_patches[perk] = { not_in_default_perk_pool = true, not_progress = true, hardmod_shit_perk = true }
 end
 for _,perk in ipairs(remove_perks) do
 	hooks.perk_patches[perk] = { not_in_default_perk_pool = true, not_progress = true }
+end
+
+-- TODO: make these perks use a shot effect component instead of game_effect
+-- CRITICAL_HIT_BOOST, GLASS_CANNON, LOW_HP_DAMAGE_BOOST(?), 
+
+
+local spawn_inhibitor_spell = {
+	PROJECTILE_HOMING = true,
+	PROJECTILE_HOMING_SHOOTER = true,
+	EXTRA_KNOCKBACK = true,
+	LOWER_SPREAD = true,
+	LOW_RECOIL = true,
+	BOUNCE = true,
+	FAST_PROJECTILES = true,
+	DUPLICATE_PROJECTILE = true,
+	LASER_AIM = true,
+	FOOD_CLOCK = true,
+}
+
+hooks.edit_perk = function(perk)
+	if spawn_inhibitor_spell[perk.id] then
+		local orig_action = perk.func
+		perk.func = function(item, ...)
+			local x, y = EntityGetTransform(item)
+			CreateItemActionEntity("HARDMOD_INHIBITOR", x, y)
+
+			if orig_action then
+				orig_action(item, ...)
+			end
+		end
+	end
 end
 
 return hooks

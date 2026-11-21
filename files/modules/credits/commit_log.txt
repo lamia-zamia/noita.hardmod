@@ -786,6 +786,7 @@ add Anti-Teleportation Field eperk
 adapt new eperk attributes
 fix anti-tele aura destroying any projectile
 make anti-tele aura a bit less intense
+give Add Trigger spells their intended use only
 make Double Damage appear more early
 added shitty altar sacrifice secret, expanded HM item shop pool
 removed perks debug and ran split.lua_run
@@ -862,3 +863,26 @@ add Inhibitor spell
 make haunted wand gen seed dependent
 fix duplicate vscs
 bring torches to wand tip
+disable Emergency Recall until a better implementation pops up
+undo oopsie
+why was Spell Gems disabled lol
+more knockback more oomph!!
+add Gem Collector eperk
+classic
+fix Gem Collector not always spawning gems
+pedestal_wand tag for wand pedestals
+changes to haunted wands
+restore the old chance
+make Tinker at Wand Pedestals use the new pedestal_wand tag
+spawn the inhibitor spell when you pick up a perk that adds shot effects, also change its desc
+Add types for spells.lua and perks.lua
+add ---@type hooks to all modules that were missing it
+babe wake up new splash text dropped
+rework Add Trigger spells
+make Giga Chainsaw appear later
+remove ff from arrow
+make AT etc unable to spawn for now
+add better Absolution sprite
+fix error !!!!
+clean up MoM spell drops
+give status indicator to Stinky Aura
