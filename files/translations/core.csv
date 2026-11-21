@@ -91,7 +91,7 @@ hardmod_spell_alt_fire_anything_name,Alt Fire Anything,Альтернативн�
 hardmod_spell_alt_fire_anything_desc,Right-click to cast the spell slotted to the right,Нажмите правую кнопку для применения заклинания из слота справа,,,,,,,,,,,,
 hardmod_settings_header_modules,Toggle modules,Переключение модулей,,,,,,,,,,,,
 hardmod_perk_treasure_hunter_name,Treasure Hunter,Охотник за сокровищами,,,,,,,,,,,,
-hardmod_perk_treasure_hunter_desc,"Chests contain more gold, scaling with collected nuggets.","Сундуки содержат больше золота. Количество зависит от собранных самородков",,,,,,,,,,,,
+hardmod_perk_treasure_hunter_desc,"Chests contain significantly more gold, scaling with how many nuggets you collect.","Сундуки содержат больше золота. Количество зависит от собранных самородков",,,,,,,,,,,,
 hardmod_perk_better_chests_name,Better Chests,Улучшенные сундуки,,,,,,,,,,,,
 hardmod_perk_better_chests_desc,All chests will have extra loot from now on,С этого момента сундуки будут иметь в себе больше предметов,,,,,,,,,,,,
 hardmod_item_ring_of_returning_name,Ring of Returning,Кольцо возвращения,,,,,,,,,,,,

@@ -187,11 +187,6 @@ return {
 				c.fire_rate_wait, current_reload_time = current_reload_time, c.fire_rate_wait
 				c.spread_degrees = c.spread_degrees + 16
 
-				if reflecting then
-					current_reload_time = -600
-					c.fire_rate_wait = -600
-				end
-
 				add_projectile(root.."entities/spells/giga_chainsaw.xml")
 			end
 		},
