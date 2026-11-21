@@ -886,3 +886,6 @@ add better Absolution sprite
 fix error !!!!
 clean up MoM spell drops
 give status indicator to Stinky Aura
+oblige to the Lua code police's orders :pensive:
+reroll Trial perks when leaving HM (instead of destroy)
+change some tooltips
