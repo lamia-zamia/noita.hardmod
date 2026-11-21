@@ -1,6 +1,6 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
-local hooks = {}
+local hooks = {}---@type perk_hooks
 local dir = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/"
 
 hooks.new_perks = {
@@ -449,13 +449,42 @@ local remove_perks = {
 
 --bomb materialised, lukki mutation, no wand tinkering, more blood, personal plasma beam, low recoil, phasing, pinpointer, proj dupe, levitation trail, worm perks
 
-
-
 for _,perk in ipairs(shit_perks) do
 	hooks.perk_patches[perk] = { not_in_default_perk_pool = true, not_progress = true, hardmod_shit_perk = true }
 end
 for _,perk in ipairs(remove_perks) do
 	hooks.perk_patches[perk] = { not_in_default_perk_pool = true, not_progress = true }
+end
+
+-- TODO: make these perks use a shot effect component instead of game_effect
+-- CRITICAL_HIT_BOOST, GLASS_CANNON, LOW_HP_DAMAGE_BOOST(?), 
+
+
+local spawn_inhibitor_spell = {
+	PROJECTILE_HOMING = true,
+	PROJECTILE_HOMING_SHOOTER = true,
+	EXTRA_KNOCKBACK = true,
+	LOWER_SPREAD = true,
+	LOW_RECOIL = true,
+	BOUNCE = true,
+	FAST_PROJECTILES = true,
+	DUPLICATE_PROJECTILE = true,
+	LASER_AIM = true,
+	FOOD_CLOCK = true,
+}
+
+hooks.edit_perk = function(perk)
+	if spawn_inhibitor_spell[perk.id] then
+		local orig_action = perk.func
+		perk.func = function(item, ...)
+			local x, y = EntityGetTransform(item)
+			CreateItemActionEntity("HARDMOD_INHIBITOR", x, y)
+
+			if orig_action then
+				orig_action(item, ...)
+			end
+		end
+	end
 end
 
 return hooks
