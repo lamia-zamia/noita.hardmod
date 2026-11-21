@@ -892,3 +892,4 @@ change some tooltips
 updated sprite for Inhibitor
 reworked torch passives again, tweaked values and made less buggy
 add Shield Breaker modifier
+make t2 Protector shield even smaller
