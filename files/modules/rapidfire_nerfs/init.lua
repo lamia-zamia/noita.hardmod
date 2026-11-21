@@ -1,3 +1,3 @@
-local hooks = {}
+local hooks = {}---@type hooks
 
 return hooks

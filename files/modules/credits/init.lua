@@ -122,3 +122,5 @@ add_release_break("MATH.MAX, NOT MATH.MIN AAAAAAAAAA", " MAIN RELEASE 9/11/26")
 credits = credits .. "\n \n \n \nAdded approximately 95,236,821,904,984 hämisket\n \n \n"
 
 ModTextFileSetContent("data/credits.txt", credits)
+
+return {}

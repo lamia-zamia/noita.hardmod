@@ -1,6 +1,7 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua")---@type utils
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua")---@type nxml
 local root = "mods/noita.hardmod/files/modules/better_anvil"
+local hooks = {}---@type hooks
 
 local function patch_broken_wand()
 	utils.modifile(
@@ -103,8 +104,8 @@ patch_broken_spell()
 
 ModLuaFileAppend("data/scripts/biomes/snowcastle.lua", root.."/appends/snowcastle.lua")
 
-return {
-	magic_numbers_and_seed_initialised = function()
-		patch_random_forge_location()
-	end
-}
+function hooks.magic_numbers_and_seed_initialised()
+	patch_random_forge_location()
+end
+
+return hooks

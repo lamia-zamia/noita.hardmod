@@ -1,7 +1,7 @@
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 local lootlib = dofile_once("mods/noita.hardmod/lib/lootlib.lua") ---@type lootlib
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
-local hooks = {}
+local hooks = {}---@type hooks
 
 lootlib.add_patch_script("mods/noita.hardmod/files/modules/vanilla_spell_rebalances/lootlib_patch.lua")
 ModMagicNumbersFileAdd("mods/noita.hardmod/files/modules/vanilla_spell_rebalances/magic_numbers.xml")

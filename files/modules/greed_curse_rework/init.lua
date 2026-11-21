@@ -1,4 +1,4 @@
-local hooks = {}
+local hooks = {}---@type hooks
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 local dir = utils.module_dir.."greed_curse_rework/"
 

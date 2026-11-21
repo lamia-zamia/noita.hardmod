@@ -1,7 +1,7 @@
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 local img = dofile_once("mods/noita.hardmod/lib/image_utils.lua")
 
-local hooks = {} ---@hooks
+local hooks = {}---@type hooks
 local dir = "mods/noita.hardmod/files/modules/holy_mountain_rework/"
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua") ---@type nxml
 

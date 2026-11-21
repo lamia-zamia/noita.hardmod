@@ -1,6 +1,6 @@
 --This is just a module to test the init hook system.
 
-
+---@type hooks
 local hooks = {
 	--Game/World Initialising
 	mod_pre_init = {},
