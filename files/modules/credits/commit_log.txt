@@ -877,3 +877,4 @@ spawn the inhibitor spell when you pick up a perk that adds shot effects, also c
 Add types for spells.lua and perks.lua
 add ---@type hooks to all modules that were missing it
 babe wake up new splash text dropped
+fix error !!!!
