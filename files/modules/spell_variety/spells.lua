@@ -82,10 +82,9 @@ return {
 				c.extra_entities = c.extra_entities .. root.."entities/spells/controlled_reach.xml,"
 
 				-- determine the distance
-				dofile_once("data/scripts/lib/utilities.lua")
 				local ox, oy = EntityGetTransform(GetUpdatedEntityID())
 				local mx, my = DEBUG_GetMouseWorld()
-				local dist = get_distance(ox, oy, mx, my)
+				local dist = utils.get_distance(ox, oy, mx, my)
 
 				-- if this spell is part of a trigger payload, don't raise the wand's fire rate
 				-- (there might be better ways to do this)

@@ -1,4 +1,4 @@
-dofile_once("data/scripts/lib/utilities.lua")
+local utils = dofile_once( "mods/noita.hardmod/lib/utilities.lua" ) ---@type utils
 
 local CHALLENGE_PERK_NAMES = "Time Trial,Glass Heart"
 
