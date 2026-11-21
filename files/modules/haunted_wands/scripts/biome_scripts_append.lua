@@ -1,5 +1,5 @@
 -- 1 in x
-local evil_wand_chance = 1
+local evil_wand_chance = 20
 
 local orig_spawn_wands = spawn_wands
 function spawn_wands(x, y)
