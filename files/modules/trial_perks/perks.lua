@@ -16,7 +16,6 @@ hooks.new_perks = {
 		holy_mountain_exclusive = true,
 		func = function(entity_perk_item, entity_who_picked, item_name, pickup_count)
 			if reflecting then return end
-			dofile_once("data/scripts/lib/utilities.lua")
 
 			-- register the current y position to disqualify nearby hearts
 			local x, y = EntityGetTransform(entity_who_picked)
@@ -44,7 +43,6 @@ hooks.new_perks = {
 		holy_mountain_exclusive = true,
 		func = function(entity_perk_item, entity_who_picked, item_name, pickup_count)
 			if reflecting then return end
-			dofile_once("data/scripts/lib/utilities.lua")
 
 			-- register the current y position to disqualify nearby hearts
 			local x, y = EntityGetTransform(entity_who_picked)

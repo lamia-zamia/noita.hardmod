@@ -1,4 +1,3 @@
-dofile_once("data/scripts/lib/utilities.lua")
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
 local proj_id = GetUpdatedEntityID()
@@ -9,7 +8,7 @@ if proj_comp then
 		local ox, oy = EntityGetTransform(owner_id)
 		local mx, my = DEBUG_GetMouseWorld()
 
-		local dist = get_distance(ox, oy, mx, my)
+		local dist = utils.get_distance(ox, oy, mx, my)
 		utils.SetInternalInt(proj_id, "controlled_reach_max_dist", dist)
 	end
 end

@@ -1,11 +1,10 @@
-dofile_once("data/scripts/lib/utilities.lua")
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
 local function distance_between(entity_a, entity_b)
 	local ax, ay = EntityGetTransform(entity_a)
 	local bx, by = EntityGetTransform(entity_b)
 
-	return get_distance(ax, ay, bx, by)
+	return utils.get_distance(ax, ay, bx, by)
 end
 
 local proj_id = GetUpdatedEntityID()
