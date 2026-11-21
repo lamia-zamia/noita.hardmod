@@ -1,10 +1,12 @@
----@diagnostic disable: undefined-global
-
 local hooks = {}
 
-dofile_once("mods/noita.hardmod/files/modules/rapidfire_nerfs/scripts/null_mana.lua")
-
 local mana_reducing_spells = { "MANA_REDUCE", "HARDMOD_MANA_REDUCE", "APOTHEOSIS_WATER_POWER" }
+
+local null_shot_nullify = {
+	"damage_electricity_add", "damage_explosion_add", "damage_explosion",
+	"damage_critical_chance", "damage_ice_add", "damage_projectile_add",
+	"damage_critical_chance", "damage_healing_add", "gore_particles",
+}
 
 hooks.spell_patches = {
 	["CHAINSAW"] = {
@@ -90,31 +92,31 @@ hooks.spell_patches = {
 		description = "$hardmod_spell_apotheosis_water_power_desc",
 		mana = 0,
 		action = function()
-			draw_actions( 1, true )
+			draw_actions(1, true)
 
-			if reflecting or GameGetGameEffectCount( GetUpdatedEntityID(), "WET" ) > 0 then
+			if reflecting or GameGetGameEffectCount(GetUpdatedEntityID(), "WET") > 0 then
 				c.fire_rate_wait	= c.fire_rate_wait - 10
 				current_reload_time = current_reload_time - 10
 
-				local ctrlcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "ControlsComponent" )
+				local ctrlcomp = EntityGetFirstComponentIncludingDisabled(GetUpdatedEntityID(), "ControlsComponent")
 				if ctrlcomp then
-					local fire_frame = ComponentGetValue2( ctrlcomp, "mButtonFrameFire" )
+					local fire_frame = ComponentGetValue2(ctrlcomp, "mButtonFrameFire")
 					local current_frame = GameGetFrameNum()
 
 					local frames_firing = current_frame - fire_frame
 					local burst_duration = 20
 					local max_restore = 0
 					if frames_firing < burst_duration then
-						max_restore = ( ( 50 / burst_duration ) * ( burst_duration - frames_firing ) )
+						max_restore = ((50 / burst_duration) * (burst_duration - frames_firing))
 					end
 
 					local hand_cost = 0
 					local mana_reducing_spell_count = 1
-					for i,v in ipairs( hand ) do
+					for i,v in ipairs(hand) do
 						if v.mana ~= nil then
 							hand_cost = hand_cost + v.mana
 						end
-						for i,id in ipairs( mana_reducing_spells ) do
+						for _,id in ipairs(mana_reducing_spells) do
 							if id == v.id then
 								mana_reducing_spell_count = mana_reducing_spell_count + 1
 							end
@@ -122,7 +124,7 @@ hooks.spell_patches = {
 					end
 					hand_cost = hand_cost / mana_reducing_spell_count
 
-					local restore = math.min( hand_cost, max_restore )
+					local restore = math.min(hand_cost, max_restore)
 					mana = mana + restore
 				end
 			end
@@ -144,7 +146,14 @@ hooks.new_spells = {
 		action = function()
 			c.fire_rate_wait = c.fire_rate_wait + 6
 			current_reload_time = current_reload_time + 1
-			HardmodActionNullMana()
+			c.damage_null_all = 1
+			for _,key in pairs(null_shot_nullify) do
+				c[key] = 0
+			end
+
+			c.extra_entities = c.extra_entities.."data/entities/particles/tinyspark_white_small.xml,data/entities/misc/zero_damage.xml,"
+			c.global_null_shot = true
+
 			draw_actions(1, true)
 		end
 	},
@@ -179,7 +188,7 @@ hooks.new_spells = {
 		mana = 0,
 		custom_xml_file = "mods/noita.hardmod/files/modules/rapidfire_nerfs/entities/card_mana_regen.xml",
 		action = function()
-			draw_actions( 1, true )
+			draw_actions(1, true)
 		end,
 	},
 }

@@ -784,3 +784,88 @@ imported itemlib
 add Untraceable perk
 add Anti-Teleportation Field eperk
 adapt new eperk attributes
+fix anti-tele aura destroying any projectile
+make anti-tele aura a bit less intense
+make Double Damage appear more early
+added shitty altar sacrifice secret, expanded HM item shop pool
+removed perks debug and ran split.lua_run
+harharmod
+update biome map & fix guiding powder
+remove instant recharge msg
+add the Notla spell
+fix wand ghost thingy
+make taika not trigger instant recharge msg
+some Tether eperk changes
+sneak in some changes rq
+write globla definitions globals.lua
+Fix warnings and get rid of diagnostic disable undefined-global
+todo i guess
+fixing some stuff
+fix redefined local
+fix: trailing-whitespace
+h
+fixed Amplified Items quest from mountain altar
+format (zptr1): remove spaces between brackets
+format (zptr1): remove brackets from if
+tweaks
+format (zptr1): spaces after comma (except in for loops)
+why did it show a trailing-space warning only now??
+change blue ghosts's status effect name and add a splash text
+some more tweaks
+finishing touches
+added Vuoksikivi to altar sacrificable items
+surprised that got left in
+G I G A    C H A I N S A W .
+fix some xml errors
+Delete potion.xml
+formatting nonsense
+Make CD/spread *truly* global
+make pinpointer passive actually reduce spread and increase speed, bit exploitable rn tho
+remove unused gun.lua
+move all `gun.lua` stuff to `core`
+Improvements to modifile/patchifile
+forgor to remove debug thingy
+improve giga chainsaw
+makeit cost 50 mana instead of 60
+change spell names
+HP multipliers my belovehated (we had to do it, sorry) (dw its not as bad as nightmare mode) (pinky promise)
+buff freeze field and poly field slightly (less mana ,more uses, remove never_unlimited) but make it spawn later and rarer
+buff cabbage boss
+todo
+lotta shit
+made aura visuals from anti-teleport aura and shield sapper eperks more tolerable
+Update eperk_utilities.lua
+forgot to push this
+wand experimenter QoL
+fix custom wand gen stuff
+remove vanilla pickup effect in HM shop potions/pouches/etc
+show tinker hint in orbrooms (opens inventory when u enter em)
+dont spawn squiddy if the orb hasn't been taken
+fix (btw did you know you can do `pairs(thing or {})` without having a giant ass nested if statement)
+no fun allowed apparently
+mini library for the tower diamond quests
+vanilla_quests: make so that you can do all tower quests in a single run without peaceful reset
+Tower cheese is no more.
+cleanup game flags after tower_visited_all
+update description of torch and electric torch
+make matter eater cost only 60 mana
+rework parth of dark flame
+updat todo
+nerf PERSONALRUNTHROWER
+change potion to sea to have 3 max uses instead of 2
+Add BiomeID type to biome_index.lua
+add a `player_biome_changed` hook
+make Treasure Hunter stack exponentially
+fix stinky aura visuals mismatch
+fix(???)
+add Inhibitor spell
+make haunted wand gen seed dependent
+fix duplicate vscs
+bring torches to wand tip
+disable Emergency Recall until a better implementation pops up
+undo oopsie
+why was Spell Gems disabled lol
+more knockback more oomph!!
+add Gem Collector eperk
+classic
+fix Gem Collector not always spawning gems

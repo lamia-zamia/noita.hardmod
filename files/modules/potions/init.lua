@@ -22,8 +22,8 @@ end
 
 utils.modifile(
   "data/scripts/items/potion_aggressive.lua",
-  [[AddMaterialInventoryMaterial( entity_id, potion.material, 1000 )]],
-  [[AddMaterialInventoryMaterial( entity_id, potion.material, 2000 )]]
+  [[AddMaterialInventoryMaterial(entity_id, potion.material, 1000)]],
+  [[AddMaterialInventoryMaterial(entity_id, potion.material, 2000)]]
 )
 
 return {}

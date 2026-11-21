@@ -5,4 +5,5 @@
 		execute_on_removed="1"
 		script_item_picked_up="mods/noita.hardmod/files/modules/greed_curse_rework/cursed_nugget_pickup.lua"
 	/>
+	<LifetimeComponent lifetime="450"/>
 </Entity>

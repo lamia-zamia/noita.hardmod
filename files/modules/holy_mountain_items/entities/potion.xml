@@ -1,5 +1,0 @@
-<Entity>
-    this should be a mostly empty file with <Base/> ref to some empty potion
-
-    also add a luacomponent to populate potion based on varcomp
-</Entity>

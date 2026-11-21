@@ -81,7 +81,7 @@ ip.lists = {
 				local ox = self.offset_x or 0
 				local oy = self.offset_y or 0
 
-				if GameHasFlagRun("greed_curse") and ( GameHasFlagRun("greed_curse_gone") == false ) then
+				if GameHasFlagRun("greed_curse") and not GameHasFlagRun("greed_curse_gone") then
 					EntityLoad("data/entities/items/pickup/physics_gold_orb_greed.xml", x + ox, y + oy)
 				else
 					EntityLoad("data/entities/items/pickup/physics_gold_orb.xml", x + ox, y + oy)
@@ -136,14 +136,14 @@ ip.lists = {
 			origin = "vanilla",
 			weight = 1,
 			use_self = true,
-			load_entity_func = function (self, x, y )
-					-- NOTE( Petri ): 6.3.2023 - Changed the SetRandomSeed to be different, so that we might get other runestones than edges
+			load_entity_func = function (self, x, y)
+					-- NOTE(Petri): 6.3.2023 - Changed the SetRandomSeed to be different, so that we might get other runestones than edges
 					SetRandomSeed(x+2617.941, y-1229.3581)
 					local opt = ip.runestones[Random(1, #ip.runestones)]
 					local ox = self.offset_x or 0
 					local oy = self.offset_y or 0
 					local entity_id = EntityLoad(opt, x + ox, y + oy)
-					if (Random(1, 10) == 2) then
+					if Random(1, 10) == 2 then
 						---@diagnostic disable-next-line: undefined-global
 						runestone_activate(entity_id) --using vanilla function in case someone modifies it for a specific purpose
 					end
@@ -159,10 +159,10 @@ ip.lists = {
 					local ox = self.offset_x or 0
 					local oy = self.offset_y or 0
 
-					if GameHasFlagRun( "greed_curse" ) and ( GameHasFlagRun( "greed_curse_gone" ) == false ) then
-						EntityLoad( "data/entities/items/pickup/physics_greed_die.xml", x + ox, y + oy )
+					if GameHasFlagRun("greed_curse") and not GameHasFlagRun("greed_curse_gone") then
+						EntityLoad("data/entities/items/pickup/physics_greed_die.xml", x + ox, y + oy)
 					else
-						EntityLoad( "data/entities/items/pickup/physics_die.xml", x + ox, y + oy )
+						EntityLoad("data/entities/items/pickup/physics_die.xml", x + ox, y + oy)
 					end
 				end,
 			offset_y = -12,
@@ -301,7 +301,7 @@ function spawn_from_list(target_list, x, y)
 	local temp = {}
 	local total_weight = 0
 	for _,entry in ipairs(spawn_list) do
-		if (entry.spawn_requires_flag and not GameHasFlagRun(entry.spawn_requires_flag))
+		if entry.spawn_requires_flag and not GameHasFlagRun(entry.spawn_requires_flag)
 		or entry.condition and not entry:condition(x, y) then
 			if ip.spawn_can_fail then
 				entry.load_entity_func = nil
@@ -320,7 +320,7 @@ function spawn_from_list(target_list, x, y)
 	if #temp == 0 then ip:error(("Warning! Provided spawnlist [%s] had no valid entries."):format(target_list), target_list) return end
 
 	local target
-	local rnd = ProceduralRandomf(x,y, 0, total_weight)
+	local rnd = ProceduralRandomf(x, y, 0, total_weight)
 	for _, entry in ipairs(temp) do
 		if rnd <= entry.weight then
 			target = entry

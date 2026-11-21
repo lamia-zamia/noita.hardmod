@@ -43,7 +43,6 @@ hooks.player_spawned = function()
 	end
 
 	dofile_once("data/scripts/perks/perk_list.lua")
-	---@diagnostic disable-next-line: undefined-global
 	for _,perk in ipairs(perk_list) do
 		AddFlagPersistent("perk_picked_"..perk.id:lower())
 	end
@@ -85,23 +84,17 @@ hooks.mod_post_init = function() --run later for appends
 	update_perk_unlock_states()
 end
 
-local targets = {}
 hooks.new_eid = function(entity_id)
 	if ModIsEnabled("Apotheosis") then
-		if string.find( EntityGetFilename(entity_id), "mods/Apotheosis/data/entities/animals/psychotic/") then
+		if string.find(EntityGetFilename(entity_id), "mods/Apotheosis/data/entities/animals/psychotic/") then
 			EntityAddTag(entity_id, "no_enemy_perks")
 		end
 	end
 
 	if EntityHasTag(entity_id, "enemy") and not (EntityHasTag(entity_id, "hardmod_blessed") or EntityHasTag(entity_id, "no_enemy_perks")) then
-		targets[#targets+1] = entity_id
-	end
-end
-
-local function apply_enemy_perks()
-	for _,entity_id in ipairs(targets) do
 		local is_boss = EntityHasTag(entity_id, "boss")
-		local x,y = EntityGetTransform(entity_id)
+		local is_shop_guardian = EntityHasTag(entity_id, "necromancer_shop")
+		local x, y = EntityGetTransform(entity_id)
 		local biome = biome_index[DebugBiomeMapGetFilename(x, y)]
 		local num = 0
 
@@ -141,10 +134,11 @@ local function apply_enemy_perks()
 			player = _g.player,
 			player_poly_identity = _g.player_poly_identity,
 			is_boss = is_boss,
+			is_shop_guardian = is_shop_guardian,
 		}
+
 		eperk_utils.give_enemy_perks(entity_id, num, data)
 	end
-	targets = {}
 end
 
 
@@ -166,7 +160,6 @@ local cached_perk_hover_info = {}
 
 local selected_creature = nil
 function hooks.post_update(frame)
-	apply_enemy_perks()
 	if GameHasFlagRun("hardmod_new_enemy_perk_discovered") then
 		update_perk_unlock_states()
 		GameRemoveFlagRun("hardmod_new_enemy_perk_discovered")
@@ -178,9 +171,9 @@ function hooks.post_update(frame)
 
 
 	if InputIsKeyJustDown(inspect_bind) then
-		local x,y = DEBUG_GetMouseWorld()
+		local x, y = DEBUG_GetMouseWorld()
 		selected_creature = EntityGetClosestWithTag(x, y, "hardmod_blessed")
-		local creature_x,creature_y = EntityGetTransform(selected_creature)
+		local creature_x, creature_y = EntityGetTransform(selected_creature)
 		if not creature_x then return end
 		if (creature_x-x)^2 + (creature_y-y)^2 > 16^2 then selected_creature = nil end
 		print("selected creature: "..tostring(selected_creature))

@@ -20,7 +20,7 @@ end
 local w,h = BiomeMapGetSize()
 for x = 1, w do
 	for y = 1, h do
-		local pixel = BiomeMapGetPixel(x, y) % 2 ^ 32
+		local pixel = BiomeMapGetPixel(x, y) % 2^32
 		if pixel_lookup[pixel] then
 			BiomeMapSetPixel(x, y, pixel_lookup[pixel].colour_id)
 		end

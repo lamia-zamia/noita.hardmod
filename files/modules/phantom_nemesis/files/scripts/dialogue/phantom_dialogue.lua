@@ -5,11 +5,10 @@ dofile_once("data/scripts/lib/utilities.lua") --Tired Sinning
 
 local entity_id = GetUpdatedEntityID()
 local host_id = EntityGetRootEntity(entity_id)
-local dialogue_vsc_comp = EntityGetComponentIncludingDisabled(entity_id,"VariableStorageComponent")[3]
-local forced_speak = ComponentGetValue2(dialogue_vsc_comp,"value_string")
-local last_idle_talk = ComponentGetValue2(dialogue_vsc_comp,"value_int")
+local dialogue_vsc_comp = EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent")[3]
+local forced_speak = ComponentGetValue2(dialogue_vsc_comp, "value_string")
+local last_idle_talk = ComponentGetValue2(dialogue_vsc_comp, "value_int")
 local idle_talk_cd = 1200
-local x, y = EntityGetTransform(entity_id)
 local cam_x, cam_y, cam_w, cam_h = GameGetCameraBounds()
 local radius = math.floor((cam_w / 4) * 3)
 
@@ -18,7 +17,6 @@ local radius = math.floor((cam_w / 4) * 3)
 --"You crawl into my tomb, crack my coffin open, rend MY flesh apart, but you die to a purple freak because he turned you into a sheep? You're pathetic"
 --Spoop: Maaayyybee...
 --Conga: I still think this would be funny
-local entity_id = GetUpdatedEntityID()
 local x, y = EntityGetTransform(entity_id)
 math.randomseed(x+y)
 SetRandomSeed(x + GameGetFrameNum(), y + 1394)
@@ -37,7 +35,7 @@ local tone = "norm"
 -- "gossip" is when he makes an off handed comment or something
 -- ^ one of the sounds sort of sound like a laugh so you could also use it for when he's joking
 -- "quiet" is when he's trying to be quiet, only really used in the introduction
--- "yell" is when he's screaming at you, only really used for mountain altar (and now destroying the stone :) )
+-- "yell" is when he's screaming at you, only really used for mountain altar (and now destroying the stone :))
 -- "long" is when there's a lot of dialogue, mostly when informing/scolding you of something
 -- "pained" is when he's dying, only one use scenario
 -- will default to "norm" if nothing is given
@@ -47,7 +45,7 @@ local num = 0
 
 function GetPlayer()
   local tags = {"player_unit", "polymorphed_player", "polymorphed_cessation"}
-	for tag=1,#tags do
+	for tag=1, #tags do
 		local player = EntityGetWithTag(tags[tag])
 		if #player > 0 then
 			return player[1]
@@ -64,12 +62,12 @@ function Speak(entity, text, pool)
     if textComponent then return end
 
     local old_text = text
-    local x, y = EntityGetTransform(entity_id)
-    SetRandomSeed(entity_id + x + 2352, GameGetFrameNum() - y + 24806)
+    local ex, ey = EntityGetTransform(entity_id)
+    SetRandomSeed(entity_id + ex + 2352, GameGetFrameNum() - ey + 24806)
 
-    local hitbox_comp = EntityGetFirstComponentIncludingDisabled(entity_id, "HitboxComponent") or 0
+    local hitbox_comp = EntityGetFirstComponentIncludingDisabled(entity_id, "HitboxComponent")
     local hitbox_height_y = 0
-    if hitbox_comp > 0 then 
+    if hitbox_comp then
         hitbox_height_y = ComponentGetValue2(hitbox_comp, "aabb_min_y")
     end
 
@@ -81,7 +79,7 @@ function Speak(entity, text, pool)
     -- thank you to Evaisa (and Copi) for making this not trash
     local gui = GuiCreate()
     GuiStartFrame(gui)
-    local offset_x = GuiGetTextDimensions( gui, text, size_x ) * 0.625
+    local offset_x = GuiGetTextDimensions(gui, text, size_x) * 0.625
     GuiDestroy(gui)
 
     EntityAddTag(entity, "graham_speaking")
@@ -120,9 +118,9 @@ local events = {
                 rate = 2
                 alpha = 0.7
                 local d_opts = {forced_speak}
-                local dialogue = d_opts[math.random(1,#d_opts)]
+                local dialogue = d_opts[math.random(1, #d_opts)]
                 tone = "power"
-                ComponentSetValue2(dialogue_vsc_comp,"value_string","")
+                ComponentSetValue2(dialogue_vsc_comp, "value_string", "")
                 return true, dialogue
             end
             return false
@@ -133,10 +131,10 @@ local events = {
             if GetPlayer() == nil and GameGetFrameNum() > last_idle_talk + (idle_talk_cd * 0.5) then
                 rate = 2
                 alpha = 0.7
-                local d_opts = {"Good riddance","We can rest easy now","It's finally over","We can now cease to be","My purpose is fulfilled"}
-                local dialogue = d_opts[math.random(1,#d_opts)]
+                local d_opts = {"Good riddance", "We can rest easy now", "It's finally over", "We can now cease to be", "My purpose is fulfilled"}
+                local dialogue = d_opts[math.random(1, #d_opts)]
                 tone = "gossip"
-                ComponentSetValue2(dialogue_vsc_comp,"value_int",GameGetFrameNum())
+                ComponentSetValue2(dialogue_vsc_comp, "value_int", GameGetFrameNum())
                 return true, dialogue
             end
             return false
@@ -147,13 +145,13 @@ local events = {
             if GameGetFrameNum() > last_idle_talk + idle_talk_cd then
                 rate = 2
                 alpha = 0.7
-                local d_opts = {"You can't escape your sins","I SEE YOU","Your death will not be mourned","You can pray but you won't find forgiveness","Winter is coming for you","I will make you inanimate","Hell won't be enough for you!","Your end has come"}
-                local dialogue = d_opts[math.random(1,#d_opts)]
+                local d_opts = {"You can't escape your sins", "I SEE YOU", "Your death will not be mourned", "You can pray but you won't find forgiveness", "Winter is coming for you", "I will make you inanimate", "Hell won't be enough for you!", "Your end has come"}
+                local dialogue = d_opts[math.random(1, #d_opts)]
                 tone = "norm"
                 if dialogue == "I SEE YOU" then
                     tone = "power"
                 end
-                ComponentSetValue2(dialogue_vsc_comp,"value_int",GameGetFrameNum())
+                ComponentSetValue2(dialogue_vsc_comp, "value_int", GameGetFrameNum())
                 return true, dialogue
             end
             return false
@@ -162,11 +160,11 @@ local events = {
 }
 
 for k=1,#events do
-    if events[k].trigger() == true and EntityHasTag(entity_id,"graham_speaking") == false then
+    if events[k].trigger() == true and EntityHasTag(entity_id, "graham_speaking") == false then
         local bool, dialogue = events[k].trigger()
         if bool == true then
             Speak(entity_id, dialogue)
-	        GamePlaySound( "mods/noita.hardmod/files/modules/phantom_nemesis/files/audio/phantom_audio.bank", "felcesis/phantom_talk", x, y );
+	        GamePlaySound("mods/noita.hardmod/files/modules/phantom_nemesis/files/audio/phantom_audio.bank", "felcesis/phantom_talk", x, y);
             break
         end
     end

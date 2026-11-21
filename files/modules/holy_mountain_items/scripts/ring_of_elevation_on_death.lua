@@ -25,11 +25,12 @@ function death(damage_type_bit_field, damage_message, entity_thats_responsible, 
 				if stage_boundary > y_chunk_level then break end
 				target_level = levels[i-1]
 			end
-			print(y_chunk_level)
-			print(target_level)
-			print(y)
 
-			ComponentSetValue2(tele_comp, "target", -2, (target_level*512)+386)
+			local pw_x,pw_y = GetParallelWorldPosition(x, y)
+			local ww,wh = BiomeMapGetSize()
+			local offset_x,offset_y = pw_x * ww * 512, pw_y * wh * 512
+
+			ComponentSetValue2(tele_comp, "target", -2 + offset_x, (target_level*512)+386 + offset_y)
 			EntitySetComponentIsEnabled(portal, tele_comp, true)
 		end
 	end

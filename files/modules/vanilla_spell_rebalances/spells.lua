@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 local function apply_freeze()
 	if reflecting then return end
 
@@ -32,7 +30,7 @@ hooks.new_spells = {
 		mana = 8,
 		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/cards/card_torch_magic.xml",
 		action = function()
-			draw_actions( 1, true )
+			draw_actions(1, true)
 		end,
 	},
 }
@@ -102,16 +100,14 @@ hooks.spell_patches = {
 		end
 	},
 	["FREEZE_FIELD"] = {
-		mana = 75,
-		max_uses = 3,
-		never_unlimited = true,
+		mana = 50, max_uses = 5,
 		action = function()
 			apply_freeze()
 			add_projectile("data/entities/projectiles/deck/freeze_field.xml")
 			c.fire_rate_wait = c.fire_rate_wait + 15
 		end
 	},
-	["POLYMORPH_FIELD"] = { mana = 90, max_uses = 3, never_unlimited = true },
+	["POLYMORPH_FIELD"] = { mana = 75, max_uses = 5 }, --no need to nerf so hard imo, polymorph immunity exists -K
 	["ELECTROCUTION_FIELD"] = { mana = 50, max_uses = 10 },
 	["CHAOS_POLYMORPH_FIELD"] = { mana = 50 },
 	["AREA_DAMAGE"] = { mana = 60 },
@@ -165,11 +161,12 @@ hooks.spell_patches = {
 	},
 	["DARKFLAME"] = {
 		sprite = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/gfx/ui_gfx/spells/darkflame_player.png",
-		max_uses = -1,
 		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/card_darkflame_player.xml",
+		max_uses = -1,
+		mana = 40,
 		action = function()
 			add_projectile("mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/darkflame_player.xml")
-			c.fire_rate_wait = c.fire_rate_wait + 20
+			c.fire_rate_wait = c.fire_rate_wait + 14
 		end,
 	},
 	["FLAMETHROWER"] = { -- damage is also changed in damage.lua
@@ -211,30 +208,32 @@ hooks.spell_patches = {
 		never_unlimited = true,
 		action = function()
 			c.fire_rate_wait = c.fire_rate_wait + 60
-			add_projectile( "data/entities/projectiles/deck/bomb_detonator.xml" )
+			add_projectile("data/entities/projectiles/deck/bomb_detonator.xml")
 		end,
 		-- 	if reflecting then return end
 
-		-- 	local utils = dofile_once( "mods/noita.hardmod/lib/utilities.lua" )
-		-- 	local prev_cast_frame = utils.GetInternalInt( GetUpdatedEntityID(), "hardmod_bomb_detonator_prev_cast_frame" ) or 0
+		-- 	local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua")
+		-- 	local prev_cast_frame = utils.GetInternalInt(GetUpdatedEntityID(), "hardmod_bomb_detonator_prev_cast_frame") or 0
 		-- 	local current_frame = GameGetFrameNum()
-		-- 	local x, y = EntityGetTransform( GetUpdatedEntityID() )
+		-- 	local x, y = EntityGetTransform(GetUpdatedEntityID())
 		-- 	if current_frame - prev_cast_frame > 30 then
-		-- 		add_projectile( "data/entities/projectiles/deck/bomb_detonator.xml" )
-		-- 		GamePlaySound( "data/audio/Desktop/misc.bank", "misc/beam_from_sky_kick", x, y )
-		-- 		utils.SetInternalInt( GetUpdatedEntityID(), "hardmod_bomb_detonator_prev_cast_frame", current_frame )
+		-- 		add_projectile("data/entities/projectiles/deck/bomb_detonator.xml")
+		-- 		GamePlaySound("data/audio/Desktop/misc.bank", "misc/beam_from_sky_kick", x, y)
+		-- 		utils.SetInternalInt(GetUpdatedEntityID(), "hardmod_bomb_detonator_prev_cast_frame", current_frame)
 		-- 	else
-        --         GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y )
-        --         add_projectile( "data/entities/projectiles/deck/fizzle.xml" )
+        --         GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
+        --         add_projectile("data/entities/projectiles/deck/fizzle.xml")
 		-- 	end
 		-- end,
 	},
 	["TORCH"] = {
+		description = "$hardmod_spell_torch_desc",
 		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/cards/card_torch.xml",
 	},
 	["TORCH_ELECTRIC"] = {
-		mana = -2,
+		description = "$hardmod_spell_torch_electric_desc",
 		custom_xml_file = "mods/noita.hardmod/files/modules/vanilla_spell_rebalances/entities/cards/card_torch_electric.xml",
+		mana = -2,
 	},
 }
 

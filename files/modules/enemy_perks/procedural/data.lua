@@ -29,6 +29,7 @@ local on_hit_callbacks = {
 			})
 			--We can't set these values inherently when creating a new component via lua, so set them here instead
 			ComponentSetValue2(comp, "offset", -1, 0)
+			ComponentSetValue2(comp, "gravity", 0, 0)
 		end,
 	}
 }

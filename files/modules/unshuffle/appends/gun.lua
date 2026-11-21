@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 -- Unused, may experiment with this more later
 
 -- Changes shuffle wands to only swap two random spells at most

@@ -65,8 +65,8 @@ do
 end
 
 local function transcribe_line(line)
-	if line:sub(1,1) == ',' then return end
-	if line:sub(1,#"hardmod_setting_") == "hardmod_setting_" then return end
+	if line:sub(1, 1) == ',' then return end
+	if line:sub(1, #"hardmod_setting_") == "hardmod_setting_" then return end
 
 
 	local current_column = 1
@@ -124,7 +124,7 @@ for i, key in ipairs(translations["key"]) do
 	standard = standard .. line .. ",,,\n"
 end
 
-ModTextFileSetContent(path.."standard.csv",standard)
+ModTextFileSetContent(path.."standard.csv", standard)
 
 for lang,name in pairs(nonstandard_langs) do
 	if #translations[lang] == 0 then goto continue end
@@ -137,6 +137,6 @@ for lang,name in pairs(nonstandard_langs) do
 	end
 
 
-    ModTextFileSetContent(path..name..".csv",translation)
+    ModTextFileSetContent(path..name..".csv", translation)
 	::continue::
 end

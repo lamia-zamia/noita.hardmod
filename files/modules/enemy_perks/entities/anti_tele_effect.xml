@@ -1,0 +1,16 @@
+<Entity name="hardmod.anti_tele" tags="hardmod_player_tele_disabler">
+	<InheritTransformComponent/>
+
+	<LuaComponent
+		script_source_file = "mods/noita.hardmod/files/modules/enemy_perks/scripts/anti_tele_aura_on_shot.lua"
+		script_shot = "mods/noita.hardmod/files/modules/enemy_perks/scripts/anti_tele_aura_on_shot.lua"
+		execute_every_n_frame = "25"
+	/>
+
+	<UIIconComponent
+		icon_sprite_file="mods/noita.hardmod/files/modules/enemy_perks/gfx/anti_tele_status.png"
+		name="$hardmod_status_anti_tele_name"
+		description="$hardmod_status_anti_tele_desc"
+		display_above_head="1"
+	/>
+</Entity>

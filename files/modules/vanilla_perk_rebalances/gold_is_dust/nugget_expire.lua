@@ -1,7 +1,7 @@
 if not GameHasFlagRun("hardmod.gold_is_dust_perk") then return end
 local entity_id = GetUpdatedEntityID()
 if EntityGetRootEntity(entity_id) ~= entity_id then return end
-local x,y = EntityGetTransform(entity_id)
+local x, y = EntityGetTransform(entity_id)
 
 --do this in case some loser turns off my super cool and awesome better bloody nuggets
 local vanilla_bloody

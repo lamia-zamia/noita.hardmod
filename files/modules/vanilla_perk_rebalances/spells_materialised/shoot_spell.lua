@@ -25,7 +25,7 @@ function shot(projectile)
 	if uses_remaining ~= -1 then
 		ComponentSetValue2(item_comp, "uses_remaining", uses_remaining - 1)
 		if uses_remaining == 1 then
-			local x,y = EntityGetTransform(parent)
+			local x, y = EntityGetTransform(parent)
 			GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y)
 		end
 	end

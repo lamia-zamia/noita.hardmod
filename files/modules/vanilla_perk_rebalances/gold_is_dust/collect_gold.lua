@@ -1,5 +1,5 @@
 local entity_id = GetUpdatedEntityID()
-local x,y = EntityGetTransform(entity_id)
+local x, y = EntityGetTransform(entity_id)
 local material_inventory = EntityGetFirstComponent(entity_id, "MaterialInventoryComponent")
 if not material_inventory then return end
 local stored_gold = ComponentGetValue2(material_inventory, "count_per_material_type")

@@ -1,5 +1,5 @@
 local entity_id = GetUpdatedEntityID()
-local x,y = EntityGetTransform(entity_id)
+local x, y = EntityGetTransform(entity_id)
 
 local largest_radius = 0
 for _,proj_comp in ipairs(EntityGetComponent(entity_id, "ProjectileComponent") or {}) do
@@ -7,8 +7,8 @@ for _,proj_comp in ipairs(EntityGetComponent(entity_id, "ProjectileComponent") o
 end
 
 for _,entity in ipairs(EntityGetInRadiusWithTag(x, y, largest_radius, "mortal")) do
-	local ex,ey = EntityGetTransform(entity)
-	if not RaytraceSurfaces(x, y, ex,ey) then
+	local ex, ey = EntityGetTransform(entity)
+	if not RaytraceSurfaces(x, y, ex, ey) then
 		EntityAddChild(entity, EntityLoad("mods/noita.hardmod/files/modules/enemy_perks/generated/%ID%_hit.xml", ex, ey))
 	end
 end

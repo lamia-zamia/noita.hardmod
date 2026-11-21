@@ -1,4 +1,4 @@
-<Biome>
+<Biome> 
 	<Topology 
 		name="_EMPTY_"
 		background_image="data/weather_gfx/background_cave_02.png"
@@ -35,7 +35,7 @@
 		fat_biome_edges="0"
 		audio_music_2="tower"
 		audio_ambience="cave"
-	></Topology>
+	/>
 
 	<Materials name="solid_wall">
 		<MaterialComponent 
@@ -47,7 +47,7 @@
 			material_index="10" 
 			material_max="3.95" 
 			material_min="-100.0" 
-			material_name="hardmod_cursed_liquid" 
+			material_name="hardmod_cursed_liquid_static" 
 			rare_polka_is_boxed="1" 
 			rare_polka_probability="0.2" 
 			rare_polka_radius_high="0.65" 
@@ -57,7 +57,7 @@
 			rare_scale_x="0.05" 
 			rare_scale_y="0.05" 
 			rare_use_perlin="0" 
-			rare_use_polka="1" >
-		</MaterialComponent>
+			rare_use_polka="1"
+		/>
 	</Materials>
 </Biome>

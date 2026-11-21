@@ -6,7 +6,7 @@
 
 	<LuaComponent
 		script_source_file="mods/noita.hardmod/files/modules/enemy_perks/scripts/anti_tele_aura_update.lua"
-		execute_every_n_frame="1"
+		execute_every_n_frame="3"
 	></LuaComponent>
 
 	<ParticleEmitterComponent 
@@ -14,8 +14,8 @@
 		gravity.y="0.0"
 		lifetime_min="0.05"
 		lifetime_max="0.1"
-		count_min="250"
-		count_max="300"
+		count_min="90"
+		count_max="140"
 		render_on_grid="1"
 		fade_based_on_lifetime="1"
 		cosmetic_force_create="1"
@@ -38,8 +38,8 @@
 		gravity.y="0.0"
 		lifetime_min="0.7"
 		lifetime_max="1.2"
-		count_min="60"
-		count_max="90"
+		count_min="20"
+		count_max="40"
 		render_on_grid="1"
 		fade_based_on_lifetime="1"
 		area_circle_radius.min="190"

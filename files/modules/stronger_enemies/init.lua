@@ -1,6 +1,8 @@
 local nxml = dofile_once("mods/noita.hardmod/lib/nxml/nxml.lua")---@type nxml
 local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
+local hooks = {} ---@type hooks
+
 local alt_biomes = dofile_once("mods/noita.hardmod/files/modules/alternate_biomes/biome_list.lua")
 
 utils.AddEnemyToProgress("hardmod_wizard_confusion", "wizard_twitchy")
@@ -54,6 +56,12 @@ local function patch_enemy_changes()
 			from = [[data/entities/misc/effect_spirit_weakness.xml]],
 			to = [[mods/noita.hardmod/files/modules/stronger_enemies/entities/effect_spirit_weaken.xml]]
 		},
+		{
+			from = [[EntityAddChild]],
+			insert_before = [[
+				AddFlagPersistent("hardmod_found_spirit_weaken")
+			]]
+		}
 	})
 
 	for xml in nxml.edit_file("data/entities/animals/weakspirit.xml") do
@@ -173,14 +181,16 @@ local function patch_fixes()
 	end
 end
 
+dofile_once("mods/noita.hardmod/files/modules/stronger_enemies/hp-multipliers.lua")
+function hooks.new_eid(eid)
+	if not EntityHasTag(eid, "enemy") then return end
+	HardmodTransformEnemy(eid)
+end
+
 patch_spawn_rules()
 patch_less_annoyances()
 patch_fixes()
 patch_enemy_changes()
 patch_enemy_resistances()
 
-return {
-	player_spawned = function()
-		-- EntityLoad("mods/noita.hardmod/files/modules/stronger_enemies/entities/hardmod_wizard_confusion.xml", 627, -125)
-	end
-}
+return hooks

@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 local action_id_table = nil
 local function get_spell_data(action_id)
 	if not action_id_table then
@@ -66,6 +64,9 @@ local function run_greek(data, recursion_level, dont_draw, no_recursion)
 	if spell and spell.never_unlimited then
 		local frame = GameGetFrameNum()
 		if not reflecting and frame - last_greek_error > 20 then
+			local player = GetUpdatedEntityID()
+			local x, y = EntityGetTransform(player)
+
 			GamePrint(GameTextGet("$hardmod_spell_greek_limited", GameTextGetTranslatedOrNot(spell.name)))
 			GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/out_of_mana", x, y)
 			last_greek_error = frame
@@ -105,7 +106,7 @@ hooks.new_spells = {
 		spawn_requires_flag = "hardmod_cannot_spawn",
 		price = 1000,
 		mana = 20,
-		action = function()
+		action = function(recursion_level)
 			if reflecting then return end
 
 			local data = nil
@@ -180,8 +181,8 @@ hooks.new_spells = {
         description = "$hardmod_spell_damage_double_desc",
         sprite = "mods/noita.hardmod/files/modules/limited_spells/gfx/ui_gfx/spells/damage_double.png",
         type = ACTION_TYPE_MODIFIER,
-        spawn_level = "5,6,10",
-        spawn_probability = "0.3,0.3,0.2",
+        spawn_level = "3,4,5,6",
+        spawn_probability = "0.3,0.3,0.3,0.3",
         price = 160,
         mana = 20,
         max_uses = 10,
@@ -193,11 +194,11 @@ hooks.new_spells = {
 
             c.extra_entities = c.extra_entities .. "mods/noita.hardmod/files/modules/limited_spells/entities/spells/damage_double.xml,"
             c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
-            draw_actions( 1, true )
+            draw_actions(1, true)
 
             if reflecting then return end
-            local x, y = EntityGetTransform( GetUpdatedEntityID() )
-            GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/black_hole/create", x, y )
+            local x, y = EntityGetTransform(GetUpdatedEntityID())
+            GamePlaySound("data/audio/Desktop/projectiles.bank", "player_projectiles/black_hole/create", x, y)
         end,
     },
 }
@@ -348,8 +349,33 @@ hooks.spell_patches = {
 	["GRENADE"] = { max_uses = 30 },
 	["GRENADE_TRIGGER"] = { max_uses = 30 },
 	["GRENADE_ANTI"] = { max_uses = 30 },
-	["ROCKET_TIER_2"] = { max_uses = 10 },
-	["ROCKET_TIER_3"] = { max_uses = -1 },
+	["ROCKET"] = {
+		max_uses = 10,
+		action = function()
+			add_projectile("data/entities/projectiles/deck/rocket.xml")
+			c.fire_rate_wait = c.fire_rate_wait + 60
+			c.ragdoll_fx = 2
+			shot_effects.recoil_knockback = 240.0 -- more knockback more oomph!!
+		end,
+	},
+	["ROCKET_TIER_2"] = {
+		max_uses = 10,
+		action = function()
+			add_projectile("data/entities/projectiles/deck/rocket_tier_2.xml")
+			c.fire_rate_wait = c.fire_rate_wait + 90
+			c.ragdoll_fx = 2
+			shot_effects.recoil_knockback = 360.0 -- more knockback more oomph!!
+		end,
+	},
+	["ROCKET_TIER_3"] = {
+		max_uses = 10,
+		action = function()
+			add_projectile("data/entities/projectiles/deck/rocket_tier_3.xml")
+			c.fire_rate_wait = c.fire_rate_wait + 120
+			c.ragdoll_fx = 2
+			shot_effects.recoil_knockback = 420.0 -- more knockback more oomph!!
+		end,
+	},
 
 	["FISH"] = { max_uses = 10 },
 	["EXPLODING_DEER"] = { max_uses = 5 },
@@ -366,7 +392,7 @@ hooks.spell_patches = {
 	["SWARM_FIREBUG"] = { max_uses = 16 },
 	["SWARM_WASP"] = { max_uses = 16 },
 	["FRIEND_FLY"] = { max_uses = 16 },
-	
+
 	["THUNDERBALL"] = { max_uses = 10 },
 	["DAMAGE_FOREVER"] = { max_uses = -1 },
 	["ALL_DISCS"] = { max_uses = 10, never_unlimited = true },

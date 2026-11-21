@@ -1,4 +1,4 @@
-<Entity tags="workshop,orbroom_tinker">
+<Entity tags="workshop,workshop_untouched,orbroom_tinker">
 	<!-- literally eyeballed a random orb room with cheatgui lmao -->
 	<!-- not meant to fit the entire room -->
 	<HitboxComponent 

@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 payload_cast_delay_scale = 1.0 -- Fraction of the payload's cast delay
 payload_spread_degrees_scale = 1.0
 
@@ -46,18 +45,4 @@ function hardmod_get_card_cast_delay(card)
 	end
 
 	return known_delay
-end
-
---- Funi shenanigans
-local function charge_payload_cast_delay(nested_shot)
-	if not c or c == nested_shot.state then return end
-
-	c.fire_rate_wait = c.fire_rate_wait + nested_shot.state.fire_rate_wait * payload_cast_delay_scale
-	c.spread_degrees = c.spread_degrees + nested_shot.state.spread_degrees * payload_spread_degrees_scale
-end
-
-local previous_draw_shot = draw_shot
-function draw_shot(shot, instant_reload_if_empty)
-	previous_draw_shot(shot, instant_reload_if_empty)
-	charge_payload_cast_delay(shot)
 end

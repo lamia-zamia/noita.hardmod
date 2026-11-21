@@ -1,0 +1,28 @@
+<Entity>
+	<ParticleEmitterComponent
+		emitted_material_name="poo"
+		collide_with_grid="0"
+
+		gravity.y="-40"
+		lifetime_min="5"
+		lifetime_max="45"
+		count_min="1"
+		count_max="1"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		cosmetic_force_create="1"
+		airflow_force="1.601"
+		airflow_time="1.51"
+		airflow_scale="0.02"
+  
+		emit_cosmetic_particles="1"
+		is_emitting="1"
+		image_animation_file="mods/noita.hardmod/files/modules/holy_mountain_rework/crystal/perk_destroyed.png"
+		image_animation_speed="1"
+		image_animation_loop="1"
+		image_animation_phase="0"
+		image_animation_emission_probability="1"
+	/>
+
+	<LifetimeComponent lifetime="10"/>
+</Entity>

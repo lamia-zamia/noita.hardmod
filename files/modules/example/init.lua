@@ -5,25 +5,50 @@ local hooks = {
 	mod_init = function() end, --`OnModInit()`
 	mod_post_init = function() end, --`OnModPostInit()`
 	magic_numbers_and_seed_initialised = function() end, --`OnMagicNumbersAndWorldSeedInitialised()`
-	edit_material = function(elem) end, --iterates over all materials OnMagicNumbersAndWorldSeedInitialised
-	edit_reaction = function(elem) end, --iterates over all reactions OnMagicNumbersAndWorldSeedInitialised
-	biome_config = function() end, --`()`
+	---@param elem element
+	edit_material = function(elem) end, --iterates over all materials `OnMagicNumbersAndWorldSeedInitialised`
+	---@param elem element
+	edit_reaction = function(elem) end, --iterates over all reactions `OnMagicNumbersAndWorldSeedInitialised`
+	biome_config = function() end, --`OnBiomeConfigLoaded()`
 	world_init = function() end, --`OnWorldInitialized()`
 
 	--Runtime hofunction() ends
+
+	---@param frame integer
 	pre_update = function(frame) end, --beginning of every frame
+	---@param entity_id entity_id
 	new_eid = function(entity_id) end, --new entity
+	---@param frame integer
 	post_update = function(frame) end, --end of every frame
 
 	--Player hofunction() ends
+
+	---@param player entity_id
+	---@param is_run_start boolean
 	player_spawned = function(player, is_run_start) end, --When the player spawns in after world is initialised
+	---@param player entity_id?
+	---@param poly_identity entity_id?
 	player_changed = function(player, poly_identity) end, --Runs whenever polymorphing/unpolymorphing
-	player_destroyed = function(player) end, --OnPlayerDied
+	---@param player entity_id
+	---@param x number
+	---@param y number
+	---@param biome_path string Biome path
+	---@param biome_id BiomeID Biome ID from biome-index.lua
+	---@param biome_name string Original biome name returned from script_biome_entered
+	player_biome_changed = function(player, x, y, biome_path, biome_id, biome_name) end, -- When the player changes biome	
+	---@param player entity_id
+	player_destroyed = function(player) end, --`OnPlayerDied()`
 
 	--Pause hofunction() ends
+
 	mod_settings_changed = function() end,
 	pause_pre_update = function() end,
+	---@param is_paused boolean
+	---@param is_inventory_pause boolean
 	pause_changed = function(is_paused, is_inventory_pause) end,
+	---@param total integer
+	---@param found integer
+	---@returns integer total, integer found
 	count_secrets = function(total, found) return total,found end, --runs every frame on the progress menu, `found` is added to the secrets counter
 }
 
@@ -58,7 +83,7 @@ hooks.new_eid = function(entity_id, varcomp_tree)
     --This function iterates over every new entity that has been created at the start of a frame.
     if GameHasFlagRun("spawn_more_enemies") and (EntityHasTag(entity_id, "enemy") and not EntityHasTag(entity_id, "boss")) then
         SetRandomSeed(-entity_id, gd.frame)
-        if Random(1,5) == 1 then
+        if Random(1, 5) == 1 then
             local x,y = EntityGetTransform(entity_id)
             EntityLoad(EntityGetFilename(entity_id), x, y)
         end

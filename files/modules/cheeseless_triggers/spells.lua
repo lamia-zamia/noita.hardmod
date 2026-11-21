@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 local hooks = {}
 
 local ADD_CARD_IDS = { ADD_TRIGGER = true, ADD_TIMER = true, ADD_DEATH_TRIGGER = true }
@@ -100,6 +99,7 @@ hooks.new_spells = {
 		price = 400,
 		mana = 80,
 		action = function()
+			-- original Add Trigger function (i.e. copies modifiers for free), except it doesn't add a trigger
 			local data = {}
 			
 			local how_many = 1
@@ -170,31 +170,38 @@ hooks.new_spells = {
 
 hooks.spell_patches = {
 	["ADD_TRIGGER"] = {
-		-- type = ACTION_TYPE_MODIFIER,
+		type = ACTION_TYPE_MODIFIER,
+		description = "$hardmod_spell_add_trigger_desc",
 		spawn_requires_flag = nil,
-		-- action = function()
-		-- 	draw_actions( 1, true )
-
-		-- 	local trigger_card = nil
-		-- 	for _,card in ipairs( hand ) do
-		-- 		if card ~= nil
-		-- 		and card.type == ACTION_TYPE_PROJECTILE
-		-- 		and card.related_projectiles ~= nil
-		-- 		and ( card.uses_remaining == nil or card.uses_remaining ~= 0 ) then
-		-- 			trigger_card = card
-		-- 		end
-		-- 	end
-
-		-- 	if trigger_card ~= nil then
-		-- 		add_projectile_trigger_hit_world(trigger_card.related_projectiles[1], 1)
-		-- 	end
-		-- end,
+		mana = 20,
+		action = function()
+			if reflecting then return end
+			dynamic_trigger = DYNAMIC_TRIGGER_WORLD
+			draw_actions( 1, true )
+			dynamic_trigger = DYNAMIC_TRIGGER_NONE
+		end,
 	},
 	["ADD_TIMER"] = {
-		spawn_requires_flag = nil
+		type = ACTION_TYPE_MODIFIER,
+		description = "$hardmod_spell_add_timer_desc",
+		spawn_requires_flag = nil,
+		action = function()
+			if reflecting then return end
+			dynamic_trigger = DYNAMIC_TRIGGER_TIMER
+			draw_actions( 1, true )
+			dynamic_trigger = DYNAMIC_TRIGGER_NONE
+		end,
 	},
 	["ADD_DEATH_TRIGGER"] = {
-		spawn_requires_flag = nil
+		type = ACTION_TYPE_MODIFIER,
+		description = "$hardmod_spell_add_death_trigger_desc",
+		spawn_requires_flag = nil,
+		action = function()
+			if reflecting then return end
+			dynamic_trigger = DYNAMIC_TRIGGER_DEATH
+			draw_actions( 1, true )
+			dynamic_trigger = DYNAMIC_TRIGGER_NONE
+		end,
 	},
 }
 

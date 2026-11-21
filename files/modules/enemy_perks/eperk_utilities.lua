@@ -76,14 +76,18 @@ function utilities.select_random_perk(t, data)
 	local temp = {}
 	for _, entry in ipairs(t) do
 		local id = entry.id
-		local max,min_level,max_level = entry.max,entry.min_level,entry.max_level
+		local max, min_level, max_level = entry.max, entry.min_level, entry.max_level
 
+		if entry.requires_dmc and not data.dmc then goto continue end
+		if data.is_boss and entry.not_boss then goto continue end
+		if data.is_shop_guardian and entry.not_shop_guardian then goto continue end
+		if data.how_many_of_each_perk[id] then entry.weight = entry.weight * 1.15^data.how_many_of_each_perk[id] end
 		local unique_slot = entry.unique_slot
 		if unique_slot then
 			local taken_by = data.unique_slots[unique_slot]
-			if taken_by ~= nil and taken_by ~= entry.id then goto continue end
+			if taken_by ~= nil and taken_by ~= id then goto continue end
 		end
-		if max and max <= (data.how_many_of_each_perk[entry.id] or 0) then goto continue end
+		if max and max <= (data.how_many_of_each_perk[id] or 0) then goto continue end
 		if (min_level and min_level > level) or (max_level and level > max_level) then goto continue end
 		if entry.condition and not entry:condition(data) then goto continue end
 		temp[#temp+1] = entry
@@ -97,7 +101,7 @@ end
 
 ---function to give enemy perks
 ---@param entity_id entity_id
----@param perks_to_give int|table|nil pass number to pass X random perks, pass table to give specific selection of perks
+---@param perks_to_give table|int|nil pass number to pass X random perks, pass table to give specific selection of perks
 ---@param data table context passed to functions, used for both random selection and perk behaviour
 function utilities.give_enemy_perks(entity_id, perks_to_give, data)
 	local perks_to_give_type = type(perks_to_give)
@@ -112,7 +116,7 @@ function utilities.give_enemy_perks(entity_id, perks_to_give, data)
 		if ComponentHasTag(vsc_comp, "no_gold_drop") then return end
 	end
 
-	local x,y = EntityGetTransform(entity_id)
+	local x, y = EntityGetTransform(entity_id)
 	local enemy_perks_handler
 	for _,child in ipairs(EntityGetAllChildren(entity_id) or {}) do
 		if EntityGetName(child) == "hardmod.enemy_perks" then enemy_perks_handler = child break end
@@ -207,6 +211,38 @@ function utilities.give_enemy_perks(entity_id, perks_to_give, data)
 
 	for _,perk in ipairs(selected_perks) do
 		if perk.post_func then perk:post_func(entity_id, data) end
+	end
+end
+
+
+function utilities.handle_perk_on_death(perks, ddata)
+	ddata.attacker_was_player = EntityHasTag(ddata.attacker, "player_unit") or EntityHasTag(ddata.attacker, "polymorphed_player")
+
+	local new_perk_discovered
+	ddata.held_perks = {}
+	ddata.how_many_of_each_perk = {}
+	for perk_id in perks:gmatch("([^,]+)") do
+		ddata.how_many_of_each_perk[perk_id] = (perk_id[perk_id] or 0) + 1
+		ddata.held_perks[#ddata.held_perks+1] = perk_id
+		if ddata.attacker_was_player then
+			local persistent_flag_name = "perk_picked_enemyperk_"..perk_id:lower()
+			if not HasFlagPersistent(persistent_flag_name) then
+				new_perk_discovered = true
+				AddFlagPersistent(persistent_flag_name)
+				GameAddFlagRun("new_"..persistent_flag_name)
+			end
+		end
+	end
+	if new_perk_discovered then GameAddFlagRun("hardmod_new_enemy_perk_discovered") end
+
+	local x,y = EntityGetTransform(ddata.entity_id)
+	SetRandomSeed(5932+y, x-135)
+	for _,perk in ipairs(dofile_once("mods/noita.hardmod/files/modules/enemy_perks/enemy_perks_list.lua")) do
+		if perk.on_death and ddata.how_many_of_each_perk[perk.id] then
+			for _=1,ddata.how_many_of_each_perk[perk.id] do
+				perk:on_death(ddata.entity_identity_id, ddata)
+			end
+		end
 	end
 end
 

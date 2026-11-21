@@ -32,8 +32,8 @@
 	explosion_dont_damage_shooter="1"
     damage="0.3"
     on_collision_die="1"
-	penetrate_world = 1
-	penetrate_world_velocity_coeff = 1
+	penetrate_world = "1"
+	penetrate_world_velocity_coeff = "1"
     lifetime="90" >
     <config_explosion
       never_cache="1" 
@@ -47,7 +47,6 @@
       hole_destroy_liquid="1" 
       hole_enabled="1" 
 	  damage = "0.1"
-      hole_image="data/temp/explosion_hole.png"
 	  explosion_sprite_emissive="1"
 	  explosion_sprite_additive="1"
       particle_effect="0" 
@@ -65,8 +64,7 @@
 	  light_g="180"
       light_b="180"
       stains_enabled="1" 
-      stains_image="data/temp/explosion_stain.png" >
-    </config_explosion>
+	></config_explosion>
   </ProjectileComponent>
   
   <SpriteComponent 

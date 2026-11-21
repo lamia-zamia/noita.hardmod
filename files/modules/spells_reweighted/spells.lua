@@ -73,8 +73,16 @@ local hooks = {
 		["ORBIT_FIREBALLS"] = { mana = 60 },
 		["FREEZE"] = { mana = 25 },
 		["BURST_X"] = { max_uses = -1 },
-		["FREEZE_FIELD"] = { mana = 75, max_uses = 3, never_unlimited = true },
-		["POLYMORPH_FIELD"] = { mana = 90, max_uses = 3, never_unlimited = true },
+		["FREEZE_FIELD"] = {
+			mana = 50, max_uses = 5,
+			spawn_level = "1,2,3,4,5",
+			spawn_probability = "0.2,0.5,0.5,0.6,0.3",
+		},
+		["POLYMORPH_FIELD"] = {
+			mana = 75, max_uses = 5,
+			spawn_level = "1,2,3,4,5",
+			spawn_probability = "0.2,0.3,0.4,0.5,0.3",
+		},
 		["ELECTROCUTION_FIELD"] = { mana = 50, max_uses = 10 },
 		["CHAOS_POLYMORPH_FIELD"] = { mana = 50 },
   		["AREA_DAMAGE"] = { mana = 60 },

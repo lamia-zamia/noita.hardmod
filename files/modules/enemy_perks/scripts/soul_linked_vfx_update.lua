@@ -1,14 +1,17 @@
----@diagnostic disable: undefined-global
-
 -- most of this code was shamelessly stolen from Apoth pylons
 dofile_once("data/scripts/lib/utilities.lua")
-local utils = dofile_once( "mods/noita.hardmod/lib/utilities.lua" ) ---@type utils
+local utils = dofile_once("mods/noita.hardmod/lib/utilities.lua") ---@type utils
 
 local entity_id = GetUpdatedEntityID()
-local owner = EntityGetRootEntity( entity_id )
-local x, y = EntityGetTransform( owner )
+local owner = EntityGetRootEntity(entity_id)
+local x, y = EntityGetTransform(owner)
 
-local ally = utils.GetInternalInt( owner, "hardmod_soul_linked_ally" ) or 0
+local ally = utils.GetInternalInt(owner, "hardmod_soul_linked_ally") or 0
+
+-- TODO: wtf do i do instead of this
+---@diagnostic disable-next-line: cast-type-mismatch
+---@cast ally entity_id
+
 if ally == 0 then return end
 local time = GameGetFrameNum()
 
@@ -17,7 +20,7 @@ local time = GameGetFrameNum()
 -- do
 	local children = EntityGetAllChildren(entity_id)
 	if children == nil or #children == 0 then return end
-	
+
 	-- "shoulder" position
 	local ax, ay = EntityGetTransform(ally)
 	local offset_y = 0
@@ -26,10 +29,10 @@ local time = GameGetFrameNum()
 	end
 	ay = ay + offset_y
 
-	for k=1,#children
-	do local fx_entity = children[k]
+	for _,fx_entity in pairs(children) do
 		if EntityHasTag(fx_entity, "arm_fx") then
 			-- pick a position between body and hand. 0 is body, 1 is hand
+			---@diagnostic disable-next-line: param-type-mismatch
 			local pos = ProceduralRandomf(time, fx_entity)
 
 			-- -- figure out how much to distort the position
@@ -44,7 +47,7 @@ local time = GameGetFrameNum()
 			local tx, ty = vec_lerp(ax, ay, x, y, pos)
 			-- x = x + distort_x
 			-- y = y + distort_y
-			EntitySetTransform( fx_entity, tx, ty )
+			EntitySetTransform(fx_entity, tx, ty)
 		end
 	end
 -- end

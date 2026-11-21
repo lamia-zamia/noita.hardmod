@@ -9,9 +9,9 @@ local biomemap_filepath = "mods/noita.hardmod/files/modules/biome_map/gfx/biome_
 local biomemap_width = 72
 local biomemap_height = 48
 if ModIsEnabled("Apotheosis") then
-    biomemap_width = 102
-    biomemap_height = 48
-    biomemap_filepath = "mods/noita.hardmod/files/modules/biome_map/cross_mod_compat/biome_map_apotheosis_merged.png"
+	biomemap_width = 102
+	biomemap_height = 48
+	biomemap_filepath = "mods/noita.hardmod/files/modules/biome_map/cross_mod_compat/biome_map_apotheosis_merged.png"
 end
 
 BiomeMapSetSize(biomemap_width, biomemap_height)

@@ -60,7 +60,6 @@ local function inject_into_shop(spell_id, x, y, radius)
 			local itemaction_comp = EntityGetFirstComponentIncludingDisabled(spell, "ItemActionComponent")
 			if itemaction_comp then
 				local wspell_id = ComponentGetValue2(itemaction_comp, "action_id")
-				---@diagnostic disable-next-line: undefined-global
 				if indexed_gun_actions[wspell_id].type == ACTION_TYPE_PROJECTILE then
 					spells[wspell_id] = spells[wspell_id] or {}
 					spells[wspell_id][#spells[wspell_id]+1] = spell

@@ -7,10 +7,12 @@
 - Add Parallel Parity module
 - Look into improving early-game mobility
 	- This has been done via guaranteed Hastium basin in stage 2, though more options isnt a terrible idea, wait and observe on this topic for now
-- rewrite perk selection logic to be more integrated
 - remove item immunities perk if apotheosis is enabled?
 - fix zerk strat (i have a plan :> (concrete))
 - move food poisoning immunity to EYV and make sure it works with vomit eperk
+- make icon on anti-tele status better
+- add sort after fields for perks and spells
+- make shit perk border chunkier?
 
 ## Enemy Perk Ideas
 - Mass Chaotic Polymorph on death
@@ -30,15 +32,12 @@
 ## bugs
 - 2nd and 3rd hand statue kicked drops summon portal spell
 - Snail module crashes?
-- 0 0 enemy perk icons
-- exempt On-Death perks if Forbidden Revival (and vice-versa)
 - make HM basin changes work in final stage
-- sungems dont spawn
 - Ira should probs remove CBC from their champion
-- fix PW cursed liquid to be like apoth's
 
 ## Spell Issues
 ### These are not things I intend to change on my own, but with the consultation of Yui and the other devs in #noita-coommunity-collab
 - Plasma does miserable damage
 - linear arc is less damage for more mana than add damage
 - ASE spell has 5 charges
+- freeze charge is rough atm, perhaps should just be higher price + make more enemies freeze/melee immune?

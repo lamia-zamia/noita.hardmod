@@ -177,12 +177,12 @@ if not fixnoita then
 			value_int = "0",
 		}))
 	end
-	
+
 	-- Prepend with our new function.
 	ModTextFileSetContent("data/entities/animals/boss_alchemist/key_music.lua",
 		ModTextFileGetContent("mods/noita.hardmod/files/modules/vanilla_bugfixes/key_script_prepend.lua") .. ModTextFileGetContent("data/entities/animals/boss_alchemist/key_music.lua")
 	)
-	
+
 	-- Replace flag check with our function.
 	utils.modifile("data/entities/animals/boss_alchemist/key_music.lua",
 		[[GameHasFlagRun( mm_flag ) and ( GameHasFlagRun( mm_flag .. "_done" ) == false )]],
@@ -506,7 +506,6 @@ function hooks.world_init()
 
 	--Spells: Need to do these slightly more manually since the base system is kinda convoluted, I don't feel like deciphering it, I'll just make my own.
 	dofile_once("data/scripts/gun/gun.lua")
-	---@diagnostic disable-next-line: undefined-global
 	for _,action in ipairs(actions or {}) do
 		local id = action.id:lower()
 		if GameHasFlagRun("new_action_" .. id) then

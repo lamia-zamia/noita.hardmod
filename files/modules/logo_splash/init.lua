@@ -138,7 +138,9 @@ end
 ---Splits a splash into lines of parts and measures them at scale 1.
 ---@param splash string|splash_entry
 local function layout_splash(splash)
-	local entry = type(splash) == "string" and { splash } or splash
+	local entry = splash
+	if type(entry) == "string" then entry = { entry } end
+
 	lines = {}
 	block_width, block_height = 0, 0
 	splash_scale, splash_speed, splash_angle = entry.scale or 1, entry.speed or 1, entry.angle or TEXT_ANGLE

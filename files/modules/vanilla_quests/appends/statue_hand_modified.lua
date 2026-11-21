@@ -1,7 +1,7 @@
 local orig_mark_as_complete = mark_as_complete
 function mark_as_complete()
   local eid = GetUpdatedEntityID()
-	local x, y = EntityGetTransform( eid )
+	local x, y = EntityGetTransform(eid)
 
   orig_mark_as_complete()
 

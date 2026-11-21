@@ -5,7 +5,7 @@ local dir = "mods/noita.hardmod/files/modules/vanilla_perk_rebalances/"
 
 hooks.new_perks = {
 	{
-		id = "HARDMOD_PERK_SPELL_GEMS",
+		id = "HARDMOD_SPELL_GEMS",
 		ui_name = "$hardmod_perk_spell_gems_name",
 		ui_description = "$hardmod_perk_spell_gems_desc",
 		ui_icon = dir.."ui_gfx/perks/spell_gems_016.png",
@@ -13,8 +13,8 @@ hooks.new_perks = {
 		stackable = false,
 		one_off_effect = false,
 		usable_by_enemies = false,
-		func = function(entity_perk_item, entity_who_picked, item_name, stacks)
-			if stacks > 0 then return end
+		func = function(entity_perk_item, entity_who_picked, item_name, pickup_count)
+			if pickup_count > 1 then return end
 			EntityAddChild(entity_who_picked, EntityLoad(dir.."entities/perks/spell_gems.xml"))
 		end
 	},
@@ -84,7 +84,7 @@ hooks.new_perks = {
 		max_in_perk_pool = 2,
 		usable_by_enemies = false,
 		func = function(entity_perk_item, entity_who_picked, item_name, pickup_count)
-			local x,y = EntityGetTransform(entity_who_picked)
+			local x, y = EntityGetTransform(entity_who_picked)
 			local child_id = EntityLoad(dir.."entities/perks/shield_oversized.xml", x, y)
 
 			if ModIsEnabled("quant.ew") then
@@ -153,7 +153,6 @@ hooks.new_perks = {
 		stackable = false,
 		one_off_effect = false,
 		usable_by_enemies = false,
-		game_effect = "PROTECTION_FIRE",
 		remove_other_perks = { "PROTECTION_FIRE" },
 		func = function(perk, entity, name)
 			local x, y = EntityGetTransform(entity)
@@ -161,18 +160,38 @@ hooks.new_perks = {
 			EntityAddChild(entity, effect)
 		end
 	},
-}
-
-hooks.perk_patches = {
-	["REMOVE_FOG_OF_WAR"] = { not_in_default_perk_pool = true },
-	["SHIELD"] = { stackable_maximum = 3 },
-	["GOLD_IS_FOREVER"] = { --makes gold decay into special gold dust
+	-- {
+	-- 	id = "HARDMOD_EMERGENCY_RECALL",
+	-- 	ui_name = "$hardmod_perk_emergency_recall_name",
+	-- 	ui_description = "$hardmod_perk_emergency_recall_desc",
+	-- 	ui_icon = dir.."ui_gfx/perks/teleportitis_016.png",
+	-- 	perk_icon = dir.."ui_gfx/perks/teleportitis.png",
+	-- 	stackable = false,
+	-- 	usable_by_enemies = false,
+	-- 	func = function(entity_perk_item, entity_who_picked, item_name)
+	-- 		EntityAddComponent2(entity_who_picked, "LuaComponent", {
+	-- 			_tags = "perk_component,hardmod_teleportitis",
+	-- 			script_source_file = dir.."scripts/perks/teleportitis_update.lua",
+	-- 			execute_every_n_frame = 1,
+	-- 		})
+	-- 		EntityAddComponent2(entity_who_picked, "LuaComponent", {
+	-- 			_tags = "perk_component,hardmod_teleportitis",
+	-- 			script_damage_received = dir.."scripts/perks/teleportitis_on_damage.lua",
+	-- 			execute_every_n_frame = -1,
+	-- 		})
+	-- 	end,
+	-- 	func_remove = function(entity_who_picked)
+	-- 		utils.EntityRemoveAllByTag(entity_who_picked, "hardmod_teleportitis")
+	-- 	end,
+	-- },
+	{
 		id = "HARDMOD_GOLD_IS_DUST",
 		ui_name = "$hardmod_gold_is_dust_perkname",
 		ui_description = "$hardmod_gold_is_dust_perkdesc",
 		perk_icon = dir.."gold_is_dust/perk.png",
 		ui_icon = dir.."gold_is_dust/icon.png",
 		stackable = false,
+		usable_by_enemies = false,
 		func = function()
 			GameAddFlagRun("hardmod.gold_is_dust_perk")
 		end,
@@ -180,6 +199,22 @@ hooks.perk_patches = {
 			GameRemoveFlagRun("hardmod.gold_is_dust_perk")
 		end,
 	},
+}
+
+hooks.perk_patches = {
+	["PROJECTILE_HOMING"] = {
+		-- Reimplement this as a ShotEffectComponent for the Inhibitor spell
+		-- (i am NOT making it support game effects)
+		game_effect = "NONE",
+		func = function(perk, player)
+			EntityAddComponent2(player, "ShotEffectComponent", {
+				_tags = "perk_component",
+				extra_modifier = "projectile_homing",
+			})
+		end
+	},
+	["REMOVE_FOG_OF_WAR"] = { not_in_default_perk_pool = true },
+	["SHIELD"] = { stackable_maximum = 3 },
 	["ABILITY_ACTIONS_MATERIALIZED"] = { --works with most spells now, not just a specific selection of bomb spells
 		ui_name = "$hardmod_spells_materialised_perkname",
 		ui_description = "$hardmod_spells_materialised_perkdesc",
@@ -191,7 +226,7 @@ hooks.perk_patches = {
 		func = function(perk, taker, perk_name)
 			local wand = utils.GetHeldWand(taker)
 			if not wand then return end
-			local x,y = EntityGetTransform(wand)
+			local x, y = EntityGetTransform(wand)
 
 			local ability_comp = EntityGetFirstComponentIncludingDisabled(wand, "AbilityComponent")
 			if not ability_comp then return end
@@ -202,7 +237,7 @@ hooks.perk_patches = {
 			local capacity = EntityGetWandCapacity(wand) --do not include ACs
 			local always_cast_count = math.max(0, full_capacity - capacity)
 
-			local perk_x,perk_y =  EntityGetTransform(perk)
+			local perk_x, perk_y =  EntityGetTransform(perk)
 			SetRandomSeed(perk_x, perk_y)
 
 			--lesser of (multiply by 1.3-1.5 OR add 100-500), plus random 100-500
@@ -223,12 +258,12 @@ hooks.perk_patches = {
 
 			--nonsense to de-child overflowing spells from capacity decrease
 			local c = EntityGetAllChildren(wand)
-			if (c ~= nil) and (#c > capacity + always_cast_count) then
+			if c and #c > capacity + always_cast_count then
 				for i=always_cast_count+1,#c do
 					local spell = c[i]
 					local comp2 = EntityGetFirstComponentIncludingDisabled(spell, "ItemActionComponent")
 
-					if (comp2 ~= nil) and (i > capacity + always_cast_count) then
+					if comp2 and i > capacity + always_cast_count then
 
 						EntityRemoveFromParent(spell)
 						EntitySetTransform(spell, x, y, 0)
@@ -247,29 +282,6 @@ hooks.perk_patches = {
 		end
 	},
 	["EDIT_WANDS_EVERYWHERE"] = { not_in_default_perk_pool = true },
-	["TELEPORTITIS"] = {
-		clear_original_game_effect = true,
-		ui_description = "$hardmod_perk_teleportitis_desc",
-		ui_icon = dir.."ui_gfx/perks/teleportitis_016.png",
-		perk_icon = dir.."ui_gfx/perks/teleportitis.png",
-		stackable = false,
-		usable_by_enemies = false,
-		func = function(entity_perk_item, entity_who_picked, item_name)
-			EntityAddComponent2(entity_who_picked, "LuaComponent", {
-				_tags = "perk_component,hardmod_teleportitis",
-				script_source_file = dir.."scripts/perks/teleportitis_update.lua",
-				execute_every_n_frame = 1,
-			})
-			EntityAddComponent2(entity_who_picked, "LuaComponent", {
-				_tags = "perk_component,hardmod_teleportitis",
-				script_damage_received = dir.."scripts/perks/teleportitis_on_damage.lua",
-				execute_every_n_frame = -1,
-			})
-		end,
-		func_remove = function(entity_who_picked)
-			utils.EntityRemoveAllByTag(entity_who_picked, "hardmod_teleportitis")
-		end,
-	},
 	["LOW_RECOIL"] = {
 		ui_name = "$hardmod_perk_no_recoil_name",
 		ui_description = "$hardmod_perk_no_recoil_desc",
@@ -308,7 +320,7 @@ hooks.perk_patches = {
 		ui_icon = dir.."ui_gfx/perks/promote_random_spell_016.png",
 		perk_icon = dir.."ui_gfx/perks/promote_random_spell.png",
 		func = function(perk_entity, taker, perk_name)
-			local x,y = EntityGetTransform(perk_entity)
+			local x, y = EntityGetTransform(perk_entity)
 			local wand = utils.GetHeldWand(taker)
 			if not wand then
 				GamePrintImportant("$hardmod_promote_ac_fail_empty", "$logdesc_d2d_promote_ac_fail_no_wands")
@@ -371,7 +383,7 @@ hooks.perk_patches = {
 			local promotions = 0
 			SetRandomSeed(-51-y, x+1)
 			for i = 1, starting_num_spells do
-				local rnd = Random(1,#spells)
+				local rnd = Random(1, #spells)
 				local target_spell = spells[rnd]
 				table.remove(spells, rnd)
 				if Random() <= chance_to_promote then
@@ -403,16 +415,14 @@ hooks.perk_patches = {
 	}
 }
 
-local remove_perks = {
+--Perks recoverable via Kakkakikkare
+local shit_perks = {
 	"NO_WAND_EDITING",
-	"EXTRA_MONEY", -- replaced by Treasure Hunter
-	"PROJECTILE_REPULSION",
 	"REVENGE_RATS",
 	"VOMIT_RATS",
 	"CORDYCEPS",
 	"MOLD",
 	"FUNGAL_DISEASE",
-	"GENOME_MORE_LOVE", --bad design
 	"LUKKI_MINION", --very ass
 	"GLOBAL_GORE", --kinda ass
 	"PERSONAL_LASER",
@@ -426,12 +436,24 @@ local remove_perks = {
 	"FASTER_WANDS", -- replaced by Summon Toolbox
 	"FIRE_GAS", -- replaced by Pyromaniac
 	"HOMUNCULUS",
+	"TELEPORTITIS",
+	"GOLD_IS_FOREVER",
+}
+
+--Perks removed for being too good or other various reasons
+local remove_perks = {
+	"EXTRA_MONEY", -- replaced by Treasure Hunter
+	"PROJECTILE_REPULSION", --too strong, replaced by Oversized Shield (thank you Apotheosis)
+	"GENOME_MORE_LOVE", --bad design: Oh boy, the perk that either does nothing, or makes less things happen! its either a scam or its boring, bad perk.
 }
 
 --bomb materialised, lukki mutation, no wand tinkering, more blood, personal plasma beam, low recoil, phasing, pinpointer, proj dupe, levitation trail, worm perks
 
 
 
+for _,perk in ipairs(shit_perks) do
+	hooks.perk_patches[perk] = { not_in_default_perk_pool = true, not_progress = true, hardmod_shit_perk = true }
+end
 for _,perk in ipairs(remove_perks) do
 	hooks.perk_patches[perk] = { not_in_default_perk_pool = true, not_progress = true }
 end

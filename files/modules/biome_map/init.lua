@@ -92,8 +92,15 @@ ModMagicNumbersFileAdd("mods/noita.hardmod/files/modules/biome_map/magic_numbers
 ModMaterialsFileAdd("mods/noita.hardmod/files/modules/biome_map/materials.xml")
 
 function hooks.player_spawned(pid, is_run_start)
+	if is_run_start then
+		EntitySetDamageFromMaterial(pid, "hardmod_cursed_liquid", 0.004)
+		EntitySetDamageFromMaterial(pid, "hardmod_cursed_liquid_static", 0.004)
+	end
+
 	local path = MagicNumbersGetValue("BIOME_MAP")
-	if path ~= biome_map_path then
+	if path == biome_map_path then
+		dofile_once("mods/noita.hardmod/files/modules/biome_map/orbs.lua")
+	else
 		local x, y = EntityGetTransform(pid)
 		utils.SpawnTablet(
 			x, y, "Noita Hard Mod: Errors Occurred!!!",
@@ -102,10 +109,6 @@ function hooks.player_spawned(pid, is_run_start)
 			.."- '"..path.."'\n \n"
 			.."Please move Hard Mod to start before this mod."
 		)
-	end
-
-	if is_run_start then
-		EntitySetDamageFromMaterial(pid, "hardmod_cursed_liquid", 0.003)
 	end
 end
 
