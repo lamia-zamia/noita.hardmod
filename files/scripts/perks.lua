@@ -43,7 +43,7 @@ end
 for _,path in ipairs(ModLuaFileGetAppends("mods/noita.hardmod/files/__perk_appends.lua")) do
 	local succ, res = pcall(add_patches, path)
 	if not succ then
-		print("[Hardmod] Patching perks failed: "..tostring(res))
+		print("[Hardmod] Patching perks failed from "..path..": "..tostring(res))
 	end
 end
 

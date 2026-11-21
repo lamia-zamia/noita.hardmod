@@ -111,7 +111,7 @@ hooks.edit_material = function(elem)
 			elem.attr.tags = tags..",[worms_lukki_ignore]"
 		end
 	elseif elem.attr.name == "templebrick_static_soft" then
-		elem.attr.durability = 9 --weaken the HM false-walls to be more breakable by starter-bomb spells
+		elem:set("durability", 9) --weaken the HM false-walls to be more breakable by starter-bomb spells
 	end
 end
 

@@ -30,3 +30,5 @@ hooks.new_perks = {
 		end,
 	},
 }
+
+return hooks
