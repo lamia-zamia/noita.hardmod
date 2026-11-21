@@ -862,3 +862,6 @@ add Inhibitor spell
 make haunted wand gen seed dependent
 fix duplicate vscs
 bring torches to wand tip
+disable Emergency Recall until a better implementation pops up
+undo oopsie
+why was Spell Gems disabled lol
