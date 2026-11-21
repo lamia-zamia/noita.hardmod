@@ -96,12 +96,12 @@
 	<SpriteComponent
 		_tags="enabled_in_hand,fog_of_war_hole"
 		alpha="1"
-		image_file="data/particles/torch_electric_fog_of_war_hole.xml"
+		image_file="data/particles/torch_fog_of_war_hole.xml"
 		smooth_filtering="1"
 		fog_of_war_hole="1"
 		has_special_scale="1"
-		special_scale_x="3.5"
-		special_scale_y="3.5"
+		special_scale_x="3"
+		special_scale_y="3"
 	/>
 
 	<LuaComponent

@@ -889,3 +889,6 @@ give status indicator to Stinky Aura
 oblige to the Lua code police's orders :pensive:
 reroll Trial perks when leaving HM (instead of destroy)
 change some tooltips
+updated sprite for Inhibitor
+reworked torch passives again, tweaked values and made less buggy
+add Shield Breaker modifier
